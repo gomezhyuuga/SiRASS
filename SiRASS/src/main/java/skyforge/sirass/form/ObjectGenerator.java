@@ -11,8 +11,4 @@ public class ObjectGenerator {
     public ObjectGenerator(Class clase) {
         this.clase = clase;
     }
-    
-//    public getObject() {
-//        SignupForm form = new SignupForm();
-//    }
 }

@@ -12,6 +12,10 @@
         <servlet-name>Signup</servlet-name>
         <servlet-class>skyforge.sirass.servlet.Signup</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FormReceiver</servlet-name>
+        <servlet-class>skyforge.sirass.servlet.FormReceiver</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>Signup</servlet-name>
         <url-pattern>/Signup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FormReceiver</servlet-name>
+        <url-pattern>/FormReceiver</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
