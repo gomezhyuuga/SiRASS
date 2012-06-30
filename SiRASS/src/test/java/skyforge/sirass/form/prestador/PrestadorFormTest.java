@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package skyforge.sirass.form;
+package skyforge.sirass.form.prestador;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,7 +56,8 @@ public class PrestadorFormTest {
     }
 
     @Test
-    public void getPrestador() {
+    public void testGetObject() {
+        System.out.println("testGetPrestador...");
         prestador = form.getObject();
         System.out.println("Creando prestador...");
         System.out.println("Nombre: " + prestador.getNombre());

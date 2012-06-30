@@ -20,6 +20,11 @@ public class PrestadorForm extends Form {
         prestador = null;
     }
 
+    /**
+     * Genera el objeto con los datos de un map clave-valor (request map)
+     *
+     * @return Objeto tipo prestador con los datos encontrados en el map
+     */
     public Prestador getObject() {
         prestador = new Prestador();
         if (this.getVars().get("nombre") != null) {

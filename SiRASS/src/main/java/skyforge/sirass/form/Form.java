@@ -16,6 +16,7 @@ public abstract class Form {
         this.vars = vars;
         dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     }
+
     public Form(Map<String, String[]> vars, boolean dateFormat) {
         this.vars = vars;
         if (dateFormat) {

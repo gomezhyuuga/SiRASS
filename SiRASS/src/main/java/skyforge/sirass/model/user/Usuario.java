@@ -20,6 +20,7 @@ public class Usuario implements Serializable {
 
     private String usuario;
     private String password;
+    private boolean difundir;
     private Prestador prestador;
     private Institucion institucion;
     private Administrador administrador;
@@ -40,9 +41,18 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         System.out.println("## Información de clase: " + this.getClass().getSimpleName());
-        return  "usuario: " + this.usuario + " | " +
-                "password: " + this.password + " | " +
-                "roles: " + roles.size();
+        return "usuario: " + this.usuario + " | "
+                + "password: " + this.password + " | "
+                + "difundir: " + this.difundir + " | "
+                + "roles: " + roles.size();
+    }
+
+    public boolean isDifundir() {
+        return difundir;
+    }
+
+    public void setDifundir(boolean difundir) {
+        this.difundir = difundir;
     }
 
     public Set<Rol> getRoles() {

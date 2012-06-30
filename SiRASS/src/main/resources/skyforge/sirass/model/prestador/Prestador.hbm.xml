@@ -21,7 +21,6 @@
         <property column="dColonia" length="20" name="dColonia" not-null="true" type="java.lang.String" />
         <property column="telCasa" length="8" name="telCasa" not-null="false" type="java.lang.String" />
         <property column="telCel" length="13" name="telCel" not-null="false" type="java.lang.String" />
-        <property column="difundir" length="1" name="difundir" not-null="true" type="boolean" />
         <!-- Datos del registro -->
         <property column="creacion" name="creacion" not-null="true" type="java.util.Date"/>
         <property column="ultimaModif" name="ultimaModif" not-null="true" type="java.util.Date"/>

@@ -1,7 +1,6 @@
 package skyforge.sirass.model.prestador;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -27,7 +26,6 @@ public class Prestador implements Serializable {
     private String dColonia;
     private String telCasa;
     private String telCel;
-    private boolean difundir;
     // Del registro
     private String modificadoPor;
     private Date ultimaModif;
@@ -62,8 +60,7 @@ public class Prestador implements Serializable {
                 + "dDelegacion: " + this.dDelegacion + " | "
                 + "dColonia: " + this.dColonia + " | "
                 + "telCasa: " + this.telCasa + " | "
-                + "telCel: " + this.telCel + " | "
-                + "difundir: " + this.difundir + " | ";
+                + "telCel: " + this.telCel + " | ";
     }
 
     public Date getCreacion() {
@@ -184,14 +181,6 @@ public class Prestador implements Serializable {
 
     public void setdNumInt(String dNumInt) {
         this.dNumInt = dNumInt;
-    }
-
-    public boolean isDifundir() {
-        return difundir;
-    }
-
-    public void setDifundir(boolean difundir) {
-        this.difundir = difundir;
     }
 
     public int getIdPrestador() {
