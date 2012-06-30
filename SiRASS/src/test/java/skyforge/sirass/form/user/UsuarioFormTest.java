@@ -54,7 +54,6 @@ public class UsuarioFormTest {
         System.out.println("usuario: " + usuario.getUsuario());
         System.out.println("passwowrd: " + usuario.getPassword());
         System.out.println("difundir: " + usuario.isDifundir());
-        assert false;
-//        Assert.assertNotNull(usuario);
+        Assert.assertNotNull(usuario);
     }
 }

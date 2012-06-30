@@ -5,3 +5,4 @@ target
 build
 *.tmp
 *tmp
+SiRASS/spy.log
