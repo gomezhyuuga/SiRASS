@@ -1,8 +1,15 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
 target
+*.DS_Store
 .DS_Store
 */.DS_Store
 *.log
 build
 *.tmp
-*tmp
 SiRASS/spy.log
