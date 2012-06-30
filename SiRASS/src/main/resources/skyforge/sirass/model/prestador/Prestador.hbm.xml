@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="skyforge.sirass.model.prestador.Prestador" table="MPrestador">
+        <id column="idPrestador" name="idPrestador" type="integer">
+            <generator class="increment" />
+        </id>
+        <property column="inscripcion" length="11" name="inscripcion" not-null="false" type="java.lang.Integer" />
+        <property column="nControl" length="16" name="nControl" not-null="false" type="java.lang.String" />
+        <property column="nombre" length="25" name="nombre" not-null="true" type="java.lang.String" />
+        <property column="aPaterno" length="15" name="aPaterno" not-null="true" type="java.lang.String" />
+        <property column="aMaterno" length="15" name="aMaterno" not-null="true" type="java.lang.String" />
+        <property column="email" length="25" name="email" not-null="false" type="java.lang.String" />
+        <property column="nacimiento" name="nacimiento" not-null="true" type="date" />
+        <property column="sexo" length="1" name="sexo" not-null="true" type="char" />
+        <property column="dCalle" length="40" name="dCalle" not-null="true" type="java.lang.String" />
+        <property column="dNumInt" length="7" name="dNumInt" not-null="false" type="java.lang.String" />
+        <property column="dNumExt" length="7" name="dNumExt" not-null="false" type="java.lang.String" />
+        <property column="dCP" length="5" name="dCP" not-null="true" type="java.lang.String" />
+        <property column="dDelegacion" length="20" name="dDelegacion" not-null="true" type="java.lang.String" />
+        <property column="dColonia" length="20" name="dColonia" not-null="true" type="java.lang.String" />
+        <property column="telCasa" length="8" name="telCasa" not-null="false" type="java.lang.String" />
+        <property column="telCel" length="13" name="telCel" not-null="false" type="java.lang.String" />
+        <property column="difundir" length="1" name="difundir" not-null="true" type="boolean" />
+        <!-- Datos del registro -->
+        <property column="creacion" name="creacion" not-null="true" type="java.util.Date"/>
+        <property column="ultimaModif" name="ultimaModif" not-null="true" type="java.util.Date"/>
+        <property column="modificadoPor" length="15" name="modificadoPor" not-null="true" type="java.lang.String" />
+    </class>
+</hibernate-mapping>

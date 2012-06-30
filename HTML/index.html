@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<!--[if gte IE 9]>
+	  <style type="text/css">
+	    .gradient {
+	       filter: none;
+	    }
+	  </style>
+	<![endif]-->
+	
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->	
+	<title>SiRASS - Sistema de Registro y Administraci&oacute;n de Servicio Social</title>
+	
+	<meta name="description" content="Sistema de Registro y Administraci&oacute;n de Servicio Social" />
+	<meta name="author" content="Skyforge" />
+	<meta name="keywords" content="servicio social, uacm, skyforge, practicas profesionales" />
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/home.css" />
+</head>
+<body>
+	<!-- Header
+	============================== -->
+	<header class="gradient">
+		<div class="container">
+			<h1>SiRASS, <em>Servicio Social</em></h1>
+			<p>Servicio Social simplificado. Olv&iacute;date de llenar tus formatos a mano y de las tediosas revisiones.</p>
+            <a class="btn btn-primary btn-large" data-toggle="modal" href="#modal-login">Iniciar sesi&oacute;n</a>
+            <a class="btn btn-success btn-large" href="signup/">Registrarse</a>
+            <ul></ul>
+		</div>
+	</header>
+	<!-- Contenido
+	============================== -->
+	<div class="container content solid">
+		<div class="row">
+			<div class="span4">
+				<img src="assets/list_icon.png" alt="Lista de programas de Servicio Social" />
+				<h2>Programas</h2>
+				<p>Conoce todos los programas de Servicio Social que ofrece para ti la UACM.</p>
+				<a class="btn btn-info" href="#">Lista de programas &raquo;</a>
+			</div>
+			<div class="span4">
+				<img src="assets/process_icon.png" alt="Pasos a realizar para empezar el Servicio Social" />
+				<h2>Proceso</h2>
+				<p>Echa un vistazo a los procesos que se deben llevar a cabo para realizar tu Servicio Social.</p>
+				<a class="btn btn-info" href="#">Ver diagramas &raquo;</a>
+			</div>
+			<div class="span4">
+				<img src="assets/help_icon.png" alt="Obt&eacute;n ayuda acerca del Servicio Social en la UACM" />
+				<h2>Ayuda</h2>
+				<p>Aclara tus dudas respecto a qu&eacute; necesitas para realizar tu Servicio Social.</p>
+				<a class="btn btn-info" href="#">Obtener ayuda &raquo;</a>
+			</div>
+		</div>
+	</div>
+	<!-- Login oculto
+	============================== -->
+	<div class="modal hide fade" id="modal-login">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h3>Iniciar sesi&oacute;n</h3>
+		</div>
+		<form method="post" action="/Login" name="form-login" id="form-login" class="form-inline">
+			<div class="modal-body">
+				<div id="feedback" class="alert alert-block hide alert-error">
+					<a class="close" data-dismiss="alert" href="#">x</a>
+					<h4 class="alert-heading">Ha ocurrido un error!</h4>
+					<p>Lo sentimos pero tu <em><strong>usuario y/o contrase&ntilde;a</strong></em> parecen estar err&oacute;neos. 
+					Intenta de nuevo por favor.</p>
+					<ul></ul>
+				</div>
+				<fieldset>
+					<input type="text" name="username" id="username" class="input-medium" placeholder="Usuario"
+						maxlength="15" />
+					<input type="password" name="password" id="password" class="input-medium" placeholder="Contrase&ntilde;a"
+						maxlength="16" />
+					<label for="recordar" class="checkbox">
+						<input type="checkbox" name="recordar" id="recordar" />
+						Recordarme
+					</label>
+				</fieldset>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal">Cerrar</a>
+				<button type="submit" class="btn btn-success">Login</button>
+			</div>
+		</form>
+	</div>
+	<!-- Footer
+	============================== -->
+	<footer class="container">
+  		<hr />
+		<div class="row">
+			<div class="span4">
+				<h6>Skyforge - 2012</h6>
+			</div>
+			<div class="span4 offset4 right">
+				<h6><a href="http://www.uacm.edu.mx/">UACM - "Nada humano me es ajeno"</a></h6>
+			</div>
+		</div>
+	</footer>
+	<!-- Scripts
+	============================== -->
+	<!-- jQuery 1.7.2
+	============================== -->
+	<script src="js/jquery-1.7.2.min.js" type="text/javascript"></script>
+	<!-- Bootstrap
+	============================== -->
+	<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+	<!-- AJAX FORM -->
+	<script src="js/jquery.form.js" type="text/javascript"></script>
+	<!-- jquery-validation
+	============================== -->
+	<script src="js/jquery-validation-1.9.0/jquery.validate.min.js" type="text/javascript"></script>
+	<script src="js/jquery-validation-1.9.0/additional-methods.min.js" type="text/javascript"></script>
+	<script src="js/jquery-validation-1.9.0/localization/messages_es.js" type="text/javascript"></script>
+	
+	<script src="js/login.js" type="text/javascript"></script>
+</body>
+</html>
