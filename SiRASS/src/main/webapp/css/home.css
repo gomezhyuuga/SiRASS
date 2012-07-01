@@ -42,29 +42,3 @@ header .container p {
 	float: left;
 	margin-right: 4px;
 }
-
-input.error {
-	border-color: lightcoral;
-	color: lightcoral;
-}
-
-input.error:focus {
-	border-color: lightcoral;
-	color: lightcoral;
-	-webkit-box-shadow: 0 0 6px rgba(240, 128, 128, 0.61);
-	   -moz-box-shadow: 0 0 6px rgba(240, 128, 128, 0.61);
-	        box-shadow: 0 0 6px rgba(240, 128, 128, 0.61);
-}
-
-input.success {
-	border-color: yellowgreen;
-	color: yellowgreen;
-}
-
-input.success:focus {
-	border-color: yellowgreen;
-	color: yellowgreen;
-	-webkit-box-shadow: 0 0 6px rgba(93, 156, 45, 0.61);
-	   -moz-box-shadow: 0 0 6px rgba(93, 156, 45, 0.61);
-	        box-shadow: 0 0 6px rgba(93, 156, 45, 0.61);
-}

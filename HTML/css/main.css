@@ -73,6 +73,11 @@ input.error:focus {
 	        box-shadow: 0 0 6px rgba(240, 128, 128, 0.61);
 }
 
+.success {
+	border-color: yellowgreen;
+	color: yellowgreen;
+}
+
 input.success {
 	border-color: yellowgreen;
 	color: yellowgreen;

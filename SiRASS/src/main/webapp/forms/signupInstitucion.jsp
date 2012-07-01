@@ -1,3 +1,8 @@
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.List"%>
+<%@page import="skyforge.sirass.model.institucion.CInstitucion"%>
+<%@page import="skyforge.sirass.dao.institucion.CInstitucionDAO"%>
+<%@page import="skyforge.sirass.dao.institucion.PlantelDAO"%>
 <input type="hidden" name="class" value="SignupInstitucion" />
 <div class="row">
 	<div class="span6">
@@ -13,10 +18,17 @@
 						<option value="unregistred">Otra</option>
 					</optgroup>
 					<optgroup id="instRegistradas" label="Registradas">
-						<option value="1">IPN</option>
-						<option value="2">UACM</option>
-						<option value="3">UNAM</option>
-						<option value="4">DGB</option>
+                    <%  CInstitucionDAO cidao = new CInstitucionDAO();
+                        List<CInstitucion> insts = cidao.getAll(CInstitucion.class);
+                        if (insts != null && !insts.isEmpty()) { 
+                            Iterator<CInstitucion> it = insts.iterator();
+                            while (it.hasNext()) {
+                                CInstitucion inst = it.next(); %>
+                        <option value="<%= inst.getIdCInstitucion() %>"><%= inst.getNombre() %></option>
+                    <%      }
+                        } else { %>
+                        <option value="">Sin instituciones</option>
+                    <%  } %>
 					</optgroup>
 				</select>
 			</div>

@@ -121,16 +121,16 @@ public class DAO {
         }
     }
 
-    private List<?> list(Class clase, Criterion[] crits) {
+    public List list(Class clase, Criterion[] crits) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        List<Usuario> users = null;
+        List<Usuario> list = null;
         try {
             Criteria criteria = session.createCriteria(clase);
             // Agregar restricciones
             for (Criterion crit : crits) {
                 criteria.add(crit);
             }
-            users = criteria.list();
+            list = criteria.list();
         } catch (ConstraintViolationException e) {
             System.out.println("#### --- ####");
             System.out.println("Error haciendo query. Motivo:");
@@ -139,6 +139,6 @@ public class DAO {
         } finally {
             session.close();
         }
-        return users;
+        return list;
     }
 }

@@ -2,10 +2,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-        <jsp:include page="WEB-INF/jspf/header.jsp">
-            <jsp:param name="title" value="Sistema de Registro y Administraci&oacute;n de Servicio Social" />
-            <jsp:param name="style" value="home" />
-        </jsp:include>
+    <jsp:include page="WEB-INF/jspf/head.jsp">
+        <jsp:param name="title" value="Sistema de Registro y Administraci&oacute;n de Servicio Social" />
+        <jsp:param name="style" value="home" />
+    </jsp:include>
 </head>
 <body>
 	<!-- Header
@@ -23,19 +23,19 @@
 	<div class="container content solid">
 		<div class="row">
 			<div class="span4">
-				<img src="assets/list_icon.png" alt="Lista de programas de Servicio Social" />
+				<img src="/SiRASS/assets/list_icon.png" alt="Lista de programas de Servicio Social" />
 				<h2>Programas</h2>
 				<p>Conoce todos los programas de Servicio Social que ofrece para ti la UACM.</p>
 				<a class="btn btn-info" href="#">Lista de programas &raquo;</a>
 			</div>
 			<div class="span4">
-				<img src="assets/process_icon.png" alt="Pasos a realizar para empezar el Servicio Social" />
+				<img src="/SiRASS/assets/process_icon.png" alt="Pasos a realizar para empezar el Servicio Social" />
 				<h2>Proceso</h2>
 				<p>Echa un vistazo a los procesos que se deben llevar a cabo para realizar tu Servicio Social.</p>
 				<a class="btn btn-info" href="#">Ver diagramas &raquo;</a>
 			</div>
 			<div class="span4">
-				<img src="assets/help_icon.png" alt="Obtén ayuda acerca del Servicio Social en la UACM" />
+				<img src="/SiRASS/assets/help_icon.png" alt="Obtén ayuda acerca del Servicio Social en la UACM" />
 				<h2>Ayuda</h2>
 				<p>Aclara tus dudas respecto a qu&eacute; necesitas para realizar tu Servicio Social.</p>
 				<a class="btn btn-info" href="#">Obtener ayuda &raquo;</a>
@@ -85,10 +85,9 @@
 	</div>
 	<!-- Footer
 	============================== -->
-        <jsp:include page="WEB-INF/jspf/footer.jsp">
-            <jsp:param name="form" value="true" />
-            <jsp:param name="script" value="login" />
-        </jsp:include>
-        <script src="/SiRASS/js/login.js" type="text/javascript"></script>
+    <jsp:include page="WEB-INF/jspf/footer.jsp">
+        <jsp:param name="form" value="true" />
+    </jsp:include>
+    <script src="/SiRASS/js/login.js" type="text/javascript"></script>
 </body>
 </html>

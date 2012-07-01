@@ -183,7 +183,7 @@ function initFormChanger() {
 			} else if (presionado.attr('id') == "btnInstitucion") {
 				url += "Institucion";
 			}
-			url += ".html";
+			url += ".jsp";
 			var form = $('#form-signup');
 			form.hide();
 			form.load(url, function() {

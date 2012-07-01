@@ -18,13 +18,25 @@
 	<!-- Bootstrap
 	============================== -->
 	<script src="/SiRASS/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-        <%  if (request.getParameter("form") != null &&
-                request.getParameter("form").equals("true")) { %>
-        <!-- AJAX FORM -->
-	<script src="/SiRASS/js/jquery.form.js" type="text/javascript"></script>
-        <!-- jquery-validation
+    <%  if (request.getParameter("form") != null &&
+            request.getParameter("form").equals("true")) { %>
+    <!-- AJAX FORM -->
+    <script src="/SiRASS/js/jquery.form.js" type="text/javascript"></script>
+    <!-- jquery-validation
+    ============================== -->
+    <script src="/SiRASS/js/jquery-validation-1.9.0/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="/SiRASS/js/jquery-validation-1.9.0/additional-methods.min.js" type="text/javascript"></script>
+    <script src="/SiRASS/js/jquery-validation-1.9.0/localization/messages_es.js" type="text/javascript"></script>
+    <%  } 
+        if (request.getParameter("datepicker") != null &&
+            request.getParameter("datepicker").equals("true")) { %>
+    <!-- jQueryUI + jQueryUI bootstrap theme
 	============================== -->
-	<script src="/SiRASS/js/jquery-validation-1.9.0/jquery.validate.min.js" type="text/javascript"></script>
-	<script src="/SiRASS/js/jquery-validation-1.9.0/additional-methods.min.js" type="text/javascript"></script>
-	<script src="/SiRASS/js/jquery-validation-1.9.0/localization/messages_es.js" type="text/javascript"></script>
-        <%  } %>
+	<link type="text/css" href="../css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+	<script src="../js/jquery-ui-1.8.21.custom.min.js" type="text/javascript"></script>
+	<script src="../js/jquery.ui.datepicker-es.js" type="text/javascript"></script>
+	<!--[if IE]>
+		<link rel="stylesheet" type="text/css" href="../css/custom-theme/jquery.ui.1.8.16.ie.css"/>
+	<![endif]-->
+    <%  } %>
+    <script src="/SiRASS/js/navigate.js" type="text/javascript"></script>
