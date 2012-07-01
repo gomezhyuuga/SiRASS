@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package skyforge.sirass.dao;
+package skyforge.sirass.dao.user;
 
 import java.util.List;
 import org.hibernate.*;
@@ -10,6 +10,7 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
 import skyforge.sirass.HibernateUtil;
+import skyforge.sirass.dao.DAO;
 import skyforge.sirass.model.user.Usuario;
 
 /**
@@ -95,16 +96,18 @@ public class UsuarioDAO extends DAO {
         return super.getAll(Usuario.class);
     }
     
-    public int delete(String username) {
+    public int deleteByUsername(String username) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            Query q = session.createQuery("delete from Usuario where usuario = :username");
-            q.setString("username", username);
-            int rows = q.executeUpdate();
+            Usuario usuario = (Usuario) session.load(Usuario.class, username);
+//            Query q = session.createQuery("delete from Usuario where usuario = :username");
+//            q.setString("username", username);
+//            int rows = q.executeUpdate();
+            session.delete(usuario);
             transaction.commit();
-            return rows;
+            return 1;
         } catch (HibernateException e) {
             transaction.rollback();
             System.out.println("### Error borrando objeto ###");

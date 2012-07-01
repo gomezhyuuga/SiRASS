@@ -1,10 +1,12 @@
-package skyforge.sirass.dao;
+package skyforge.sirass.dao.user;
 
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import skyforge.sirass.dao.user.UsuarioDAO;
 import skyforge.sirass.model.user.Usuario;
 
 /**
@@ -21,6 +23,7 @@ public class UsuarioDAOTest {
     Date curDate;
     static int random = (int) (Math.random() * 1000);
     String modificadoPor = "jUnit" + random;
+    static int delete;
 
     public UsuarioDAOTest() {
         curDate = new Date();
@@ -67,13 +70,14 @@ public class UsuarioDAOTest {
         System.out.println("insertando: jUnit" + random);
         int expected = dao.insert(usuario);
         assertEquals(expected, 1);
+        this.testDelete(usuario.getUsuario());
     }
 
-    @Test
-    public void testDelete() {
+    public void testDelete(String username) {
         System.out.println("testDelete...");
         System.out.println("borrando: jUnit" + random);
-        int expected = dao.delete("jUnit" + random);
+        int expected = dao.deleteByUsername(username);
+        System.out.println("expected: " + expected);
         if (expected >= 1) {
             assert true;
         } else {

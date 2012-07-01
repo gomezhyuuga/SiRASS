@@ -31,12 +31,13 @@ footer hr {
 	border: 1px solid silver;
 }
 
-/*.input-append input, .input-prepend input {
-	width: 184px;
-}*/
-
 .center {
 	text-align: center;
+}
+.centerDiv {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
 
 /*.container, .container-fluid {

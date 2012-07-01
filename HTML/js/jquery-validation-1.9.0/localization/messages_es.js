@@ -21,5 +21,6 @@ jQuery.extend(jQuery.validator.messages, {
   max: jQuery.validator.format("Por favor, escribe un valor menor o igual a {0}."),
   min: jQuery.validator.format("Por favor, escribe un valor mayor o igual a {0}."),
   lettersonly: "Este campo solo puede contener letras",
-  nowhitespace: "No se pueden introducir espacios"
+  nowhitespace: "No se pueden introducir espacios",
+  lettersonlyAcent: "Por favor introduce únicamente letras"
 });

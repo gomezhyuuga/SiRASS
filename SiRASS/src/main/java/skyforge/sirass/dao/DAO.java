@@ -2,7 +2,6 @@ package skyforge.sirass.dao;
 
 import java.util.List;
 import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -45,6 +44,23 @@ public class DAO {
             e.printStackTrace();
             System.out.println("#### --- ####");
             return e.getErrorCode();
+        } finally {
+            session.close();
+        }
+    }
+
+    public Object get(Class clase, int id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Transaction trans = session.beginTransaction();
+            Object obj = session.load(clase, id);
+            trans.commit();
+            return obj;
+        } catch (Exception e) {
+            System.out.println("### Error obteniendo objeto ###");
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            return null;
         } finally {
             session.close();
         }

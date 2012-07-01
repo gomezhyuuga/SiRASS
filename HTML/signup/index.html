@@ -78,7 +78,14 @@
 	<div class="container content solid">
 		<div class="hero-unit">
 			<h1>Registro</h1>
-			<p>Reg&iacute;strate en el sistema y empieza ahora mismo.</p>
+			<p>Reg&iacute;strate en el sistema y empieza ahora mismo. Selecciona tu tipo de usuario.</p>
+			<div id="tipoUsuario" class="centerDiv center" style="width: 205px;">
+				<h4>Tipo de usuario</h4>
+				<div class="btn-group" style="display: inline-block;" data-toggle="buttons-radio">
+					<button class="btn btn-large btn-inverse active" id="btnPrestador">Prestador</button>
+					<button class="btn btn-large btn-inverse" id="btnInstitucion">Institución</button>
+				</div>
+			</div>
 		</div>
 		<!-- feedback -->
 		<div class="alert alert-block hide alert-error" id="feedback">
@@ -88,6 +95,7 @@
 			en ellos no son v&aacute;lidos.</p>
 		</div>
 		<form method="post" action="#" name="form-signup" id="form-signup" class="form-horizontal">
+			<input type="hidden" name="class" value="SignupPrestador" />
 			<div class="row">
 				<div class="span6">
 					<!-- Datos personales
@@ -127,8 +135,9 @@
 					<div class="control-group">
 						<label for="nacimiento" class="control-label">Fecha de nacimiento:</label>
 						<div class="controls">
-							<input type="text" id="nacimiento" name="nacimiento" value=""
+							<input type="text" id="nacimiento" name="nacimiento"
 								placeholder="dd/mm/yyyy" class="input-small" />
+							<span class="help-inline">dd/mm/yyyy</span>
 						</div>
 					</div>
 					<div class="control-group">

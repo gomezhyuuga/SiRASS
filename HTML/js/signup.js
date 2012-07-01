@@ -29,8 +29,8 @@ $(document).ready(function() {
 		}
     });
     jQuery.validator.addMethod("lettersonlyAcent", function(value, element) {
-    	return this.optional(element) || /^[a-z-áéíóú]+$/i.test(value);
-    }, "Letters only please");
+    	return this.optional(element) || /^[a-záéíóú]+$/i.test(value);
+    }, "Este campo solo puede contener letras");
     
     // Asignar datepickers
     $('#nacimiento').datepicker();
@@ -44,12 +44,12 @@ $(document).ready(function() {
 			},
 			aPaterno: {
 				required: true,
-				rangelength: [3, 15],
+				rangelength: [2, 15],
 				lettersonlyAcent: true
 			},
 			aMaterno: {
 				required: true,
-				rangelength: [3, 15],
+				rangelength: [2, 15],
 				lettersonlyAcent: true
 			},
 			email: {
@@ -95,7 +95,34 @@ $(document).ready(function() {
 			}
 		}
 	});
+	
+	initFormChanger();
 });
+
+function initFormChanger() {
+
+	$('#btnPrestador, #btnInstitucion').on('click', function() {
+		var presionado = $(this);
+		if (!presionado.hasClass('active')) {
+			var url = "../forms/signup";
+			console.log("presionado: " + presionado.attr('id'));
+			// Detectar el botón presionado para cargar el formulario
+			if (presionado.attr('id') == "btnPrestador") {
+				console.log("Cargando form prestador...");
+				url += "Prestador";
+			} else if (presionado.attr('id') == "btnInstitucion") {
+				console.log("Cargando form institucion...");				
+				url += "Institucion";
+			}
+			url += ".html";
+			var form = $('#form-signup');
+			form.hide();
+			form.load(url, function() {
+				form.fadeToggle();
+			});
+		}
+	});
+}
 
 // pre-submit callback 
 function showRequest(formData, jqForm, options) { 
