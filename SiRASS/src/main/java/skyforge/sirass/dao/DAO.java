@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.exception.DataException;
 import skyforge.sirass.HibernateUtil;
 import skyforge.sirass.model.user.Usuario;
 
@@ -41,6 +42,18 @@ public class DAO {
             System.out.println("#### --- ####");
             System.out.println("Error haciendo insert. Motivo:");
             System.out.println(e.getLocalizedMessage());
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            System.out.println("#### --- ####");
+            return e.getErrorCode();
+        } catch (DataException e) {
+            transaction.rollback();
+            System.out.println("#### --- ####");
+            System.out.println("Error haciendo insert. Datos incorrectos. Motivo:");
+            System.out.println(e.getLocalizedMessage());
+            System.out.println("errorCode: " + e.getErrorCode());
+            System.out.println("sql: " + e.getSQL());
+            System.out.println("sqlState: " + e.getSQLState());
             e.printStackTrace();
             System.out.println("#### --- ####");
             return e.getErrorCode();

@@ -15,7 +15,6 @@ $(document).ready(function() {
 	// FORM SUBMIT
 	var options = { 
 	    success:       showResponse,  // post-submit callback 
-	    clearForm: true,        // clear all form fields after successful submit 
 	    error: showResponse,
 	    resetForm: true       // reset the form after successful submit 
     };
@@ -92,6 +91,42 @@ $(document).ready(function() {
 			telCel: {
 				digits: true,
 				rangelength: [10, 13]
+			},
+			// Institución
+			institucionList: {
+				required: function(element) {
+					return $(element).val() != "unregistred";
+				}
+			},
+			nombreInstitucion: {
+				required: function(element) {
+					return $('#institucionList').val() == "unregistred";
+				},
+				maxlength: 100
+			},
+			plantelList: {
+				required: function(element) {
+					return $(element).val() != "unregistred";
+				}
+			},
+			nombrePlantel: {
+				required: function(element) {
+					return $('#plantelList').val() == "unregistred";
+				},
+				maxlength: 100
+			},
+			domicilio: "required",
+			area: "required",
+			responsable: "required",
+			cargo: "required",
+			tel: {
+				required: true,
+				digits: true,
+				rangelength: [8, 20]
+			},
+			telExt: {
+				required: true,
+				rangelength: [1, 10]
 			}
 		}
 	});

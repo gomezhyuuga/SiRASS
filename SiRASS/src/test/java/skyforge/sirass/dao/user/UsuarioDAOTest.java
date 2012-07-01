@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import skyforge.sirass.dao.user.UsuarioDAO;
+import skyforge.sirass.model.prestador.Prestador;
 import skyforge.sirass.model.user.Usuario;
 
 /**
@@ -73,6 +74,44 @@ public class UsuarioDAOTest {
         this.testDelete(usuario.getUsuario());
     }
 
+    @Test
+    public void testInsertWithPrestador() {
+        System.out.println("testInsertWithPrestador...");
+        usuario = new Usuario();
+        usuario.setUsuario("jUnit" + random);
+        usuario.setPassword("jUnit" + random);
+        
+        Prestador prestador = new Prestador();
+        prestador.setNombre("nombre" + random);
+        prestador.setaPaterno("aPaterno" + random);
+        prestador.setaMaterno("aMaterno" + random);
+        prestador.setEmail("email" + random);
+        prestador.setSexo('M');
+        prestador.setNacimiento(curDate);
+        prestador.setdCalle("calle" + random);
+        prestador.setdColonia("colonia" + random);
+        prestador.setdDelegacion("delegacion" + random);
+        prestador.setdCP("CP" + random);
+        prestador.setdNumExt("" + random);
+        prestador.setdNumInt("" + random);
+        prestador.setTelCasa("tel" + random);
+        prestador.setTelCel("cel" + random);
+        
+        prestador.setCreacion(curDate);
+        prestador.setModificadoPor(modificadoPor);
+        prestador.setUltimaModif(curDate);
+        usuario.setPrestador(prestador);
+        
+        usuario.setModificadoPor(modificadoPor);
+        usuario.setCreacion(creacion);
+        usuario.setUltimaModif(ultimaModif);
+        
+        System.out.println("insertando: jUnit" + random + " con prestador");
+        int expected = dao.insert(usuario);
+        assertEquals(expected, 1);
+        this.testDelete(usuario.getUsuario());
+    }
+    
     public void testDelete(String username) {
         System.out.println("testDelete...");
         System.out.println("borrando: jUnit" + random);
