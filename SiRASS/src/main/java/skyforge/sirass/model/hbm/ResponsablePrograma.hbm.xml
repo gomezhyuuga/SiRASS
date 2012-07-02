@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="skyforge.sirass.model.programass.ResponsablePrograma" table="DResponsablePrograma">
+    <id column="id" length="11" name="idResponsable" type="integer">
+      <generator class="native"/>
+    </id>
+    <property column="responsable" length="80" name="responsable" not-null="true" type="string"/>
+    <property column="cargo" length="60" name="cargo" not-null="true" type="string"/>
+    <property column="email" length="50" name="email" not-null="true" type="string"/>
+    <many-to-one class="skyforge.sirass.model.programass.ProgramaSS" column="idPrograma" fetch="select" name="programa" not-null="true"/>
+  </class>
+</hibernate-mapping>

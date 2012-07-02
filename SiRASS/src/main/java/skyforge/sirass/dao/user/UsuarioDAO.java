@@ -4,20 +4,25 @@
  */
 package skyforge.sirass.dao.user;
 
+import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.*;
-import org.hibernate.criterion.Criterion;
+import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
 import skyforge.sirass.HibernateUtil;
 import skyforge.sirass.dao.DAO;
+import skyforge.sirass.model.prestador.Prestador;
 import skyforge.sirass.model.user.Usuario;
 
 /**
  *
  * @author gomezhyuuga
  */
-public class UsuarioDAO extends DAO {
+  public class UsuarioDAO extends DAO {
 
     /**
      * Registra un usuario en su respectiva tabla en la BD
@@ -28,6 +33,10 @@ public class UsuarioDAO extends DAO {
      */
     public int insert(Usuario usuario) {
         return super.insert(usuario);
+    }
+
+    public int delete(Usuario usuario) {
+        return super.delete(usuario);
     }
     
     /**
@@ -50,8 +59,10 @@ public class UsuarioDAO extends DAO {
         transaction.commit();
         session.close();
         if (usuario != null) {
+            System.out.println("El usuario existe!");
             return true;
         } else {
+            System.out.println("El usuario no existe!");
             return false;
         }
     }
@@ -67,10 +78,10 @@ public class UsuarioDAO extends DAO {
         // Comprobar si el usuario existe
         Usuario usuario = (Usuario) session.createCriteria(Usuario.class)
                 .add(Restrictions.eq("usuario", username))
-                .setFetchMode("prestador", FetchMode.SELECT)
-                .setFetchMode("institucion", FetchMode.SELECT)
-                .setFetchMode("administrador", FetchMode.SELECT)
-                .setFetchMode("roles", FetchMode.SELECT)
+                .setFetchMode("prestador", FetchMode.JOIN)
+                .setFetchMode("institucion", FetchMode.JOIN)
+                .setFetchMode("administrador", FetchMode.JOIN)
+                .setFetchMode("roles", FetchMode.JOIN)
                 .uniqueResult();
         transaction.commit();
         session.close();
@@ -84,66 +95,55 @@ public class UsuarioDAO extends DAO {
     }
     
     /**
-     * Obtener lista de usuarios en el sistema (fetchMode para usuarios desactivado)
-     * 
-     * @return Lista de usuarios
+     * Obtiene el ID de un prestador a paritr de su nombre de usuario
+     * @param username - Nombre de usuario
+     * @return - El id del prestador, 0 si no es un prestador o no se encuentra
      */
-    public List<Usuario> getAllJoined() {
-        return this.list(null, FetchMode.JOIN);
+    public int getIdPrestador(String username) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Prestador p = (Prestador) session.createCriteria(Usuario.class)
+                .add(Restrictions.eq("usuario", username))
+                .setFetchMode("prestador", FetchMode.SELECT)
+                .setFetchMode("institucion", FetchMode.SELECT)
+                .setProjection(Projections.property("prestador"))
+                .uniqueResult();
+        session.close();
+        if (p != null) return p.getIdPrestador();
+        else return 0;
+    }
+
+    public int upPass(Usuario user, String command) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        int updateDates = session.createQuery(command)
+                .setString("npass", user.getPassword())
+                .setString("modifyBy", user.getModificadoPor())
+                .setString("ultimod", String.valueOf(user.getUltimaModif()))
+                .setString("usuario", user.getUsuario())
+                .executeUpdate();
+        transaction.commit();
+        session.close();
+        return updateDates;
     }
     
-    public List<Usuario> getAll() {
-        return super.getAll(Usuario.class);
-    }
     
-    public int deleteByUsername(String username) {
+    public List<Usuario> getUsers() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = null;
+        List<Usuario> user = new ArrayList<Usuario>();
         try {
             transaction = session.beginTransaction();
-            Usuario usuario = (Usuario) session.load(Usuario.class, username);
-//            Query q = session.createQuery("delete from Usuario where usuario = :username");
-//            q.setString("username", username);
-//            int rows = q.executeUpdate();
-            session.delete(usuario);
-            transaction.commit();
-            return 1;
-        } catch (HibernateException e) {
-            transaction.rollback();
-            System.out.println("### Error borrando objeto ###");
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-            return 0;
-        } finally {
-            session.close();
-        }
-    }
-    
-    private List<Usuario> list(Criterion[] crits, FetchMode fetchMode) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        List<Usuario> users = null;
-        try {
             Criteria criteria = session.createCriteria(Usuario.class);
-            criteria
-                    .setFetchMode("prestador", fetchMode)
-                    .setFetchMode("institucion", fetchMode)
-                    .setFetchMode("administrador", fetchMode)
-                    .setFetchMode("roles", fetchMode);
-            // Agregar restricciones
-            if (crits != null) {
-                for (Criterion crit : crits) {
-                    criteria.add(crit);
-                }
-            }
-            users = criteria.list();
+            user = criteria.list();
         } catch (ConstraintViolationException e) {
+            transaction.rollback();
             System.out.println("#### --- ####");
-            System.out.println("Error haciendo query. Motivo:");
+            System.out.println("Error haciendo select. Motivo:");
             System.out.println(e.getLocalizedMessage());
             System.out.println("#### --- ####");
         } finally {
             session.close();
         }
-        return users;
+        return user;
     }
 }

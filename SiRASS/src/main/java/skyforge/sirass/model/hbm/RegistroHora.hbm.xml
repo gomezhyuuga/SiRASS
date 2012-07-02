@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="skyforge.sirass.model.prestador.RegistroHora" table="DControlHoras">
+        <id column="idDControlHoras" length="11" name="idRegistroHora" type="integer">
+            <generator class="native"/>
+        </id>
+        <many-to-one name="controlHoras" class="skyforge.sirass.model.prestador.ControlHoras" column="idControlHoras" />
+        <property column="fecha" name="fecha" not-null="true" type="date"/>
+        <property column="horaEntrada" name="horaEntrada" not-null="true" type="time"/>
+        <property column="horaSalida" name="horaSalida" not-null="true" type="time"/>
+        <property column="horasDia" name="horasDia" not-null="true" type="time"/>
+    </class>
+</hibernate-mapping>

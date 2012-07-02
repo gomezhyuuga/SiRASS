@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="skyforge.sirass.model.programass.TipoTIempoPrograma" table="CTipoTiempoPrograma">
+    <id column="idTIempo" length="4" name="idTiempo" type="short"/>
+    <property column="descripcion" length="15" name="descripcion" type="string"/>
+  </class>
+</hibernate-mapping>

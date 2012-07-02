@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="skyforge.sirass.model.Usuario" table="MUsuario">
+    <id column="usuario" name="usuario" type="string"/>
+    <property column="password" length="15" name="password" not-null="true" type="java.lang.String"/>
+    <!-- del registro -->
+    <property column="creacion" name="creacion" not-null="true" type="java.util.Date"/>
+    <property column="ultimaModif" name="ultimaModif" not-null="true" type="java.util.Date"/>
+    <property column="modificadoPor" length="15" name="modificadoPor" not-null="true" type="java.lang.String"/>
+    <!-- Relaciones -->
+    <many-to-one cascade="all" class="skyforge.sirass.model.prestador.Prestador" column="idPrestador" name="prestador" not-null="false" unique="true"/>
+    <many-to-one cascade="all" class="skyforge.sirass.model.institucion.Institucion" column="idInstitucion" name="institucion" not-null="false" unique="true"/>
+    <many-to-one cascade="all" class="skyforge.sirass.model.admin.Administrador" column="idAdministrador" name="administrador" not-null="false" unique="true"/>
+    <set cascade="save-update" name="roles" table="MRolUsuario">
+      <key column="usuario"/>
+      <many-to-many class="skyforge.sirass.model.user.Rol" column="rol" unique="true"/>
+    </set>
+  </class>
+</hibernate-mapping>
