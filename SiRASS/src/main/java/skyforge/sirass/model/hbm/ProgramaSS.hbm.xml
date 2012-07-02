@@ -44,7 +44,7 @@
     </set>
     <set name="dias" table="DDiaPrograma">
       <key column="idPrograma"/>
-      <many-to-many class="skyforge.sirass.model.Dia" column="idDia"/>
+      <many-to-many class="skyforge.sirass.model.user.Dia" column="idDia"/>
     </set>
     <set fetch="select" inverse="true" lazy="true" name="responsables" table="DResponsablePrograma" cascade="all">
       <key column="idPrograma" not-null="true"/>

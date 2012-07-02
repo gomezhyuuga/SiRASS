@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="skyforge.sirass.model.institucion.Institucion" table="MInstitucion">
+    <class name="com.sirass.model.institucion.Institucion" table="MInstitucion">
         <id column="idInstitucion" name="idInstitucion" type="integer">
             <generator class="increment" />
         </id>
@@ -14,8 +14,8 @@
         <property column="tel" length="20" name="tel" not-null="false" type="java.lang.String"/>
         <property column="telExt" length="10" name="telExt" not-null="false" type="java.lang.String"/>
         <property column="email" length="30" name="email" not-null="false" type="java.lang.String"/>
-<!--        <many-to-one class="skyforge.sirass.model.institucion.CInstitucion" column="idCInstitucion" name="cinstitucion" not-null="false" />
-        <many-to-one class="skyforge.sirass.model.institucion.Plantel" column="idPlantel" name="plantel" not-null="false" />-->
+<!--        <many-to-one class="com.sirass.model.institucion.CInstitucion" column="idCInstitucion" name="cinstitucion" not-null="false" />
+        <many-to-one class="com.sirass.model.institucion.Plantel" column="idPlantel" name="plantel" not-null="false" />-->
     <!-- del registro -->
         <property column="creacion" name="creacion" not-null="true" type="java.util.Date"/>
         <property column="ultimaModif" name="ultimaModif" not-null="true" type="java.util.Date"/>

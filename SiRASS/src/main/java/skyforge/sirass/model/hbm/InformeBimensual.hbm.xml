@@ -13,7 +13,7 @@
     <property column="horasAcumuladas" name="horasAcumuladas" not-null="false" type="short"/>
     <property column="actividades" name="actividades" not-null="true" type="text"/>
     <!-- relaciones -->
-    <many-to-one cascade="evict" class="com.sirass.model.prestador.EstadoReporte" column="estado" name="estado"/>
+    <many-to-one cascade="evict" class="skyforge.sirass.model.prestador.EstadoReporte" column="estado" name="estado"/>
     <!-- del registro -->
     <property column="creacion" name="creacion" not-null="true" type="java.util.Date"/>
     <property column="ultimaModif" name="ultimaModif" not-null="true" type="java.util.Date"/>

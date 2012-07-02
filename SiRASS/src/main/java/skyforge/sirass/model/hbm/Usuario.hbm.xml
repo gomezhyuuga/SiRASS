@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class name="skyforge.sirass.model.Usuario" table="MUsuario">
+  <class name="skyforge.sirass.model.user.Usuario" table="MUsuario">
     <id column="usuario" name="usuario" type="string"/>
     <property column="password" length="15" name="password" not-null="true" type="java.lang.String"/>
     <!-- del registro -->
