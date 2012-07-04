@@ -54,6 +54,7 @@ public class InstitucionForm extends Form {
             institucion.setEmail(this.getVars().get("email")[0]);
         }
 
+        /*
         // D de institución
         if (this.getVars().get("institucionList") != null) {
             // Institución NO existe, registrar
@@ -76,9 +77,7 @@ public class InstitucionForm extends Form {
         }
         // Detección de plantel
         if (this.getVars().get("plantelList") != null) {
-            /*
-             * Institución existe y plantel existe
-             */
+            
             if (this.getVars().get("institucionList") != null
                     && !this.getVars().get("institucionList")[0].equals("unregistred")
                     && !this.getVars().get("institucionList")[0].equals("0")
@@ -90,9 +89,7 @@ public class InstitucionForm extends Form {
                 institucion.setIdPlantel(idPlantel);
                 institucion.setIdCInstitucion(idCInstitucion);
             }
-            /*
-             * Institución existe pero plantel no
-             */
+            
             if (this.getVars().get("institucionList") != null
                     && !this.getVars().get("institucionList")[0].equals("unregistred")
                     && !this.getVars().get("institucionList")[0].equals("0")
@@ -116,9 +113,7 @@ public class InstitucionForm extends Form {
                 institucion.setIdCInstitucion(idCInstitucion);
                 institucion.setIdPlantel(plantel.getIdPlantel());
             }
-            /*
-             * No existe institución ni plantel
-             */
+            
             if (this.getVars().get("institucionList") != null
                     && this.getVars().get("institucionList")[0].equals("unregistred")
                     && !this.getVars().get("institucionList")[0].equals("0")
@@ -154,7 +149,7 @@ public class InstitucionForm extends Form {
                     institucion.setIdCInstitucion(cInstitucion.getIdCInstitucion());
                 }
             }
-        }
+        }*/
         return this.institucion;
     }
 }

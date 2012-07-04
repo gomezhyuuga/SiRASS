@@ -46,7 +46,7 @@
     <mapping resource="skyforge/sirass/model/programass/ProgramaSS.hbm.xml"/>
     <mapping resource="skyforge/sirass/model/programass/RegistroHora.hbm.xml"/>
     <!-- otros -->
-    <mapping class="skyforge.sirass.model.user.Usuario" resource="skyforge/sirass/model/hbm/Usuario.hbm.xml"/>
+<!--    <mapping class="skyforge.sirass.model.user.Usuario" resource="skyforge/sirass/model/hbm/Usuario.hbm.xml"/>-->
 <!--        <mapping class="skyforge.sirass.model.Rol" resource="skyforge/sirass/model/hbm/Rol.hbm.xml"/>
         <mapping class="skyforge.sirass.model.Prestador" resource="skyforge/sirass/model/hbm/Prestador.hbm.xml"/>
         <mapping class="skyforge.sirass.model.Administrador" resource="skyforge/sirass/model/hbm/Administrador.hbm.xml"/>

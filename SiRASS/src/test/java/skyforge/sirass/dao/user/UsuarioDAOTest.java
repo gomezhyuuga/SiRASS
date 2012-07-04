@@ -6,7 +6,6 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
-import skyforge.sirass.dao.user.UsuarioDAO;
 import skyforge.sirass.model.prestador.Prestador;
 import skyforge.sirass.model.user.Usuario;
 
