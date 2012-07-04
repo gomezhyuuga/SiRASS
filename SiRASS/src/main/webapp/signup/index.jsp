@@ -1,6 +1,6 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html;charset=uft-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <jsp:include page="../WEB-INF/jspf/head.jsp">
         <jsp:param name="title" value="Registro en el sistema" />
@@ -41,6 +41,6 @@
         <jsp:param name="form" value="true" />
         <jsp:param name="datepicker" value="true" />
     </jsp:include>
-    <script src="/SiRASS/js/signup.js" type="text/javascript"></script>
+    <script src="/SiRASS/js/signup.js" charset="ISO-8859-1" type="text/javascript"></script>
 </body>
 </html>

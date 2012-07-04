@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html;charset=uft-8" pageEncoding="UTF-8"%>
 	<nav class="navbar navbar-fixed-top">
 	  <div class="navbar-inner">
 	    <div class="container">

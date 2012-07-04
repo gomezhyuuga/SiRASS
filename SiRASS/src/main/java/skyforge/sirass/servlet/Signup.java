@@ -6,12 +6,18 @@ package skyforge.sirass.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import skyforge.sirass.dao.user.UsuarioDAO;
 import skyforge.sirass.form.SignupForm;
+import skyforge.sirass.model.institucion.Institucion;
 import skyforge.sirass.model.prestador.Prestador;
+import skyforge.sirass.model.user.Rol;
 import skyforge.sirass.model.user.Usuario;
 
 /**
@@ -33,17 +39,51 @@ public class Signup extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         Prestador prestador = null;
+        Institucion institucion = null;
         Usuario usuario = null;
+        UsuarioDAO dao = null;
         SignupForm form = new SignupForm(request.getParameterMap());
-        
-        prestador = form.getPrestador();
-        
+        int status = 0;
+        Date curDate = new Date();
+        String modificadoPor = "system";
+
+        usuario = form.getUsuario();
+
+        if (request.getParameter("class") != null
+                && request.getParameter("class").equals("SignupPrestador")) {
+            prestador = form.getPrestador();
+            prestador.setCreacion(curDate);
+            prestador.setModificadoPor(modificadoPor);
+            prestador.setUltimaModif(curDate);
+            
+            Set<Rol> roles = new HashSet<Rol>();
+            roles.add(new Rol("prestador"));
+            
+            usuario.setPrestador(prestador);
+            usuario.setRoles(roles);
+            
+            log("Registrando prestador...");
+            log(prestador.toString());
+        } else if (request.getParameter("class") != null
+                && request.getParameter("class").equals("SignupInstitucion")) {
+            institucion = form.getInstitucion();
+            log("Registrando institución...");
+            log(institucion.toString());
+        }
+
+        usuario.setCreacion(curDate);
+        usuario.setUltimaModif(curDate);
+        usuario.setModificadoPor(modificadoPor);
+
+        dao = new UsuarioDAO();
+        status = dao.insert(usuario);
+
         PrintWriter out = response.getWriter();
         try {
-            out.print(1);
-        } finally {            
+            out.print(status);
+        } finally {
             out.close();
         }
     }

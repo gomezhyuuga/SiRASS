@@ -55,38 +55,38 @@ footer hr {
 	margin-left: 20px;
 }
 
-.error {
-	border-color: lightcoral;
-	color: lightcoral;
+.invalid {
+	border-color: lightcoral !important;
+	color: lightcoral !important;
 }
 
-input.error {
-	border-color: lightcoral;
-	color: lightcoral;
+input.invalid {
+	border-color: lightcoral !important;
+	color: lightcoral !important;
 }
 
-input.error:focus {
-	border-color: lightcoral;
-	color: lightcoral;
-	-webkit-box-shadow: 0 0 6px rgba(240, 128, 128, 0.61);
-	   -moz-box-shadow: 0 0 6px rgba(240, 128, 128, 0.61);
-	        box-shadow: 0 0 6px rgba(240, 128, 128, 0.61);
+input.invalid:focus {
+	border-color: lightcoral !important;
+	color: lightcoral !important;
+	-webkit-box-shadow: 0 0 6px rgba(240, 128, 128, 0.61) !important;
+	   -moz-box-shadow: 0 0 6px rgba(240, 128, 128, 0.61) !important;
+	        box-shadow: 0 0 6px rgba(240, 128, 128, 0.61) !important;
 }
 
-.success {
-	border-color: yellowgreen;
-	color: yellowgreen;
+.valid {
+	border-color: yellowgreen !important;
+	color: yellowgreen !important;
 }
 
-input.success {
-	border-color: yellowgreen;
-	color: yellowgreen;
+input.valid {
+	border-color: yellowgreen !important;
+	color: yellowgreen !important;
 }
 
-input.success:focus {
-	border-color: yellowgreen;
-	color: yellowgreen;
-	-webkit-box-shadow: 0 0 6px rgba(93, 156, 45, 0.61);
-	   -moz-box-shadow: 0 0 6px rgba(93, 156, 45, 0.61);
-	        box-shadow: 0 0 6px rgba(93, 156, 45, 0.61);
+input.valid:focus {
+	border-color: yellowgreen !important;
+	color: yellowgreen !important;
+	-webkit-box-shadow: 0 0 6px rgba(93, 156, 45, 0.61) !important;
+	   -moz-box-shadow: 0 0 6px rgba(93, 156, 45, 0.61) !important;
+	        box-shadow: 0 0 6px rgba(93, 156, 45, 0.61) !important;
 }

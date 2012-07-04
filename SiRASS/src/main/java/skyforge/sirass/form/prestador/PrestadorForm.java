@@ -26,7 +26,7 @@ public class PrestadorForm extends Form {
      * @return Objeto tipo prestador con los datos encontrados en el map
      */
     public Prestador getObject() {
-        prestador = new Prestador();
+        this.prestador = new Prestador();
         if (this.getVars().get("nombre") != null) {
             prestador.setNombre(this.getVars().get("nombre")[0]);
         }
@@ -74,7 +74,6 @@ public class PrestadorForm extends Form {
         if (this.getVars().get("telCel") != null) {
             prestador.setTelCel(this.getVars().get("telCel")[0]);
         }
-
         return this.prestador;
     }
 }

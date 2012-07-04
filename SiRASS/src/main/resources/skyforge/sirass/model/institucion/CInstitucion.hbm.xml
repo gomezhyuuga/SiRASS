@@ -6,7 +6,7 @@
             <generator class="increment"/>
         </id>
         <property column="nombre" length="100" name="nombre" not-null="true" type="java.lang.String"/>
-        <set name="planteles" table="CPlantel" lazy="true" cascade="delete">
+        <set name="planteles" table="CPlantel" lazy="true" cascade="save-update, delete">
             <key column="idCInstitucion" />
             <one-to-many class="skyforge.sirass.model.institucion.Plantel" />
         </set>

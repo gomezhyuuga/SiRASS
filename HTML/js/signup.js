@@ -1,5 +1,19 @@
 $(document).ready(function() {
 	console.log("it works!");
+//	createAlert("Tituo", "textooo", "#feedback", "alert-error");
+//	bootbox.dialog('<p class="lead">Registro exitoso!<p>', [{
+//	    "label" : "Iniciar sesi&oacute;n",
+//	    "class" : "btn-success",
+//	    "callback": function() {
+//	        document.location = "http://localhost:8084/SiRASS/";
+//	    }
+//	}, {
+//	    "label" : "Cerrar",
+//	    "class" : "btn-primary",
+//	    "callback": function() {
+//	        console.log("Primary button");
+//	    }
+//	}]);
 	// Configuraciones
 	$.datepicker.setDefaults(
 	{
@@ -14,28 +28,28 @@ $(document).ready(function() {
 	
 	// FORM SUBMIT
 	var options = { 
-	    success:       showResponse,  // post-submit callback 
-	    error: showResponse,
+	    success:       registroOK,  // post-submit callback 
+	    error: registroError,
+	    url: "http://localhost:8084/SiRASS/Signup",
 	    resetForm: true       // reset the form after successful submit 
     };
     $.validator.setDefaults({
 		debug: true,
 		errorContainer: "#feedback",
 		wrapper: 'p class="help-block"',
-		validClass: "success",
 		submitHandler: function(form) {
 		     $(form).ajaxSubmit(options);
 		}
     });
     jQuery.validator.addMethod("lettersonlyAcent", function(value, element) {
-    	return this.optional(element) || /^[a-záéíóú]+$/i.test(value);
+    	return this.optional(element) || /^[a-záéíóú\s]+$/i.test(value);
     }, "Este campo solo puede contener letras");
     
     // Asignar datepickers
     $('#nacimiento').datepicker();
     
 	$('#form-signup').validate({
-		rules: {
+		/*rules: {
 			nombre: {
 				required: true,
 				rangelength: [3, 25],
@@ -128,7 +142,7 @@ $(document).ready(function() {
 				required: true,
 				rangelength: [1, 10]
 			}
-		}
+		}*/
 	});
 	
 	initFormChanger();
@@ -193,36 +207,25 @@ function initFormChanger() {
 	});
 }
 
-// pre-submit callback 
-function showRequest(formData, jqForm, options) { 
-    // formData is an array; here we use $.param to convert it to a string to display it 
-    // but the form plugin does this for you automatically when it submits the data 
-    var queryString = $.param(formData); 
- 
-    // jqForm is a jQuery object encapsulating the form element.  To access the 
-    // DOM element for the form do this: 
-    // var formElement = jqForm[0]; 
- 
-    alert('About to submit: \n\n' + queryString); 
- 
-    // here we could return false to prevent the form from being submitted; 
-    // returning anything other than false will allow the form submit to continue 
-    return true; 
-} 
- 
-// post-submit callback 
-function showResponse(responseText, statusText, xhr, $form)  { 
-    // for normal html responses, the first argument to the success callback 
-    // is the XMLHttpRequest object's responseText property 
- 
-    // if the ajaxForm method was passed an Options Object with the dataType 
-    // property set to 'xml' then the first argument to the success callback 
-    // is the XMLHttpRequest object's responseXML property 
- 
-    // if the ajaxForm method was passed an Options Object with the dataType 
-    // property set to 'json' then the first argument to the success callback 
-    // is the json data object returned by the server 
- 
-    alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + 
-        '\n\nThe output div should have already been updated with the responseText.'); 
-} 
+function registroOK(responseText, statusText, xhr, $form) {
+	if (responseText == "1") {
+		console.log("Registro correcto :-)");
+		createAlert('Registro exitoso!',
+			'Te haz registrado correctamente. Ya puedes <strong>Iniciar sesi&oacute;n</strong>.',
+			'#feedback', 'alert-success');
+	} else if (responseText == "0") {
+		console.log("Error registrando :-(");
+		createAlert('Registro incorrecto!',
+			'Hubo un error registrando tu cuenta. Revisa que tus datos sean correctos e intenta de nuevo.',
+			'#feedback', 'alert-error');
+	} else if (responseText == "1062") {
+		console.log("Usuario repetido!");
+		createAlert('Usuario repetido!!',
+			'El nombre de usuario que escogiste ya existe. <strong>C&aacute;mbialo</strong> e intenta de nuevo..',
+			'#feedback', 'alert-warning');
+	}
+}
+
+function registroError(responseText, statusText, xhr, $form) {
+	console.log("Error registrando :-(");
+}

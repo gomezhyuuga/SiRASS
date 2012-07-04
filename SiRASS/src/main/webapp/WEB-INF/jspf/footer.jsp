@@ -1,4 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
         <footer class="container">
   		<hr />
 		<div class="row">
@@ -40,3 +40,5 @@
 	<![endif]-->
     <%  } %>
     <script src="/SiRASS/js/navigate.js" type="text/javascript"></script>
+    <script src="/SiRASS/js/makeusabrew-bootbox-85c33b4/bootbox.min.js" charset="ISO-8859-1" type="text/javascript"></script>
+    <script src="/SiRASS/js/utils.js" charset="UTF-8" type="text/javascript"></script>
