@@ -4,8 +4,8 @@
  */
 package skyforge.sirass;
 
-import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.SessionFactory;
+import org.hibernate.cfg.AnnotationConfiguration;
 
 /**
  * Hibernate Utility class with a convenient method to get Session Factory

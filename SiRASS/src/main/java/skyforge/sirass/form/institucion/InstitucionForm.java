@@ -54,7 +54,7 @@ public class InstitucionForm extends Form {
             institucion.setEmail(this.getVars().get("email")[0]);
         }
 
-        // Detección de institución
+        // D de institución
         if (this.getVars().get("institucionList") != null) {
             // Institución NO existe, registrar
             if (this.getVars().get("institucionList")[0].equals("unregistred")) {

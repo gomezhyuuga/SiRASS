@@ -209,7 +209,7 @@ function initFormChanger() {
             } else if (presionado.attr('id') == "btnInstitucion") {
                 url += "Institucion";
             }
-            url += ".html";
+            url += ".jsp";
             var form = $('#form-signup');
             form.hide();
             form.load(url, function() {
@@ -229,7 +229,7 @@ function registroOK(responseText, statusText, xhr, $form) {
             "label" : "Iniciar sesi&oacute;n",
             "class" : "btn-success",
             "callback": function() {
-                document.location = "http://localhost:8084/SiRASS/";
+                document.location = "/SiRASS/";
             }
         }, {
             "label" : "Cerrar",
