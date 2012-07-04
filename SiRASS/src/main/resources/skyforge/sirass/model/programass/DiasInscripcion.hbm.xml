@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="skyforge.sirass.model.prestador.DiasInscripcion" table="DDiasInscripcion">
+        <composite-id>
+            <key-property column="idinscripcion" length="11" name="idInscripcion" type="integer">
+            </key-property>
+            <key-property column="idDia" length="11" name="idDia" type="integer">
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

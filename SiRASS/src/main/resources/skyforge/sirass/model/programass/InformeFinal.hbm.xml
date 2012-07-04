@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="skyforge.sirass.model.prestador.InformeFinal" table="DInformeFinal">
+        <id name="idInformeFinal" column="idDInformeFinal" type="integer" length="11">
+            <generator class="native" />
+        </id>
+        <property column="idInscripcion" length="11" name="idInscripcion" not-null="true" type="integer"/>
+        <property column="horasAcumuladas" length="4" name="horasAcumuladas" not-null="true" type="short"/>
+        <property name="introduccion" column="introduccion" type="text" not-null="true" />
+        <property name="objetivoGeneral" column="objetivoGral" type="text" not-null="true" />
+        <property name="actividades" column="actividades" type="text" not-null="true" />
+        <property name="metasAlcanzadas" column="metas" type="text" not-null="true" />
+        <property name="metodologia" column="metodologia" type="text" not-null="true" />
+        <property name="objetivosEspecificos" column="objetivosEsp" type="text" not-null="true" />
+        <property name="resultados" column="resultados" type="text" not-null="true" />
+        <!-- relaciones -->
+        <many-to-one cascade="evict" class="skyforge.sirass.model.prestador.EstadoReporte" column="estado" name="estado"/>
+        <!-- del registro -->
+        <property column="creacion" name="creacion" not-null="true" type="java.util.Date"/>
+        <property column="ultimaModif" name="ultimaModif" not-null="true" type="java.util.Date"/>
+        <property column="modificadoPor" length="15" name="modificadoPor" not-null="true" type="java.lang.String"/>
+    </class>
+</hibernate-mapping>

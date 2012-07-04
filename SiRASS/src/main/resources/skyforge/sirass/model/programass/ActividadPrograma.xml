@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="skyforge.sirass.model.programass.ActividadPrograma" table="DActividadPrograma">
+    <id column="id" length="11" name="idActividad" type="integer">
+      <generator class="native"/>
+    </id>
+    <property column="actividad" length="130" name="actividad" not-null="true" type="string"/>
+    <property column="licenciatura" length="50" name="licenciatura" not-null="true" type="string"/>
+    <property column="nEstudiantesSolicitados" length="4" name="nSolicitados" not-null="true" type="short"/>
+    <many-to-one class="skyforge.sirass.model.programass.ProgramaSS" column="idPrograma" fetch="select" name="programa" not-null="true"/>
+  </class>
+</hibernate-mapping>

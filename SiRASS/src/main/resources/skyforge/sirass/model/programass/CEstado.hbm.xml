@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="skyforge.sirass.model.programass.CEstado" table="CEstado">
+        <id name="idEstado" column="idEstado" type="short" length="4" />
+        <property name="descripcion" column="descripcion" type="string" length="12" not-null="true" />
+    </class>
+</hibernate-mapping>

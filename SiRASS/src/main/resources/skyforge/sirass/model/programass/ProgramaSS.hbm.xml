@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="skyforge.sirass.model.programass.ProgramaSS" table="CProgramaSS">
+    <id column="idPrograma" length="11" name="idPrograma" type="integer">
+      <generator class="native"/>
+    </id>
+    <!--Datos del programaSS-->
+    <property column="idInstitucion" length="11" name="idInstitucion" not-null="true" type="integer"/>
+    <property column="cvePrograma" length="18" name="cvePrograma" not-null="true" type="java.lang.String"/>
+    <property column="institucion" length="100" name="institucion" not-null="true" type="java.lang.String"/>
+    <property column="area" length="100" name="area" not-null="true" type="java.lang.String"/>
+    <property column="domicilio" length="150" name="domicilio" not-null="true" type="java.lang.String"/>
+    <property column="tel" length="20" name="tel" not-null="true" type="java.lang.String"/>
+    <property column="telExt" length="10" name="telExt" not-null="false" type="java.lang.String"/>
+    <property column="email" length="50" name="email" not-null="true" type="java.lang.String"/>
+    <property column="nombre" length="100" name="nombre" not-null="true" type="java.lang.String"/>
+    <property column="objetivoGeneral" length="65535" name="objGeneral" not-null="true" type="java.lang.String"/>
+    <property column="justificacion" length="65535" name="justificacion" not-null="true" type="java.lang.String"/>
+    <property column="desarrollo" length="65535" name="desarrollo" not-null="true" type="java.lang.String"/>
+    <property column="recursos" length="65535" name="recursos" not-null="true" type="java.lang.String"/>
+    <property column="evaluacion" length="65535" name="evaluacion" not-null="true" type="java.lang.String"/>
+    <property column="resultados" length="65535" name="resultados" not-null="true" type="java.lang.String"/>
+    <property column="lugar" length="150" name="lugar" not-null="true" type="java.lang.String"/>
+    <property column="plazas" length="11" name="plazas" not-null="true" type="integer"/>
+    <property column="vacantes" length="11" name="vacantes" not-null="true" type="integer"/>
+    <property column="ocupadas" length="11" name="ocupadas" not-null="true" type="integer"/>
+    <property column="observaciones" name="observaciones" not-null="true" type="java.lang.String"/>
+    <property column="fechaTiempo" name="fechaTiempo" not-null="false" type="date"/>
+    <!--Relaciones-->
+    <many-to-one cascade="all" class="skyforge.sirass.model.programass.CEstado" name="estado" column="status"/>
+    
+    <set name="tipo" table="DTipoPrograma">
+      <key column="idPrograma"/>
+      <many-to-many class="skyforge.sirass.model.programass.TipoPrograma" column="idTipo"/>
+    </set>
+    <set name="alcance" table="DAlcancePrograma">
+      <key column="idPrograma"/>
+      <many-to-many class="skyforge.sirass.model.programass.AlcancePrograma" column="idAlcance"/>
+    </set>
+    <set name="poblacion" table="DPoblacionPrograma">
+      <key column="idPrograma"/>
+      <many-to-many class="skyforge.sirass.model.programass.PoblacionPrograma" column="idPoblacion"/>
+    </set>
+    <set name="dias" table="DDiaPrograma">
+      <key column="idPrograma"/>
+      <many-to-many class="skyforge.sirass.model.user.Dia" column="idDia"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="responsables" table="DResponsablePrograma" cascade="all">
+      <key column="idPrograma" not-null="true"/>
+      <one-to-many class="skyforge.sirass.model.programass.ResponsablePrograma" />
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="actividad" table="DActividadPrograma">
+      <key column="idPrograma" not-null="true"/>
+      <one-to-many class="skyforge.sirass.model.programass.ActividadPrograma"/>
+    </set>
+    <many-to-one class="skyforge.sirass.model.programass.HorarioPrograma" column="horario" name="horario" not-null="true" unique="true"/>
+    <many-to-one class="skyforge.sirass.model.programass.CategoriaPrograma" column="categoria" name="categoria" not-null="true" unique="true" />
+    <many-to-one class="skyforge.sirass.model.programass.TipoTIempoPrograma" column="tiempo" name="tiempo" not-null="true" unique="true"/>
+    <!--del Registro-->
+    <property column="creacion" name="creacion" not-null="true" type="java.util.Date"/>
+    <property column="modificadoPor" length="15" name="modificadoPor" not-null="true" type="java.lang.String"/>
+    <property column="ultimaModif" name="ultimaModif" not-null="true" type="java.util.Date"/>
+  </class>
+</hibernate-mapping>

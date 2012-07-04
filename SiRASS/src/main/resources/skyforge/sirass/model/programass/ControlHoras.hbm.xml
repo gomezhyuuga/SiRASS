@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="skyforge.sirass.model.prestador.ControlHoras" table="EControlHoras">
+    <id column="idControlHoras" length="11" name="idControlHoras" type="integer">
+      <generator class="native"/>
+    </id>
+    <property column="idInscripcion" length="11" name="idInscripcion" not-null="true" type="integer"/>
+    <property column="nReporte" length="4" name="nReporte" not-null="true" type="short"/>
+    <property column="fechaInicio" name="fechaInicio" not-null="true" type="date"/>
+    <property column="fechaFin" name="fechaFin" not-null="true" type="date"/>
+    <property column="supervisor" length="45" name="supervisor" not-null="true" type="string"/>
+    <property column="horasMes" length="11" name="horasMes" not-null="true" type="java.lang.Short"/>
+    <property column="horasAnteriores" length="11" name="horasAnteriores" not-null="false" type="java.lang.Short"/>
+    <property column="horasAcumuladas" length="11" name="horasAcumuladas" not-null="false" type="java.lang.Short"/>
+    <!-- relaciones -->
+    <many-to-one cascade="evict" class="skyforge.sirass.model.prestador.EstadoReporte" column="estado" name="estado"/>
+    <set lazy="false" fetch="join" name="horas" table="DControlHoras" cascade="all">
+      <key column="idControlHoras"/>
+      <one-to-many class="skyforge.sirass.model.prestador.RegistroHora" />
+    </set>
+    <!-- del registro -->
+    <property column="creacion" name="creacion" not-null="true" type="java.util.Date"/>
+    <property column="ultimaModif" name="ultimaModif" not-null="true" type="java.util.Date"/>
+    <property column="modificadoPor" length="15" name="modificadoPor" not-null="true" type="java.lang.String"/>
+  </class>
+</hibernate-mapping>
