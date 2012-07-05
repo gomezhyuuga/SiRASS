@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context antiJARLocking="true" path="/SiRASS">
-    <Realm  className="org.apache.catalina.realm.JDBCRealm"
-             driverName="com.mysql.jdbc.Driver"
-             connectionURL="jdbc:mysql://localhost:3306/SiRASS"
-             connectionName="skyforge" connectionPassword="skyforge"
-             userTable="MUsuario" userNameCol="usuario" userCredCol="password"
-             userRoleTable="MRolUsuario" roleNameCol="rol" />
+  <Realm className="org.apache.catalina.realm.JDBCRealm" connectionName="skyforge" connectionPassword="skyforge" connectionURL="jdbc:mysql://localhost:3306/SiRASS" driverName="com.mysql.jdbc.Driver" roleNameCol="rol" userCredCol="password" userNameCol="usuario" userRoleTable="MRolUsuario" userTable="MUsuario"/>
 </Context>

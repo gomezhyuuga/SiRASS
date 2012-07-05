@@ -184,6 +184,10 @@ function changeSelect(select) {
                 console.log(data);
                 $('#plantRegistrados').html(data);
             });
+            $('#nombrePlantel').val('');
+            $('#plantelList').prop('selectedIndex', 0);
+            $('#otroPlantel').fadeOut();
+            campo.fadeOut();
         }
     } else if (seleccionado.attr('id') == "plantelList") {
         campo = $('#otroPlantel');
