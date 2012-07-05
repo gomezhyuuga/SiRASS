@@ -29,7 +29,7 @@ public class InstitucionFormTest {
         vars.put("tel", new String[] {"jUnit" + random});
         vars.put("telExt", new String[] {"jUnit" + random});
         vars.put("email", new String[] {"jUnit" + random});
-        form = new InstitucionForm(vars);
+        form = new InstitucionForm(vars, "jUnit" + random);
     }
 
     @BeforeClass
@@ -54,6 +54,7 @@ public class InstitucionFormTest {
         institucion = form.getObject();
         System.out.println("Creando institución básico...");
         System.out.println(institucion.toString());
+        Assert.assertNotNull(institucion);
     }
     
     @Test
@@ -64,6 +65,9 @@ public class InstitucionFormTest {
         institucion = form.getObject();
         System.out.println("Creando institución con plantel...");
         System.out.println(institucion.toString());
+        Assert.assertNotNull(institucion);
+        Assert.assertNotNull(institucion.getIdCInstitucion());
+        Assert.assertNotNull(institucion.getIdPlantel());
     }
     
     @Test
@@ -75,6 +79,9 @@ public class InstitucionFormTest {
         institucion = form.getObject();
         System.out.println("Creando institución sin plantel...");
         System.out.println(institucion.toString());
+        Assert.assertNotNull(institucion);
+        Assert.assertNotNull(institucion.getIdCInstitucion());
+        Assert.assertNotNull(institucion.getIdPlantel());
     }
     
     @Test
@@ -87,5 +94,21 @@ public class InstitucionFormTest {
         institucion = form.getObject();
         System.out.println("Creando institución y plantel...");
         System.out.println(institucion.toString());
+        Assert.assertNotNull(institucion);
+        Assert.assertNotNull(institucion.getIdCInstitucion());
+        Assert.assertNotNull(institucion.getIdPlantel());
+    }
+    @Test
+    public void testGetObjectNoInstitucionPlantelNull() {
+        System.out.println("testGetObjectNoInstitucionPlantelNull...");
+        vars.put("institucionList", new String[] {"unregistred"});
+        vars.put("nombreInstitucion", new String[] {"jUnit" + random});
+        vars.put("plantelList", new String[] {"0"});
+        institucion = form.getObject();
+        System.out.println("Creando institución con plantel null...");
+        System.out.println(institucion.toString());
+        Assert.assertNotNull(institucion);
+        Assert.assertNotNull(institucion.getIdCInstitucion());
+        Assert.assertNull(institucion.getIdPlantel());
     }
 }

@@ -26,8 +26,8 @@ public class SignupForm extends Form {
         return this.createPrestador(this.getVars());
     }
 
-    public Institucion getInstitucion() {
-        return this.createInstitucion(this.getVars());
+    public Institucion getInstitucion(String usuario) {
+        return this.createInstitucion(this.getVars(), usuario);
     }
 
     private Usuario createUsuario(Map<String, String[]> vars) {
@@ -40,8 +40,8 @@ public class SignupForm extends Form {
         return pForm.getObject();
     }
 
-    private Institucion createInstitucion(Map<String, String[]> vars) {
-        InstitucionForm institucionForm = new InstitucionForm(vars);
+    private Institucion createInstitucion(Map<String, String[]> vars, String usuario) {
+        InstitucionForm institucionForm = new InstitucionForm(vars, usuario);
         return institucionForm.getObject();
     }
 }
