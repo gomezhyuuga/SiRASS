@@ -12,6 +12,7 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.AliasToBeanResultTransformer;
 import skyforge.sirass.HibernateUtil;
 import skyforge.sirass.dao.DAO;
+import skyforge.sirass.model.programass.CEstado;
 import skyforge.sirass.model.programass.CategoriaPrograma;
 import skyforge.sirass.model.programass.ProgramaSS;
 
@@ -25,7 +26,7 @@ public class ProgramaSSDAO extends DAO {
      * Guarda un programa de SS en la BD
      *
      * @param programa - El programa con todos sus datos
-     * @return - 1 si se guardÃ³, 0 si hubo un error
+     * @return - 1 si se guardó, 0 si hubo un error
      */
     public int insert(ProgramaSS programa) {
         return super.insert(programa);
@@ -34,7 +35,7 @@ public class ProgramaSSDAO extends DAO {
     /**
      * Obtiene pocos datos de todos los programas (nombre, id y clave)
      *
-     * @return - Lista de Programas con poca informaciÃ³n
+     * @return - Lista de Programas con poca información
      */
     public List<ProgramaSS> getListFew() {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -45,6 +46,33 @@ public class ProgramaSSDAO extends DAO {
         plist.add(Projections.property("p.idPrograma").as("idPrograma"));
         plist.add(Projections.property("p.cvePrograma").as("cvePrograma"));
         programas = (List<ProgramaSS>) session.createCriteria(ProgramaSS.class, "p").setProjection(plist).setResultTransformer(new AliasToBeanResultTransformer(ProgramaSS.class)).list();
+        session.close();
+        return programas;
+    }
+    /**
+     * Obtiene pocos datos de todos los programas (nombre, id, institucion, vacantes, lugar y telefono)
+     *
+     * @return - Lista de Programas con poca información
+     */
+    public List<ProgramaSS> getListCatego(CategoriaPrograma categoria, CEstado estado) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        ProgramaSS programa = null;
+        List<ProgramaSS> programas = null;
+        ProjectionList plist = Projections.projectionList();
+        plist.add(Projections.property("p.nombre").as("nombre"));
+        plist.add(Projections.property("p.idPrograma").as("idPrograma"));
+        plist.add(Projections.property("p.institucion").as("institucion"));
+        plist.add(Projections.property("p.vacantes").as("vacantes"));
+        plist.add(Projections.property("p.lugar").as("lugar"));
+        plist.add(Projections.property("p.tel").as("tel"));
+        programas = (List<ProgramaSS>) session.createCriteria(ProgramaSS.class, "p")
+                .add(Restrictions.eq("categoria", categoria))
+                .add(Restrictions.eq("estado", estado))
+                .setFetchMode("categoria", FetchMode.JOIN)
+                .setFetchMode("estado", FetchMode.JOIN)
+                .setProjection(plist)
+                .setResultTransformer(new AliasToBeanResultTransformer(ProgramaSS.class))
+                .list();
         session.close();
         return programas;
     }
@@ -90,11 +118,15 @@ public class ProgramaSSDAO extends DAO {
         return programa;
     }
 
-    public List<ProgramaSS> getProgramaByCateg(CategoriaPrograma categoria) {
+    public List<ProgramaSS> getProgramaByCateg(CategoriaPrograma categoria, CEstado estado) {
         List<ProgramaSS> programas = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         // Obtener el control de Horas
-        Criteria criteria = session.createCriteria(ProgramaSS.class).add(Restrictions.eq("categoria", categoria)).setFetchMode("categoria", FetchMode.JOIN);
+        Criteria criteria = session.createCriteria(ProgramaSS.class)
+                .add(Restrictions.eq("categoria", categoria))
+                .add(Restrictions.eq("estado", estado))
+                .setFetchMode("categoria", FetchMode.JOIN)
+                .setFetchMode("estado", FetchMode.JOIN);
         // Devolver un solo resultado
         programas = (List<ProgramaSS>) criteria.list();
         session.close();
