@@ -68,7 +68,20 @@ public class Signup extends HttpServlet {
             log(prestador.toString());
         } else if (request.getParameter("class") != null
                 && request.getParameter("class").equals("SignupInstitucion")) {
-            institucion = form.getInstitucion();
+            String nombreUsuario = "system";
+            if (request.getUserPrincipal() != null &&
+                    request.getUserPrincipal().getName() != null) {
+                nombreUsuario = request.getUserPrincipal().getName();
+            }
+            institucion = form.getInstitucion(nombreUsuario);
+            institucion.setCreacion(curDate);
+            institucion.setModificadoPor(modificadoPor);
+            institucion.setUltimaModif(curDate);
+            
+            usuario.setInstitucion(institucion);
+            Set<Rol> roles = new HashSet<Rol>();
+            roles.add(new Rol("institucion"));
+            usuario.setRoles(roles);
             log("Registrando institución...");
             log(institucion.toString());
         }
