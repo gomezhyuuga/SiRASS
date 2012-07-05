@@ -26,7 +26,7 @@ public class ProgramaSSDAO extends DAO {
      * Guarda un programa de SS en la BD
      *
      * @param programa - El programa con todos sus datos
-     * @return - 1 si se guardó, 0 si hubo un error
+     * @return - 1 si se guard, 0 si hubo un error
      */
     public int insert(ProgramaSS programa) {
         return super.insert(programa);
@@ -35,7 +35,7 @@ public class ProgramaSSDAO extends DAO {
     /**
      * Obtiene pocos datos de todos los programas (nombre, id y clave)
      *
-     * @return - Lista de Programas con poca información
+     * @return - Lista de Programas con poca informacin
      */
     public List<ProgramaSS> getListFew() {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -52,7 +52,7 @@ public class ProgramaSSDAO extends DAO {
     /**
      * Obtiene pocos datos de todos los programas (nombre, id, institucion, vacantes, lugar y telefono)
      *
-     * @return - Lista de Programas con poca información
+     * @return - Lista de Programas con poca informacin
      */
     public List<ProgramaSS> getListCatego(CategoriaPrograma categoria, CEstado estado) {
         Session session = HibernateUtil.getSessionFactory().openSession();
