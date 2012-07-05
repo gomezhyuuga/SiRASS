@@ -41,6 +41,6 @@
         <jsp:param name="form" value="true" />
         <jsp:param name="datepicker" value="true" />
     </jsp:include>
-    <script src="/SiRASS/js/signup.js" charset="ISO-8859-1" type="text/javascript"></script>
+    <script src="/SiRASS/js/signup.js" charset="UTF-8" type="text/javascript"></script>
 </body>
 </html>

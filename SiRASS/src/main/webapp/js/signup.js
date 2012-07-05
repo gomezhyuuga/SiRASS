@@ -36,6 +36,7 @@ $(document).ready(function() {
     $.validator.setDefaults({
         debug: true,
         errorContainer: "#feedback",
+        errorClass: "invalid",
         wrapper: 'p class="help-block"',
         submitHandler: function(form) {
             $(form).ajaxSubmit(options);

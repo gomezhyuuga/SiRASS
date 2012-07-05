@@ -69,7 +69,8 @@ public class Login extends HttpServlet {
             log("######## ######## ######## ######## #####\n");
             response.setStatus(401);
             response.addHeader("requestURI", request.getRequestURI());
-            response.sendRedirect(request.getHeader("Referer") + "?error=true");
+            response.setStatus(response.SC_UNAUTHORIZED);
+            response.sendRedirect(request.getContextPath() + "?error=true");
 
         }
     }

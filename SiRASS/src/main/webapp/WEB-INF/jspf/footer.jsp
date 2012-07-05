@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ page contentType="text/html; UTF-8" pageEncoding="UTF-8" %>
         <footer class="container">
   		<hr />
 		<div class="row">
@@ -26,7 +26,7 @@
     ============================== -->
     <script src="/SiRASS/js/jquery-validation-1.9.0/jquery.validate.min.js" type="text/javascript"></script>
     <script src="/SiRASS/js/jquery-validation-1.9.0/additional-methods.min.js" type="text/javascript"></script>
-    <script src="/SiRASS/js/jquery-validation-1.9.0/localization/messages_es.js" type="text/javascript"></script>
+    <script src="/SiRASS/js/jquery-validation-1.9.0/localization/messages_es.js" charset="UTF-8" type="text/javascript"></script>
     <%  } 
         if (request.getParameter("datepicker") != null &&
             request.getParameter("datepicker").equals("true")) { %>
@@ -40,5 +40,5 @@
 	<![endif]-->
     <%  } %>
     <script src="/SiRASS/js/navigate.js" type="text/javascript"></script>
-    <script src="/SiRASS/js/makeusabrew-bootbox-85c33b4/bootbox.min.js" charset="ISO-8859-1" type="text/javascript"></script>
+    <script src="/SiRASS/js/makeusabrew-bootbox-85c33b4/bootbox.min.js" charset="UTF-8" type="text/javascript"></script>
     <script src="/SiRASS/js/utils.js" charset="UTF-8" type="text/javascript"></script>
