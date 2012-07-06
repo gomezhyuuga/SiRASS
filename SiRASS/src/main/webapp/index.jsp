@@ -25,7 +25,7 @@
 				<img src="/SiRASS/assets/list_icon.png" alt="Lista de programas de Servicio Social" />
 				<h2>Programas</h2>
 				<p>Conoce todos los programas de Servicio Social que ofrece para ti la UACM.</p>
-				<a class="btn btn-info" href="#">Lista de programas &raquo;</a>
+				<a class="btn btn-info" href="/SiRASS/programas/">Lista de programas &raquo;</a>
 			</div>
 			<div class="span4">
 				<img src="/SiRASS/assets/process_icon.png" alt="Pasos a realizar para empezar el Servicio Social" />

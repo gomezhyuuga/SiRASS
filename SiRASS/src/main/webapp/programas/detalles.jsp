@@ -16,6 +16,10 @@
     <jsp:include page="../WEB-INF/jspf/head.jsp">
         <jsp:param name="title" value="Página pública" />
     </jsp:include>
+    <style type="text/css">
+        .content p { text-align: justify; }
+        
+    </style>
 </head>
 <body>
     <!-- Navbar
