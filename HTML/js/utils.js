@@ -49,3 +49,75 @@ function showResponse(responseText, statusText, xhr, $form)  {
     alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + 
         '\n\nThe output div should have already been updated with the responseText.'); 
 }
+
+function changePrograma(programas) {
+    // Obtener el index seleccionado
+    var seleccionado = programas.selectedIndex;
+    var cvePrograma = $('#cvePrograma');
+    var nombrePrograma = $('#nombrePrograma');
+    
+    // Obtener la clave del programa
+    if (programas.options.item(seleccionado) != null) {
+		var clave = programas.options.item(seleccionado).getAttribute("data-cve");
+	    // Obtener el id del programa
+	    var idPrograma = programas.options.item(seleccionado).getAttribute("value");
+	    var nombre = programas.options.item(seleccionado).text;
+	    if (idPrograma != 0 && idPrograma != "") {
+	        // Cambiar la clave del programa
+	        cvePrograma.val(clave);
+	        nombrePrograma.val(nombre);
+	    } else {
+	        // No se seleccionó ningún programa de la lista (value=0)
+	        cvePrograma.val('');
+	        nombrePrograma.val('');
+	    }
+    } else {
+        // No se seleccionó ningún programa de la lista (value=0)
+        cvePrograma.val('');
+        nombrePrograma.val('');
+    }
+}
+
+function changeInstitucion(select) {
+    var seleccionado = $(select);
+    var campo;
+    if (seleccionado.attr('id') == "institucionList") {
+        campo = $('#otraInstitucion');
+        $('#plantRegistrados').html('');
+        // Se selecciona -- Selecciona una institución --
+        if (seleccionado.val() == "") {
+            $('#nombrePlantel').val('');
+            $('#plantelList').prop('selectedIndex', 0);
+        } else if (seleccionado.val() == "unregistred") {
+            // Se selecciona otra
+            $('#plantelList').prop('selectedIndex', 1);
+            $('#nombrePlantel').val('');
+            campo.fadeIn();
+            $('#otroPlantel').fadeIn();
+        } else {
+            var selected = seleccionado.val();
+            console.log("Pidiendo planteles de la institución: " + selected);
+            // Cargar lista de planteles con AJAX
+            $.get("/SiRASS/Services", {
+                service: "plantelesByInst", 
+                id: selected
+            }, function(data) {
+                console.log(data);
+                $('#plantRegistrados').html(data);
+            });
+            $('#nombrePlantel').val('');
+            $('#plantelList').prop('selectedIndex', 0);
+            $('#otroPlantel').fadeOut();
+            campo.fadeOut();
+        }
+    } else if (seleccionado.attr('id') == "plantelList") {
+        campo = $('#otroPlantel');
+        // Se selecciona otro
+        if (seleccionado.val() == "unregistred") {
+            campo.fadeIn();
+        } else {
+            $('#nombrePlantel').val('');
+            campo.fadeOut();
+        }
+    }
+}
