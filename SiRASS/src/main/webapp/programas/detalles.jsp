@@ -1,3 +1,11 @@
+<%@page import="skyforge.sirass.model.user.Dia"%>
+<%@page import="skyforge.sirass.model.programass.TipoPrograma"%>
+<%@page import="skyforge.sirass.model.programass.PoblacionPrograma"%>
+<%@page import="skyforge.sirass.model.programass.AlcancePrograma"%>
+<%@page import="skyforge.sirass.model.programass.ActividadPrograma"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="skyforge.sirass.model.programass.ResponsablePrograma"%>
+<%@page import="java.util.Set"%>
 <%@page import="skyforge.sirass.model.programass.ProgramaSS"%>
 <%@page import="java.util.List"%>
 <%@page import="skyforge.sirass.dao.programass.ProgramaSSDAO"%>
@@ -58,17 +66,22 @@
                                         <tr>
                                             <th>Nombre</th>
                                             <th>Cargo</th>
-                                            <th>Tel&eacute;fono</th>
                                             <th>Correo electr&oacute;nico</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <%
+                                            Set<ResponsablePrograma> responsables =(Set<ResponsablePrograma>) progamaSS.getResponsables();
+                                            Iterator it3 = responsables.iterator();
+                                            while(it3.hasNext()){
+                                                ResponsablePrograma res = (ResponsablePrograma) it3.next();
+                                        %>
                                         <tr>
-                                            <th>Rodrigo Vidal Tamayo Ramírez</th>
-                                            <th>Director de Educación, Ciencia y Sociedad</th>
-                                            <th>55 12 10 12 <strong>Ext.</strong> 248</th>
-                                            <th>rvidal@icyt.df.gob.mx</th>
+                                            <th><%= res.getResponsable() %></th>
+                                            <th><%= res.getCargo() %></th>
+                                            <th><%= res.getEmail() %></th>
                                         </tr>
+                                        <% } %>
                                     </tbody>
                                 </table>
 		    </div>
@@ -87,20 +100,53 @@
 					<p><%= progamaSS.getResultados() %></p>
 		    </div>
 		    <div class="tab-pane" id="CaractProg">
+                        <%
+                            Set<ActividadPrograma> actividades =(Set<ActividadPrograma>)progamaSS.getActividad();
+                            Iterator it = actividades.iterator();
+
+                            Set<AlcancePrograma> alcances =(Set<AlcancePrograma>) progamaSS.getAlcance();
+                            Iterator it1 = alcances.iterator();
+
+                            Set<PoblacionPrograma> poblaciones =(Set<PoblacionPrograma>) progamaSS.getPoblacion();
+                            Iterator it2 = poblaciones.iterator();
+
+                            Set<TipoPrograma> tipos =(Set<TipoPrograma>) progamaSS.getTipo();
+                            Iterator it4 = tipos.iterator();
+                            
+                            Set<Dia> day = (Set<Dia>) progamaSS.getDias();
+                            Iterator it5 = day.iterator();
+                            
+                        %>
 		    	<h3>Tipo</h3>
-		    		<p><%= progamaSS.getTipo() %></p>
+                                <%while(it4.hasNext()){
+                                    TipoPrograma tp = (TipoPrograma) it4.next();
+                                %>
+		    		<p><%= tp.getDescripcion() %></p>
+                                <% } %>
 		    	<h3>Duraci&oacute;n</h3>
-		    		<p><%= progamaSS.getTiempo() %></p>
+                        <p><%= progamaSS.getTiempo().getDescripcion() %> <strong>Vigencia </strong><%= progamaSS.getFechaTiempo() %></p>
 		    	<h3>Alcance</h3>
-		    		<p><%= progamaSS.getAlcance() %></p>
+                                <%while(it1.hasNext()){
+                                    AlcancePrograma al = (AlcancePrograma) it1.next();
+                                %>
+		    		<p><%= al.getDescripcion() %></p>
+                                <% } %>
 		    	<h3>Poblaci&oacute;n a atender</h3>
-		    		<p><%= progamaSS.getPoblacion() %></p>
+                                <%while(it2.hasNext()){
+                                    PoblacionPrograma pp = (PoblacionPrograma) it2.next();
+                                %>
+		    		<p><%= pp.getDescripcion() %></p>
+                                <% } %>
 		    	<h3>Lugar de Realizaci&oacute;n</h3>
 		    		<p><%= progamaSS.getLugar() %></p>
 		    	<h3>Días de Realización</h3>
-		    		<p><%= progamaSS.getDias() %></p>
+                                <%while(it5.hasNext()){
+                                    Dia d = (Dia) it5.next();
+                                %>
+		    		<p><%= d.getDiaSemana() %></p>
+                                <% } %>
 		    	<h3>Horario</h3>
-		    		<p><%= progamaSS.getHorario() %></p>
+		    		<p><%= progamaSS.getHorario().getDescripcion() %></p>
 		    </div>
 		    <div class="tab-pane" id="PerfAcad">
 		    	<table class="table table-striped table-bordered" style="width: 100%;">
