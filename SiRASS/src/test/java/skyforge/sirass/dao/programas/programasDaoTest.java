@@ -78,10 +78,25 @@ public class programasDaoTest {
     @Test
     public void testGetListFew() {
         System.out.println("testGetListFew...");
-        List<ProgramaSS> list = pdao.getListFew();
+        List<ProgramaSS> list = pdao.getListAllFew();
         Assert.assertNotNull(list);
         Assert.assertNotNull(list.get(0).getNombre());
         Assert.assertNotNull(list.get(0).getIdPrograma());
         Assert.assertNotNull(list.get(0).getCvePrograma());
+    }
+    @Test
+    public void testGetListFewExternos() {
+        System.out.println("testGetListFewExternos...");
+        List<ProgramaSS> list = pdao.getListFewExternos();
+        Assert.assertNotNull(list);
+        Assert.assertNotNull(list.get(0).getNombre());
+        Assert.assertNotNull(list.get(0).getIdPrograma());
+        Assert.assertNotNull(list.get(0).getCvePrograma());
+    }
+    @Test
+    public void testGetListFewInternos() {
+        System.out.println("testGetListFewInternos...");
+        List<ProgramaSS> list = pdao.getListFewInternos();
+        Assert.assertNotNull(list);
     }
 }

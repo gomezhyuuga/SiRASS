@@ -37,7 +37,34 @@ public class ProgramaSSDAO extends DAO {
      *
      * @return - Lista de Programas con poca informacin
      */
-    public List<ProgramaSS> getListFew() {
+    public List<ProgramaSS> getListAllFew() {
+        return this.getListAllFew(null);
+    }
+    /**
+     * Obtiene pocos datos de los programas EXTERNOS (nombre, id y clave)
+     *
+     * @return - Lista de Programas EXTERNOS con poca informacin
+     */
+    public List<ProgramaSS> getListFewExternos() {
+        Criterion[] restrictions = {Restrictions.eq("categoria", new CategoriaPrograma(2))};
+        return this.getListAllFew(restrictions);
+    }
+    /**
+     * Obtiene pocos datos de los programas INTERNOS (nombre, id y clave)
+     *
+     * @return - Lista de Programas INTERNOS con poca informacin
+     */
+    public List<ProgramaSS> getListFewInternos() {
+        Criterion[] restrictions = {Restrictions.eq("categoria", new CategoriaPrograma(1))};
+        return this.getListAllFew(restrictions);
+    }
+    /**
+     * Obtiene pocos datos de todos los programas (nombre, id y clave)
+     *
+     * @param crits - Restricciones a aplicar
+     * @return - Lista de Programas con poca informacin
+     */
+    private List<ProgramaSS> getListAllFew(Criterion[] crits) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         ProgramaSS programa = null;
         List<ProgramaSS> programas = null;
@@ -45,10 +72,16 @@ public class ProgramaSSDAO extends DAO {
         plist.add(Projections.property("p.nombre").as("nombre"));
         plist.add(Projections.property("p.idPrograma").as("idPrograma"));
         plist.add(Projections.property("p.cvePrograma").as("cvePrograma"));
-        programas = (List<ProgramaSS>) session.createCriteria(ProgramaSS.class, "p")
+        Criteria criteria = session.createCriteria(ProgramaSS.class, "p")
                 .setProjection(plist)
-                .setResultTransformer(new AliasToBeanResultTransformer(ProgramaSS.class))
-                .list();
+                .setResultTransformer(new AliasToBeanResultTransformer(ProgramaSS.class));
+        // Aplicar restricciones
+        if (crits != null && crits.length != 0) {
+            for (Criterion crit : crits) {
+                criteria.add(crit);
+            }
+        }
+        programas = (List<ProgramaSS>) criteria.list();
         session.close();
         return programas;
     }
@@ -195,7 +228,14 @@ public class ProgramaSSDAO extends DAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         transaction.begin();
-        int stat = session.createQuery(command).setString("nameProg", programaSS.getNombre()).setString("objG", programaSS.getObjGeneral()).setString("desa", programaSS.getDesarrollo()).setString("obs", programaSS.getObservaciones()).setString("mp", programaSS.getModificadoPor()).setString("um", String.valueOf(programaSS.getUltimaModif())).setString("id", String.valueOf(programaSS.getIdPrograma())).executeUpdate();
+        int stat = session.createQuery(command).setString("nameProg", programaSS.getNombre())
+                .setString("objG", programaSS
+                .getObjGeneral())
+                .setString("desa", programaSS.getDesarrollo())
+                .setString("obs", programaSS.getObservaciones())
+                .setString("mp", programaSS.getModificadoPor())
+                .setString("um", String.valueOf(programaSS.getUltimaModif()))
+                .setString("id", String.valueOf(programaSS.getIdPrograma())).executeUpdate();
         transaction.commit();
         session.close();
         return stat;

@@ -61,8 +61,6 @@ public class InscripcionFormTest {
     
     @Test
     public void testGetObject() {
-        vars.put("institucionList", new String[]{"1"});
-        vars.put("plantelList", new String[]{"3"});
         System.out.println("testGetObject...");
         System.out.println("Creando inscripción...");
         inscripcion = form.getObject();
@@ -93,8 +91,208 @@ public class InscripcionFormTest {
         System.out.println("cvePrograma: " + inscripcion.getCvePrograma());
         System.out.println("responsable: " + inscripcion.getResponsable());
         System.out.println("cargo: " + inscripcion.getCargoResponsable());
+        Assert.assertNotNull(inscripcion);
+    }
+    @Test
+    public void testGetObjectConInstitucionPlantel() {
+        System.out.println("testGetObjectConInstitucionPlantel...");
+        System.out.println("Creando inscripción...");
+        vars.put("institucionList", new String[]{"1"});
+        vars.put("plantelList", new String[]{"3"});
+        inscripcion = form.getObject();
+        System.out.println("semestre: " + inscripcion.getSemestre());
+        System.out.println("fechaIngreso: " + inscripcion.getAnioIngreso());
+        System.out.println("area: " + inscripcion.getArea());
+        System.out.println("especialidad: " + inscripcion.getCarrera());
+        System.out.println("cveProgramaInst: " + inscripcion.getCveProgramaInst());
+        System.out.println("matricula: " + inscripcion.getMatricula());
+        System.out.println("programaInst: " + inscripcion.getProgramaInst());
+        System.out.println("avanceCurso: " + inscripcion.getAvanceCursos());
+        System.out.println("creditos: " + inscripcion.getCreditos());
+        System.out.println("fechaFin: " + inscripcion.getFechaFin());
+        System.out.println("fechaInicio: " + inscripcion.getFechaInicio());
+        System.out.println("promedio: " + inscripcion.getPromedio());
+        System.out.println("cursosBasico: " + inscripcion.getnCursosBasicos());
+        System.out.println("cursosSuperior: " + inscripcion.getnCursosSuperior());
+        System.out.print("dias: ");
+        Set<Dia> dias = inscripcion.getDias();
+        for (Dia dia : dias) {
+            System.out.print(dia.getIdDia() + " ");
+        }
+        System.out.println("");
+        System.out.println("horaEntrada: " + inscripcion.gethEntrada());
+        System.out.println("horaSalida: " + inscripcion.gethSalida());
+        System.out.println("idPrograma: " + inscripcion.getIdPrograma());
+        System.out.println("nombrePrograma: " + inscripcion.getPrograma());
+        System.out.println("cvePrograma: " + inscripcion.getCvePrograma());
+        System.out.println("responsable: " + inscripcion.getResponsable());
+        System.out.println("cargo: " + inscripcion.getCargoResponsable());
         System.out.println("institucion: " + inscripcion.getInstitucion().getIdCInstitucion());
         System.out.println("plantel: " + inscripcion.getPlantel().getIdPlantel());
-        assert false;
+        Assert.assertNotNull(inscripcion);
+        Assert.assertNotNull(inscripcion.getPlantel().getIdPlantel());
+        Assert.assertNotNull(inscripcion.getInstitucion().getIdCInstitucion());
+    }
+    @Test
+    public void testGetObjectConInstitucionSinPlantel() {
+        System.out.println("testGetObjectConInstitucionSinPlantel...");
+        System.out.println("Creando inscripción...");
+        vars.put("institucionList", new String[]{"1"});
+        vars.put("plantelList", new String[]{"unregistred"});
+        vars.put("nombrePlantel", new String[]{"Mi plantel!"});
+        inscripcion = form.getObject();
+        System.out.println("semestre: " + inscripcion.getSemestre());
+        System.out.println("fechaIngreso: " + inscripcion.getAnioIngreso());
+        System.out.println("area: " + inscripcion.getArea());
+        System.out.println("especialidad: " + inscripcion.getCarrera());
+        System.out.println("cveProgramaInst: " + inscripcion.getCveProgramaInst());
+        System.out.println("matricula: " + inscripcion.getMatricula());
+        System.out.println("programaInst: " + inscripcion.getProgramaInst());
+        System.out.println("avanceCurso: " + inscripcion.getAvanceCursos());
+        System.out.println("creditos: " + inscripcion.getCreditos());
+        System.out.println("fechaFin: " + inscripcion.getFechaFin());
+        System.out.println("fechaInicio: " + inscripcion.getFechaInicio());
+        System.out.println("promedio: " + inscripcion.getPromedio());
+        System.out.println("cursosBasico: " + inscripcion.getnCursosBasicos());
+        System.out.println("cursosSuperior: " + inscripcion.getnCursosSuperior());
+        System.out.print("dias: ");
+        Set<Dia> dias = inscripcion.getDias();
+        for (Dia dia : dias) {
+            System.out.print(dia.getIdDia() + " ");
+        }
+        System.out.println("");
+        System.out.println("horaEntrada: " + inscripcion.gethEntrada());
+        System.out.println("horaSalida: " + inscripcion.gethSalida());
+        System.out.println("idPrograma: " + inscripcion.getIdPrograma());
+        System.out.println("nombrePrograma: " + inscripcion.getPrograma());
+        System.out.println("cvePrograma: " + inscripcion.getCvePrograma());
+        System.out.println("responsable: " + inscripcion.getResponsable());
+        System.out.println("cargo: " + inscripcion.getCargoResponsable());
+        System.out.println("institucion: " + inscripcion.getInstitucion().getIdCInstitucion());
+        System.out.println("plantel: " + inscripcion.getPlantel().getIdPlantel());
+        Assert.assertNotNull(inscripcion);
+        Assert.assertNotNull(inscripcion.getPlantel().getIdPlantel());
+        Assert.assertNotNull(inscripcion.getInstitucion().getIdCInstitucion());
+    }
+    @Test
+    public void testGetObjectSinInstitucionSinPlantel() {
+        System.out.println("testGetObjectSinInstitucionSinPlantel...");
+        System.out.println("Creando inscripción...");
+        vars.put("institucionList", new String[]{"unregistred"});
+        vars.put("nombreInstitucion", new String[]{"Mi institucion!"});
+        vars.put("plantelList", new String[]{"unregistred"});
+        vars.put("nombrePlantel", new String[]{"Mi plantel!"});
+        inscripcion = form.getObject();
+        System.out.println("semestre: " + inscripcion.getSemestre());
+        System.out.println("fechaIngreso: " + inscripcion.getAnioIngreso());
+        System.out.println("area: " + inscripcion.getArea());
+        System.out.println("especialidad: " + inscripcion.getCarrera());
+        System.out.println("cveProgramaInst: " + inscripcion.getCveProgramaInst());
+        System.out.println("matricula: " + inscripcion.getMatricula());
+        System.out.println("programaInst: " + inscripcion.getProgramaInst());
+        System.out.println("avanceCurso: " + inscripcion.getAvanceCursos());
+        System.out.println("creditos: " + inscripcion.getCreditos());
+        System.out.println("fechaFin: " + inscripcion.getFechaFin());
+        System.out.println("fechaInicio: " + inscripcion.getFechaInicio());
+        System.out.println("promedio: " + inscripcion.getPromedio());
+        System.out.println("cursosBasico: " + inscripcion.getnCursosBasicos());
+        System.out.println("cursosSuperior: " + inscripcion.getnCursosSuperior());
+        System.out.print("dias: ");
+        Set<Dia> dias = inscripcion.getDias();
+        for (Dia dia : dias) {
+            System.out.print(dia.getIdDia() + " ");
+        }
+        System.out.println("");
+        System.out.println("horaEntrada: " + inscripcion.gethEntrada());
+        System.out.println("horaSalida: " + inscripcion.gethSalida());
+        System.out.println("idPrograma: " + inscripcion.getIdPrograma());
+        System.out.println("nombrePrograma: " + inscripcion.getPrograma());
+        System.out.println("cvePrograma: " + inscripcion.getCvePrograma());
+        System.out.println("responsable: " + inscripcion.getResponsable());
+        System.out.println("cargo: " + inscripcion.getCargoResponsable());
+        System.out.println("institucion: " + inscripcion.getInstitucion().getIdCInstitucion());
+        System.out.println("plantel: " + inscripcion.getPlantel().getIdPlantel());
+        Assert.assertNotNull(inscripcion);
+        Assert.assertNotNull(inscripcion.getPlantel().getIdPlantel());
+        Assert.assertNotNull(inscripcion.getInstitucion().getIdCInstitucion());
+    }
+    @Test
+    public void testGetObjectSinInstitucionPlantelNull() {
+        System.out.println("testGetObjectSinInstitucionPlantelNull...");
+        System.out.println("Creando inscripción...");
+        vars.put("institucionList", new String[]{"unregistred"});
+        vars.put("nombreInstitucion", new String[]{"Mi institucion!"});
+        vars.put("plantelList", new String[]{"0"});
+        inscripcion = form.getObject();
+        System.out.println("semestre: " + inscripcion.getSemestre());
+        System.out.println("fechaIngreso: " + inscripcion.getAnioIngreso());
+        System.out.println("area: " + inscripcion.getArea());
+        System.out.println("especialidad: " + inscripcion.getCarrera());
+        System.out.println("cveProgramaInst: " + inscripcion.getCveProgramaInst());
+        System.out.println("matricula: " + inscripcion.getMatricula());
+        System.out.println("programaInst: " + inscripcion.getProgramaInst());
+        System.out.println("avanceCurso: " + inscripcion.getAvanceCursos());
+        System.out.println("creditos: " + inscripcion.getCreditos());
+        System.out.println("fechaFin: " + inscripcion.getFechaFin());
+        System.out.println("fechaInicio: " + inscripcion.getFechaInicio());
+        System.out.println("promedio: " + inscripcion.getPromedio());
+        System.out.println("cursosBasico: " + inscripcion.getnCursosBasicos());
+        System.out.println("cursosSuperior: " + inscripcion.getnCursosSuperior());
+        System.out.print("dias: ");
+        Set<Dia> dias = inscripcion.getDias();
+        for (Dia dia : dias) {
+            System.out.print(dia.getIdDia() + " ");
+        }
+        System.out.println("");
+        System.out.println("horaEntrada: " + inscripcion.gethEntrada());
+        System.out.println("horaSalida: " + inscripcion.gethSalida());
+        System.out.println("idPrograma: " + inscripcion.getIdPrograma());
+        System.out.println("nombrePrograma: " + inscripcion.getPrograma());
+        System.out.println("cvePrograma: " + inscripcion.getCvePrograma());
+        System.out.println("responsable: " + inscripcion.getResponsable());
+        System.out.println("cargo: " + inscripcion.getCargoResponsable());
+        System.out.println("institucion: " + inscripcion.getInstitucion().getIdCInstitucion());
+        Assert.assertNotNull(inscripcion);
+        Assert.assertNull(inscripcion.getPlantel());
+        Assert.assertNotNull(inscripcion.getInstitucion().getIdCInstitucion());
+    }
+    @Test
+    public void testGetObjectConInstitucionPlantelNull() {
+        System.out.println("testGetObjectSinInstitucionPlantelNull...");
+        System.out.println("Creando inscripción...");
+        vars.put("institucionList", new String[]{"2"});
+        vars.put("plantelList", new String[]{"0"});
+        inscripcion = form.getObject();
+        System.out.println("semestre: " + inscripcion.getSemestre());
+        System.out.println("fechaIngreso: " + inscripcion.getAnioIngreso());
+        System.out.println("area: " + inscripcion.getArea());
+        System.out.println("especialidad: " + inscripcion.getCarrera());
+        System.out.println("cveProgramaInst: " + inscripcion.getCveProgramaInst());
+        System.out.println("matricula: " + inscripcion.getMatricula());
+        System.out.println("programaInst: " + inscripcion.getProgramaInst());
+        System.out.println("avanceCurso: " + inscripcion.getAvanceCursos());
+        System.out.println("creditos: " + inscripcion.getCreditos());
+        System.out.println("fechaFin: " + inscripcion.getFechaFin());
+        System.out.println("fechaInicio: " + inscripcion.getFechaInicio());
+        System.out.println("promedio: " + inscripcion.getPromedio());
+        System.out.println("cursosBasico: " + inscripcion.getnCursosBasicos());
+        System.out.println("cursosSuperior: " + inscripcion.getnCursosSuperior());
+        System.out.print("dias: ");
+        Set<Dia> dias = inscripcion.getDias();
+        for (Dia dia : dias) {
+            System.out.print(dia.getIdDia() + " ");
+        }
+        System.out.println("");
+        System.out.println("horaEntrada: " + inscripcion.gethEntrada());
+        System.out.println("horaSalida: " + inscripcion.gethSalida());
+        System.out.println("idPrograma: " + inscripcion.getIdPrograma());
+        System.out.println("nombrePrograma: " + inscripcion.getPrograma());
+        System.out.println("cvePrograma: " + inscripcion.getCvePrograma());
+        System.out.println("responsable: " + inscripcion.getResponsable());
+        System.out.println("cargo: " + inscripcion.getCargoResponsable());
+        System.out.println("institucion: " + inscripcion.getInstitucion().getIdCInstitucion());
+        Assert.assertNotNull(inscripcion);
+        Assert.assertNull(inscripcion.getPlantel());
+        Assert.assertNotNull(inscripcion.getInstitucion().getIdCInstitucion());
     }
 }
