@@ -33,6 +33,9 @@ public class Prestador implements Serializable {
 
     public Prestador() {
     }
+    public Prestador(int idPrestador) {
+        this.idPrestador = idPrestador;
+    }
 
     public Integer getInscripcion() {
         return inscripcion;

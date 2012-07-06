@@ -1,4 +1,4 @@
-package skyforge.sirass.dao.programass;
+package skyforge.sirass.dao.prestador;
 
 import java.util.List;
 import org.hibernate.FetchMode;

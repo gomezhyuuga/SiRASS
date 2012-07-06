@@ -1,4 +1,4 @@
-package skyforge.sirass.dao.programass;
+package skyforge.sirass.dao.prestador;
 
 import org.hibernate.FetchMode;
 import org.hibernate.Session;
@@ -14,7 +14,7 @@ import skyforge.sirass.model.prestador.Inscripcion;
  * @author gomezhyuuga
  */
 public class InscripcionDAO extends DAO{
-    /**
+    /***
      * Inscribe a a lguien en un programa de Servicio Social
      * @param inscripcion - La inscripcion
      * @return - 1 si se incribe, 0 si hay un error

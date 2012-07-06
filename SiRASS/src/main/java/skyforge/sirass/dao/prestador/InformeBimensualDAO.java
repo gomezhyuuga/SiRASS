@@ -1,4 +1,4 @@
-package skyforge.sirass.dao.programass;
+package skyforge.sirass.dao.prestador;
 
 import java.util.Collections;
 import java.util.Date;
@@ -10,6 +10,7 @@ import skyforge.sirass.HibernateUtil;
 import skyforge.sirass.dao.DAO;
 import skyforge.sirass.dao.prestador.PrestadorDAO;
 import skyforge.sirass.model.prestador.InformeBimensual;
+import skyforge.sirass.model.prestador.Inscripcion;
 
 /**
  *
@@ -56,14 +57,17 @@ public class InformeBimensualDAO extends DAO {
         int idInscripcion = 0;
         Session session = HibernateUtil.getSessionFactory().openSession();
         PrestadorDAO pdao = new PrestadorDAO();
-        idInscripcion = pdao.getCurrentInscripcion(username);
-        System.out.println("inscripcion " + idInscripcion);
-        if (idInscripcion != 0) {
-            // Obtener el control de Horas
-            Criterion crit[] = new Criterion[1];
-            crit[0] = Restrictions.eq("idInscripcion", idInscripcion);
-            informes = this.getListWithRestriction(crit, FetchMode.SELECT);
-            session.close();
+        Inscripcion inscripcion = pdao.getCurrentInscripcion(username);
+        if (inscripcion != null) {
+            idInscripcion = inscripcion.getIdInscripcion();
+            System.out.println("inscripcion " + idInscripcion);
+            if (idInscripcion != 0) {
+                // Obtener el control de Horas
+                Criterion crit[] = new Criterion[1];
+                crit[0] = Restrictions.eq("idInscripcion", idInscripcion);
+                informes = this.getListWithRestriction(crit, FetchMode.SELECT);
+                session.close();
+            }
         }
         return informes;
     }

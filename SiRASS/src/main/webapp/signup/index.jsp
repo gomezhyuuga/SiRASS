@@ -40,7 +40,8 @@
     <jsp:include page="../WEB-INF/jspf/footer.jsp">
         <jsp:param name="form" value="true" />
         <jsp:param name="datepicker" value="true" />
+        <jsp:param name="bootbox" value="true" />
+        <jsp:param name="script" value="signup" />
     </jsp:include>
-    <script src="/SiRASS/js/signup.js" charset="UTF-8" type="text/javascript"></script>
 </body>
 </html>

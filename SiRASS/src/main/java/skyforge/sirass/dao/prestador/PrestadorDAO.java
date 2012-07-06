@@ -6,12 +6,15 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.transform.AliasToBeanResultTransformer;
 import skyforge.sirass.HibernateUtil;
 import skyforge.sirass.dao.DAO;
 import skyforge.sirass.dao.user.UsuarioDAO;
+import skyforge.sirass.model.prestador.Inscripcion;
 import skyforge.sirass.model.prestador.Prestador;
 
 /**
@@ -38,7 +41,7 @@ public class PrestadorDAO extends DAO {
      * @return true si está inscrito, false si no
      */
     public boolean isInscrito(String username) {
-        boolean inscrito = (this.getCurrentInscripcion(username) != 0) ? true : false;
+        boolean inscrito = (this.getCurrentInscripcion(username) != null) ? true : false;
         return inscrito;
     }
     /**
@@ -47,48 +50,53 @@ public class PrestadorDAO extends DAO {
      * @return true si está inscrito, false si no
      */
     public boolean isInscrito(int idPrestador) {
-        boolean inscrito = (this.getCurrentInscripcion(idPrestador) != 0) ? true : false;
+        boolean inscrito = (this.getCurrentInscripcion(idPrestador) != null) ? true : false;
         return inscrito;
     }
     
     /**
-     * Devuelve el ID de la inscripción actual del prestador
+     * Devuelve el ID y el estado de la inscripción actual del prestador
      * 
      * @param username - El nombre de usuario del prestador
-     * @return - ID de la inscripción, 0 si no tiene ninguna
+     * @return - Inscripcion, null si no tiene ninguna
      */
-    public int getCurrentInscripcion(String username) {
+    public Inscripcion getCurrentInscripcion(String username) {
         UsuarioDAO dao = new UsuarioDAO();
         int idPrestador = dao.getIdPrestador(username);
         if (idPrestador != 0) {
             return this.getCurrentInscripcion(idPrestador);
         } else {
-            return 0;
+            return null;
         }
     }
     
     /**
-     * Devuelve el ID de la inscripción actual del prestador
+     * Devuelve el ID y el estado de la inscripción actual del prestador
      * 
      * @param idPrestador - El id del prestador
-     * @return - ID de la inscripción, 0 si no tiene ninguna
+     * @return - Inscripcion, null si no tiene ninguna
      */
-    public int getCurrentInscripcion(int idPrestador) {
+    public Inscripcion getCurrentInscripcion(int idPrestador) {
         return this.getCurrentInscripcion(
-                Restrictions.eq("idPrestador", idPrestador)
+                Restrictions.eq("prestador", new Prestador(idPrestador))
                 );
     }
     
-    private int getCurrentInscripcion(Criterion crit) {
+    private Inscripcion getCurrentInscripcion(Criterion crit) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Integer inscripcion = (Integer) session.createCriteria(Prestador.class)
-                .add(crit)
-                .setProjection(Projections.property("inscripcion"))
-                .uniqueResult();
-        session.close();
+        ProjectionList plist = Projections.projectionList();
+        plist.add(Projections.property("i.idInscripcion").as("idInscripcion"));
+        plist.add(Projections.property("i.estado").as("estado"));
+        plist.add(Projections.property("i.horasRealizadas").as("horasRealizadas"));
+        Criteria criteria = session.createCriteria(Inscripcion.class, "i")
+                .setProjection(plist)
+                .setResultTransformer(new AliasToBeanResultTransformer(Inscripcion.class));
+        // Agregar restricciones
+        criteria.add(crit);
+        Inscripcion inscripcion = (Inscripcion) criteria.uniqueResult();
         // No tiene ninguna inscripción
         if(inscripcion == null) {
-            return 0;
+            return null;
         } else {
             return inscripcion;
         }

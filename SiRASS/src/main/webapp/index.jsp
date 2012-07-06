@@ -86,7 +86,7 @@
 	============================== -->
     <jsp:include page="WEB-INF/jspf/footer.jsp">
         <jsp:param name="form" value="true" />
+        <jsp:param name="script" value="login" />
     </jsp:include>
-    <script src="/SiRASS/js/login.js" type="text/javascript"></script>
 </body>
 </html>

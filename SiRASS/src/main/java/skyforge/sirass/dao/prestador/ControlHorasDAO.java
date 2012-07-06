@@ -1,4 +1,4 @@
-package skyforge.sirass.dao.programass;
+package skyforge.sirass.dao.prestador;
 
 import java.util.Collections;
 import java.util.List;
@@ -10,6 +10,7 @@ import skyforge.sirass.dao.DAO;
 import skyforge.sirass.dao.prestador.PrestadorDAO;
 import skyforge.sirass.model.prestador.ControlHoras;
 import skyforge.sirass.model.prestador.EstadoReporte;
+import skyforge.sirass.model.prestador.Inscripcion;
 
 /**
  *
@@ -93,11 +94,14 @@ public class ControlHorasDAO extends DAO {
         int idInscripcion = 0;
         Session session = HibernateUtil.getSessionFactory().openSession();
         PrestadorDAO pdao = new PrestadorDAO();
-        idInscripcion = pdao.getCurrentInscripcion(username);
-        // Obtener el control de Horas
-        Criterion crit[] = new Criterion[1];
-        crit[0] = Restrictions.eq("idInscripcion", idInscripcion);
-        lista = this.getListWithRestriction(crit, FetchMode.SELECT);
+        Inscripcion inscripcion = pdao.getCurrentInscripcion(username);
+        if (inscripcion != null) {
+            idInscripcion = inscripcion.getIdInscripcion();
+            // Obtener el control de Horas
+            Criterion crit[] = new Criterion[1];
+            crit[0] = Restrictions.eq("idInscripcion", idInscripcion);
+            lista = this.getListWithRestriction(crit, FetchMode.SELECT);
+        }
         session.close();
         return lista;
     }
@@ -114,10 +118,13 @@ public class ControlHorasDAO extends DAO {
         List<ControlHoras> lista = null;
         Criterion crit[] = new Criterion[2];
         PrestadorDAO pdao = new PrestadorDAO();
-        int idInscripcion = pdao.getCurrentInscripcion(username);
-        crit[0] = Restrictions.eq("estado", estado);
-        crit[1] = Restrictions.eq("idInscripcion", idInscripcion);
-        lista = this.getListWithRestriction(crit, FetchMode.SELECT);
+        Inscripcion inscripcion = pdao.getCurrentInscripcion(username);
+        if (inscripcion != null) {
+            int idInscripcion = inscripcion.getIdInscripcion();
+            crit[0] = Restrictions.eq("estado", estado);
+            crit[1] = Restrictions.eq("idInscripcion", idInscripcion);
+            lista = this.getListWithRestriction(crit, FetchMode.SELECT);
+        }
         return lista;
     }
 

@@ -1,3 +1,5 @@
+<%@page import="skyforge.sirass.model.prestador.Inscripcion"%>
+<%@page import="skyforge.sirass.dao.prestador.PrestadorDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
     <nav class="navbar navbar-fixed-top" id="navbar">
 		<div class="navbar-inner">
@@ -24,7 +26,7 @@
 						<a href="#"
 							class="dropdown-toggle" data-toggle="dropdown">
 						<i class="icon-user icon-white"></i>
-							username
+							<%= request.getUserPrincipal().getName() %>
 							<b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu">
@@ -57,3 +59,10 @@
 			</div>
 		</div>
 	</nav>
+<%  // Obtención de inscripción
+    if (session.getAttribute("inscripcion") == null) {
+        PrestadorDAO prestadorDAO = new PrestadorDAO();
+        Inscripcion inscripcion = prestadorDAO.getCurrentInscripcion(request.getUserPrincipal().getName());
+        session.setAttribute("inscripcion", inscripcion);
+    }
+%>

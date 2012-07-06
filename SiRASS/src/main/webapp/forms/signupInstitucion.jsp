@@ -12,7 +12,7 @@
 		<div class="control-group">
 			<label for="institucionList" class="control-label">Instituci&oacute;n o dependencia:</label>
 			<div class="controls">
-				<select name="institucionList" id="institucionList" class="input-xlarge" onchange="changeSelect(this)">
+				<select name="institucionList" id="institucionList" class="input-xlarge" onchange="changeInstitucion(this)">
 					<option selected="selected" value="">-- Selecciona tu instituci&oacute;n --</option>
 					<optgroup label="No registrada">
 						<option value="unregistred">Otra</option>
@@ -43,7 +43,7 @@
 		<div class="control-group">
 			<label for="plantelList" class="control-label">Plantel:</label>
 			<div class="controls">
-				<select name="plantelList" id="plantelList" class="input-xlarge" onchange="changeSelect(this)">
+				<select name="plantelList" id="plantelList" class="input-xlarge" onchange="changeInstitucion(this)">
 					<option value="">-- Selecciona tu plantel --</option>
                     <option value="0">Sin plantel</option>
 					<optgroup label="No registrado">

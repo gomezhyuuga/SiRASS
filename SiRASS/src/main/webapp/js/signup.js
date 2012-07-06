@@ -158,50 +158,6 @@ $(document).ready(function() {
     initFormChanger();
 });
 
-function changeSelect(select) {
-    var seleccionado = $(select);
-    var campo;
-    if (seleccionado.attr('id') == "institucionList") {
-        campo = $('#otraInstitucion');
-        $('#plantRegistrados').html('');
-        // Se selecciona -- Selecciona una institución --
-        if (seleccionado.val() == "") {
-            $('#nombrePlantel').val('');
-            $('#plantelList').prop('selectedIndex', 0);
-        } else if (seleccionado.val() == "unregistred") {
-            // Se selecciona otra
-            $('#plantelList').prop('selectedIndex', 1);
-            $('#nombrePlantel').val('');
-            campo.fadeIn();
-            $('#otroPlantel').fadeIn();
-        } else {
-            var selected = seleccionado.val();
-            console.log("Pidiendo planteles de la institución: " + selected);
-            // Cargar lista de planteles con AJAX
-            $.get("/SiRASS/Services", {
-                service: "plantelesByInst", 
-                id: selected
-            }, function(data) {
-                console.log(data);
-                $('#plantRegistrados').html(data);
-            });
-            $('#nombrePlantel').val('');
-            $('#plantelList').prop('selectedIndex', 0);
-            $('#otroPlantel').fadeOut();
-            campo.fadeOut();
-        }
-    } else if (seleccionado.attr('id') == "plantelList") {
-        campo = $('#otroPlantel');
-        // Se selecciona otro
-        if (seleccionado.val() == "unregistred") {
-            campo.fadeIn();
-        } else {
-            $('#nombrePlantel').val('');
-            campo.fadeOut();
-        }
-    }
-}
-
 function initFormChanger() {
 
     $('#btnPrestador, #btnInstitucion').on('click', function() {

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package skyforge.sirass.dao.programass;
+package skyforge.sirass.dao.prestador;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,3 +1,9 @@
+// Activar elementos en sidebar
+$(document).ready(function() {
+	var activate = $('#sidebarActive').val();
+	activate = '#sidebar li#' + activate;
+	$(activate).addClass('active');
+});
 
 function createAlert(title, bodyAlert, position, alertClass) {
 	var alert = $('<div class="alert alert-block">')

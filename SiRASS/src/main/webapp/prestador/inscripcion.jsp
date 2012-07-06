@@ -18,7 +18,7 @@
 			<!-- Sidebar
 			============================== -->
             <jsp:include page="jspf/sidebar.jsp">
-                <jsp:param name="active" value="home" />
+                <jsp:param name="active" value="inscripcion" />
             </jsp:include>
 			<!-- Contenido
 			============================== -->
@@ -28,11 +28,19 @@
 				</div>
 <%          if (session.getAttribute("inscripcion") != null) {
                 Inscripcion inscripcion = (Inscripcion) session.getAttribute("inscripcion");
-                int idEstado = inscripcion.getEstado().getIdEstado(); %>
+                int idEstado = inscripcion.getEstado().getIdEstado();
+                if (idEstado == 6) { %>
+                <p>Puedes inscribirte!</p>
+<%              } else if (idEstado == 2) { %>
+                <p class="lead">Ya est&aacute;s inscrito. No puedes volver a inscribirte a
+                    otro programa hasta que hayas
+                    terminado este periodo de Servicio Social.</p>
+<%              } else { %>
                 <jsp:include page="/WEB-INF/jspf/avisos/inscripcion.jsp">
                         <jsp:param name="aviso" value="<%= idEstado%>" />
                 </jsp:include>
-<%          } else { %>
+<%              }
+            } else { %>
                 <jsp:include page="/WEB-INF/jspf/avisos/inscripcion.jsp">
                         <jsp:param name="aviso" value="6" />
                 </jsp:include>
