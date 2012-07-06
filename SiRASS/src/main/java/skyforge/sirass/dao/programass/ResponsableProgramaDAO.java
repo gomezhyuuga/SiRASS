@@ -21,7 +21,12 @@ public class ResponsableProgramaDAO {
     }
     public ResponsablePrograma getFirstByPrograma(int id) {
         Criterion criterio = Restrictions.eq("programa.idPrograma", id);
-        return this.getWithRestriction(criterio, 1).get(0);
+        ResponsablePrograma responsable = this.getWithRestriction(criterio, 1).get(0);
+        if (responsable != null) {
+            return responsable;
+        } else {
+            return null;
+        }
     }
     
     private List<ResponsablePrograma> getWithRestriction(Criterion crit, Integer maxResults) {

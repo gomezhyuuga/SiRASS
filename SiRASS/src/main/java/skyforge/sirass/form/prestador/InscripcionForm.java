@@ -1,14 +1,22 @@
 package skyforge.sirass.form.prestador;
 
+import java.sql.Time;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import skyforge.sirass.dao.institucion.CInstitucionDAO;
+import skyforge.sirass.dao.institucion.PlantelDAO;
+import skyforge.sirass.dao.programass.ResponsableProgramaDAO;
 import skyforge.sirass.form.Form;
+import skyforge.sirass.model.institucion.CInstitucion;
+import skyforge.sirass.model.institucion.Plantel;
 import skyforge.sirass.model.prestador.Inscripcion;
+import skyforge.sirass.model.programass.ResponsablePrograma;
 import skyforge.sirass.model.user.Dia;
 
 /**
@@ -18,10 +26,14 @@ import skyforge.sirass.model.user.Dia;
 public class InscripcionForm extends Form {
 
     Inscripcion inscripcion;
+    Date curDate;
+    String modificadoPor;
     
-    public InscripcionForm(Map<String, String[]> vars, boolean dateFormat) {
-        super(vars, dateFormat);
+    public InscripcionForm(Map<String, String[]> vars, String modificadoPor) {
+        super(vars, true);
         this.inscripcion = null;
+        this.modificadoPor = modificadoPor;
+        curDate = new Date();
     }
     
     /**
@@ -34,8 +46,8 @@ public class InscripcionForm extends Form {
         if (this.getVars().get("semestre") != null) {
             short semestre;
             try {
-                semestre = Short.parseShort(this.getVars().get("dDelegacion")[0]);
-            } catch (NumberFormatException ex) {
+                semestre = Short.parseShort(this.getVars().get("semestre")[0]);
+            } catch (Exception ex) {
                 System.out.println("No se pudo establecer el semestre");
                 semestre = 0;
             }
@@ -53,7 +65,7 @@ public class InscripcionForm extends Form {
             double promedio;
             try {
                 promedio = Double.parseDouble(this.getVars().get("promedio")[0]);
-            } catch (NumberFormatException ex) {
+            } catch (Exception ex) {
                 System.out.println("No se pudo establecer el promedio");
                 promedio = 0.0;
             }
@@ -63,7 +75,7 @@ public class InscripcionForm extends Form {
             double avanceCurso;
             try {
                 avanceCurso = Double.parseDouble(this.getVars().get("avanceCurso")[0]);
-            } catch (NumberFormatException ex) {
+            } catch (Exception ex) {
                 System.out.println("No se pudo establecer el avanceCurso");
                 avanceCurso = 0.0;
             }
@@ -73,7 +85,7 @@ public class InscripcionForm extends Form {
             int anoIngreso;
             try {
                 anoIngreso = Integer.parseInt(this.getVars().get("fechaIngreso")[0]);
-            } catch (NumberFormatException ex) {
+            } catch (Exception ex) {
                 System.out.println("No se pudo establecer el fechaIngreso");
                 anoIngreso = 0;
             }
@@ -83,7 +95,7 @@ public class InscripcionForm extends Form {
             short creditos;
             try {
                 creditos = Short.parseShort(this.getVars().get("creditos")[0]);
-            } catch (NumberFormatException ex) {
+            } catch (Exception ex) {
                 System.out.println("No se pudo establecer el creditos");
                 creditos = 0;
             }
@@ -93,7 +105,7 @@ public class InscripcionForm extends Form {
             short cursosBasico;
             try {
                 cursosBasico = Short.parseShort(this.getVars().get("cursosBasico")[0]);
-            } catch (NumberFormatException ex) {
+            } catch (Exception ex) {
                 System.out.println("No se pudo establecer el cursosBasico");
                 cursosBasico = 0;
             }
@@ -103,7 +115,7 @@ public class InscripcionForm extends Form {
             short cursosSuperior;
             try {
                 cursosSuperior = Short.parseShort(this.getVars().get("cursosSuperior")[0]);
-            } catch (NumberFormatException ex) {
+            } catch (Exception ex) {
                 System.out.println("No se pudo establecer el cursosSuperior");
                 cursosSuperior = 0;
             }
@@ -130,7 +142,7 @@ public class InscripcionForm extends Form {
                     idDia = Short.parseShort(diaVal);
                     Dia dia = new Dia(idDia);
                     dias.add(dia);
-                } catch (NumberFormatException ex) {
+                } catch (Exception ex) {
                     System.out.println("No se pudo establecer el dia");
                 }
             }
@@ -156,7 +168,155 @@ public class InscripcionForm extends Form {
                 Logger.getLogger(InscripcionForm.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        if (this.getVars().get("horaEntrada") != null) {
+            String data = this.getVars().get("horaEntrada")[0];
+            try {
+                SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
+                Date horaEntrada = timeFormat.parse(data);
+                inscripcion.sethEntrada(new Time(horaEntrada.getTime()));
+            } catch (ParseException ex) {
+                Logger.getLogger(InscripcionForm.class.getName()).log(Level.SEVERE, "No se pudo convertir horaEntrada");
+                Logger.getLogger(InscripcionForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (this.getVars().get("horaSalida") != null) {
+            String data = this.getVars().get("horaSalida")[0];
+            try {
+                SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
+                Date horaSalida = timeFormat.parse(data);
+                inscripcion.sethSalida(new Time(horaSalida.getTime()));
+            } catch (ParseException ex) {
+                Logger.getLogger(InscripcionForm.class.getName()).log(Level.SEVERE, "No se pudo convertir horaSalida");
+                Logger.getLogger(InscripcionForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        // Detección de programa
+        if (this.getVars().get("idPrograma") != null &&
+            !this.getVars().get("idPrograma").equals("") &&
+            !this.getVars().get("idPrograma").equals("0")) {
+            String data = this.getVars().get("idPrograma")[0];
+            int idPrograma;
+            try {
+                idPrograma = Integer.parseInt(data);
+                inscripcion.setIdPrograma(idPrograma);
+                // Obtención de responsable
+                ResponsableProgramaDAO responsableProgramaDAO = new ResponsableProgramaDAO();
+                ResponsablePrograma responsable = responsableProgramaDAO.getFirstByPrograma(idPrograma);
+                inscripcion.setResponsable(responsable.getResponsable());
+                inscripcion.setCargoResponsable(responsable.getCargo());
+            } catch (Exception ex) {
+                Logger.getLogger(InscripcionForm.class.getName()).log(Level.SEVERE, "No se pudo convertir idPrograma");
+                Logger.getLogger(InscripcionForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            // Obtención de nombre y clave
+            if (this.getVars().get("nombrePrograma") != null) {
+                inscripcion.setPrograma(this.getVars().get("nombrePrograma")[0]);
+            }
+            if (this.getVars().get("cvePrograma") != null) {
+                inscripcion.setCvePrograma(this.getVars().get("cvePrograma")[0]);
+            }
+        }
+        
+        // Detección de institución y plantel
+        /*
+         * CASOS (OK -> EXISTE)
+         * 1) Institución OK | Plantel OK
+         *      institucionList -> != "" && != unregistred && != null
+         *      plantelList -> != "" && != unregistred && != 0
+         * 2) Institución OK | Plantel NO
+         *      institucionList -> != "" && != unregistred && != null
+         *      plantelList -> != "" && != 0 && == unregistred
+         *      nombrePlantel -> != "" && != null
+         * 3) Institución OK | Plantel NULL
+         *      institucionList -> != "" && != unregistred && != null
+         *      plantelList -> != "" && == 0 && != unregistred
+         * 4) Institucion NO | Plantel NO
+         *      institucionList -> != "" && != null && == unregistred
+         *      nombreInstitucion -> != "" && != null
+         *      plantelList -> != "" && != 0 && == unregistred
+         *      nombrePlantel -> != "" && != null
+         * 5) Institucion NO | Plantel NULL
+         *      institucionList -> != "" && != null && == unregistred
+         *      nombreInstitucion -> != "" && != null
+         *      plantelList -> != "" && == 0 && != unregistred
+         */
+        // Comprobación genérica
+        if (this.getVars().get("institucionList") != null &&
+            this.getVars().get("plantelList") != null) {
+            String institucionList = this.getVars().get("institucionList")[0];
+            String plantelList = this.getVars().get("plantelList")[0];
+            // Casos 1-3
+            if (institucionList != null &&
+                !institucionList.equals("") &&
+                !institucionList.equals("unregistred")) {
+                int idCInstitucion = Integer.parseInt(institucionList);
+                inscripcion.setInstitucion(new CInstitucion(idCInstitucion));
+                // Caso 1
+                if (plantelList != null &&
+                    !plantelList.equals("unregistred") &&
+                    !plantelList.equals("0")) {
+                    int idPlantel = Integer.parseInt(plantelList);
+                    inscripcion.setPlantel(new Plantel(idPlantel, idCInstitucion));
+                } else if (plantelList != null &&   // Caso 2
+                        !plantelList.equals("0") &&
+                        plantelList.equals("unregistred") &&
+                        this.getVars().get("nombrePlantel") != null) {
+                    String nombrePlantel = this.getVars().get("nombrePlantel")[0];
+                    int idPlantel = this.registrarPlantel(nombrePlantel, idCInstitucion);
+                    inscripcion.setPlantel(new Plantel(idPlantel, idCInstitucion));
+                } else if (plantelList != null &&   // Caso 3
+                        plantelList.equals("0") &&
+                        !plantelList.equals("unregistred")) {
+                    inscripcion.setPlantel(null);
+                }
+            } else if (institucionList != null &&
+                !institucionList.equals("") &&
+                institucionList.equals("unregistred") &&
+                this.getVars().get("nombreInstitucion") != null) {
+                // Casos 4-5
+                String nombreInstitucion = this.getVars().get("nombreInstitucion")[0];
+                int id = this.registrarCInstitucion(nombreInstitucion);
+                inscripcion.setInstitucion(new CInstitucion(id));
+                
+                // Caso 4
+                if (plantelList != null && 
+                    !plantelList.equals("0") && 
+                    plantelList.equals("unregistred") &&
+                    this.getVars().get("nombrePlantel") != null) {
+                    String nombrePlantel = this.getVars().get("nombrePlantel")[0];
+                    int idPlantel = this.registrarPlantel(nombrePlantel, id);
+                    inscripcion.setPlantel(new Plantel(idPlantel, id));
+                } else if (plantelList != null && 
+                    plantelList.equals("0") && 
+                    !plantelList.equals("registred")) {
+                    inscripcion.setPlantel(null);
+                }
+            }
+        }
         return this.inscripcion;
     }
     
+    private int registrarPlantel(String nombrePlantel, int idCInstitucion) {
+        PlantelDAO plantelDAO = new PlantelDAO();
+        Plantel plantel = new Plantel();
+        plantel.setIdCInstitucion(idCInstitucion);
+        plantel.setNombre(nombrePlantel);
+        plantel.setCreacion(curDate);
+        plantel.setUltimaModif(curDate);
+        plantel.setModificadoPor(modificadoPor);
+        plantelDAO.insert(plantel);
+        return plantel.getIdPlantel();
+    }
+    
+    private int registrarCInstitucion(String nombre) {
+        CInstitucion cInstitucion = new CInstitucion();
+        cInstitucion.setNombre(nombre);
+        cInstitucion.setCreacion(curDate);
+        cInstitucion.setUltimaModif(curDate);
+        cInstitucion.setModificadoPor(modificadoPor);
+        CInstitucionDAO cInstitucionDAO = new CInstitucionDAO();
+        cInstitucionDAO.insert(cInstitucion);
+        return cInstitucion.getIdCInstitucion();
+    }
 }
