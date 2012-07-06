@@ -121,7 +121,7 @@
                                 <%while(it4.hasNext()){
                                     TipoPrograma tp = (TipoPrograma) it4.next();
                                 %>
-		    		<p><%= tp.getDescripcion() %></p>
+		    		<p>- <%= tp.getDescripcion() %></p>
                                 <% } %>
 		    	<h3>Duraci&oacute;n</h3>
                         <p><%= progamaSS.getTiempo().getDescripcion() %> <strong>Vigencia </strong><%= progamaSS.getFechaTiempo() %></p>
@@ -129,13 +129,13 @@
                                 <%while(it1.hasNext()){
                                     AlcancePrograma al = (AlcancePrograma) it1.next();
                                 %>
-		    		<p><%= al.getDescripcion() %></p>
+		    		<p>- <%= al.getDescripcion() %></p>
                                 <% } %>
 		    	<h3>Poblaci&oacute;n a atender</h3>
                                 <%while(it2.hasNext()){
                                     PoblacionPrograma pp = (PoblacionPrograma) it2.next();
                                 %>
-		    		<p><%= pp.getDescripcion() %></p>
+		    		<p>- <%= pp.getDescripcion() %></p>
                                 <% } %>
 		    	<h3>Lugar de Realizaci&oacute;n</h3>
 		    		<p><%= progamaSS.getLugar() %></p>
@@ -143,7 +143,7 @@
                                 <%while(it5.hasNext()){
                                     Dia d = (Dia) it5.next();
                                 %>
-		    		<p><%= d.getDiaSemana() %></p>
+		    		<p>- <%= d.getDiaSemana() %></p>
                                 <% } %>
 		    	<h3>Horario</h3>
 		    		<p><%= progamaSS.getHorario().getDescripcion() %></p>
@@ -159,28 +159,21 @@
 		    			</tr>
 		    		</thead>
 		    		<tbody>
+                                    <%
+                                    while(it.hasNext()){
+                                        ActividadPrograma ap = (ActividadPrograma) it.next();
+                                    %>
 		    			<tr>
 		    				<td>
 <textarea rows="10" readonly="true" style="resize:none; margin: 0 auto; display: block;" class="input-xxlarge">
-<%= progamaSS.getActividad() %>
+<%= ap.getActividad() %>
 </textarea>
 							</td>
-							<td> -Comunicación y cultura</td>
-							<td>5</td>
+							<td><%= ap.getLicenciatura() %></td>
+							<td><%= ap.getnSolicitados() %></td>
 							<td>X</td>
 		    			</tr>
-		    			<tr>
-		    				<td></td>
-		    				<td>-Arte y patrimonio cultural</td>
-		    				<td>5</td>
-		    				<td>X</td>
-		    			</tr>
-		    			<tr>
-		    				<td></td>
-		    				<td>-Promoción de la salud</td>
-		    				<td>5</td>
-		    				<td>X</td>
-		    			</tr>
+		    			<% } %>
 		    		</tbody>
 		    	</table>
 		    </div>
