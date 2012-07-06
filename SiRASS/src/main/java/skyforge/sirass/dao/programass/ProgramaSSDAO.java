@@ -45,7 +45,10 @@ public class ProgramaSSDAO extends DAO {
         plist.add(Projections.property("p.nombre").as("nombre"));
         plist.add(Projections.property("p.idPrograma").as("idPrograma"));
         plist.add(Projections.property("p.cvePrograma").as("cvePrograma"));
-        programas = (List<ProgramaSS>) session.createCriteria(ProgramaSS.class, "p").setProjection(plist).setResultTransformer(new AliasToBeanResultTransformer(ProgramaSS.class)).list();
+        programas = (List<ProgramaSS>) session.createCriteria(ProgramaSS.class, "p")
+                .setProjection(plist)
+                .setResultTransformer(new AliasToBeanResultTransformer(ProgramaSS.class))
+                .list();
         session.close();
         return programas;
     }
@@ -103,11 +106,26 @@ public class ProgramaSSDAO extends DAO {
         return this.getWithRestrictions(criterios);
     }
 
+    /**
+     * Obtiene un programa con ciertas restricciones. Todas sus relaciones puestas
+     * como JOIN
+     * @param crit Restricciones a aplicar
+     * @return Objeto tipo ProgramaSS
+     */
     private ProgramaSS getWithRestrictions(Criterion crit[]) {
         ProgramaSS programa = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         // Obtener el control de Horas
-        Criteria criteria = session.createCriteria(ProgramaSS.class).setFetchMode("tipo", FetchMode.JOIN).setFetchMode("alcance", FetchMode.JOIN).setFetchMode("categoria", FetchMode.JOIN).setFetchMode("poblacion", FetchMode.JOIN).setFetchMode("dias", FetchMode.JOIN).setFetchMode("responsables", FetchMode.JOIN).setFetchMode("actividad", FetchMode.JOIN).setFetchMode("horario", FetchMode.JOIN).setFetchMode("tiempo", FetchMode.JOIN);
+        Criteria criteria = session.createCriteria(ProgramaSS.class)
+                .setFetchMode("tipo", FetchMode.JOIN)
+                .setFetchMode("alcance", FetchMode.JOIN)
+                .setFetchMode("categoria", FetchMode.JOIN)
+                .setFetchMode("poblacion", FetchMode.JOIN)
+                .setFetchMode("dias", FetchMode.JOIN)
+                .setFetchMode("responsables", FetchMode.JOIN)
+                .setFetchMode("actividad", FetchMode.JOIN)
+                .setFetchMode("horario", FetchMode.JOIN)
+                .setFetchMode("tiempo", FetchMode.JOIN);
         // Agregar todos los criterios
         for (Criterion criterion : crit) {
             criteria.add(criterion);
@@ -116,6 +134,36 @@ public class ProgramaSSDAO extends DAO {
         programa = (ProgramaSS) criteria.uniqueResult();
         session.close();
         return programa;
+    }
+    
+    /**
+     * Obtiene un programa con ciertas restricciones. Todas sus relaciones puestas
+     * como JOIN
+     * @param crit Restricciones a aplicar
+     * @return Objeto tipo ProgramaSS
+     */
+    private List<ProgramaSS> getListWithRestrictions(Criterion crit[]) {
+        List<ProgramaSS> programas = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        // Obtener el control de Horas
+        Criteria criteria = session.createCriteria(ProgramaSS.class)
+                .setFetchMode("tipo", FetchMode.SELECT)
+                .setFetchMode("alcance", FetchMode.SELECT)
+                .setFetchMode("categoria", FetchMode.SELECT)
+                .setFetchMode("poblacion", FetchMode.SELECT)
+                .setFetchMode("dias", FetchMode.SELECT)
+                .setFetchMode("responsables", FetchMode.SELECT)
+                .setFetchMode("actividad", FetchMode.SELECT)
+                .setFetchMode("horario", FetchMode.SELECT)
+                .setFetchMode("tiempo", FetchMode.SELECT);
+        // Agregar todos los criterios
+        for (Criterion criterion : crit) {
+            criteria.add(criterion);
+        }
+        // Devolver un solo resultado
+        programas = (List<ProgramaSS>) criteria.list();
+        session.close();
+        return programas;
     }
 
     public List<ProgramaSS> getProgramaByCateg(CategoriaPrograma categoria, CEstado estado) {

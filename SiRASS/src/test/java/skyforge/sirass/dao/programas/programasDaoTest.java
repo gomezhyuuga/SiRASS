@@ -18,8 +18,11 @@ import skyforge.sirass.model.programass.ProgramaSS;
  * @author JL Macias
  */
 public class programasDaoTest {
-    
+
+    ProgramaSSDAO pdao;
+
     public programasDaoTest() {
+        pdao = new ProgramaSSDAO();
     }
 
     @BeforeClass
@@ -29,20 +32,17 @@ public class programasDaoTest {
     @AfterClass
     public static void tearDownClass() throws Exception {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
 
-    
-    
     @Test
     public void testProgramas() {
-        ProgramaSSDAO pdao = new ProgramaSSDAO();
         CategoriaPrograma categoriaPrograma = new CategoriaPrograma();
         CEstado cEstado = new CEstado();
         categoriaPrograma.setIdCategoria(2);
@@ -52,19 +52,36 @@ public class programasDaoTest {
         while (it.hasNext()) {
             ProgramaSS programaSS = it.next();
             System.out.println(programaSS.getInstitucion());
-        } 
+        }
+        /*
+         * TODO
+         * Comprobar que el test sea correcto. Revisa los otros tests.
+         */
     }
-    
+
     @Test
-    public void testProgByPK(){
-        ProgramaSSDAO pdao = new ProgramaSSDAO();
+    public void testProgByPK() {
         ProgramaSS programaSS = pdao.getByPK(2);
-            System.out.println(programaSS.getNombre());
-            System.out.println(programaSS.getIdPrograma());
-            System.out.println(programaSS.getIdInstitucion());
-            System.out.println(programaSS.getResultados());
-            System.out.println(programaSS.getCvePrograma());
-            System.out.println(programaSS.getArea());
-            System.out.println(programaSS.getAlcance());
+        System.out.println(programaSS.getNombre());
+        System.out.println(programaSS.getIdPrograma());
+        System.out.println(programaSS.getIdInstitucion());
+        System.out.println(programaSS.getResultados());
+        System.out.println(programaSS.getCvePrograma());
+        System.out.println(programaSS.getArea());
+        System.out.println(programaSS.getAlcance());
+        /*
+         * TODO
+         * Comprobar que el test sea correcto. Revisa los otros tests.
+         */
+    }
+
+    @Test
+    public void testGetListFew() {
+        System.out.println("testGetListFew...");
+        List<ProgramaSS> list = pdao.getListFew();
+        Assert.assertNotNull(list);
+        Assert.assertNotNull(list.get(0).getNombre());
+        Assert.assertNotNull(list.get(0).getIdPrograma());
+        Assert.assertNotNull(list.get(0).getCvePrograma());
     }
 }
