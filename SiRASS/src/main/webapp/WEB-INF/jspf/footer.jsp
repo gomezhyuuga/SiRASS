@@ -15,9 +15,6 @@
         <!-- jQuery 1.7.2
         ============================== -->
         <script src="/SiRASS/js/jquery-1.7.2.min.js" type="text/javascript"></script>
-        <!-- Bootstrap
-        ============================== -->
-        <script src="/SiRASS/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
         <%  if (request.getParameter("form") != null &&
                 request.getParameter("form").equals("true")) { %>
         <!-- AJAX FORM -->
@@ -51,3 +48,6 @@
             }
         %>
         <script src="/SiRASS/js/utils.js" charset="UTF-8" type="text/javascript"></script>
+        <!-- Bootstrap
+        ============================== -->
+        <script src="/SiRASS/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>

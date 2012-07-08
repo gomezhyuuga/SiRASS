@@ -16,6 +16,7 @@ import skyforge.sirass.form.Form;
 import skyforge.sirass.model.institucion.CInstitucion;
 import skyforge.sirass.model.institucion.Plantel;
 import skyforge.sirass.model.prestador.Inscripcion;
+import skyforge.sirass.model.prestador.TipoInscripcion;
 import skyforge.sirass.model.programass.ResponsablePrograma;
 import skyforge.sirass.model.user.Dia;
 
@@ -43,6 +44,23 @@ public class InscripcionForm extends Form {
      */
     public Inscripcion getObject() {
         this.inscripcion = new Inscripcion();
+        if (this.getVars().get("tipoSS") != null) {
+            short tipoSS;
+            try {
+                tipoSS = Short.parseShort(this.getVars().get("tipoSS")[0]);
+                inscripcion.setTipo(new TipoInscripcion(tipoSS));
+            } catch (Exception ex) {
+                System.out.println("No se pudo establecer el tipoSS");
+            }
+        }
+        if (this.getVars().get("difundir") != null) {
+            String data = this.getVars().get("difundir")[0];
+            if (data.equals("1")) {
+                inscripcion.setDifundir(true);
+            } else if (data.equals("0")) {
+                inscripcion.setDifundir(false);
+            }
+        }
         if (this.getVars().get("semestre") != null) {
             short semestre;
             try {
@@ -190,7 +208,11 @@ public class InscripcionForm extends Form {
                 Logger.getLogger(InscripcionForm.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+        if (this.modificadoPor != null) {
+            inscripcion.setModificadoPor(this.modificadoPor);
+        } else {
+            inscripcion.setModificadoPor("system");
+        }
         // Detección de programa
         if (this.getVars().get("idPrograma") != null &&
             !this.getVars().get("idPrograma").equals("") &&

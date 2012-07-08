@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="skyforge.sirass.model.prestador.Prestador" table="MPrestador">
+    <class name="skyforge.sirass.model.prestador.Prestador" table="MPrestador" dynamic-update="true" dynamic-insert="true">
         <id column="idPrestador" name="idPrestador" type="integer">
             <generator class="increment" />
         </id>

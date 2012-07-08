@@ -1,3 +1,4 @@
+<%@page import="skyforge.sirass.model.prestador.EstadoInscripcion"%>
 <%@page import="skyforge.sirass.model.prestador.Inscripcion"%>
 <%@page import="skyforge.sirass.dao.prestador.PrestadorDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -63,6 +64,12 @@
     if (session.getAttribute("inscripcion") == null) {
         PrestadorDAO prestadorDAO = new PrestadorDAO();
         Inscripcion inscripcion = prestadorDAO.getCurrentInscripcion(request.getUserPrincipal().getName());
-        session.setAttribute("inscripcion", inscripcion);
+        if (inscripcion != null) {
+            session.setAttribute("inscripcion", inscripcion);
+        } else {
+            Inscripcion insc = new Inscripcion();
+            insc.setEstado(new EstadoInscripcion((short) 6));
+            session.setAttribute("inscripcion", insc);
+        }
     }
 %>

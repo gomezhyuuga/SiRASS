@@ -20,6 +20,8 @@ public class InscripcionFormTest {
 
     public InscripcionFormTest() {
         vars = new HashMap<String, String[]>();
+        vars.put("tipoSS", new String[]{"1"});
+        vars.put("difundir", new String[]{"1"});
         vars.put("semestre", new String[]{"6"});
         vars.put("especialidad", new String[]{"Técnico en programación"});
         vars.put("matricula", new String[]{"2010090251"});
@@ -64,6 +66,8 @@ public class InscripcionFormTest {
         System.out.println("testGetObject...");
         System.out.println("Creando inscripción...");
         inscripcion = form.getObject();
+        System.out.println("tipoSS: " + inscripcion.getTipo().getIdTipo());
+        System.out.println("difundir: " + inscripcion.getTipo().getIdTipo());
         System.out.println("semestre: " + inscripcion.getSemestre());
         System.out.println("fechaIngreso: " + inscripcion.getAnioIngreso());
         System.out.println("area: " + inscripcion.getArea());

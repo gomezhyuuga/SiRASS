@@ -3,6 +3,7 @@ package skyforge.sirass.dao.prestador;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
@@ -67,6 +68,53 @@ public class PrestadorDAO extends DAO {
             return this.getCurrentInscripcion(idPrestador);
         } else {
             return null;
+        }
+    }
+    
+    /**
+     * Establece la inscripción de un prestador en el servicio social
+     * @param idInscripcion ID de inscripción
+     * @param idPrestador ID del prestador
+     * @return 1 si OK, 0 si ocurrió un error
+     */
+    public int setInscripcion(Integer idInscripcion, int idPrestador) {
+        int status = 0;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction trans = null;
+        try {
+             trans = session.beginTransaction();
+             Query query = session.createQuery("update Prestador set inscripcion = :newInsc where idPrestador = :idPrestador");
+             if (idInscripcion != null ) {
+                query.setInteger("newInsc", idInscripcion);
+             } else {
+                query.setParameter("newInsc", null);
+             }
+             query.setInteger("idPrestador", idPrestador);
+             status = query.executeUpdate();
+             trans.commit();
+        } catch (Exception e) {
+            System.out.println("ERROR ESTABLECIENDO INSCRIPCIÓN DE PRESTADOR");
+            e.printStackTrace();
+            status = 0;
+            trans.rollback();
+        } finally {
+            session.close();
+        }
+        return status;
+    }
+    /**
+     * Establece la inscripción de un prestador en el servicio social
+     * @param idInscripcion ID de inscripción
+     * @param username usuario del prestador
+     * @return 1 si OK, 0 si ocurrió un error
+     */
+    public int setInscripcion(Integer idInscripcion, String username) {
+        UsuarioDAO udao = new UsuarioDAO();
+        int idPrestador = udao.getIdPrestador(username);
+        if (idPrestador != 0) {
+            return this.setInscripcion(idInscripcion, idPrestador);
+        } else {
+            return 0;
         }
     }
     

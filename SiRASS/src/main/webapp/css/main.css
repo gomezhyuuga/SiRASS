@@ -1,3 +1,35 @@
+/* css for timepicker */
+.ui-timepicker-div {
+	margin-bottom: -18px;
+}
+.ui-timepicker-div .ui-widget-header {
+	border: 1px solid #648bb0;
+	color: #577999;
+	background: -moz-linear-gradient(90deg, #90beea 0%, #b7d7f6 100%) #b7d7f6;
+	background: -webkit-gradient(linear, left bottom, left top, from(#90beea), to(#b7d7f6)) #b7d7f6;
+}
+.ui-timepicker-div dl {
+	text-align: left;
+	padding-left: 10px;
+	padding-bottom: 8px;
+}
+.ui-timepicker-div dl dt { 
+	height: 25px;
+	margin-bottom: -25px;
+}
+.ui-timepicker-div dl dd { 
+	margin: 0 10px 10px 65px;
+}
+.ui-timepicker-div td { 
+	font-size: 90%;
+}
+.ui-tpicker-grid-label { 
+	background: none;
+	border: none;
+	margin: 0;
+	padding: 0;
+}
+
 body {
 	background-image: url(../assets/background.png);
 	background-repeat: repeat;

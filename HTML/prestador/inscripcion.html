@@ -28,20 +28,31 @@
 		<link rel="stylesheet" type="text/css" href="../css/custom-theme/jquery.ui.1.8.16.ie.css"/>
 	<![endif]-->
 	<script src="../js/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
-	
+	<!-- AJAX FORM -->
+	<script src="../js/jquery.form.js" type="text/javascript"></script>
+	<!-- Validator
+	============================== -->
+	<script src="../js/jquery-validation-1.9.0/jquery.validate.min.js" type="text/javascript"></script>
+	<script src="../js/jquery-validation-1.9.0/additional-methods.min.js" type="text/javascript"></script>
+	<script src="../js/jquery-validation-1.9.0/localization/messages_es.js" type="text/javascript"></script>
+	<script src="../js/makeusabrew-bootbox-85c33b4/bootbox.min.js" type="text/javascript"></script>
 	<title>SiRASS - Sistema de Registro y Administraci&oacute;n de Servicio Social</title>
 	<meta name="description" content="Sistema de Registro y Administraci&oacute;n de Servicio Social" />
 	<meta name="author" content="Skyforge" />
 	<meta name="keywords" content="servicio social, uacm, skyforge, practicas profesionales" />
 	<link rel="stylesheet" type="text/css" href="../css/main.css">
 	<script src="../js/utils.js" type="text/javascript"></script>
+	<script src="../js/inscripcion.js" type="text/javascript"></script>
 	<link rel="icon" href="../favicon.ico" type="image/x-icon" />
-	<!-- Bootstrap
+		<!-- Bootstrap
 	============================== -->
 	<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" type="text/css" />
 	<script src="../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 	
-</head>
+	<style>
+		.red { color: red; }
+	</style>
+	</head>
 <body>
 	<!-- Navbar
 	============================== -->
@@ -163,11 +174,12 @@
 					<h1>Inscripción al Servicio Social</h1>
 				</div>
 				<p>Para inscribirte en un programa de Servicio Social llena los siguientes datos.</p>
-				<form method="post" action="#" class="form-horizontal">
+				<div id="feedback"></div>
+				<form method="post" action="#" class="form-horizontal" name="form-inscripcion" id="form-inscripcion">
 					<input type="hidden" name="class" value="Inscripcion" />
-					<div id="tipoServicio" class="center centerDiv">
+					<div id="tipoServicio" class="form-actions">
 						<input type="hidden" name="tipoSS" id="tipoSS" value="1" />
-						<div class="btn-group" data-toggle="buttons-radio" style="display: inline-block;">
+						<div class="btn-group" data-toggle="buttons-radio">
 		                    <button type="button" id="ss" value="1"
 		                            class="btn btn-large btn-info">Servicio Social</button>
 		                    <button type="button" id="pp" value="2"
@@ -176,7 +188,7 @@
                     </div>
 					<!-- tabs -->
 					<div class="tabbable">
-		                <ul class="nav nav-tabs">
+		                <ul class="nav nav-tabs" id="navInscripcion">
 		                    <li class="active">
 		                        <a href="#datosEscolares" data-toggle="tab">Datos escolares</a>
 		                    </li>
@@ -307,6 +319,9 @@
 								   </div>
 								</div> 
 							</div> <!-- end prácticas profesionales -->
+							<div class="form-actions">
+								<h6>Pulsa en <a href="#" id="next">Datos del programa</a> para continuar</h6>
+							</div>
 		            	</div>
 		            	<div class="tab-pane" id="datosPrograma">
 		            		<fieldset>
@@ -392,8 +407,25 @@
             		                </div>
             		            </div>
             		        </fieldset> <!-- end datos del programa SS -->
+            		        <div class="control-group">
+            		        	<label class="control-label" for="difundir">Difundir:</label>
+            		        	<div class="controls">
+            		        		<label class="radio">
+            		        			<input type="radio" name="difundir" id="difundirOK" value="1" checked="checked" />
+            		        			Acepto que mis datos puedan ser difundidos
+            		        		</label>
+            		        		<label class="radio">
+            		        			<input type="radio" name="difundir" id="difundirNO" value="0" />
+            		        			Deseo que mis datos se mantengan en privado
+            		            	</label>
+            		            </div>
+            		        </div>
+            		        <div class="form-actions">
+            		        	<button type="submit" class="btn btn-success btn-large">Inscribirse</button>
+            		        	<button type="reset" class="btn btn-inverse btn-large">Restablecer</button>
+            		        </div>
 		            	</div>
-		            </div>
+		            </div> <!-- end tabs -->
 	            </form>
 			</div>
 		</div>
@@ -411,46 +443,5 @@
 			</div>
 		</div>
 	</footer>
-	<script type="text/javascript">
-		$.datepicker.setDefaults(
-		{
-			showAnim: "blind",
-			dateFormat: "dd/mm/yy",
-			minDate: "-70y",
-			maxDate: "-13y",
-			changeMonth: true,
-			changeYear: true
-		});
-		$.datepicker.regional['es'];
-		
-		$('#fechaIngreso').datepicker();
-		$('#fInicio').datepicker();
-		$('#fTermino').datepicker();
-		
-		$('#horaEntrada, #horaSalida').timepicker({});
-		
-		var practicasDiv = $('#practicas');
-	    practicasDiv.hide();
-	    var practicasInputs = practicasDiv.contents().find('input');
-	    
-	    var tipoServicio = $('#tipoSS');
-	    // Cuando se pulse en servicio Social o practicas profeionales
-	    $('#ss, #pp').on('click', function() {
-	        var button = $(this);
-	        // Comprobar si ya estaba seleccionado
-	        if (!button.hasClass('active')) {
-	            // Establecer el tipo de servicio
-	            tipoServicio.val(button.val());
-	            // Mostrar u ocultar sección de prácticas profesionales
-	            if (button.attr('id') == "pp") {
-	                practicasDiv.slideDown();
-	            } else {
-	                practicasDiv.slideUp();
-	                // Restablecer los valores de los campos en caso de ocultarlo
-	                practicasInputs.val('');
-	            }
-	        }
-	    });
-	</script>
 </body>
 </html>

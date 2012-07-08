@@ -126,7 +126,7 @@ $(document).ready(function() {
                 required: function(element) {
                     return $('#institucionList').val() == "unregistred";
                 },
-                maxlength: 100
+                maxlength: 150
             },
             plantelList: {
                 required: function(element) {

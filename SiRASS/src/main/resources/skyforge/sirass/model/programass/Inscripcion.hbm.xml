@@ -26,7 +26,7 @@
     <property column="horaSalida" name="hSalida" not-null="true" type="time"/>
     <property column="difundir" name="difundir" not-null="true" type="boolean"/>
     <property column="responsable" length="80" name="responsable" not-null="true" type="string"/>
-    <property column="cargoResponsable" length="50" name="cargoResponsable" not-null="true" type="string"/>
+    <property column="cargoResponsable" length="200" name="cargoResponsable" not-null="true" type="string"/>
     <property column="observaciones" length="150" name="observaciones" not-null="false" type="string"/>
     <property column="area" length="100" name="area" not-null="false" type="string"/>
     <!-- relaciones -->

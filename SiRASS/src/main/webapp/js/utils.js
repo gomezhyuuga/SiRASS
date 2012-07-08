@@ -1,25 +1,25 @@
 // Activar elementos en sidebar
 $(document).ready(function() {
-    var activate = $('#sidebarActive').val();
-    activate = '#sidebar li#' + activate;
-    $(activate).addClass('active');
+	var activate = $('#sidebarActive').val();
+	activate = '#sidebar li#' + activate;
+	$(activate).addClass('active');
 });
 
 function createAlert(title, bodyAlert, position, alertClass) {
-    var alert = $('<div class="alert alert-block">')
-    var closeBtn = $('<a class="close" data-dismiss="alert" href="#">×</a>');
-    var header = $('<h4 class="alert-heading">');
-    var info = $('<p>');
+	var alert = $('<div class="alert alert-block">')
+	var closeBtn = $('<a class="close" data-dismiss="alert" href="#">×</a>');
+	var header = $('<h4 class="alert-heading">');
+	var info = $('<p>');
 	
-    alert.addClass(alertClass);
-    header.text(title);
-    info.html(bodyAlert);
+	alert.addClass(alertClass);
+	header.text(title);
+	info.html(bodyAlert);
 	
-    alert.append(closeBtn);
-    alert.append(header);
-    alert.append(info);
+	alert.append(closeBtn);
+	alert.append(header);
+	alert.append(info);
 	
-    $(position).after(alert);
+	$(position).after(alert);
 }
 
 // pre-submit callback 
@@ -64,19 +64,19 @@ function changePrograma(programas) {
     
     // Obtener la clave del programa
     if (programas.options.item(seleccionado) != null) {
-        var clave = programas.options.item(seleccionado).getAttribute("data-cve");
-        // Obtener el id del programa
-        var idPrograma = programas.options.item(seleccionado).getAttribute("value");
-        var nombre = programas.options.item(seleccionado).text;
-        if (idPrograma != 0 && idPrograma != "") {
-            // Cambiar la clave del programa
-            cvePrograma.val(clave);
-            nombrePrograma.val(nombre);
-        } else {
-            // No se seleccionó ningún programa de la lista (value=0)
-            cvePrograma.val('');
-            nombrePrograma.val('');
-        }
+		var clave = programas.options.item(seleccionado).getAttribute("data-cve");
+	    // Obtener el id del programa
+	    var idPrograma = programas.options.item(seleccionado).getAttribute("value");
+	    var nombre = programas.options.item(seleccionado).text;
+	    if (idPrograma != 0 && idPrograma != "") {
+	        // Cambiar la clave del programa
+	        cvePrograma.val(clave);
+	        nombrePrograma.val(nombre);
+	    } else {
+	        // No se seleccionó ningún programa de la lista (value=0)
+	        cvePrograma.val('');
+	        nombrePrograma.val('');
+	    }
     } else {
         // No se seleccionó ningún programa de la lista (value=0)
         cvePrograma.val('');

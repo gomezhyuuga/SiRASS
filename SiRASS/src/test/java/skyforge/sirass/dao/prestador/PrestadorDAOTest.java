@@ -34,7 +34,7 @@ public class PrestadorDAOTest {
     public void tearDown() {
     }
     
-    @Test
+//    @Test
     public void getCurrentInscripcionPorID() {
         System.out.println("## getCurrentInscripcionPorID...");
         Inscripcion inscripcion = dao.getCurrentInscripcion("gomezhyuuga");
@@ -48,5 +48,16 @@ public class PrestadorDAOTest {
         System.out.println("idInscripcion: " + inscripcion.getIdInscripcion());
         System.out.println("estado: " + inscripcion.getEstado().getDescripcion());
         System.out.println("horasRealizadas: " + inscripcion.getHorasRealizadas());
+    }
+    @Test
+    public void testSetInscripcion() {
+        System.out.println("## testSetInscripcion...");
+        int idInscripcion = 44;
+        int idPrestador = 1;
+        String username = "gomezhyuuga";
+        int result = dao.setInscripcion(idInscripcion, idPrestador);
+        Assert.assertEquals(1, result);
+        result = dao.setInscripcion(22, "prestador1");
+        Assert.assertEquals(1, result);
     }
 }

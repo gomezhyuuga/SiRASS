@@ -37,7 +37,7 @@
 			<label for="nombreInstitucion" class="control-label">Nombre:</label>
 			<div class="controls">
 				<input type="text" id="nombreInstitucion" name="nombreInstitucion"
-					placeholder="Nombre de la instituci&oacute;n" class="input-xlarge" maxlength="100" />
+					placeholder="Nombre de la instituci&oacute;n" class="input-xlarge" maxlength="150" />
 			</div>
 		</div>
 		<div class="control-group">
