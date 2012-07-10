@@ -127,8 +127,10 @@ public class DAO {
         try {
             Criteria criteria = session.createCriteria(clase);
             // Agregar restricciones
-            for (Criterion crit : crits) {
-                criteria.add(crit);
+            if (crits != null) {
+                for (Criterion crit : crits) {
+                    criteria.add(crit);
+                }
             }
             list = criteria.list();
         } catch (ConstraintViolationException e) {

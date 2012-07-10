@@ -1,12 +1,17 @@
 package skyforge.sirass.dao.prestador;
 
+import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.AliasToBeanResultTransformer;
 import skyforge.sirass.HibernateUtil;
 import skyforge.sirass.dao.DAO;
+import skyforge.sirass.model.prestador.EstadoInscripcion;
 import skyforge.sirass.model.prestador.Inscripcion;
 
 /**
@@ -14,6 +19,7 @@ import skyforge.sirass.model.prestador.Inscripcion;
  * @author gomezhyuuga
  */
 public class InscripcionDAO extends DAO{
+    
     /***
      * Inscribe a a lguien en un programa de Servicio Social
      * @param inscripcion - La inscripcion
@@ -42,6 +48,47 @@ public class InscripcionDAO extends DAO{
                 .uniqueResult();
         session.close();
         return inscripcion;
+    }
+    
+    /**
+     * Obtiene una lista de inscripciones con únicamnete los atributos:
+     * idInscripcion, prestador, tipo, estado, programa
+     * 
+     * @param ESTADO - Estado de la inscripción para filtrar
+     * @return Lista de inscripciones, null si no hay
+     */
+    public List<Inscripcion> getFewWithStatus(short ESTADO) {
+        Criterion[] crits = {Restrictions.eq("i.estado", new EstadoInscripcion((short) ESTADO))};
+        return this.getAllFew(crits);
+    }
+    
+    /**
+     * Obtiene una lista de inscripciones con únicamnete los atributos:
+     * idInscripcion, prestador, tipo, estado, programa
+     * 
+     * @param crits - Restricciones a aplicar al hacer la consulta
+     * @return Lista de inscripciones, null si no hay
+     */
+    private List<Inscripcion> getAllFew(Criterion[] crits) {
+        List<Inscripcion> inscripciones = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        ProjectionList plist = Projections.projectionList();
+        plist.add(Projections.property("i.idInscripcion").as("idInscripcion"));
+        plist.add(Projections.property("i.prestador").as("prestador"));
+        plist.add(Projections.property("i.tipo").as("tipo"));
+        plist.add(Projections.property("i.estado").as("estado"));
+        plist.add(Projections.property("i.programa").as("programa"));
+        Criteria criteria = session.createCriteria(Inscripcion.class, "i")
+                .setProjection(plist)
+                .setResultTransformer(new AliasToBeanResultTransformer(Inscripcion.class));
+        // Agregar restrecciín
+        if (crits != null) {
+            for (Criterion crit : crits) {
+                criteria.add(crit);
+            }
+        }
+        inscripciones = criteria.list();
+        return inscripciones;
     }
     
     /**

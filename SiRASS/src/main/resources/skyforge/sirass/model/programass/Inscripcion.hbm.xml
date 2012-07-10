@@ -38,7 +38,7 @@
     <many-to-one cascade="evict" class="skyforge.sirass.model.prestador.TipoInscripcion" column="tipo" name="tipo" not-null="true" />
     <many-to-one cascade="evict" class="skyforge.sirass.model.institucion.CInstitucion" column="idInstitucion" name="institucion" lazy="false"/>
     <many-to-one cascade="evict" class="skyforge.sirass.model.institucion.Plantel" column="idPlantel" name="plantel" lazy="false"/>
-    <many-to-one cascade="save-update" class="skyforge.sirass.model.prestador.Prestador" column="idPrestador" name="prestador" lazy="false" fetch="join" />
+    <many-to-one cascade="save-update" class="skyforge.sirass.model.prestador.Prestador" column="idPrestador" name="prestador" />
 <!--    <many-to-one cascade="evict" class="skyforge.sirass.model.programass.ProgramaSS" column="idPrograma" name="programa"/>-->
     <!-- del registro -->
     <property column="creacion" name="creacion" not-null="true" type="java.util.Date"/>

@@ -35,7 +35,7 @@ $(document).ready(function() {
 		}
 	});
 	
-	if ($('#errorLogin') == "true") {
+	if ($('#errorLogin').val() == "true") {
 		$('#modal-login').modal('show');
 	}
 	console.log("it works!");

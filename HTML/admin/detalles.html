@@ -160,63 +160,19 @@
 			============================== -->
 			<div class="span8 solid">
 				<div class="page-header">
-					<h1>Inscripciones</h1>
+					<h1>Detalles de inscripción <small>{{idInscripcion}}</small></h1>
 				</div>
-				<p class="lead">Selecciona una opción para filtrar las inscripciones.</p>
-				<div class="form-actions">
-					<div class="btn-group" data-toggle="buttons-radio">
-						<a class="btn btn-primary" href="#">Esperando</a>
-						<a class="btn btn-danger">Con errores</a>
-						<a class="btn btn-success">En servicio</a>
-						<a class="btn btn-warning active">Suspendida</a>
-						<a class="btn btn-inverse">Cancelada</a>
-						<a class="btn">Finalizadas</a>
+				<div class="row">
+					<div class="span2"
+						<p><strong>Tipo</strong>: {{tipo}}</p>
+						<p><strong>Estado</strong>: {{estado}}</p>
+					</div>
+					<div class="span3 pull-right">
+						<p><strong>Horas realizadas:</strong> {{hrsAcum}}</p>
+						<p><strong>Prestador:</strong> <a href="#">{{prestador}}</a></p>
 					</div>
 				</div>
-				<div id="registros">
-					<table class="table table-striped table-bordered">
-						<thead>
-							<tr>
-								<th>Usuario</th>
-								<th>Tipo</th>
-								<th>Programa</th>
-								<th class="span2">Acciones</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>gomezhyuuga</td>
-								<td>Servicio Social</td>
-								<td>Apoyo Académico en la UACM</td>
-								<td>
-									<div class="btn-group">
-										<button class="btn btn-success btn-mini">Reactivar</button>
-										<button class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown">
-											<span class="caret"></span>
-										</button>
-										<ul class="dropdown-menu">
-											<li>
-												<a href="#"><i class="icon-eye-open"></i>
-													Revisar
-												</a>
-											</li>
-											<li>
-												<a href="#"><i class="icon-remove"></i>
-													Cancelar Servicio
-												</a>
-											</li>
-											<li>
-												<a href="#"><i class="icon-remove-circle"></i>
-													Eliminar
-												</a>
-											</li>
-										</ul>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+				<h2>Title</h2>
 			</div>
 		</div>
 	</div>
