@@ -34,7 +34,7 @@
                 </jsp:include>
 <%          } else { %>
                 <jsp:include page="/WEB-INF/jspf/avisos/inscripcion.jsp">
-                        <jsp:param name="aviso" value="6" />
+                        <jsp:param name="aviso" value="0" />
                 </jsp:include>
 <%          } %>
 			</div>

@@ -4,7 +4,7 @@
     String aviso;
     if (request.getParameter("aviso") != null) {
         aviso = request.getParameter("aviso");
-        if (aviso.equals("6")) {%>
+        if (aviso.equals("0")) {%>
             <p class="lead">Parece que a&uacute;n no est&aacute;s inscrito en ning&uacute;n 
             <strong>programa de Servicio Social</strong>. Puedes hacerlo pulsando la 
             opci&oacute;n de <em>Inscripci&oacute;n</em> en la barra lateral de 

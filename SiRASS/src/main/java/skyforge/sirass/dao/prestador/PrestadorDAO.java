@@ -17,12 +17,70 @@ import skyforge.sirass.dao.DAO;
 import skyforge.sirass.dao.user.UsuarioDAO;
 import skyforge.sirass.model.prestador.Inscripcion;
 import skyforge.sirass.model.prestador.Prestador;
+import skyforge.sirass.model.user.Usuario;
 
 /**
  *
  * @author gomezhyuuga
  */
 public class PrestadorDAO extends DAO {
+    
+    /**
+     * Inscribe a un prestador en un programa de servicio social
+     * @param inscripcion - Objeto con los datos de la inscripción
+     * @param idPrestador - El id del prestador
+     * @return  1 si lo inscribe, 0 si hay un error
+     */
+    public int inscribir(Inscripcion inscripcion, int idPrestador) {
+        int status = 0;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            transaction.begin();
+            Prestador p = (Prestador) session.get(Prestador.class, idPrestador);
+            inscripcion.setPrestador(p);
+            session.save(inscripcion);
+            p.setInscripcion(inscripcion.getIdInscripcion());
+            transaction.commit();
+            status = 1;
+        } catch (Exception e) {
+            System.out.println("ERROR EN METODO INSCRIBIR");
+            transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return status;
+    }
+    /**
+     * Inscribe a un prestador en un programa de servicio social
+     * @param inscripcion - Objeto con los datos de la inscripción
+     * @param username - Nombre de usuario del prestador a inscribir
+     * @return  1 si lo inscribe, 0 si hay un error
+     */
+    public int inscribir(Inscripcion inscripcion, String username) {
+        int status = 0;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            transaction.begin();
+            Usuario user = (Usuario) session.get(Usuario.class, username);
+            Prestador p = user.getPrestador();
+            int idPrestador = p.getIdPrestador();
+            inscripcion.setPrestador(p);
+            session.save(inscripcion);
+            p.setInscripcion(inscripcion.getIdInscripcion());
+            transaction.commit();
+            status = 1;
+        } catch (Exception e) {
+            System.out.println("ERROR EN METODO INSCRIBIR");
+            transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return status;
+    }
 
     /**
      * Registra un prestador en su respectiva tabla en la BD, junto con su
@@ -53,22 +111,6 @@ public class PrestadorDAO extends DAO {
     public boolean isInscrito(int idPrestador) {
         boolean inscrito = (this.getCurrentInscripcion(idPrestador) != null) ? true : false;
         return inscrito;
-    }
-    
-    /**
-     * Devuelve el ID y el estado de la inscripción actual del prestador
-     * 
-     * @param username - El nombre de usuario del prestador
-     * @return - Inscripcion, null si no tiene ninguna
-     */
-    public Inscripcion getCurrentInscripcion(String username) {
-        UsuarioDAO dao = new UsuarioDAO();
-        int idPrestador = dao.getIdPrestador(username);
-        if (idPrestador != 0) {
-            return this.getCurrentInscripcion(idPrestador);
-        } else {
-            return null;
-        }
     }
     
     /**
@@ -119,15 +161,75 @@ public class PrestadorDAO extends DAO {
     }
     
     /**
+     * Obtiene el ID de la inscripción actual de un prestador
+     * @param idPrestador - El ID del prestador sobre el cual se está consultado
+     * @return (Integer) ID de la inscripción, null si no tiene una inscripción 
+     * o si el prestador no existe
+     */
+    public Integer getCurrentIDInscripcion(Integer idPrestador) {
+        if (idPrestador != null) {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            String queryStr = "select p.inscripcion from Prestador p where p.idPrestador=?";
+            Query query = session.createQuery(queryStr);
+            query.setInteger(0, idPrestador);
+            Integer idInscripcion = (Integer) query.uniqueResult();
+            session.close();
+            return idInscripcion;
+        } else {
+            return null;
+        }
+    }
+    /**
+     * Obtiene el ID de la inscripción actual de un prestador
+     * @param username - El nombre de usuario del prestador sobre el cual se está consultado
+     * 
+     * @return (Integer) ID de la inscripción, null si no tiene una inscripción 
+     * o si el prestador no existe
+     */
+    public Integer getCurrentIDInscripcion(String username) {
+        UsuarioDAO udao = new UsuarioDAO();
+        int idPrestador = udao.getIdPrestador(username);
+        if (idPrestador != 0 ) {
+            return this.getCurrentIDInscripcion(idPrestador);
+        } else {
+            return null;
+        }
+    }
+    
+    /**
+     * Devuelve el ID y el estado de la inscripción actual del prestador
+     * 
+     * @param username - El nombre de usuario del prestador
+     * @return - Inscripcion, null si no tiene ninguna
+     */
+    public Inscripcion getCurrentInscripcion(String username) {
+        Integer idInscripcion = this.getCurrentIDInscripcion(username);
+        if (idInscripcion != null) {
+            UsuarioDAO udao = new UsuarioDAO();
+            int idPrestador = udao.getIdPrestador(username);
+            if (idPrestador != 0) {
+                return this.getCurrentInscripcion(idPrestador);
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+    
+    /**
      * Devuelve el ID y el estado de la inscripción actual del prestador
      * 
      * @param idPrestador - El id del prestador
      * @return - Inscripcion, null si no tiene ninguna
      */
     public Inscripcion getCurrentInscripcion(int idPrestador) {
-        return this.getCurrentInscripcion(
-                Restrictions.eq("prestador", new Prestador(idPrestador))
-                );
+        Integer idInscripcion = this.getCurrentIDInscripcion(idPrestador);
+        if (idInscripcion != null) {
+            return this.getCurrentInscripcion(Restrictions.idEq(idInscripcion));
+        } else {
+            return null;
+        }
     }
     
     private Inscripcion getCurrentInscripcion(Criterion crit) {
@@ -142,12 +244,8 @@ public class PrestadorDAO extends DAO {
         // Agregar restricciones
         criteria.add(crit);
         Inscripcion inscripcion = (Inscripcion) criteria.uniqueResult();
-        // No tiene ninguna inscripción
-        if(inscripcion == null) {
-            return null;
-        } else {
-            return inscripcion;
-        }
+        session.close();
+        return inscripcion;
     }
 
     public int upPrestador(Prestador prestador, String comand) {

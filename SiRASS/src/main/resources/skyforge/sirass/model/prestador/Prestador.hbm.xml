@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="skyforge.sirass.model.prestador.Prestador" table="MPrestador" dynamic-update="true" dynamic-insert="true">
+    <class name="skyforge.sirass.model.prestador.Prestador" table="MPrestador" dynamic-update="true">
         <id column="idPrestador" name="idPrestador" type="integer">
             <generator class="increment" />
         </id>
-        <property column="inscripcion" length="11" name="inscripcion" not-null="false" type="java.lang.Integer" />
+        <property column="inscripcion" length="11" name="inscripcion" not-null="false" type="java.lang.Integer" lazy="false"/>
         <property column="nControl" length="16" name="nControl" not-null="false" type="java.lang.String" />
         <property column="nombre" length="25" name="nombre" not-null="true" type="java.lang.String" />
         <property column="aPaterno" length="15" name="aPaterno" not-null="true" type="java.lang.String" />

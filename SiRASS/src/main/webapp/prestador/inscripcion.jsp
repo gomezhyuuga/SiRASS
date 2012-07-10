@@ -32,15 +32,7 @@
 <%          if (session.getAttribute("inscripcion") != null) {
                 Inscripcion inscripcion = (Inscripcion) session.getAttribute("inscripcion");
                 int idEstado = inscripcion.getEstado().getIdEstado();
-                if (idEstado == 6) { %>
-                <div class="page-header">
-					<h1>Inscripción al Servicio Social</h1>
-				</div>
-				<p>Para inscribirte en un programa de Servicio Social llena los siguientes datos.</p>
-                <form method="post" action="/SiRASS/FormReceiver" class="form-horizontal" id="form-inscripcion" name="form-inscripcion">
-                    <jsp:include page="/forms/inscripcion.jsp" />
-                </form>
-<%              } else if (idEstado == 2) { %>
+                if (idEstado == 2) { %>
                 <p class="lead">Ya est&aacute;s inscrito. No puedes volver a inscribirte a
                     otro programa hasta que hayas
                     terminado este periodo de Servicio Social.</p>
@@ -50,9 +42,13 @@
                 </jsp:include>
 <%              }
             } else { %>
-                <jsp:include page="/WEB-INF/jspf/avisos/inscripcion.jsp">
-                        <jsp:param name="aviso" value="6" />
-                </jsp:include>
+                <div class="page-header">
+					<h1>Inscripción al Servicio Social</h1>
+				</div>
+				<p>Para inscribirte en un programa de Servicio Social llena los siguientes datos.</p>
+                <form method="post" action="/SiRASS/FormReceiver" class="form-horizontal" id="form-inscripcion" name="form-inscripcion">
+                    <jsp:include page="/forms/inscripcion.jsp" />
+                </form>
 <%          } %>
 			</div>
 		</div>

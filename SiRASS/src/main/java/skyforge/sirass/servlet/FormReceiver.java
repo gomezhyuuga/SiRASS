@@ -14,9 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import skyforge.sirass.dao.prestador.InscripcionDAO;
 import skyforge.sirass.dao.prestador.PrestadorDAO;
+import skyforge.sirass.dao.user.UsuarioDAO;
 import skyforge.sirass.form.prestador.InscripcionForm;
 import skyforge.sirass.model.prestador.EstadoInscripcion;
 import skyforge.sirass.model.prestador.Inscripcion;
+import skyforge.sirass.model.prestador.Prestador;
+import skyforge.sirass.model.user.Usuario;
 
 /**
  *
@@ -63,22 +66,14 @@ public class FormReceiver extends HttpServlet {
         InscripcionForm form = new InscripcionForm(map, user);
         Inscripcion inscripcion = form.getObject();
         if (inscripcion != null) {
-            inscripcion.setEstado(new EstadoInscripcion((short) 6));
+            inscripcion.setEstado(new EstadoInscripcion((short) 1));
 
             Date curDate = new Date();
             inscripcion.setCreacion(curDate);
             inscripcion.setUltimaModif(curDate);
 
-            // Hacer registro en DB
-            InscripcionDAO dao = new InscripcionDAO();
-            int status = dao.insert(inscripcion);
-            if (status == 1) {
-                // Establecer inscripción de prestador
-                PrestadorDAO pdao = new PrestadorDAO();
-                return pdao.setInscripcion(inscripcion.getIdInscripcion(), user);
-            } else {
-                return 0;
-            }
+            PrestadorDAO pdao = new PrestadorDAO();
+            return pdao.inscribir(inscripcion, user);
         } else {
             return 0;
         }

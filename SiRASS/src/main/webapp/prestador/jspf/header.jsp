@@ -66,10 +66,6 @@
         Inscripcion inscripcion = prestadorDAO.getCurrentInscripcion(request.getUserPrincipal().getName());
         if (inscripcion != null) {
             session.setAttribute("inscripcion", inscripcion);
-        } else {
-            Inscripcion insc = new Inscripcion();
-            insc.setEstado(new EstadoInscripcion((short) 6));
-            session.setAttribute("inscripcion", insc);
         }
     }
 %>
