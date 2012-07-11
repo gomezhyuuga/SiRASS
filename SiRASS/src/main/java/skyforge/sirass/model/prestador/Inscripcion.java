@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Set;
 import skyforge.sirass.model.institucion.CInstitucion;
 import skyforge.sirass.model.institucion.Plantel;
-import skyforge.sirass.model.user.Dia;
+import skyforge.sirass.model.Dia;
 
 /**
  *

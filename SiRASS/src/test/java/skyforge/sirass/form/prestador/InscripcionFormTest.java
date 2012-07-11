@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 import org.junit.*;
 import skyforge.sirass.model.prestador.Inscripcion;
-import skyforge.sirass.model.user.Dia;
+import skyforge.sirass.model.Dia;
 
 /**
  *

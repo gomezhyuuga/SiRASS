@@ -1,6 +1,6 @@
 package skyforge.sirass.model.programass;
 
-import skyforge.sirass.model.user.Dia;
+import skyforge.sirass.model.Dia;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;

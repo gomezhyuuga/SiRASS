@@ -18,7 +18,7 @@ import skyforge.sirass.model.institucion.Plantel;
 import skyforge.sirass.model.prestador.Inscripcion;
 import skyforge.sirass.model.prestador.TipoInscripcion;
 import skyforge.sirass.model.programass.ResponsablePrograma;
-import skyforge.sirass.model.user.Dia;
+import skyforge.sirass.model.Dia;
 
 /**
  *

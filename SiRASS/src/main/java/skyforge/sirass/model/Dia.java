@@ -1,4 +1,4 @@
-package skyforge.sirass.model.user;
+package skyforge.sirass.model;
 
 /**
  *

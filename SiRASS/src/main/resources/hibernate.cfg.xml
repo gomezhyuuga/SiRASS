@@ -13,11 +13,21 @@
     <property name="hibernate.format_sql">true</property>
     <property name="hibernate.generate_statistics">false</property>
     <!-- mappings -->
+    <mapping resource="skyforge/sirass/model/Dia.hbm.xml"/>
     <!-- user -->
     <mapping resource="skyforge/sirass/model/user/Usuario.hbm.xml"/>
     <mapping resource="skyforge/sirass/model/user/Rol.hbm.xml"/>
     <!-- prestador -->
     <mapping resource="skyforge/sirass/model/prestador/Prestador.hbm.xml"/>
+    <mapping resource="skyforge/sirass/model/prestador/InformeFinal.hbm.xml"/>
+    <mapping resource="skyforge/sirass/model/prestador/Inscripcion.hbm.xml"/>
+    <mapping resource="skyforge/sirass/model/prestador/EstadoInscripcion.hbm.xml"/>
+    <mapping resource="skyforge/sirass/model/prestador/TipoInscripcion.hbm.xml"/>
+    <mapping resource="skyforge/sirass/model/prestador/DiasInscripcion.hbm.xml"/>
+    <mapping resource="skyforge/sirass/model/prestador/ControlHoras.hbm.xml"/>
+    <mapping resource="skyforge/sirass/model/prestador/RegistroHora.hbm.xml"/>
+    <mapping resource="skyforge/sirass/model/prestador/EstadoReporte.hbm.xml"/>
+    <mapping resource="skyforge/sirass/model/prestador/InformeBimensual.hbm.xml"/>
     <!-- institucion -->
     <mapping resource="skyforge/sirass/model/institucion/Institucion.hbm.xml"/>
     <mapping resource="skyforge/sirass/model/institucion/CInstitucion.hbm.xml"/>
@@ -25,53 +35,16 @@
     <!-- admin -->
     <!--    <mapping resource="skyforge/sirass/model/admin/Administrador.hbm.xml"/>-->
     <!-- ProgramaSS -->
+    <mapping resource="skyforge/sirass/model/programass/ProgramaSS.hbm.xml"/>
     <mapping resource="skyforge/sirass/model/programass/CategoriaPrograma.hbm.xml"/>
     <mapping resource="skyforge/sirass/model/programass/ActividadPrograma.xml"/>
     <mapping resource="skyforge/sirass/model/programass/AlcancePrograma.hbm.xml"/>
     <mapping resource="skyforge/sirass/model/programass/CEstado.hbm.xml"/>
-    <mapping resource="skyforge/sirass/model/programass/ControlHoras.hbm.xml"/>
-    <mapping resource="skyforge/sirass/model/programass/EstadoInscripcion.hbm.xml"/>
-    <mapping resource="skyforge/sirass/model/programass/EstadoReporte.hbm.xml"/>
-    <mapping resource="skyforge/sirass/model/programass/Dia.hbm.xml"/>
-    <mapping resource="skyforge/sirass/model/programass/DiasInscripcion.hbm.xml"/>
-    <mapping resource="skyforge/sirass/model/programass/InformeBimensual.hbm.xml"/>
     <mapping resource="skyforge/sirass/model/programass/HorarioPrograma.hbm.xml"/>
     <mapping resource="skyforge/sirass/model/programass/PoblacionPrograma.hbm.xml"/>
-    <mapping resource="skyforge/sirass/model/programass/InformeFinal.hbm.xml"/>
-    <mapping resource="skyforge/sirass/model/programass/Inscripcion.hbm.xml"/>
     <mapping resource="skyforge/sirass/model/programass/ResponsablePrograma.hbm.xml"/>
-    <mapping resource="skyforge/sirass/model/programass/TipoInscripcion.hbm.xml"/>
     <mapping resource="skyforge/sirass/model/programass/TipoPrograma.hbm.xml"/>
     <mapping resource="skyforge/sirass/model/programass/TipoTiempoPrograma.hbm.xml"/>
-    <mapping resource="skyforge/sirass/model/programass/ProgramaSS.hbm.xml"/>
-    <mapping resource="skyforge/sirass/model/programass/RegistroHora.hbm.xml"/>
     <!-- otros -->
-    <!--    <mapping class="skyforge.sirass.model.user.Usuario" resource="skyforge/sirass/model/hbm/Usuario.hbm.xml"/>-->
-    <!--        <mapping class="skyforge.sirass.model.Rol" resource="skyforge/sirass/model/hbm/Rol.hbm.xml"/>
-        <mapping class="skyforge.sirass.model.Prestador" resource="skyforge/sirass/model/hbm/Prestador.hbm.xml"/>
-        <mapping class="skyforge.sirass.model.Administrador" resource="skyforge/sirass/model/hbm/Administrador.hbm.xml"/>
-        <mapping class="skyforge.sirass.model.Institucion" resource="skyforge/sirass/model/hbm/Institucion.hbm.xml"/>
-        <mapping class="skyforge.sirass.model.CInstitucion" resource="skyforge/sirass/model/hbm/CInstitucion.hbm.xml"/>
-        <mapping class="skyforge.sirass.model.Plantel" resource="skyforge/sirass/model/hbm/Plantel.hbm.xml"/>
-        <mapping class="skyforge.sirass.model.prestador.ControlHoras" resource="skyforge/sirass/model/hbm/ControlHoras.hbm.xml"/>
-        <mapping class="skyforge.sirass.model.prestador.EstadoReporte" resource="skyforge/sirass/model/hbm/EstadoReporte.hbm.xml"/>
-        <mapping class="skyforge.sirass.model.prestador.RegistroHora" resource="skyforge/sirass/model/hbm/RegistroHora.hbm.xml"/>
-        <mapping class="skyforge.sirass.model.programass.ProgramaSS" resource="skyforge/sirass/model/hbm/ProgramaSS.hbm.xml"/>
-        <mapping class="skyforge.sirass.model.prestador.InformeBimensual" resource="skyforge/sirass/model/hbm/InformeBimensual.hbm.xml"/>
-        <mapping resource="skyforge/sirass/model/hbm/Inscripcion.hbm.xml"/>
-        <mapping resource="skyforge/sirass/model/hbm/EstadoInscripcion.hbm.xml"/>
-        <mapping resource="skyforge/sirass/model/hbm/CategoriaPrograma.hbm.xml"/>
-        <mapping resource="skyforge/sirass/model/hbm/TipoInscripcion.hbm.xml"/>
-        <mapping resource="skyforge/sirass/model/hbm/TipoPrograma.hbm.xml"/>
-        <mapping resource="skyforge/sirass/model/hbm/AlcancePrograma.hbm.xml"/>
-        <mapping resource="skyforge/sirass/model/hbm/PoblacionPrograma.hbm.xml"/>
-        <mapping resource="skyforge/sirass/model/hbm/Dia.hbm.xml"/>
-        <mapping resource="skyforge/sirass/model/hbm/ResponsablePrograma.hbm.xml"/>
-        <mapping resource="skyforge/sirass/model/hbm/ActividadPrograma.xml"/>
-        <mapping class="skyforge.sirass.model.programass.HorarioPrograma" resource="skyforge/sirass/model/hbm/HorarioPrograma.hbm.xml"/>
-        <mapping resource="skyforge/sirass/model/hbm/TipoTiempoPrograma.hbm.xml"/>
-        <mapping resource="skyforge/sirass/model/hbm/InformeFinal.hbm.xml"/>
-        <mapping class="skyforge.sirass.model.prestador.DiasInscripcion" resource="skyforge/sirass/model/hbm/DiasInscripcion.hbm.xml"/>
-        <mapping class="skyforge.sirass.model.programass.CEstado" resource="skyforge/sirass/model/hbm/CEstado.hbm.xml"/>-->
   </session-factory>
 </hibernate-configuration>

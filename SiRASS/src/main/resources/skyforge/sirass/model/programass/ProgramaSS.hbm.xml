@@ -28,8 +28,7 @@
     <property column="observaciones" name="observaciones" not-null="true" type="java.lang.String"/>
     <property column="fechaTiempo" name="fechaTiempo" not-null="false" type="date"/>
     <!--Relaciones-->
-    <many-to-one cascade="all" class="skyforge.sirass.model.programass.CEstado" name="estado" column="status"/>
-    
+    <many-to-one cascade="all" class="skyforge.sirass.model.programass.CEstado" column="status" name="estado"/>
     <set name="tipo" table="DTipoPrograma">
       <key column="idPrograma"/>
       <many-to-many class="skyforge.sirass.model.programass.TipoPrograma" column="idTipo"/>
@@ -44,18 +43,18 @@
     </set>
     <set name="dias" table="DDiaPrograma">
       <key column="idPrograma"/>
-      <many-to-many class="skyforge.sirass.model.user.Dia" column="idDia"/>
+      <many-to-many class="skyforge.sirass.model.Dia" column="idDia"/>
     </set>
-    <set fetch="select" inverse="true" lazy="true" name="responsables" table="DResponsablePrograma" cascade="all">
+    <set cascade="all" fetch="select" inverse="true" lazy="true" name="responsables" table="DResponsablePrograma">
       <key column="idPrograma" not-null="true"/>
-      <one-to-many class="skyforge.sirass.model.programass.ResponsablePrograma" />
+      <one-to-many class="skyforge.sirass.model.programass.ResponsablePrograma"/>
     </set>
     <set fetch="select" inverse="true" lazy="true" name="actividad" table="DActividadPrograma">
       <key column="idPrograma" not-null="true"/>
       <one-to-many class="skyforge.sirass.model.programass.ActividadPrograma"/>
     </set>
     <many-to-one class="skyforge.sirass.model.programass.HorarioPrograma" column="horario" name="horario" not-null="true" unique="true"/>
-    <many-to-one class="skyforge.sirass.model.programass.CategoriaPrograma" column="categoria" name="categoria" not-null="true" unique="true" />
+    <many-to-one class="skyforge.sirass.model.programass.CategoriaPrograma" column="categoria" name="categoria" not-null="true" unique="true"/>
     <many-to-one class="skyforge.sirass.model.programass.TipoTIempoPrograma" column="tiempo" name="tiempo" not-null="true" unique="true"/>
     <!--del Registro-->
     <property column="creacion" name="creacion" not-null="true" type="java.util.Date"/>

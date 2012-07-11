@@ -6,16 +6,16 @@
       <generator class="native"/>
     </id>
     <property column="carrera" length="50" name="carrera" type="string"/>
-    <property column="horasRealizadas" name="horasRealizadas" type="integer"  not-null="false" />
-    <property column="minutosRealizados" name="minutosRealizados" type="short"  not-null="false" />
+    <property column="horasRealizadas" name="horasRealizadas" not-null="false" type="integer"/>
+    <property column="minutosRealizados" name="minutosRealizados" not-null="false" type="short"/>
     <property column="matricula" length="20" name="matricula" type="string"/>
     <property column="anoIngreso" length="11" name="anioIngreso" type="integer"/>
     <property column="semestre" length="4" name="semestre" type="short"/>
     <property column="avanceCursos" name="avanceCursos" type="double"/>
     <property column="promedio" name="promedio" type="double"/>
-    <property column="nCursosBasicos" length="4" name="nCursosBasicos" type="integer" not-null="false"/>
-    <property column="nCursosSuperior" length="4" name="nCursosSuperior" type="integer" not-null="false"/>
-    <property column="creditos" name="creditos" type="integer" not-null="false" />
+    <property column="nCursosBasicos" length="4" name="nCursosBasicos" not-null="false" type="integer"/>
+    <property column="nCursosSuperior" length="4" name="nCursosSuperior" not-null="false" type="integer"/>
+    <property column="creditos" name="creditos" not-null="false" type="integer"/>
     <property column="programaInst" length="100" name="programaInst" type="string"/>
     <property column="cvePorgramaInst" length="30" name="cveProgramaInst" type="string"/>
     <property column="idPrograma" length="11" name="idPrograma" type="integer"/>
@@ -31,16 +31,16 @@
     <property column="observaciones" length="300" name="observaciones" not-null="false" type="string"/>
     <property column="area" length="100" name="area" not-null="false" type="string"/>
     <!-- relaciones -->
-    <set name="dias" table="DDiasInscripcion" order-by="idDia">
+    <set name="dias" order-by="idDia" table="DDiasInscripcion">
       <key column="idInscripcion"/>
-      <many-to-many class="skyforge.sirass.model.user.Dia" column="idDia" order-by="diaSemana" />
+      <many-to-many class="skyforge.sirass.model.Dia" column="idDia" order-by="diaSemana"/>
     </set>
     <many-to-one cascade="evict" class="skyforge.sirass.model.prestador.EstadoInscripcion" column="estado" name="estado"/>
-    <many-to-one cascade="evict" class="skyforge.sirass.model.prestador.TipoInscripcion" column="tipo" name="tipo" not-null="true" />
-    <many-to-one cascade="evict" class="skyforge.sirass.model.institucion.CInstitucion" column="idInstitucion" name="institucion" lazy="false"/>
-    <many-to-one cascade="evict" class="skyforge.sirass.model.institucion.Plantel" column="idPlantel" name="plantel" lazy="false"/>
-    <many-to-one cascade="save-update" class="skyforge.sirass.model.prestador.Prestador" column="idPrestador" name="prestador" />
-<!--    <many-to-one cascade="evict" class="skyforge.sirass.model.programass.ProgramaSS" column="idPrograma" name="programa"/>-->
+    <many-to-one cascade="evict" class="skyforge.sirass.model.prestador.TipoInscripcion" column="tipo" name="tipo" not-null="true"/>
+    <many-to-one cascade="evict" class="skyforge.sirass.model.institucion.CInstitucion" column="idInstitucion" lazy="false" name="institucion"/>
+    <many-to-one cascade="evict" class="skyforge.sirass.model.institucion.Plantel" column="idPlantel" lazy="false" name="plantel"/>
+    <many-to-one cascade="save-update" class="skyforge.sirass.model.prestador.Prestador" column="idPrestador" name="prestador"/>
+    <!--    <many-to-one cascade="evict" class="skyforge.sirass.model.programass.ProgramaSS" column="idPrograma" name="programa"/>-->
     <!-- del registro -->
     <property column="creacion" name="creacion" not-null="true" type="java.util.Date"/>
     <property column="ultimaModif" name="ultimaModif" not-null="true" type="java.util.Date"/>
