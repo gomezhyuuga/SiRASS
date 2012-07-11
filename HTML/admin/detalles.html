@@ -169,11 +169,82 @@
 					</div>
 					<div class="span3 pull-right">
 						<p><strong>Horas realizadas:</strong> {{hrsAcum}}</p>
-						<p><strong>Prestador:</strong> <a href="#">{{prestador}}</a></p>
+						<p><strong>Usuario:</strong> <a href="#">{{usuario}}</a></p>
 					</div>
 				</div>
-				<h2>Title</h2>
-			</div>
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a href="#datosPrestador" data-toggle="tab">Datos del prestador</a>
+					</li>
+					<li>
+						<a href="#datosPrograma" data-toggle="tab">Datos del programa</a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active" id="datosPrestador">
+						<h2>Nombre del solicitante</h2>
+						<p>{{nombre}} {{aPaterno}} {{aMaterno}}</p>
+						<div class="row">
+							<div class="span5">
+								<h2>Institución</h2>
+								<p>{{institucion}}</p>
+								<h2>Plantel</h2>
+								<p>{{plantel}}</p>
+								<h2>Avance de cursos</h2>
+								<p>{{avanceCursos}}%</p>
+								<h2>Semestre</h2>
+								<p>{{semestre}}</p>
+							</div>
+							<div class="span3 pull-right">
+								<h2>Carrera</h2>
+								<p>{{carrera}}</p>
+								<h2>Matrícula</h2>
+								<p>{{matricula}}</p>
+								<h2>Ingreso</h2>
+								<p>{{anioIngreso}}</p>
+								<h2>Promedio</h2>
+								<p>{{promedio}}</p>
+							</div>
+						</div> <!-- end row -->
+						<!-- DATOS DE PRACTICAS PROFESIONALES -->
+						<div class="row">
+							<div class="span2">
+								<h3>Cursos básicos</h3>
+								<p>{{nCursosBasico}}</p>
+							</div>
+							<div class="span3">
+								<h3>Cursos superior</h3>
+								<p>{{nCursosSuperior}}</p>
+							</div>
+							<div class="span2">
+								<h3>Creditos</h3>
+								<p>{{creditos}}</p>
+							</div>
+						</div> <!-- end row -->
+					</div> <!-- end tab-pane -->
+					<div class="tab-pane fade" id="datosPrograma">
+						<h2>Datos del programa</h2>
+					</div> <!-- end tab pane -->
+				</div> <!-- end tab-content -->
+				<hr />
+				<h2>Observaciones</h2>
+				<p><i class="icon-question-sign"></i>
+					Escribir en el siguiente campo si hay algún error en la inscripción (<em>especificar dato</em>) o si es necesario hacerle notificar algo a la persona que envió la solicitud de inscripción.</p>
+				<p>En caso de que sea una solicitud de inscripción y tenga errores, pulsar el botón <em><strong>Con errores</strong></em>.
+				Si lo que se desea es actualizar únicamente el campo de observaciones, pulsar en <em><strong>Actualizar observaciones</strong></em>.</p>
+				<form method="get" action="./actualizar.html">
+					<textarea name="observaciones" maxlength="300" class="span8" rows="4"
+						placeholder="Escribe alguna observación"></textarea>
+					<div class="form-actions">
+						<button class="btn btn-danger" name="errores" value="1" type="submit"><i class="icon-exclamation-sign icon-white"></i>
+							Inscripción con errores
+						</button>
+						<button class="btn btn-warning" name="actualizar" value="1" type="submit"><i class="icon-warning-sign icon-white"></i>
+							Actualizar observaciones
+						</button>
+					</div>
+				</form>
+			</div> <!-- end content -->
 		</div>
 	</div>
 	<!-- Footer
