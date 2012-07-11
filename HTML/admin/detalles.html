@@ -160,7 +160,7 @@
 			============================== -->
 			<div class="span8 solid">
 				<div class="page-header">
-					<h1>Detalles de inscripción <small>{{idInscripcion}}</small></h1>
+					<h1>Detalles de inscripci&oacute;n <small>{{idInscripcion}}</small></h1>
 				</div>
 				<div class="row">
 					<div class="span2"
@@ -176,7 +176,7 @@
 					<li class="active">
 						<a href="#datosPrestador" data-toggle="tab">Datos del prestador</a>
 					</li>
-					<li>
+					<li class="">
 						<a href="#datosPrograma" data-toggle="tab">Datos del programa</a>
 					</li>
 				</ul>
@@ -186,7 +186,7 @@
 						<p>{{nombre}} {{aPaterno}} {{aMaterno}}</p>
 						<div class="row">
 							<div class="span5">
-								<h2>Institución</h2>
+								<h2>Instituci&oacute;n</h2>
 								<p>{{institucion}}</p>
 								<h2>Plantel</h2>
 								<p>{{plantel}}</p>
@@ -198,7 +198,7 @@
 							<div class="span3 pull-right">
 								<h2>Carrera</h2>
 								<p>{{carrera}}</p>
-								<h2>Matrícula</h2>
+								<h2>Matr&iacute;cula</h2>
 								<p>{{matricula}}</p>
 								<h2>Ingreso</h2>
 								<p>{{anioIngreso}}</p>
@@ -209,7 +209,7 @@
 						<!-- DATOS DE PRACTICAS PROFESIONALES -->
 						<div class="row">
 							<div class="span2">
-								<h3>Cursos básicos</h3>
+								<h3>Cursos b&aacute;sicos</h3>
 								<p>{{nCursosBasico}}</p>
 							</div>
 							<div class="span3">
@@ -221,29 +221,64 @@
 								<p>{{creditos}}</p>
 							</div>
 						</div> <!-- end row -->
+						<h2>Confidencialidad de informaci&oacute;n</h2>
+						<p>{{difundir}}</p>
 					</div> <!-- end tab-pane -->
-					<div class="tab-pane fade" id="datosPrograma">
-						<h2>Datos del programa</h2>
+					<div class="tab-pane" id="datosPrograma">
+						<div class="row">
+							<div class="span4">
+								<h2>Programa</h2>
+								<p>{{nombrePrograma}}</p>
+								<h2>Clave</h2>
+								<p>{{clavePrograma}}</p>
+								<h2>&Aacute;rea</h2>
+								<p>{{area}}</p>
+								<h2>Fecha de inicio</h2>
+								<p>{{fechaInicio}}</p>
+								<h2>Fecha de t&eacute;rmino</h2>
+								<p>{{fechaTermino}}</p>
+							</div>
+							<div class="span4">
+								<h2>Programa inst.</h2>
+								<p>{{programaInst}}</p>
+								<h2>Clave</h2>
+								<p>{{claveInst}}</p>
+								<h2>D&iacute;as de asistencia</h2>
+								<p>{{diasAsistencia}}</p>
+								<h2>Hora de entrada</h2>
+								<p>{{horaEntrada}}</p>
+								<h2>Hora de salida</h2>
+								<p>{{horaSalida}}</p>
+							</div>
+						</div> <!-- end row -->
+						<h2>Responsable</h2>
+						<p>{{responsable}} - {{cargoResponsable}}</p>
 					</div> <!-- end tab pane -->
 				</div> <!-- end tab-content -->
 				<hr />
 				<h2>Observaciones</h2>
 				<p><i class="icon-question-sign"></i>
-					Escribir en el siguiente campo si hay algún error en la inscripción (<em>especificar dato</em>) o si es necesario hacerle notificar algo a la persona que envió la solicitud de inscripción.</p>
-				<p>En caso de que sea una solicitud de inscripción y tenga errores, pulsar el botón <em><strong>Con errores</strong></em>.
-				Si lo que se desea es actualizar únicamente el campo de observaciones, pulsar en <em><strong>Actualizar observaciones</strong></em>.</p>
+					Escribir en el siguiente campo si hay alg&uacute;n error en la inscripci&oacute;n (<em>especificar dato</em>) o si es necesario hacerle notificar algo a la persona que envi&oacute; la solicitud de inscripci&oacute;n.</p>
+				<p><i class="icon-question-sign"></i>
+				En caso de que sea una solicitud de inscripci&oacute;n y tenga errores, pulsar el bot&oacute;n <em><strong>Con errores</strong></em>.
+				Si lo que se desea es actualizar &uacute;nicamente el campo de observaciones, pulsar en <em><strong>Actualizar observaciones</strong></em>.</p>
 				<form method="get" action="./actualizar.html">
 					<textarea name="observaciones" maxlength="300" class="span8" rows="4"
-						placeholder="Escribe alguna observación"></textarea>
+						placeholder="Escribe alguna observaci&oacute;n"></textarea>
 					<div class="form-actions">
 						<button class="btn btn-danger" name="errores" value="1" type="submit"><i class="icon-exclamation-sign icon-white"></i>
-							Inscripción con errores
+							Inscripci&oacute;n con errores
 						</button>
 						<button class="btn btn-warning" name="actualizar" value="1" type="submit"><i class="icon-warning-sign icon-white"></i>
 							Actualizar observaciones
 						</button>
 					</div>
 				</form>
+				<div class="right">
+					<h6>Creaci&oacute;n: <small>{{creacion}}</small></h6>
+					<h6>Ultima modif.: <small>{{ultimaModif}}</small></h6>
+					<h6>Modificada por: <small>{{modificadoPor}}</small></h6>
+				</div>
 			</div> <!-- end content -->
 		</div>
 	</div>

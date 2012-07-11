@@ -79,6 +79,9 @@ input.valid:focus {
 .center {
 	text-align: center;
 }
+.right {
+	text-align: right;
+}
 .centerDiv {
     margin-left: auto;
     margin-right: auto;

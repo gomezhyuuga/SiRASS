@@ -34,7 +34,7 @@ public class InscripcionDAOTest {
     public void tearDown() {
     }
     
-    @Test
+//    @Test
     public void testGetFewWithStatus() {
         System.out.println("## testGetFewWithStatus...");
         inscripciones = dao.getFewWithStatus(Inscripcion.EN_ESPERA);
@@ -45,5 +45,18 @@ public class InscripcionDAOTest {
         System.out.println("prestador: " + inscripcion.getPrestador().getNombre());
         System.out.println("programa: " + inscripcion.getPrograma());
         System.out.println("estado: " + inscripcion.getEstado().getDescripcion());
+    }
+    
+    @Test
+    public void testGetByPK(){
+        System.out.println("## testGetByPK...");
+        inscripcion = dao.getByPK(1);
+        System.out.println("#####");
+        System.out.println("id: " + inscripcion.getIdInscripcion());
+        System.out.println("nombrePrestador: " + inscripcion.getPrestador().getNombre());
+        inscripcion.getDias();
+        inscripcion.getEstado();
+        inscripcion.getTipo();
+        Assert.assertNotNull(inscripcion);
     }
 }

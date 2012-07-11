@@ -26,7 +26,8 @@ public class Inscripcion implements Serializable {
     private TipoInscripcion tipo;
     private String area;
     // Propios de la inscripción
-    private Short horasRealizadas;
+    private Integer horasRealizadas;
+    private Short minutosRealizados;
     private CInstitucion institucion;
     private Plantel plantel;
     private String carrera;
@@ -35,9 +36,9 @@ public class Inscripcion implements Serializable {
     private short semestre;
     private double avanceCursos;
     private double promedio;
-    private Short nCursosBasicos;
-    private Short nCursosSuperior;
-    private Short creditos;
+    private Integer nCursosBasicos;
+    private Integer nCursosSuperior;
+    private Integer creditos;
     private String programaInst;
     private String cveProgramaInst;
     private int idPrograma;
@@ -60,11 +61,11 @@ public class Inscripcion implements Serializable {
     public Inscripcion() {
     }
 
-    public Short getHorasRealizadas() {
+    public Integer getHorasRealizadas() {
         return horasRealizadas;
     }
 
-    public void setHorasRealizadas(Short horasRealizadas) {
+    public void setHorasRealizadas(Integer horasRealizadas) {
         this.horasRealizadas = horasRealizadas;
     }
 
@@ -140,11 +141,11 @@ public class Inscripcion implements Serializable {
         this.creacion = creacion;
     }
 
-    public Short getCreditos() {
+    public Integer getCreditos() {
         return creditos;
     }
 
-    public void setCreditos(Short creditos) {
+    public void setCreditos(Integer creditos) {
         this.creditos = creditos;
     }
 
@@ -236,19 +237,19 @@ public class Inscripcion implements Serializable {
         this.modificadoPor = modificadoPor;
     }
 
-    public Short getnCursosBasicos() {
+    public Integer getnCursosBasicos() {
         return nCursosBasicos;
     }
 
-    public void setnCursosBasicos(Short nCursosBasicos) {
+    public void setnCursosBasicos(Integer nCursosBasicos) {
         this.nCursosBasicos = nCursosBasicos;
     }
 
-    public Short getnCursosSuperior() {
+    public Integer getnCursosSuperior() {
         return nCursosSuperior;
     }
 
-    public void setnCursosSuperior(Short nCursosSuperior) {
+    public void setnCursosSuperior(Integer nCursosSuperior) {
         this.nCursosSuperior = nCursosSuperior;
     }
 
@@ -330,5 +331,13 @@ public class Inscripcion implements Serializable {
 
     public void setUltimaModif(Date ultimaModif) {
         this.ultimaModif = ultimaModif;
+    }
+
+    public Short getMinutosRealizados() {
+        return minutosRealizados;
+    }
+
+    public void setMinutosRealizados(Short minutosRealizados) {
+        this.minutosRealizados = minutosRealizados;
     }
 }

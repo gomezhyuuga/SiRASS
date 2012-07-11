@@ -40,9 +40,10 @@ public class InscripcionDAO extends DAO{
         // Obtener el control de Horas
         inscripcion = (Inscripcion) session.createCriteria(Inscripcion.class)
                 .add(Restrictions.eq("idInscripcion", id))
-                .setFetchMode("idPrestador", FetchMode.JOIN)
+                .setFetchMode("prestador", FetchMode.JOIN)
                 .setFetchMode("tipo", FetchMode.JOIN)
                 .setFetchMode("estado", FetchMode.JOIN)
+                .setFetchMode("dias", FetchMode.JOIN)
                 .setFetchMode("idInstitucion", FetchMode.JOIN)
                 .setFetchMode("idPlantel", FetchMode.JOIN)
                 .uniqueResult();

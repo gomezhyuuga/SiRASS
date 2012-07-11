@@ -367,4 +367,25 @@ public class PrestadorDAO extends DAO {
         }
         return prestador;
     }
+    
+    /**
+     * Método para obtener el nombre de usuario de un prestador
+     * 
+     * @param idPrestador - id del prestador sobre el cual se quiere obtener
+     * el nombre de usuario
+     * @return nombre de usuario si se encuentra, "notFound" si no existe.
+     */
+    public String getUsername(int idPrestador) {
+        String username;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Query query = session.createQuery("select u.usuario from Usuario u where prestador=:idPrestador");
+        query.setInteger("idPrestador", idPrestador);
+        username = (String) query.uniqueResult();
+        session.close();
+        if (username != null) {
+            return username;
+        } else {
+            return "notFound";
+        }
+    }
 }

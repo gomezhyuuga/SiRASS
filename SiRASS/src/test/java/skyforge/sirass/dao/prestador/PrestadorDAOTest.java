@@ -39,6 +39,13 @@ public class PrestadorDAOTest {
     }
     
     @Test
+    public void testGetUsername() {
+        System.out.println("### testGetUsername ###");
+        String username = dao.getUsername(8);
+        Assert.assertNotNull(username);
+        System.out.println("username (4): " + username);
+    }
+//    @Test
     public void inscribir() {
         System.out.println("## inscribir...");
         Map<String, String[]> vars = null;

@@ -110,9 +110,9 @@ public class InscripcionForm extends Form {
             inscripcion.setAnioIngreso(anoIngreso);
         }
         if (this.getVars().get("creditos") != null) {
-            short creditos;
+            Integer creditos;
             try {
-                creditos = Short.parseShort(this.getVars().get("creditos")[0]);
+                creditos = Integer.parseInt(this.getVars().get("creditos")[0]);
             } catch (Exception ex) {
                 System.out.println("No se pudo establecer el creditos");
                 creditos = 0;
@@ -120,9 +120,9 @@ public class InscripcionForm extends Form {
             inscripcion.setCreditos(creditos);
         }
         if (this.getVars().get("cursosBasico") != null) {
-            short cursosBasico;
+            Integer cursosBasico;
             try {
-                cursosBasico = Short.parseShort(this.getVars().get("cursosBasico")[0]);
+                cursosBasico = Integer.parseInt(this.getVars().get("cursosBasico")[0]);
             } catch (Exception ex) {
                 System.out.println("No se pudo establecer el cursosBasico");
                 cursosBasico = 0;
@@ -130,9 +130,9 @@ public class InscripcionForm extends Form {
             inscripcion.setnCursosBasicos(cursosBasico);
         }
         if (this.getVars().get("cursosSuperior") != null) {
-            short cursosSuperior;
+            Integer cursosSuperior;
             try {
-                cursosSuperior = Short.parseShort(this.getVars().get("cursosSuperior")[0]);
+                cursosSuperior = Integer.parseInt(this.getVars().get("cursosSuperior")[0]);
             } catch (Exception ex) {
                 System.out.println("No se pudo establecer el cursosSuperior");
                 cursosSuperior = 0;
