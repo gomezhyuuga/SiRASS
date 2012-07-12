@@ -1,9 +1,8 @@
 package skyforge.sirass.dao.prestador;
 
+import java.util.Date;
 import java.util.List;
-import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
-import org.hibernate.Session;
+import org.hibernate.*;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
@@ -18,7 +17,7 @@ import skyforge.sirass.model.prestador.Inscripcion;
  *
  * @author gomezhyuuga
  */
-public class InscripcionDAO extends DAO{
+public class InscripcionDAO extends DAO {
     
     /***
      * Inscribe a a lguien en un programa de Servicio Social
@@ -27,6 +26,93 @@ public class InscripcionDAO extends DAO{
      */
     public int insert(Inscripcion inscripcion) {
         return super.insert(inscripcion);
+    }
+    
+    /**
+     * Actualiza el estado de una inscripción
+     * @param idInscripcion ID de la inscripción a actualizar
+     * @param nuevoEstado - El nuevo estado
+     * @param user - El usuario que está haciendo las modificaciones
+     * @return true si lo cambia, false si hay un error
+     */
+    public boolean updateEstado(int idInscripcion, Short nuevoEstado, String user) {
+        return this.updateEstadoInscripcion(idInscripcion, null, nuevoEstado, user);
+    }
+    /**
+     * Actualiza el estado de una inscripción
+     * @param idInscripcion ID de la inscripción a actualizar
+     * @param nuevoEstado - El nuevo estado
+     * @param observaciones - Las nuevas observaciones
+     * @param user - El usuario que está haciendo las modificaciones
+     * @return true si lo cambia, false si hay un error
+     */
+    public boolean updateEstadoYObservaciones(int idInscripcion, String observaciones,
+            Short nuevoEstado, String user) {
+        return this.updateEstadoInscripcion(idInscripcion, observaciones, nuevoEstado, user);
+    }
+    /**
+     * Actualiza las observaciones de una inscripción
+     * @param idInscripcion ID de la inscripción a actualizar
+     * @param nuevoEstado - Las nuevas obsercacioens
+     * @param observaciones - Las nuevas observaciones
+     * @param user - El usuario que está haciendo las modificaciones
+     * @return true si lo cambia, false si hay un error
+     */
+    public boolean updateObservaciones(int idInscripcion, String observaciones, String user) {
+        return this.updateEstadoInscripcion(idInscripcion, observaciones, null, user);
+    }
+    
+    /**
+     * Actualiza el estado de una inscripción
+     * @param idInscripcion ID de la inscripción a actualizar
+     * @param nuevoEstado - El nuevo estado, este dato puede ser nulo y únicamente actualiza las observaciones
+     * @param observaciones - Nuevas observaciones, este dato puede ser nulo y únicamente actualiza el estado
+     * 
+     * @return true si lo cambia, false si hay un error
+     */
+    private boolean updateEstadoInscripcion(int idInscripcion, String observaciones,
+            Short nuevoEstado, String user) {
+        boolean status = false;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            String q;
+            Query query = null;
+            if (observaciones == null) {
+                q = "update Inscripcion set ultimaModif=?, modificadoPor=?, estado=? where idInscripcion=?";
+                query = session.createQuery(q);
+                query.setShort(2, nuevoEstado);
+                query.setInteger(3, idInscripcion);
+            } else if (nuevoEstado == null) {
+                q = "update Inscripcion set ultimaModif=?, modificadoPor=?, observaciones=? "
+                        + "where idInscripcion=?";
+                query = session.createQuery(q);
+                query.setString(2, observaciones);
+                query.setInteger(3, idInscripcion);
+            } else if (observaciones != null && nuevoEstado != null) {
+                q = "update Inscripcion set ultimaModif=?, modificadoPor=?, estado=?, observaciones=? "
+                        + "where idInscripcion=?";
+                query = session.createQuery(q);
+                query.setShort(2, nuevoEstado);
+                query.setString(3, observaciones);
+                query.setInteger(4, idInscripcion);
+            }
+            Date curDate = new Date(System.currentTimeMillis());
+            query.setTimestamp(0, curDate);
+            query.setString(1, user);
+            int rows = query.executeUpdate();
+            transaction.commit();
+            if (rows > 0) {
+                status = true;
+            }
+        } catch (Exception ex) {
+            transaction.rollback();
+            System.out.println("ERROR ACTUALIZANDO INSCRIPCIÓN");
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return status;
     }
     
     /**

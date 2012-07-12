@@ -34,6 +34,15 @@ public class InscripcionDAOTest {
     public void tearDown() {
     }
     
+    @Test
+    public void testUpdateEstadoInscripcion() {
+        System.out.println("### testUpdateEstadoInscripcion ###");
+        boolean ok = dao.updateEstado(1, Inscripcion.CANCELADA, "jUnit");
+        Assert.assertTrue(ok);
+        ok = dao.updateEstadoYObservaciones(1, "Nuevas observaciones", Inscripcion.EN_SERVICIO, "jUnit");
+        Assert.assertTrue(ok);
+    }
+    
 //    @Test
     public void testGetFewWithStatus() {
         System.out.println("## testGetFewWithStatus...");
@@ -47,7 +56,7 @@ public class InscripcionDAOTest {
         System.out.println("estado: " + inscripcion.getEstado().getDescripcion());
     }
     
-    @Test
+//    @Test
     public void testGetByPK(){
         System.out.println("## testGetByPK...");
         inscripcion = dao.getByPK(1);

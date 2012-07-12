@@ -4,10 +4,10 @@
     Author     : gomezhyuuga
 --%>
 
+<%@page import="skyforge.sirass.model.Dia"%>
 <%@page import="skyforge.sirass.dao.prestador.PrestadorDAO"%>
 <%@page import="skyforge.sirass.dao.user.UsuarioDAO"%>
 <%@page import="java.util.Iterator"%>
-<%@page import="skyforge.sirass.model.user.Dia"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.Date"%>
 <%@page import="skyforge.sirass.model.prestador.Inscripcion"%>
@@ -92,6 +92,27 @@
                             int idPrestador = i.getPrestador().getIdPrestador();
                             PrestadorDAO pdao = new PrestadorDAO();
                             usuario = pdao.getUsername(idPrestador);
+                            String clEstado = "";
+                            switch (i.getEstado().getIdEstado()) {
+                                case 1:
+                                    clEstado = "label-info";
+                                    break;
+                                case 2:
+                                    clEstado = "label-success";
+                                    break;
+                                case 3:
+                                    clEstado = "label-warning";
+                                    break;
+                                case 4:
+                                    clEstado = "label-inverse";
+                                    break;
+                                case 5:
+                                    clEstado = "label-success";
+                                    break;
+                                case 6:
+                                    clEstado = "label-important";
+                                    break;
+                            }
             %>
                 <div class="page-header">
 					<h1>Detalles de inscripci&oacute;n <small><%=idInscripcion%></small></h1>
@@ -99,7 +120,7 @@
 				<div class="row">
 					<div class="span3"
 						<p><strong>Tipo</strong>: <%=tipo%></p>
-						<p><strong>Estado</strong>: <%=estado%></p>
+						<p><strong>Estado</strong>: <span class="label <%=clEstado%>"><%=estado%></span></p>
 					</div>
 					<div class="span3 pull-right">
 						<p><strong>Horas realizadas:</strong> <%=hrsAcum%>:<%= minsAcum%></p>
@@ -211,7 +232,9 @@
 				<p><i class="icon-question-sign"></i>
 				En caso de que sea una solicitud de inscripci&oacute;n y tenga errores, pulsar el bot&oacute;n <em><strong>Con errores</strong></em>.
 				Si lo que se desea es actualizar &uacute;nicamente el campo de observaciones, pulsar en <em><strong>Actualizar observaciones</strong></em>.</p>
-				<form method="get" action="./actualizar.html">
+                <form method="post" action="/SiRASS/FormReceiver" name="form-revisar" id="form-revisar">
+                    <input type="hidden" name="class" value="RevisarInscripcion" />
+                    <input type="hidden" name="id" value="<%= id %>" />
 					<textarea name="observaciones" maxlength="300" class="span8" rows="4"
                               placeholder="Escribe alguna observaci&oacute;n"><%= observaciones%></textarea>
 					<div class="form-actions">
@@ -237,8 +260,60 @@
 			</div>
 		</div>
 	</div>
-    <!-- Footer
-	============================== -->
-    <jsp:include page="/WEB-INF/jspf/footer.jsp" />
+        <!-- Footer
+        ============================== -->
+        <jsp:include page="/WEB-INF/jspf/footer.jsp">
+            <jsp:param name="form" value="true" />
+            <jsp:param name="bootbox" value="true" />
+        </jsp:include>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                // FORM SUBMIT
+                var options = { 
+                    success: registroOK,  // post-submit callback 
+                    error: registroError
+                };                
+                $('#form-revisar').ajaxForm(options);
+            });
+
+            function registroOK(responseText, statusText, xhr, $form) {
+                if (responseText == "1") {
+                    console.log("Correcto :-)");
+                    console.log(xhr);
+                    console.log($form);
+                    var msg = 'La inscripción se ha actualizado correctamente.';
+                    createAlert('Inscripción actualizada!',
+                        msg,
+                        '#feedback', 'alert-success');
+                    bootbox.dialog('<p class="lead">' + msg + '<p>', [{
+                        "label" : "Cerrar",
+                        "class" : "btn-success",
+                        "callback": function() {
+                            document.location.reload(true);
+                        }
+                    }]);
+                } else if (responseText == "0") {
+                    registroError();
+                } else {
+                    registroError();
+                }
+            }
+
+            function registroError(responseText, statusText, xhr, $form) {
+                console.log("Error :-(");
+                console.log(xhr);
+                console.log($form);
+                var msg = '<p class="lead">Hubo un error actualizando el estado de la inscripción. Por favor intenta de nuevo</p>';
+                msg += '<p>Status: ' + statusText + '</p>'
+//                msg += '<p>Error: ' + responseText.status + '</p>'
+                createAlert('Inscripción no actualizada!',
+                    msg,
+                    '#feedback', 'alert-error');
+                bootbox.dialog(msg, [{
+                    "label" : "Cerrar",
+                    "class" : "btn-primary btn-danger"
+                }]);
+            }
+        </script>
     </body>
 </html>

@@ -44,12 +44,20 @@ public class FormReceiver extends HttpServlet {
         Map<String, String[]> map = request.getParameterMap();
         clase = request.getParameter("class");
         int status = 0;
+        String user = "system";
+        if (request.getUserPrincipal() != null &&
+                request.getUserPrincipal().getName() != null) {
+            user = request.getUserPrincipal().getName();
+        }
 
         if (clase != null) {
             // Inscripcion de un prestador a un programa de servicio social
             if (clase.equals("Inscripcion")) {
                 System.out.println("Haciendo inscripción...");
-                status = inscripcion(map, request.getUserPrincipal().getName());
+                status = inscripcion(map, user);
+            } else if (clase.equals("RevisarInscripcion")) {
+                System.out.println("Actualizando estado y observaciones de inscripción....");
+                status = this.revisionInscripcion(map, user);
             }
         }
         PrintWriter out = response.getWriter();
@@ -62,6 +70,9 @@ public class FormReceiver extends HttpServlet {
         }
     }
 
+    /*
+     * Realiza inscripción de un prestador en un programa de servicio social
+     */
     private int inscripcion(Map<String, String[]> map, String user) {
         InscripcionForm form = new InscripcionForm(map, user);
         Inscripcion inscripcion = form.getObject();
@@ -77,6 +88,42 @@ public class FormReceiver extends HttpServlet {
         } else {
             return 0;
         }
+    }
+    
+    /*
+     * Actualizar estado de una inscripción
+     */
+    private int revisionInscripcion(Map<String, String[]> map, String user) {
+        int status = 0;
+        if (map.get("id") != null) {
+            try {
+                int idInscripcion = Integer.parseInt(map.get("id")[0]);
+                InscripcionDAO idao = new InscripcionDAO();
+                String observaciones = null;
+                if (map.get("observaciones") != null) {
+                    observaciones = map.get("observaciones")[0];
+                }
+                if (map.get("actualizar") != null) {
+                    System.out.println("actualizando observaciones");
+                    boolean ok = idao.updateObservaciones(idInscripcion, observaciones, user);
+                    if (ok) {
+                        status = 1;
+                    }
+                } else if (map.get("errores") != null) {
+                    System.out.println("inscripcion con errores");
+                    boolean ok = idao.updateEstadoYObservaciones(idInscripcion, observaciones, Inscripcion.CON_ERRORES, user);
+                    if (ok) {
+                        status = 1;
+                    }
+                }
+            } catch (Exception ex) {
+                System.out.println("NO SE PUDO ACTUALIZAR INSCRIPCIÓN");
+                ex.printStackTrace();
+                status = 0;
+            }
+        }
+        
+        return status;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
