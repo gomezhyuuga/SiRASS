@@ -79,10 +79,11 @@
 								<td><%= programa %></td>
 								<td>
 									<div class="btn-group">
-										<button class="btn btn-success btn-mini">Reactivar</button>
-										<button class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown">
+										<a class="btn btn-success btn-mini"
+                                           href="/SiRASS/Services?id=<%=id%>&status=<%= Inscripcion.EN_SERVICIO %>">Reactivar</a>
+										<a class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown">
 											<span class="caret"></span>
-										</button>
+										</a>
 										<ul class="dropdown-menu">
 											<li>
 												<a href="detalles.jsp?id=<%= id%>"><i class="icon-eye-open"></i>
@@ -90,13 +91,8 @@
 												</a>
 											</li>
 											<li>
-												<a href="#"><i class="icon-remove"></i>
+												<a href="/SiRASS/Services?id=<%=id%>&status=<%= Inscripcion.CANCELADA %>"><i class="icon-remove"></i>
 													Cancelar Servicio
-												</a>
-											</li>
-											<li>
-												<a href="#"><i class="icon-remove-circle"></i>
-													Eliminar
 												</a>
 											</li>
 										</ul>

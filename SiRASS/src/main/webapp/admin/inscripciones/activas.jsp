@@ -79,10 +79,11 @@
 								<td><%= programa %></td>
 								<td>
 									<div class="btn-group">
-										<button class="btn btn-warning btn-mini">Suspender</button>
-										<button class="btn btn-warning btn-mini dropdown-toggle" data-toggle="dropdown">
+										<a class="btn btn-warning btn-mini"
+                                           href="/SiRASS/Services?id=<%=id%>&status=<%= Inscripcion.SUSPENDIDA %>">Suspender</a>
+										<a class="btn btn-warning btn-mini dropdown-toggle" data-toggle="dropdown">
 											<span class="caret"></span>
-										</button>
+										</a>
 										<ul class="dropdown-menu">
                                             <li>
                                                 <a href="detalles.jsp?id=<%= id%>"><i class="icon-eye-open"></i>
@@ -90,12 +91,12 @@
 												</a>
                                             </li>
 											<li>
-												<a href="#"><i class="icon-ok"></i>
+												<a href="/SiRASS/Services?id=<%=id%>&status=<%= Inscripcion.FINALIZADA %>"><i class="icon-ok"></i>
 													Liberar Servicio
 												</a>
 											</li>
 											<li>
-												<a href="#"><i class="icon-remove"></i>
+												<a href="/SiRASS/Services?id=<%=id%>&status=<%= Inscripcion.CANCELADA %>"><i class="icon-remove"></i>
 													Cancelar Servicio
 												</a>
 											</li>
