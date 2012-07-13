@@ -38,7 +38,7 @@
 				<div class="form-actions">
 					<div class="btn-group" data-toggle="buttons-radio">
                         <a class="btn btn-primary" href="./">Esperando</a>
-						<a class="btn btn-danger active" href="./invalidas.jsp">Con errores</a>
+						<a class="btn btn-danger active" href="#">Con errores</a>
 						<a class="btn btn-success" href="./activas.jsp">En servicio</a>
 						<a class="btn btn-warning" href="./suspendidas.jsp">Suspendida</a>
 						<a class="btn btn-inverse" href="./canceladas.jsp">Cancelada</a>
@@ -86,13 +86,8 @@
 										</a>
 										<ul class="dropdown-menu">
 											<li>
-												<a href="/SiRASS/Services?id=<%=id%>&status=<%= Inscripcion.EN_SERVICIO %>"><i class="icon-ok"></i>
+												<a href="/SiRASS/Services?service=uInscripcionStat&id=<%=id%>&status=<%= Inscripcion.EN_SERVICIO %>"><i class="icon-ok"></i>
 													Aceptar
-												</a>
-											</li>
-											<li>
-												<a href="/SiRASS/Services?id=<%=id%>&status=<%= Inscripcion.CON_ERRORES %>"><i class="icon-remove"></i>
-													Rechazar
 												</a>
 											</li>
 										</ul>

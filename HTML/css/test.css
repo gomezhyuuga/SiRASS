@@ -1,0 +1,89 @@
+body > header {
+	text-align: center;
+	width: 100%;
+	background-color: #333;
+	color: white;
+	padding: 40px 30px;
+}
+body > header h1 {
+	font-size: 48px;
+}
+body {
+	background-color: silver;
+}
+section {
+	background-color: white;
+	width: 90%;
+	margin: 10px auto;
+	border: 1px solid #666;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+	border-radius: 3px;
+	margin-bottom: 40px;
+	padding: 20px 20px 20px 0px;
+}
+section > * {
+	margin-left: 20px;
+}
+section > header {
+	background-color: #8ba3c4;
+	margin-top: -20px;
+	margin-left: 0px;
+	width: 100%;
+	color: #587091;
+	margin-bottom: 20px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	padding-left: 20px;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.44), 0 -1px 0 rgba(0, 0, 0, 0.76);
+	text-transform: none;
+	font: bold 24px/24px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+aside {
+	float: right;
+	width: 400px;
+	margin-right: -20px;
+	margin-top: -20px;
+	height: 170px;
+	background-color: #4c3f3f;
+	color: white;
+}
+aside h1 {
+	text-align: center;
+}
+
+input {
+	text-align: center;
+}
+
+/* css for timepicker */
+.ui-timepicker-div {
+	margin-bottom: -18px;
+}
+.ui-timepicker-div .ui-widget-header {
+	border: 1px solid #648bb0;
+	color: #577999;
+	background: -moz-linear-gradient(90deg, #90beea 0%, #b7d7f6 100%) #b7d7f6;
+	background: -webkit-gradient(linear, left bottom, left top, from(#90beea), to(#b7d7f6)) #b7d7f6;
+}
+.ui-timepicker-div dl {
+	text-align: left;
+	padding-left: 10px;
+	padding-bottom: 8px;
+}
+.ui-timepicker-div dl dt { 
+	height: 25px;
+	margin-bottom: -25px;
+}
+.ui-timepicker-div dl dd { 
+	margin: 0 10px 10px 65px;
+}
+.ui-timepicker-div td { 
+	font-size: 90%;
+}
+.ui-tpicker-grid-label { 
+	background: none;
+	border: none;
+	margin: 0;
+	padding: 0;
+}

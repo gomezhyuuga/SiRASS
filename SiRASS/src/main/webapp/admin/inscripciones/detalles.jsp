@@ -31,7 +31,7 @@
 			<!-- Sidebar
 			============================== -->
             <jsp:include page="../jspf/sidebar.jsp">
-                <jsp:param name="active" value="home" />
+                <jsp:param name="active" value="nav-inscripciones" />
             </jsp:include>
 			<!-- Contenido
 			============================== -->

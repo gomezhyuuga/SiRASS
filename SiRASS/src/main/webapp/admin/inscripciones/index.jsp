@@ -37,7 +37,7 @@
 				<p class="lead">Selecciona una opción para filtrar las inscripciones.</p>
 				<div class="form-actions">
 					<div class="btn-group" data-toggle="buttons-radio">
-                        <a class="btn btn-primary active" href="./">Esperando</a>
+                        <a class="btn btn-primary active" href="#">Esperando</a>
 						<a class="btn btn-danger" href="./invalidas.jsp">Con errores</a>
 						<a class="btn btn-success" href="./activas.jsp">En servicio</a>
 						<a class="btn btn-warning" href="./suspendidas.jsp">Suspendida</a>
@@ -85,12 +85,12 @@
 										</a>
 										<ul class="dropdown-menu">
 											<li>
-												<a href="#"><i class="icon-ok"></i>
+												<a href="/SiRASS/Services?service=uInscripcionStat&id=<%=id%>&status=<%=Inscripcion.EN_SERVICIO %>"><i class="icon-ok"></i>
 													Aceptar
 												</a>
 											</li>
 											<li>
-												<a href="#"><i class="icon-remove"></i>
+												<a href="/SiRASS/Services?service=uInscripcionStat&id=<%=id%>&status=<%=Inscripcion.CON_ERRORES %>"><i class="icon-remove"></i>
 													Rechazar
 												</a>
 											</li>

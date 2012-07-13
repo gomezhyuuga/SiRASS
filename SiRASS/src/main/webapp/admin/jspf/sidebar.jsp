@@ -1,8 +1,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
             <nav class="span3" id="sidebar">
+            <%  if (request.getParameter("active") != null) { %>
+                <input type="hidden" id="sidebarActive" value="<%= request.getParameter("active") %>" />
+            <%  } %>
 				<ul class="nav nav-list">
-					<li id="home" class="active">
-						<a href="./"><i class="icon-home"></i>
+					<li id="home">
+						<a href="/SiRASS/admin/"><i class="icon-home"></i>
 							Inicio
 						</a>
 						</li>
@@ -23,7 +26,7 @@
     					<!-- pendientes -->
     					<li class="nav-header">Pendientes</li>
                         <li id="nav-inscripciones">
-                            <a href="inscripciones"><i class="icon-tasks"></i>
+                            <a href="/SiRASS/admin/inscripciones"><i class="icon-tasks"></i>
                                 Inscripciones
                             </a>
                         </li>
@@ -46,13 +49,13 @@
     					</li>-->
     					<!-- buscar -->
     					<li>
-    						<a href="./consultaPrestadores.jsp">
+    						<a href="/SiRASS/admin/consultaPrestadores.jsp">
     							<i class="icon-search"></i>
     							Buscar
     						</a>
     					</li>
                                         <li>
-    						<a href="./gestionarUsuarios.jsp">
+    						<a href="/SiRASS/admin/gestionarUsuarios.jsp">
     							<i class="icon-pencil"></i>
     							Gestion usuarios
     						</a>

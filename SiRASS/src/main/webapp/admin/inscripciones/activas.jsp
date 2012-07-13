@@ -39,7 +39,7 @@
 					<div class="btn-group" data-toggle="buttons-radio">
                         <a class="btn btn-primary" href="./">Esperando</a>
 						<a class="btn btn-danger" href="./invalidas.jsp">Con errores</a>
-						<a class="btn btn-success active" href="./activas.jsp">En servicio</a>
+						<a class="btn btn-success active" href="#">En servicio</a>
 						<a class="btn btn-warning" href="./suspendidas.jsp">Suspendida</a>
 						<a class="btn btn-inverse" href="./canceladas.jsp">Cancelada</a>
 						<a class="btn" href="./finalizadas.jsp">Finalizadas</a>
@@ -80,7 +80,7 @@
 								<td>
 									<div class="btn-group">
 										<a class="btn btn-warning btn-mini"
-                                           href="/SiRASS/Services?id=<%=id%>&status=<%= Inscripcion.SUSPENDIDA %>">Suspender</a>
+                                           href="/SiRASS/Services?service=uInscripcionStat&id=<%=id%>&status=<%= Inscripcion.SUSPENDIDA %>">Suspender</a>
 										<a class="btn btn-warning btn-mini dropdown-toggle" data-toggle="dropdown">
 											<span class="caret"></span>
 										</a>
@@ -91,12 +91,12 @@
 												</a>
                                             </li>
 											<li>
-												<a href="/SiRASS/Services?id=<%=id%>&status=<%= Inscripcion.FINALIZADA %>"><i class="icon-ok"></i>
+												<a href="/SiRASS/Services?service=uInscripcionStat&id=<%=id%>&status=<%= Inscripcion.FINALIZADO %>"><i class="icon-ok"></i>
 													Liberar Servicio
 												</a>
 											</li>
 											<li>
-												<a href="/SiRASS/Services?id=<%=id%>&status=<%= Inscripcion.CANCELADA %>"><i class="icon-remove"></i>
+												<a href="/SiRASS/Services?service=uInscripcionStat&id=<%=id%>&status=<%= Inscripcion.CANCELADA %>"><i class="icon-remove"></i>
 													Cancelar Servicio
 												</a>
 											</li>

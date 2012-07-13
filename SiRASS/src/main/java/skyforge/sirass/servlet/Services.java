@@ -61,7 +61,7 @@ public class Services extends HttpServlet {
                 idInscripcion = Integer.parseInt(request.getParameter("id"));
                 InscripcionDAO idao = new InscripcionDAO();
                 idao.updateEstado(idInscripcion, nuevoEstado, user);
-                
+                response.sendRedirect(request.getContextPath() + "/admin/inscripciones/");
             } catch (Exception ex) {
                 System.out.println("ERROR ACTUALIZANDO ESTADO DE INSCRIPCIÓN");
                 ex.printStackTrace();

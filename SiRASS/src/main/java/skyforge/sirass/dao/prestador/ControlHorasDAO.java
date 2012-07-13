@@ -61,7 +61,11 @@ public class ControlHorasDAO extends DAO {
         ControlHoras controlHoras = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         // Obtener el control de Horas
-        controlHoras = (ControlHoras) session.createCriteria(ControlHoras.class).add(Restrictions.eq("idControlHoras", id)).setFetchMode("horas", FetchMode.JOIN).setFetchMode("estado", FetchMode.JOIN).uniqueResult();
+        controlHoras = (ControlHoras) session.createCriteria(ControlHoras.class)
+                .add(Restrictions.eq("idControlHoras", id))
+                .setFetchMode("horas", FetchMode.JOIN)
+                .setFetchMode("estado", FetchMode.JOIN)
+                .uniqueResult();
         session.close();
         return controlHoras;
     }
@@ -132,7 +136,9 @@ public class ControlHorasDAO extends DAO {
         List<ControlHoras> lista = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         // Obtener el control de Horas
-        Criteria criteria = session.createCriteria(ControlHoras.class).setFetchMode("horas", mode).setFetchMode("estado", FetchMode.JOIN);
+        Criteria criteria = session.createCriteria(ControlHoras.class)
+                .setFetchMode("horas", mode)
+                .setFetchMode("estado", FetchMode.JOIN);
         for (Criterion crit : res) {
             criteria.add(crit);
         }
