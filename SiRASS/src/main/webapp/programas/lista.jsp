@@ -66,27 +66,27 @@
                             ProgramaSS programaSS = it.next();
                     %>
                     <tr>
-                        <th>
+                        <td>
                             <%= programaSS.getNombre()%>
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                             <%= programaSS.getInstitucion()%>
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                             <%= programaSS.getVacantes()%>
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                             <%= programaSS.getLugar()%>
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                             <%= programaSS.getTel()%>
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                             <a class="btn btn-success btn-mini" href = "detalles.jsp?id=<%= programaSS.getIdPrograma() %>">
                                 <i class = "icon-plus-sign icon-white"></i>
                                 M&aacute;s
                             </a>
-                        </th>
+                        </td>
                     </tr>
                     <%}%>
                 </tbody>

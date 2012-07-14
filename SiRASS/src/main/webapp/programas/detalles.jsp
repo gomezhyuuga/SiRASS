@@ -1,4 +1,4 @@
-<%@page import="skyforge.sirass.model.user.Dia"%>
+<%@page import="skyforge.sirass.model.Dia"%>
 <%@page import="skyforge.sirass.model.programass.TipoPrograma"%>
 <%@page import="skyforge.sirass.model.programass.PoblacionPrograma"%>
 <%@page import="skyforge.sirass.model.programass.AlcancePrograma"%>
@@ -81,9 +81,9 @@
                                                 ResponsablePrograma res = (ResponsablePrograma) it3.next();
                                         %>
                                         <tr>
-                                            <th><%= res.getResponsable() %></th>
-                                            <th><%= res.getCargo() %></th>
-                                            <th><%= res.getEmail() %></th>
+                                            <td><%= res.getResponsable() %></td>
+                                            <td><%= res.getCargo() %></td>
+                                            <td><%= res.getEmail() %></td>
                                         </tr>
                                         <% } %>
                                     </tbody>
