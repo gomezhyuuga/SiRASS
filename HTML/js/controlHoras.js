@@ -19,7 +19,112 @@ function init() {
 	
 	$('button:reset').click(function() {
 		$('#rows-horas').html('');
+		calcularTotal();
 	});
+	
+	$('#help1').tooltip();
+	
+	$('#autoAdd').click(function(e) {
+		e.preventDefault();
+		bootbox.prompt("Ingresa la hora de entrada", function(result) {
+			var hora = result;
+			bootbox.prompt("Ingresa el minuto en el que ingresaste", function(result2) {
+				var min = result2;
+				smartFill(hora, min);
+			});
+		});
+	});
+}
+
+function smartFill(h, m) {
+	console.log("Llenado inteligente...");
+	var horaEntrada = 8;
+	var minEntrada = 0;
+	if (h != NaN && h != null && h != 0) {
+		horaEntrada = h;
+	}
+	if (m != NaN && m != null) {
+		minEntrada = m;
+	}
+	var horaSalida;
+	// Pedir horas
+	/****/
+	calcularTotal();
+	var rows = $('#rows-horas');
+	var index;
+	if (rows.contents('tr:last') != null && rows.contents('tr:last') != undefined
+		&& rows.contents('tr:last').length != 0 ) {
+		index = rows.contents('tr:last').attr('id').substring(3);
+	} else {
+		index = 0;
+	}
+	index++;
+	var hrsReporte = Number($('.hrsReporte').text());
+	console.log(index);
+	console.log(hrsReporte);
+	
+	horaSalida = Number(horaEntrada) + Number(4);
+	
+	// Estilizar horas
+	var hEntStr = "";
+	var hSalStr = "";
+	if (horaEntrada < 10) {
+		hEntStr += "0" + horaEntrada;
+	} else {
+		hEntStr += "" + horaEntrada;
+	}
+	if (horaSalida < 10) {
+		hSalStr = "0" + horaSalida;
+	} else {
+		hSalStr = "" + horaSalida;
+	}
+	hEntStr += ":";
+	hSalStr += ":";
+	if (minEntrada < 10) {
+		hEntStr += "0" + minEntrada;
+		hSalStr += "0" + minEntrada;
+	} else {
+		hEntStr += "" + minEntrada;
+		hSalStr += "" + minEntrada;
+	}
+	console.log(hEntStr);
+	console.log(hSalStr);
+	
+	// Establecer fechas
+	var date = new Date();
+	var anio = date.getFullYear();
+	var mes = date.getMonth();
+	var dia = 1;
+	if (mes == 0) {
+		mes = 11;
+	} else {
+		mes--;
+	}
+	date = new Date(anio, mes, dia, 0, 0, 0, 0);
+	console.log(dia + "." + mes + "." + anio);
+	console.log(date);
+	
+	var stop = false;
+	while (hrsReporte < 80 && !stop) {
+		var fecha = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+		if (date.getDay() != 0 && date.getDay() != 6) {
+			addHour();
+			$('#hEntrada' + index).val(hEntStr);
+			$('#hSalida' + index).val(hSalStr);
+			$('#fecha' + index).val(fecha);
+			$('#suma' + index).text('4:00');
+			$('#acum' + index).val('4:00');
+			$('#sumaHrs' + index).val('4');
+			$('#sumaMins' + index).val('0');
+			hrsReporte += 4;
+			index++;
+			calcularTotal();
+		}
+		date.setDate(date.getDate() + 1);
+		if (date.getDate() >= 30 ) {
+			stop = true;
+		}
+	}
 }
 
 function setDatePickers() {
@@ -48,10 +153,10 @@ function setDatePickers() {
 }
 
 function calcularHoras(dateText, inst) {
-	console.log("Calculando horas....");
-	console.log(dateText);
-	console.log("hour: " + inst.hour);
-	console.log("min: " + inst.minute);
+	// console.log("Calculando horas....");
+	// console.log(dateText);
+	// console.log("hour: " + inst.hour);
+	// console.log("min: " + inst.minute);
 	// 1) Obtener fila del elemento cambiado
 	var index = inst.$input.attr('data-reg');
 	var hEntrada = $('#hEntrada' + index);
@@ -68,9 +173,9 @@ function calcularHoras(dateText, inst) {
 		// 3) Validación de que hsalida > hentrada
 		if (dSalida.getTime() > dEntrada.getTime()) {
 			// 4) Calcular diferencia de horas
-			console.log('Calculando diferencia');
+			// console.log('Calculando diferencia');
 			var oDiff = get_time_difference(dEntrada, dSalida);
-			console.log(oDiff);
+			// console.log(oDiff);
 			var acum = oDiff.hours + ':' + oDiff.minutes;
 			spanSuma.text(acum);
 			inputAcum.val(acum);
@@ -83,31 +188,8 @@ function calcularHoras(dateText, inst) {
 			inputSumaMins.val('');
 		}
 	}
+	calcularTotal();
 }
-
-function calcular(text, inst) {
-	var time1 = $('#date1');
-	var time2 = $('#date2');
-	var difEl = $('#dif');
-	if (time1.val() != "" && time2.val() != "") {
-		time1Date = time1.datepicker('getDate');
-		time2Date = time2.datepicker('getDate');
-		console.log(time1Date);
-		console.log(time2Date);
-		
-		if (time1Date.getTime() < time2Date.getTime()) {
-			console.log("hora2 es mayor a hora1. Obteniendo diferencia...");
-			var dif = get_time_difference(time1Date, time2Date);
-			console.log(dif);
-			difEl.text(dif.hours + ":" + dif.minutes);
-		} else {
-			difEl.text('');
-		}
-	} else {
-		difEl.text('');
-	}
-}
-
 function addHour() {
 	var rows = $('#rows-horas');
 	var index;
@@ -118,17 +200,18 @@ function addHour() {
 		index = 0;
 	}
 	index++;
-	console.log(index);
-	console.log('Creando row...');
+	// console.log(index);
+	// console.log('Creando row...');
 	var newRow = createRow(index);
-	console.log(newRow);
+	// console.log(newRow);
 	rows.append(newRow);
 }
 
 function delRow(el) {
 	var row = $('#row' + el);
-	console.log(row);
+	// console.log(row);
 	row.remove();
+	calcularTotal();
 }
 
 function createRow(index) {
@@ -197,8 +280,16 @@ function createRow(index) {
 	
 	// Active date&time pickers
 	inputFecha.datepicker();
-	inputHEnt.timepicker({});
-	inputHSal.timepicker({});
+	inputHEnt.timepicker({
+		onSelect: function(dateText, inst) {
+			calcularHoras(dateText, inst);
+		}
+	});
+	inputHSal.timepicker({
+		onSelect: function(dateText, inst) {
+			calcularHoras(dateText, inst);
+		}
+	});
 	
 	// Insert content
 	tdNum.text(index);
@@ -221,6 +312,48 @@ function createRow(index) {
 	tr.append(tdElim);
 	
 	return tr;
+}
+
+function calcularTotal() {
+	var hrsAcumEl = $('input[data-tipo="hr"]');
+	var minsAcumEl = $('input[data-tipo="min"]');
+	var hrsAcum = 0;
+	var minsAcum = 0;
+	hrsAcumEl.each(function(index) {
+		var el = $(this);
+		if (el.val() != "") {
+			hrsAcum += Number(el.val());
+		}
+	});
+	minsAcumEl.each(function(index) {
+		var el = $(this);
+		if (el.val() != "") {
+			minsAcum += Number(el.val());
+		}
+	});
+	if (minsAcum >= 60) {
+		hrsAcum += Math.floor(minsAcum / 60);
+		minsAcum = minsAcum % 60;
+	}
+	$('.hrsReporte').text(hrsAcum);
+	$('.minsReporte').text(minsAcum);
+	$('.totalReporte').text(hrsAcum + ':' + minsAcum);
+	$('input[name="hrsReporte"]').val(hrsAcum);
+	$('input[name="minsReporte"]').val(minsAcum);
+	
+	// Calcular acumulado
+	var hrsAnteriores = $('.hrsAnteriores');
+	var minsAnteriores = $('.minsAnteriores');
+	var hrsSuma = Number(hrsAnteriores.text());
+	var minsSuma = Number(minsAnteriores.text());
+	hrsSuma += Number(hrsAcum);
+	minsSuma += Number(minsAcum);
+	$('input[name="hrsAcumuladas"]').val(hrsSuma);
+	$('input[name="minsAcumulados"]').val(minsSuma);
+	
+	$('.hrsAcumuladas').text(hrsSuma);
+	$('.minsAcumulados').text(minsSuma);
+	$('.totalAcumulado').text(hrsSuma + ':' + minsSuma);
 }
 
 // Simple function to calculate time difference between 2 Javascript date objects

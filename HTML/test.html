@@ -26,6 +26,9 @@
 			<input type="text" id="date2" class="input-mini" />
 		</p>
 	</section>
+	<section id="mins">
+		<header><h1>Mins</h1></header>
+	</section>
 	
 	<script src="js/jquery-1.7.2.min.js" type="text/javascript"></script>
 	<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
@@ -56,6 +59,11 @@
 					calcular(dateText, inst);
 				}
 			});
+			
+			var mins = 120;
+			var el = $('#mins');
+			el.append($('<p>').text(mins % 60));
+			el.append($('<p>').text(Math.floor(mins / 60)));
 		});
 		
 		function calcular(text, inst) {
