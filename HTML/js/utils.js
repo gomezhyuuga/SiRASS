@@ -127,3 +127,7 @@ function changeInstitucion(select) {
         }
     }
 }
+
+function reloadPage() {
+	window.location.reload();
+}

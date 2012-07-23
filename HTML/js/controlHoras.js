@@ -34,6 +34,93 @@ function init() {
 			});
 		});
 	});
+	
+	$.validator.setDefaults({
+		debug: true,
+		errorContainer: "#feedback",
+		errorClass: "invalid",
+		wrapper: 'p class="help-block"',
+		ignore: "",
+		submitHandler: function(form) {
+			var opts = {
+				success: formSuccess,
+				error: formError
+			}
+			$(form).ajaxSubmit(opts);
+		}
+	});
+	
+	$('#form-controlHoras').validate({
+		rules: {
+			nReporte: {
+				required: true,
+				min: 1,
+				max: 10,
+				digits: true
+			},
+			supervisor: {
+				required: true,
+				maxlength: 45
+			},
+			fInicio: {
+				date: true,
+				required: true
+			},
+			fTermino: {
+				date: true,
+				required: true
+			},
+			fecha1: {
+				required: true,
+				date: true
+			},
+			hEntrada1: "required",
+			hSalida1: "required",
+			acum1: "required",
+			hrsReporte: "required",
+			minsReporte: "required",
+			totalReporte: "required",
+			hrsAcumuladas: "required",
+			minsAcumulados: "required",
+			totalAcumulado: "required"
+		},
+		messages: {
+			hrsReporte: "Debes ingresar registros de horas!",
+			minsReporte: "Debes ingresar registros de horas!",
+			totalReporte: "Debes ingresar registros de horas!",
+			hrsAcumuladas: "Debes ingresar registros de horas!",
+			minsAcumulados: "Debes ingresar registros de horas!",
+			totalAcumulado: "Debes ingresar registros de horas!",
+			acum1: "Horas incorrectas"
+		}
+	});
+}
+
+function formSuccess(responseText, statusText, xhr, $form) {
+	if (responseText == "1") {
+		var title = "Envío de reporte fallido";
+		var text = "Ha ocurrido un error enviando tu reporte, por favor revisa que los datos que ";
+		text += "estás enviando sean correctos.";
+		createAlert(title, text, '#feedback', 'alert-success');
+		bootbox.dialog('<p class="lead">' + text + '<p>', [{
+		    "label" : "Cerrar",
+		    "class" : "btn-primary btn-success",
+		    "callback": reloadPage
+		}]);
+	} else {
+		formError();
+	}
+}
+
+function formError(responseText, statusText, xhr, $form) {
+	var title = "Envío de reporte fallido";
+	var text = "Ha ocurrido un error enviando tu reporte, por favor revisa que los datos que ";
+	text += "estás enviando sean correctos.";
+	createAlert(title, text, '#feedback', 'alert-error');
+	bootbox.dialog('<p class="lead">' + text + '<p>', [{
+	    "label" : "Cerrar",
+	    "class" : "btn-primary btn-danger"
+	}]);
 }
 
 function smartFill(h, m) {
@@ -340,6 +427,7 @@ function calcularTotal() {
 	$('.totalReporte').text(hrsAcum + ':' + minsAcum);
 	$('input[name="hrsReporte"]').val(hrsAcum);
 	$('input[name="minsReporte"]').val(minsAcum);
+	$('input[name="totalReporte"]').val(hrsAcum + ':' + minsAcum);
 	
 	// Calcular acumulado
 	var hrsAnteriores = $('.hrsAnteriores');
@@ -354,6 +442,7 @@ function calcularTotal() {
 	$('.hrsAcumuladas').text(hrsSuma);
 	$('.minsAcumulados').text(minsSuma);
 	$('.totalAcumulado').text(hrsSuma + ':' + minsSuma);
+	$('input[name="totalAcumulado"]').val(hrsSuma + ':' + minsSuma);
 }
 
 // Simple function to calculate time difference between 2 Javascript date objects
