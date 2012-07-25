@@ -89,7 +89,7 @@
                                             <%= programaSS.getTel() %>
                                         </th>
                                         <th>
-                                            <a class="btn btn-info btn-mini">
+                                            <a class="btn btn-info btn-mini" target="_blank" href="../programas/detalles.jsp?id=<%= programaSS.getIdPrograma() %>">
                                                 <i class = "icon-plus-sign icon-white"></i>
                                                 M&aacute;s
                                             </a>
@@ -152,7 +152,7 @@
                                             <%= programaSS.getTel() %>
                                         </th>
                                         <th>
-                                            <a class="btn btn-info btn-mini">
+                                            <a class="btn btn-info btn-mini" target="_blank" href="../programas/detalles.jsp?id=<%= programaSS.getIdPrograma() %>">
                                                 <i class = "icon-plus-sign icon-white"></i>
                                                 M&aacute;s
                                             </a>
