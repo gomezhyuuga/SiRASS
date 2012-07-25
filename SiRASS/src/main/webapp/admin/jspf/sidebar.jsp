@@ -60,6 +60,12 @@
     							Gestion usuarios
     						</a>
     					</li>
+                                        <li>
+    						<a href="/SiRASS/admin/gestionProgramas.jsp">
+    							<i class="icon-pencil"></i>
+    							Gestion Programas
+    						</a>
+    					</li>
     					<!-- avisos -->
     					<li class="divider"></li>
     					<li>

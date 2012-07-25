@@ -41,7 +41,7 @@ public class programasDaoTest {
     public void tearDown() {
     }
 
-    @Test
+    /*@Test
     public void testProgramas() {
         CategoriaPrograma categoriaPrograma = new CategoriaPrograma();
         CEstado cEstado = new CEstado();
@@ -57,9 +57,9 @@ public class programasDaoTest {
          * TODO
          * Comprobar que el test sea correcto. Revisa los otros tests.
          */
-    }
+    //}
 
-    @Test
+    /*@Test
     public void testProgByPK() {
         ProgramaSS programaSS = pdao.getByPK(2);
         System.out.println(programaSS.getNombre());
@@ -73,9 +73,9 @@ public class programasDaoTest {
          * TODO
          * Comprobar que el test sea correcto. Revisa los otros tests.
          */
-    }
+//    }
 
-    @Test
+    /*@Test
     public void testGetListFew() {
         System.out.println("testGetListFew...");
         List<ProgramaSS> list = pdao.getListAllFew();
@@ -98,5 +98,17 @@ public class programasDaoTest {
         System.out.println("testGetListFewInternos...");
         List<ProgramaSS> list = pdao.getListFewInternos();
         Assert.assertNotNull(list);
+    }*/
+    @Test
+    public void testGetListProg(){
+        List<ProgramaSS> list = pdao.getListProgramasByEdo(new CEstado((short) 4));
+        Iterator<ProgramaSS> it = list.iterator();
+        while (it.hasNext()) {
+            ProgramaSS programaSS = it.next();
+            System.out.println(programaSS.getNombre());
+            System.out.println(programaSS.getInstitucion());
+            System.out.println(programaSS.getTel());
+            
+        }
     }
 }
