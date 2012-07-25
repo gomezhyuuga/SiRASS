@@ -63,16 +63,16 @@ function init() {
 				maxlength: 45
 			},
 			fInicio: {
-				date: true,
-				required: true
+				required: true,
+				dateITA: true
 			},
 			fTermino: {
-				date: true,
-				required: true
+				required: true,
+				dateITA: true
 			},
 			fecha1: {
 				required: true,
-				date: true
+				dateITA: true
 			},
 			hEntrada1: "required",
 			hSalida1: "required",
@@ -91,16 +91,22 @@ function init() {
 			hrsAcumuladas: "Debes ingresar registros de horas!",
 			minsAcumulados: "Debes ingresar registros de horas!",
 			totalAcumulado: "Debes ingresar registros de horas!",
-			acum1: "Horas incorrectas"
+			acum1: "Horas incorrectas",
+			fTermino: {
+				dateITA: "Formato de fecha inválido"
+			},
+			fInicio: {
+				dateITA: "Formato de fecha inválido"
+			}
 		}
 	});
 }
 
 function formSuccess(responseText, statusText, xhr, $form) {
 	if (responseText == "1") {
-		var title = "Envío de reporte fallido";
-		var text = "Ha ocurrido un error enviando tu reporte, por favor revisa que los datos que ";
-		text += "estás enviando sean correctos.";
+		var title = "Envío exitoso del reporte";
+		var text = "Tu control de horas ha sido enviado correctamente. Espera a que un supervisor ";
+		text += "lo revise y valide tus horas.";
 		createAlert(title, text, '#feedback', 'alert-success');
 		bootbox.dialog('<p class="lead">' + text + '<p>', [{
 		    "label" : "Cerrar",
@@ -168,8 +174,8 @@ function smartFill(h, m) {
 	hEntStr += ":";
 	hSalStr += ":";
 	if (minEntrada < 10) {
-		hEntStr += "0" + minEntrada;
-		hSalStr += "0" + minEntrada;
+		hEntStr += "0" + Number(minEntrada);
+		hSalStr += "0" + Number(minEntrada);
 	} else {
 		hEntStr += "" + minEntrada;
 		hSalStr += "" + minEntrada;
