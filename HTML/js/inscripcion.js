@@ -164,15 +164,3 @@ function registroOK(responseText, statusText, xhr, $form) {
         registroError();
     }
 }
-
-function registroError(responseText, statusText, xhr, $form) {
-    console.log("Error haciendo tu inscripción :-(");
-    createAlert('Registro de inscripción incorrecta!',
-        'Hubo un error haciendo tu inscripción. Revisa que tus datos sean correctos e intenta de nuevo.',
-        '#feedback', 'alert-error');
-    bootbox.dialog('<p class="lead">Error en la inscripción! Intenta de nuevo, tal\n\
-        vez haya un dato incorrecto<p>', [{
-        "label" : "Cerrar",
-        "class" : "btn-primary btn-danger"
-    }]);
-}
