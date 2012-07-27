@@ -39,13 +39,13 @@
                     </div>
                     <ul class="breadcrumb">
                         <li>
-                            <a class="btn btn-success" href="#enEspera" data-toggle="tab"><i class="icon-info-sign icon-white"></i> Registrados recientemente</a> <span class="divider">/</span>
+                            <a class="btn btn-success" href="#enEspera" data-toggle="tab"><i class="icon-plus icon-white"></i> Registrados recientemente</a> <span class="divider">/</span>
                         </li>
                         <li>
-                            <a class="btn btn-warning" href="#suspendidos" data-toggle="tab"><i class="icon-screenshot icon-white"></i> Solicitud de baja</a> <span class="divider">/</span>
+                            <a class="btn btn-warning" href="#suspendidos" data-toggle="tab"><i class="icon-minus icon-white"></i> Solicitud de baja</a> <span class="divider">/</span>
                         </li>
                         <li>
-                            <a class="btn btn-danger" href="#inactivos" data-toggle="tab"><i class="icon-remove-sign icon-white"></i> Inactivos</a>
+                            <a class="btn btn-danger" href="#inactivos" data-toggle="tab"><i class="icon-remove icon-white"></i> Inactivos</a>
                         </li>
                     </ul>
                     <div class="tab-content">
