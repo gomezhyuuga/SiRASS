@@ -15,7 +15,7 @@
     <body>
         <!-- Navbar
 	============================== -->
-    <jsp:include page="jspf/header.jsp" />
+        <jsp:include page="jspf/header.jsp" />
 	<!-- Body
 	============================== -->
 	<div class="container content">

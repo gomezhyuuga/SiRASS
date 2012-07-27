@@ -21,14 +21,14 @@
     <body>
         <!-- Navbar
         ============================== -->
-        <jsp:include page="jspf/header.jsp" />
+        <jsp:include page="../jspf/header.jsp" />
         <!-- Body
         ============================== -->
         <div class="container content">
             <div class="row">
                 <!-- Sidebar
                 ============================== -->
-                <jsp:include page="jspf/sidebar.jsp">
+                <jsp:include page="../jspf/sidebar.jsp">
                     <jsp:param name="active" value="home" />
                 </jsp:include>
                 <!-- Contenido
@@ -38,11 +38,14 @@
                         <h1>Estado de Programas</h1>
                     </div>
                     <ul class="breadcrumb">
-                        <li class="active">
-                            <a href="#enEspera" data-toggle="tab">Registrados recientemente</a> <span class="divider">/</span>
+                        <li>
+                            <a class="btn btn-success" href="#enEspera" data-toggle="tab"><i class="icon-info-sign icon-white"></i> Registrados recientemente</a> <span class="divider">/</span>
                         </li>
                         <li>
-                            <a href="#suspendidos" data-toggle="tab">Solicitud de baja</a>
+                            <a class="btn btn-warning" href="#suspendidos" data-toggle="tab"><i class="icon-screenshot icon-white"></i> Solicitud de baja</a> <span class="divider">/</span>
+                        </li>
+                        <li>
+                            <a class="btn btn-danger" href="#inactivos" data-toggle="tab"><i class="icon-remove-sign icon-white"></i> Inactivos</a>
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -89,7 +92,7 @@
                                             <%= programaSS.getTel() %>
                                         </th>
                                         <th>
-                                            <a class="btn btn-info btn-mini" target="_blank" href="../programas/detalles.jsp?id=<%= programaSS.getIdPrograma() %>">
+                                            <a class="btn btn-info btn-mini" target="_blank" href="detalles.jsp?id=<%= programaSS.getIdPrograma() %>">
                                                 <i class = "icon-plus-sign icon-white"></i>
                                                 M&aacute;s
                                             </a>
@@ -152,7 +155,7 @@
                                             <%= programaSS.getTel() %>
                                         </th>
                                         <th>
-                                            <a class="btn btn-info btn-mini" target="_blank" href="../programas/detalles.jsp?id=<%= programaSS.getIdPrograma() %>">
+                                            <a class="btn btn-info btn-mini" target="_blank" href="detalles.jsp?id=<%= programaSS.getIdPrograma() %>">
                                                 <i class = "icon-plus-sign icon-white"></i>
                                                 M&aacute;s
                                             </a>
