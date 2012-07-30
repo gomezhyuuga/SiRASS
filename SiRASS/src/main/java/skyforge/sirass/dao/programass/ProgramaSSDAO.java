@@ -1,10 +1,8 @@
 package skyforge.sirass.dao.programass;
 
+import java.util.Date;
 import java.util.List;
-import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
@@ -30,6 +28,10 @@ public class ProgramaSSDAO extends DAO {
      */
     public int insert(ProgramaSS programa) {
         return super.insert(programa);
+    }
+    
+    public boolean uStatP(int idPrograma, short nvoStado, String user){
+        return this.updateEstadoPrograma(idPrograma, null, nvoStado, user);
     }
 
     /**
@@ -310,5 +312,50 @@ public class ProgramaSSDAO extends DAO {
                 .list();
         session.close();
         return programas;
+    }
+    
+    private boolean updateEstadoPrograma(int idInscripcion, String observaciones,
+            Short nuevoEstado, String user) {
+        boolean status = false;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            String q;
+            Query query = null;
+            if (observaciones == null) {
+                q = "update ProgramaSS set ultimaModif=?, modificadoPor=?, estado=? where idPrograma=?";
+                query = session.createQuery(q);
+                query.setShort(2, nuevoEstado);
+                query.setInteger(3, idInscripcion);
+            } else if (nuevoEstado == null) {
+                q = "update ProgramaSS set ultimaModif=?, modificadoPor=?, nota=? "
+                        + "where idPrograma=?";
+                query = session.createQuery(q);
+                query.setString(2, observaciones);
+                query.setInteger(3, idInscripcion);
+            } else if (observaciones != null && nuevoEstado != null) {
+                q = "update ProgramaSS set ultimaModif=?, modificadoPor=?, estado=?, nota=? "
+                        + "where idPrograma=?";
+                query = session.createQuery(q);
+                query.setShort(2, nuevoEstado);
+                query.setString(3, observaciones);
+                query.setInteger(4, idInscripcion);
+            }
+            Date curDate = new Date(System.currentTimeMillis());
+            query.setTimestamp(0, curDate);
+            query.setString(1, user);
+            int rows = query.executeUpdate();
+            transaction.commit();
+            if (rows > 0) {
+                status = true;
+            }
+        } catch (Exception ex) {
+            transaction.rollback();
+            System.out.println("ERROR ACTUALIZANDO ESTADO");
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return status;
     }
 }
