@@ -191,6 +191,27 @@
                                 </table>
                             </div>
                         </div>
+                        <hr />
+                        <h2>Observaciones</h2>
+                        <p><i class="icon-question-sign"></i>
+                            Escribir en el siguiente campo si hay alg&uacute;n error en el registro (<em>especificar dato</em>) o si es necesario hacerle notificar algo a la persona que envi&oacute; la solicitud de registro.</p>
+                        <p><i class="icon-question-sign"></i>
+                            En caso de que sea una solicitud de registro y tenga errores, pulsar el bot&oacute;n <em><strong>Con errores</strong></em>.
+                            Si lo que se desea es actualizar &uacute;nicamente el campo de observaciones, pulsar en <em><strong>Actualizar observaciones</strong></em>.</p>
+                        <form method="post" action="/SiRASS/FormReceiver" name="form-revisar" id="form-revisar">
+                            <input type="hidden" name="class" value="RevisarInscripcion" />
+                            <input type="hidden" name="id" value="" />
+                            <textarea name="observaciones" maxlength="300" class="span8" rows="4"
+                                      placeholder="Escribe alguna observaci&oacute;n"></textarea>
+                            <div class="form-actions">
+                                <button class="btn btn-danger" name="errores" value="1" type="submit"><i class="icon-exclamation-sign icon-white"></i>
+                                    Programa con errores
+                                </button>
+                                <button class="btn btn-warning" name="actualizar" value="1" type="submit"><i class="icon-warning-sign icon-white"></i>
+                                    Actualizar observaciones
+                                </button>
+                            </div>
+                        </form>
                     </div>
                     <% } else {
                                     out.println("<h1>Programa no encontrado</h1>");

@@ -11,6 +11,10 @@ import java.util.Set;
  */
 public class ProgramaSS {
 
+    static public final short ACTIVO = 1;
+    static public final short INACTIVO = 2;
+    static public final short SUSPENDIDO = 3;
+    static public final short ESPERANDO = 4;
     private CEstado estado;
     private int idPrograma;
     private int idInstitucion;
@@ -33,6 +37,7 @@ public class ProgramaSS {
     private int vacantes;
     private int ocupadas;
     private String observaciones;
+    private String notas;
     private Date fechaTiempo;
     private CategoriaPrograma categoria;
     private HorarioPrograma horario;
@@ -326,6 +331,14 @@ public class ProgramaSS {
         this.observaciones = observaciones;
     }
 
+    public String getNotas() {
+        return notas;
+    }
+
+    public void setNotas(String notas) {
+        this.notas = notas;
+    }
+    
     public int getOcupadas() {
         return ocupadas;
     }

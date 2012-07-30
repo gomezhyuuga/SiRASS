@@ -26,6 +26,7 @@
     <property column="vacantes" length="11" name="vacantes" not-null="true" type="integer"/>
     <property column="ocupadas" length="11" name="ocupadas" not-null="true" type="integer"/>
     <property column="observaciones" name="observaciones" not-null="true" type="java.lang.String"/>
+    <property column="notas" name="notas" not-null="true" type="java.lang.String"/>
     <property column="fechaTiempo" name="fechaTiempo" not-null="false" type="date"/>
     <!--Relaciones-->
     <many-to-one cascade="all" class="skyforge.sirass.model.programass.CEstado" column="status" name="estado"/>

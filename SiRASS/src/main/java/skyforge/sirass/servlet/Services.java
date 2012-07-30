@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import skyforge.sirass.dao.institucion.PlantelDAO;
 import skyforge.sirass.dao.prestador.InscripcionDAO;
+import skyforge.sirass.dao.programass.ProgramaSSDAO;
 import skyforge.sirass.model.institucion.Plantel;
 import skyforge.sirass.model.prestador.EstadoInscripcion;
 
@@ -40,6 +41,8 @@ public class Services extends HttpServlet {
             // Obtener lista de planteles por ID de institución
             if (request.getParameter("service").equals("plantelesByInst")) {
                 returnPlanteles(request, response);
+            }else if (request.getParameter("service").equals("statProgram")){
+                this.updateStatusProgram(request, response);
             } else if (request.getParameter("service").equals("rechazarInscripcion")) {
                 this.updateInscripcionStatus(request, response, EstadoInscripcion.CON_ERRORES);
             } else if (request.getParameter("service").equals("validarInscripcion")) {
@@ -87,6 +90,29 @@ public class Services extends HttpServlet {
             out.print(status);
         } finally {
             out.close();
+        }
+    }
+    
+    private void updateStatusProgram(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        short nuevoEstado;
+        int idInscripcion;
+        String user = "system";
+        if (request.getUserPrincipal() != null  &&
+            request.getUserPrincipal().getName() != null) {
+            user = request.getUserPrincipal().getName();
+        }
+        if (request.getParameter("id") != null &&
+            request.getParameter("status") != null) {
+            try {
+                nuevoEstado = Short.parseShort(request.getParameter("status"));
+                idInscripcion = Integer.parseInt(request.getParameter("id"));
+                ProgramaSSDAO pdao = new ProgramaSSDAO();
+                pdao.uStatP(idInscripcion, nuevoEstado, user);
+                response.sendRedirect(request.getContextPath() + "/admin/gestionProgramas/");
+            } catch (Exception ex) {
+                System.out.println("ERROR ACTUALIZANDO ESTADO DE INSCRIPCIÓN");
+                ex.printStackTrace();
+            }
         }
     }
 
