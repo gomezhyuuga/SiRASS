@@ -56,12 +56,28 @@
 		  </ul>
 		  <div class="tab-content">
 		    <div class="tab-pane active" id="DatosUnidad">
-		    	<h3>Institución o Dependencia</h3>
-		    		<p><%= progamaSS.getInstitucion() %></p>
-				<h3>Área o Subdirección</h3>
-					<p><%= progamaSS.getArea() %></p>
-				<h3>Domicilio</h3>
-					<p><%= progamaSS.getDomicilio() %></p>
+                <div class="row">
+                    <div class="span8">
+                        <h3>Institución o Dependencia</h3>
+                        <p><%= progamaSS.getInstitucion() %></p>
+                        <h3>Área o Subdirección</h3>
+                        <p><%= progamaSS.getArea() %></p>
+                        <h3>Domicilio</h3>
+                        <p><%= progamaSS.getDomicilio() %></p>
+                    </div>
+                    <div class="span4">
+                        <h3>Tel&eacute;fono</h3>
+                        <p><%= progamaSS.getTel() %>
+                        <%  if (progamaSS.getTelExt() != null) {
+                            out.print("ext. " + progamaSS.getTelExt());
+                        }%>
+                        </p>
+                        <h3>Plazas</h3>
+                        <p><%= progamaSS.getPlazas() %></p>
+                        <h3>Disponibles</h3>
+                        <p><%= progamaSS.getVacantes() %></p>
+                    </div>
+                </div>
                                 <div class="page-header">
                                     <h3>Responsable (s) del programa</h3>
                                 </div>
@@ -183,6 +199,12 @@
 		    </div>
 		  </div>
 		</div>
+        <%  if (request.isUserInRole("admin")) {%>
+        <h6 class="right">ID: <%= progamaSS.getIdPrograma() %></h6>
+        <h6 class="right">Creaci&oacute;n: <%= progamaSS.getCreacion() %></h6>
+        <h6 class="right">Ultima Modificaci&oacute;n: <%= progamaSS.getUltimaModif() %></h6>
+        <h6 class="right">Modificado Por: <%= progamaSS.getModificadoPor() %></h6>
+        <%  }%>
            <% }else{
                     out.println("<h1>Programa no encontrado</h1>");
                }

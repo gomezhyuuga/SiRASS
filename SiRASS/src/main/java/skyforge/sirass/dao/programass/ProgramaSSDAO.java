@@ -112,6 +112,43 @@ public class ProgramaSSDAO extends DAO {
         session.close();
         return programas;
     }
+    
+    public static List<ProgramaSS> myList(CategoriaPrograma categoria, CEstado estado,
+            int start, int maxResults) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        ProgramaSS programa = null;
+        List<ProgramaSS> programas = null;
+        ProjectionList plist = Projections.projectionList();
+        plist.add(Projections.property("p.nombre").as("nombre"));
+        plist.add(Projections.property("p.idPrograma").as("idPrograma"));
+        plist.add(Projections.property("p.institucion").as("institucion"));
+        plist.add(Projections.property("p.cvePrograma").as("cvePrograma"));
+        plist.add(Projections.property("p.vacantes").as("vacantes"));
+        plist.add(Projections.property("p.lugar").as("lugar"));
+        plist.add(Projections.property("p.tel").as("tel"));
+        programas = (List<ProgramaSS>) session.createCriteria(ProgramaSS.class, "p")
+                .add(Restrictions.eq("categoria", categoria))
+                .add(Restrictions.eq("estado", estado))
+                .setFetchMode("categoria", FetchMode.JOIN)
+                .setFetchMode("estado", FetchMode.JOIN)
+                .setProjection(plist)
+                .setFirstResult(start)
+                .setMaxResults(maxResults)
+                .setResultTransformer(new AliasToBeanResultTransformer(ProgramaSS.class))
+                .list();
+        session.close();
+        return programas;
+    }
+    
+    public static int count(short categoria) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Integer total = (Integer) session
+                .createCriteria(ProgramaSS.class)
+                .add(Restrictions.eq("categoria", new CategoriaPrograma(categoria)))
+                .setProjection(Projections.rowCount()).uniqueResult();
+        session.close();
+        return total;
+    }
 
     /**
      * Obtener un programa a partir de su ID
