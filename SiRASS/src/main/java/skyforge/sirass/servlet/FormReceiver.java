@@ -90,6 +90,23 @@ public class FormReceiver extends HttpServlet {
         }
     }
     
+    private int cambiarEstadoInscripcion(Map<String, String[]> map, String user) {
+        int status = 0;
+        if (map.get("id") != null) {
+            try {
+                int idInscripcion = Integer.parseInt(map.get("id")[0]);
+                short estado = Short.parseShort(map.get("estado")[0]);
+                InscripcionDAO idao = new InscripcionDAO();
+                boolean ok = idao.updateEstado(idInscripcion, estado, user);
+                status = (ok) ? 1 : 0;
+            } catch (Exception ex) {
+                System.out.println("NO SE PUDO ACTUALIZAR INSCRIPCIÓN");
+                ex.printStackTrace();
+                status = 0;
+            }
+        }
+        return status;
+    }
     /*
      * Actualizar estado de una inscripción
      */
@@ -111,7 +128,7 @@ public class FormReceiver extends HttpServlet {
                     }
                 } else if (map.get("errores") != null) {
                     System.out.println("inscripcion con errores");
-                    boolean ok = idao.updateEstadoYObservaciones(idInscripcion, observaciones, Inscripcion.CON_ERRORES, user);
+                    boolean ok = idao.updateEstadoYObservaciones(idInscripcion, observaciones, EstadoInscripcion.CON_ERRORES, user);
                     if (ok) {
                         status = 1;
                     }

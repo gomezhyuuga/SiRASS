@@ -40,11 +40,11 @@
 					<li>
 						<a href="./">En espera</a>
 					</li>
-                    <li class="active">
-						<a href="#">Con errores</a>
-					</li>
 					<li>
-						<a href="correctas.jsp">Correctas</a>
+						<a href="invalidas.jsp">Con errores</a>
+					</li>
+                    <li class="active">
+						<a href="#">Correctas</a>
 					</li>
 					<li>
 						<a href="activas.jsp">En servicio</a>
@@ -62,7 +62,7 @@
                 <div id="registros">
                 <%
                     InscripcionDAO idao = new InscripcionDAO();
-                    List<Inscripcion> inscripciones = idao.getFewWithStatus(EstadoInscripcion.CON_ERRORES);
+                    List<Inscripcion> inscripciones = idao.getFewWithStatus(EstadoInscripcion.CORRECTA);
                     if (inscripciones == null || inscripciones.isEmpty()) {
                         out.print("<h1>Sin inscripciones</h1>");
                     } else {%>
@@ -100,12 +100,7 @@
 										<ul class="dropdown-menu">
 											<li>
                                                 <a href="#" onclick="inscribirPrestador(this)" data-id="<%=id%>"><i class="icon-ok"></i>
-													Inscribir
-												</a>
-											</li>
-											<li>
-                                                <a href="#" onclick="validarInscripcion(this)" data-id="<%=id%>"><i class="icon-ok"></i>
-													Inscripci&oacute;n correcta
+													Aceptar
 												</a>
 											</li>
 											<li>

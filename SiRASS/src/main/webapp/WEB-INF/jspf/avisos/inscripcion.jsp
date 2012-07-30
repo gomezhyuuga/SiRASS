@@ -35,6 +35,8 @@
             <h6><%= horas %>/480 - <%= width + "%"%></h8>
 <%      } else if (aviso.equals("algo")) {%>
             <p>algo</p>
+<%      } else {%>
+            <p>Tu inscripci&oacute; est&aacute; pendiente.</p>
 <%      }
     }
 %>

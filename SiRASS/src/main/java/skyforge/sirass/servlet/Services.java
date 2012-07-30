@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import skyforge.sirass.dao.institucion.PlantelDAO;
 import skyforge.sirass.dao.prestador.InscripcionDAO;
 import skyforge.sirass.model.institucion.Plantel;
+import skyforge.sirass.model.prestador.EstadoInscripcion;
 
 /**
  *
@@ -39,33 +40,49 @@ public class Services extends HttpServlet {
             // Obtener lista de planteles por ID de institución
             if (request.getParameter("service").equals("plantelesByInst")) {
                 returnPlanteles(request, response);
-            } else if (request.getParameter("service").equals("uInscripcionStat")) {
-                this.updateInscripcionStatus(request, response);
+            } else if (request.getParameter("service").equals("rechazarInscripcion")) {
+                this.updateInscripcionStatus(request, response, EstadoInscripcion.CON_ERRORES);
+            } else if (request.getParameter("service").equals("validarInscripcion")) {
+                this.updateInscripcionStatus(request, response, EstadoInscripcion.CORRECTA);
+            } else if (request.getParameter("service").equals("reactivarInscripcion")) {
+                this.updateInscripcionStatus(request, response, EstadoInscripcion.EN_SERVICIO);
+            } else if (request.getParameter("service").equals("suspenderInscripcion")) {
+                this.updateInscripcionStatus(request, response, EstadoInscripcion.SUSPENDIDA);
+            } else if (request.getParameter("service").equals("cancelarInscripcion")) {
+                this.updateInscripcionStatus(request, response, EstadoInscripcion.CANCELADA);
             }
         }
     }
 
-    private void updateInscripcionStatus(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void updateInscripcionStatus(HttpServletRequest request, HttpServletResponse response,
+            short estado) throws IOException {
+        short status = 0;
         short nuevoEstado;
         int idInscripcion;
         String user = "system";
         PrintWriter out = response.getWriter();
         if (request.getUserPrincipal() != null  &&
-            request.getUserPrincipal().getName() != null) {
+            request.getUserPrincipal().getName() != null &&
+            request.isUserInRole("admin")) {
             user = request.getUserPrincipal().getName();
         }
-        if (request.getParameter("id") != null &&
-            request.getParameter("status") != null) {
+        if (request.getParameter("idInscripcion") != null) {
             try {
-                nuevoEstado = Short.parseShort(request.getParameter("status"));
-                idInscripcion = Integer.parseInt(request.getParameter("id"));
+                idInscripcion = Integer.parseInt(request.getParameter("idInscripcion"));
                 InscripcionDAO idao = new InscripcionDAO();
-                idao.updateEstado(idInscripcion, nuevoEstado, user);
-                response.sendRedirect(request.getContextPath() + "/admin/inscripciones/");
+                boolean ok = idao.updateEstado(idInscripcion, estado, user);
+                if (ok) {
+                    status = 1;
+                }
             } catch (Exception ex) {
                 System.out.println("ERROR ACTUALIZANDO ESTADO DE INSCRIPCIÓN");
                 ex.printStackTrace();
             }
+        }
+        try {
+            out.print(status);
+        } finally {
+            out.close();
         }
     }
 

@@ -1,19 +1,19 @@
     <nav class="navbar navbar-fixed-top" id="navbar">
 		<div class="navbar-inner">
 	    	<div class="container">
-		    	<a class="brand" href="#">
+		    	<a class="brand" href="/SiRASS/">
 		    	  SiRASS
 		    	</a>
 		    	<ul class="nav">
 		    		<li class="divider-vertical"></li>
 					<li>
-						<a href="#">Programas</a>
+						<a href="/SiRASS/programas">Programas</a>
 					</li>
 					<li>
-						<a href="#">Reportes</a>
+						<a href="/SiRASS/admin/">Reportes</a>
 					</li>
 					<li>
-						<a href="#">Ayuda</a>
+						<a href="/SiRASS/ayuda">Ayuda</a>
 					</li>
 		    	</ul>
 		    	<form class="navbar-search pull-left" method="post" action="">

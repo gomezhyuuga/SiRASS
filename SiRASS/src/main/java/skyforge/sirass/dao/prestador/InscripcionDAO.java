@@ -36,7 +36,31 @@ public class InscripcionDAO extends DAO {
      * @return true si lo cambia, false si hay un error
      */
     public boolean updateEstado(int idInscripcion, Short nuevoEstado, String user) {
-        return this.updateEstadoInscripcion(idInscripcion, null, nuevoEstado, user);
+        boolean status = false;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = null;
+        try {
+            Date curDate = new Date();
+            String q = "update Inscripcion set ultimaModif=?, modificadoPor=?, estado=? where idInscripcion=?";
+            query = session.createQuery(q);
+            query.setShort(2, nuevoEstado);
+            query.setInteger(3, idInscripcion);
+            query.setTimestamp(0, curDate);
+            query.setString(1, user);
+            int rows = query.executeUpdate();
+            transaction.commit();
+            if (rows > 0) {
+                status = true;
+            }
+        } catch (Exception ex) {
+            transaction.rollback();
+            System.out.println("ERROR ACTUALIZANDO INSCRIPCIÓN");
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return status;
     }
     /**
      * Actualiza el estado de una inscripción
@@ -48,7 +72,32 @@ public class InscripcionDAO extends DAO {
      */
     public boolean updateEstadoYObservaciones(int idInscripcion, String observaciones,
             Short nuevoEstado, String user) {
-        return this.updateEstadoInscripcion(idInscripcion, observaciones, nuevoEstado, user);
+        boolean status = false;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = null;
+        try {
+            Date curDate = new Date();
+            String q = "update Inscripcion set ultimaModif=?, modificadoPor=?, estado=?, observaciones=? where idInscripcion=?";
+            query = session.createQuery(q);
+            query.setShort(2, nuevoEstado);
+            query.setString(3, observaciones);
+            query.setInteger(4, idInscripcion);
+            query.setTimestamp(0, curDate);
+            query.setString(1, user);
+            int rows = query.executeUpdate();
+            transaction.commit();
+            if (rows > 0) {
+                status = true;
+            }
+        } catch (Exception ex) {
+            transaction.rollback();
+            System.out.println("ERROR ACTUALIZANDO INSCRIPCIÓN");
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return status;
     }
     /**
      * Actualiza las observaciones de una inscripción
@@ -59,45 +108,16 @@ public class InscripcionDAO extends DAO {
      * @return true si lo cambia, false si hay un error
      */
     public boolean updateObservaciones(int idInscripcion, String observaciones, String user) {
-        return this.updateEstadoInscripcion(idInscripcion, observaciones, null, user);
-    }
-    
-    /**
-     * Actualiza el estado de una inscripción
-     * @param idInscripcion ID de la inscripción a actualizar
-     * @param nuevoEstado - El nuevo estado, este dato puede ser nulo y únicamente actualiza las observaciones
-     * @param observaciones - Nuevas observaciones, este dato puede ser nulo y únicamente actualiza el estado
-     * 
-     * @return true si lo cambia, false si hay un error
-     */
-    private boolean updateEstadoInscripcion(int idInscripcion, String observaciones,
-            Short nuevoEstado, String user) {
         boolean status = false;
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
+        Query query = null;
         try {
-            String q;
-            Query query = null;
-            if (observaciones == null) {
-                q = "update Inscripcion set ultimaModif=?, modificadoPor=?, estado=? where idInscripcion=?";
-                query = session.createQuery(q);
-                query.setShort(2, nuevoEstado);
-                query.setInteger(3, idInscripcion);
-            } else if (nuevoEstado == null) {
-                q = "update Inscripcion set ultimaModif=?, modificadoPor=?, observaciones=? "
-                        + "where idInscripcion=?";
-                query = session.createQuery(q);
-                query.setString(2, observaciones);
-                query.setInteger(3, idInscripcion);
-            } else if (observaciones != null && nuevoEstado != null) {
-                q = "update Inscripcion set ultimaModif=?, modificadoPor=?, estado=?, observaciones=? "
-                        + "where idInscripcion=?";
-                query = session.createQuery(q);
-                query.setShort(2, nuevoEstado);
-                query.setString(3, observaciones);
-                query.setInteger(4, idInscripcion);
-            }
-            Date curDate = new Date(System.currentTimeMillis());
+            Date curDate = new Date();
+            String q = "update Inscripcion set ultimaModif=?, modificadoPor=?, observaciones=? where idInscripcion=?";
+            query = session.createQuery(q);
+            query.setString(2, observaciones);
+            query.setInteger(3, idInscripcion);
             query.setTimestamp(0, curDate);
             query.setString(1, user);
             int rows = query.executeUpdate();

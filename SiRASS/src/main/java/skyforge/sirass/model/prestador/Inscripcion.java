@@ -14,12 +14,6 @@ import skyforge.sirass.model.Dia;
  */
 public class Inscripcion implements Serializable {
 
-    static public final short EN_ESPERA = 1;
-    static public final short EN_SERVICIO = 2;
-    static public final short SUSPENDIDA = 3;
-    static public final short CANCELADA = 4;
-    static public final short FINALIZADO = 5;
-    static public final short CON_ERRORES = 6;
     private int idInscripcion;
     private Prestador prestador;
     private EstadoInscripcion estado;

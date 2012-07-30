@@ -4,6 +4,7 @@
     Author     : gomezhyuuga
 --%>
 
+<%@page import="skyforge.sirass.model.prestador.EstadoInscripcion"%>
 <%@page import="skyforge.sirass.model.prestador.Inscripcion"%>
 <%@page import="java.util.List"%>
 <%@page import="skyforge.sirass.dao.prestador.InscripcionDAO"%>
@@ -35,20 +36,33 @@
 					<h1>Inscripciones</h1>
 				</div>
 				<p class="lead">Selecciona una opción para filtrar las inscripciones.</p>
-				<div class="form-actions">
-					<div class="btn-group" data-toggle="buttons-radio">
-                        <a class="btn btn-primary" href="./">Esperando</a>
-						<a class="btn btn-danger" href="./invalidas.jsp">Con errores</a>
-						<a class="btn btn-success active" href="#">En servicio</a>
-						<a class="btn btn-warning" href="./suspendidas.jsp">Suspendida</a>
-						<a class="btn btn-inverse" href="./canceladas.jsp">Cancelada</a>
-						<a class="btn" href="./finalizadas.jsp">Finalizadas</a>
-					</div>
-				</div>
+				<ul class="nav nav-pills">
+					<li>
+						<a href="./">En espera</a>
+					</li>
+					<li>
+						<a href="invalidas.jsp">Con errores</a>
+					</li>
+					<li>
+						<a href="correctas.jsp">Correctas</a>
+					</li>
+					<li class="active">
+						<a href="#">En servicio</a>
+					</li>
+					<li>
+						<a href="suspendidas.jsp">Suspendido</a>
+					</li>
+					<li>
+						<a href="canceladas.jsp">Cancelado</a>
+					</li>
+					<li>
+						<a href="finalizadas.jsp">Finalizado</a>
+					</li>
+				</ul>
                 <div id="registros">
                 <%
                     InscripcionDAO idao = new InscripcionDAO();
-                    List<Inscripcion> inscripciones = idao.getFewWithStatus(Inscripcion.EN_SERVICIO);
+                    List<Inscripcion> inscripciones = idao.getFewWithStatus(EstadoInscripcion.EN_SERVICIO);
                     if (inscripciones == null || inscripciones.isEmpty()) {
                         out.print("<h1>Sin inscripciones</h1>");
                     } else {%>
@@ -79,26 +93,32 @@
 								<td><%= programa %></td>
 								<td>
 									<div class="btn-group">
-										<a class="btn btn-warning btn-mini"
-                                           href="/SiRASS/Services?service=uInscripcionStat&id=<%=id%>&status=<%= Inscripcion.SUSPENDIDA %>">Suspender</a>
-										<a class="btn btn-warning btn-mini dropdown-toggle" data-toggle="dropdown">
+										<a class="btn btn-info btn-mini" href="detalles.jsp?id=<%=id%>">Revisar</a>
+										<a class="btn btn-info btn-mini dropdown-toggle" data-toggle="dropdown">
 											<span class="caret"></span>
 										</a>
 										<ul class="dropdown-menu">
-                                            <li>
-                                                <a href="detalles.jsp?id=<%= id%>"><i class="icon-eye-open"></i>
-													Revisar
-												</a>
-                                            </li>
 											<li>
-												<a href="/SiRASS/Services?service=uInscripcionStat&id=<%=id%>&status=<%= Inscripcion.FINALIZADO %>"><i class="icon-ok"></i>
-													Liberar Servicio
+                                                <a href="#" onclick="inscribirPrestador(this)" data-id="<%=id%>"><i class="icon-ok"></i>
+													Aceptar
 												</a>
 											</li>
 											<li>
-												<a href="/SiRASS/Services?service=uInscripcionStat&id=<%=id%>&status=<%= Inscripcion.CANCELADA %>"><i class="icon-remove"></i>
-													Cancelar Servicio
+												<a href="#" onclick="rechazarPrestador(this)" data-id="<%=id%>"><i class="icon-remove"></i>
+													Rechazar
 												</a>
+											</li>
+											<li>
+												<a href="#" onclick="reactivarInscripcion(this)" data-id="<%=id%>">Reactivar</a>
+											</li>
+											<li>
+												<a href="#" onclick="eliminarInscripcion(this)" data-id="<%=id%>">Eliminar</a>
+											</li>
+											<li>
+												<a href="#" onclick="suspenderIncripcion(this)" data-id="<%=id%>">Suspender</a>
+											</li>
+											<li>
+												<a href="#" onclick="liberarServicio(this)" data-id="<%=id%>">Liberar servicio</a>
 											</li>
 										</ul>
 									</div>
@@ -114,6 +134,9 @@
 	</div>
     <!-- Footer
 	============================== -->
-    <jsp:include page="/WEB-INF/jspf/footer.jsp" />
+    <jsp:include page="/WEB-INF/jspf/footer.jsp">
+        <jsp:param name="form" value="true" />
+        <jsp:param name="bootbox" value="true" />
+    </jsp:include>
     </body>
 </html>
