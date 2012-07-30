@@ -50,6 +50,10 @@ public class Services extends HttpServlet {
                 this.updateInscripcionStatus(request, response, EstadoInscripcion.SUSPENDIDA);
             } else if (request.getParameter("service").equals("cancelarInscripcion")) {
                 this.updateInscripcionStatus(request, response, EstadoInscripcion.CANCELADA);
+            } else if (request.getParameter("service").equals("inscribirPrestador")) {
+                this.updateInscripcionStatus(request, response, EstadoInscripcion.EN_SERVICIO);
+            } else if (request.getParameter("service").equals("validarInscripcion")) {
+                this.updateInscripcionStatus(request, response, EstadoInscripcion.CORRECTA);
             }
         }
     }
