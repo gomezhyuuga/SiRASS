@@ -57,10 +57,42 @@ public class Services extends HttpServlet {
                 this.updateInscripcionStatus(request, response, EstadoInscripcion.EN_SERVICIO);
             } else if (request.getParameter("service").equals("validarInscripcion")) {
                 this.updateInscripcionStatus(request, response, EstadoInscripcion.CORRECTA);
+            } else if (request.getParameter("service").equals("actualizarObservaciones")) {
+                this.updateObservacionesInscripcion(request, response);
             }
         }
     }
 
+    private void updateObservacionesInscripcion(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        short status = 0;
+        int idInscripcion;
+        String user = "system";
+        PrintWriter out = response.getWriter();
+        if (request.getUserPrincipal() != null  &&
+            request.getUserPrincipal().getName() != null &&
+            request.isUserInRole("admin")) {
+            user = request.getUserPrincipal().getName();
+            if (request.getParameter("idInscripcion") != null && request.getParameter("observaciones") != null) {
+            try {
+                idInscripcion = Integer.parseInt(request.getParameter("idInscripcion"));
+                InscripcionDAO idao = new InscripcionDAO();
+                String observaciones = request.getParameter("observaciones");
+                boolean ok = idao.updateObservaciones(idInscripcion, observaciones, user);
+                if (ok) {
+                    status = 1;
+                }
+            } catch (Exception ex) {
+                System.out.println("ERROR ACTUALIZANDO ESTADO DE INSCRIPCIÓN");
+                ex.printStackTrace();
+            }
+        }
+        }
+        try {
+            out.print(status);
+        } finally {
+            out.close();
+        }
+    }
     private void updateInscripcionStatus(HttpServletRequest request, HttpServletResponse response,
             short estado) throws IOException {
         short status = 0;

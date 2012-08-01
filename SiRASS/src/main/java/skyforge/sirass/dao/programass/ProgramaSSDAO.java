@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import org.hibernate.*;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -76,7 +77,8 @@ public class ProgramaSSDAO extends DAO {
         plist.add(Projections.property("p.cvePrograma").as("cvePrograma"));
         Criteria criteria = session.createCriteria(ProgramaSS.class, "p")
                 .setProjection(plist)
-                .setResultTransformer(new AliasToBeanResultTransformer(ProgramaSS.class));
+                .setResultTransformer(new AliasToBeanResultTransformer(ProgramaSS.class))
+                .addOrder(Order.asc("nombre"));
         // Aplicar restricciones
         if (crits != null && crits.length != 0) {
             for (Criterion crit : crits) {
@@ -302,6 +304,7 @@ public class ProgramaSSDAO extends DAO {
         ProjectionList plist = Projections.projectionList();
         plist.add(Projections.property("p.nombre").as("nombre"));
         plist.add(Projections.property("p.idPrograma").as("idPrograma"));
+        plist.add(Projections.property("p.cvePrograma").as("cvePrograma"));
         plist.add(Projections.property("p.institucion").as("institucion"));
         plist.add(Projections.property("p.tel").as("tel"));
         programas = (List<ProgramaSS>) session.createCriteria(ProgramaSS.class, "p")

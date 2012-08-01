@@ -38,7 +38,7 @@
 					</optgroup>
 					<optgroup id="instRegistradas" label="Registradas">
                     <%  CInstitucionDAO cidao = new CInstitucionDAO();
-                        List<CInstitucion> insts = cidao.getAll(CInstitucion.class);
+                        List<CInstitucion> insts = cidao.getEducativas();
                         if (insts != null && !insts.isEmpty()) { 
                             Iterator<CInstitucion> it = insts.iterator();
                             while (it.hasNext()) {
@@ -163,29 +163,54 @@
 	<div class="tab-pane" id="datosPrograma">
 		<fieldset>
             <legend>Datos del Programa de Servicio Social</legend>
+            <input type="hidden" name="nombrePrograma" id="nombrePrograma" value="" />
             <div class="control-group">
+                <label class="control-label">Tipo de programa:</label>
+                <div class="controls">
+                    <label for="tipoPrograma">
+                        <input type="radio" name="tipoPrograma" value="1" id="tipoProgramaInterno"
+                        disabled="disabled">
+                        Interno
+                    </label>
+                    <label for="tipoPrograma">
+                        <input type="radio" name="tipoPrograma" value="2" id="tipoProgramaExterno"
+                        disabled="disabled">
+                        Externo
+                    </label>
+                </div>
+            </div>
+            <%  ProgramaSSDAO programaSSDAO = new ProgramaSSDAO();
+                List<ProgramaSS> externos = programaSSDAO.getListFewExternos();
+                List<ProgramaSS> internos = programaSSDAO.getListFewInternos();
+            %>
+            <div class="control-group hide" id="listaInternos">
                 <label class="control-label">Programa:</label>
                 <div class="controls">
                     <input type="hidden" name="nombrePrograma" id="nombrePrograma" value="" />
-                    <select class="input-xlarge" name="idPrograma" size="10" onchange="changePrograma(this)">
-                        <option value="0">-- Seleccionar programa --</option>
-                        <optgroup label="Externos">
-                        <%  ProgramaSSDAO programaSSDAO = new ProgramaSSDAO();
-                            List<ProgramaSS> externos = programaSSDAO.getListFewExternos();
-                            List<ProgramaSS> internos = programaSSDAO.getListFewInternos();
-                            if (externos == null || externos.isEmpty()) {
+                    <select class="span6" name="idPrograma" size="10" onchange="changePrograma(this)">
+                        <optgroup label="Programas Internos">
+                            <% if (internos == null || internos.isEmpty()) {
                                 out.println("<option value=\"0\">Sin programas</optoin>");
-                            } else {
-                                for (ProgramaSS p : externos) {%>
+                           } else {
+                                for (ProgramaSS p : internos) {%>
                             <option value="<%= p.getIdPrograma()%>" data-cve="<%= p.getCvePrograma()%>"><%= p.getNombre()%></option>
                         <%      }
                             }%>
                         </optgroup>
-                        <optgroup label="Internos">
-                        <% if (internos == null || internos.isEmpty()) {
+                    </select>
+                </div>
+            </div>
+            <div class="control-group hide" id="listaExternos">
+                <label class="control-label">Programa:</label>
+                <div class="controls">
+                    <input type="hidden" name="nombrePrograma" id="nombrePrograma" value="" />
+                    <select class="span6" name="idPrograma" size="10" onchange="changePrograma(this)">
+                        <optgroup label="Programas Externos">
+                            <%
+                            if (externos == null || externos.isEmpty()) {
                                 out.println("<option value=\"0\">Sin programas</optoin>");
-                           } else {
-                                for (ProgramaSS p : internos) {%>
+                            } else {
+                                for (ProgramaSS p : externos) {%>
                             <option value="<%= p.getIdPrograma()%>" data-cve="<%= p.getCvePrograma()%>"><%= p.getNombre()%></option>
                         <%      }
                             }%>

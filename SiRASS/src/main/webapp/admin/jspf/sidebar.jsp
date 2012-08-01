@@ -61,7 +61,7 @@
     						</a>
     					</li>
                                         <li>
-                                            <a href="/SiRASS/admin/gestionProgramas/gestionProgramas.jsp">
+                                            <a href="/SiRASS/admin/gestionProgramas/">
     							<i class="icon-pencil"></i>
     							Gestion Programas
     						</a>

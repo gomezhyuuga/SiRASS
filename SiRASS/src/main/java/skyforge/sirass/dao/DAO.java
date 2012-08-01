@@ -2,12 +2,15 @@ package skyforge.sirass.dao;
 
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.ProjectionList;
 import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.exception.DataException;
+import org.hibernate.transform.AliasToBeanResultTransformer;
 import skyforge.sirass.HibernateUtil;
 import skyforge.sirass.model.user.Usuario;
 
@@ -141,6 +144,35 @@ public class DAO {
         } finally {
             session.close();
         }
+        return list;
+    }
+    
+    /**
+     * Obtiene una serie de registros de cualquier tabla con restricciones y projections
+     * opcionales.
+     * 
+     * @param clase - Entidad que representa la table sobre la cual se hace la consulta
+     * @param crits - Array de criterios a agregar.
+     * @param plist - ProjectionList para obtener solo los elemento sseleccinoados
+     * @return Lista de registros
+     */
+    public List customList(Class clase, Criterion[] crits, ProjectionList plist) {
+        Session s = HibernateUtil.getSessionFactory().openSession();
+        List list = null;
+        Criteria criteria = s.createCriteria(clase);
+        // Aplicar criterios en caso de ser necesario
+        if (crits != null && crits.length > 0) {
+            for (Criterion c : crits) {
+                criteria.add(c);
+            }
+        }
+        // Aplicar projections en caso de ser necesario
+        if (plist != null) {
+            criteria.setProjection(plist)
+                    .setResultTransformer(new AliasToBeanResultTransformer(clase));
+        }
+        list = criteria.list();
+        s.close();
         return list;
     }
 }

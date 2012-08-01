@@ -29,8 +29,47 @@ $(document).ready(function() {
     		.delay(200)
     		.fadeToggle();
     });
+
+    // Habilitar/Deshabilitar lista de programas
+    var listaExternos = $('#listaExternos');
+    var listaInternos = $('#listaInternos');
+    $('#tipoProgramaInterno, #tipoProgramaExterno').click(function() {
+    	ocultarListaProgramas();
+    	if ($(this).val() == "1") {
+    		// Programa Interno
+    		listaInternos.show().fadeIn();
+    	} else if ($(this).val() == "2") {
+    		// Programa Externo
+    		listaExternos.show().fadeIn();
+    	}
+    	// Restablecer valores
+    	restablecerValoresPrograma();
+    });
 	console.log("IT WORKS!");
 });
+
+function restablecerValoresPrograma() {
+	var cvePrograma = $('#cvePrograma');
+	var nombrePrograma = $('#nombrePrograma');
+	cvePrograma.val('');
+    nombrePrograma.val('');
+}
+
+function restablecerRadioPrograma() {
+	$('#tipoProgramaInterno')
+		.attr('disabled', 'disabled')
+		.removeAttr('checked');
+    $('#tipoProgramaExterno').attr('disabled', 'disabled')
+    	.removeAttr('checked');;
+}
+
+function ocultarListaProgramas() {
+	console.log("Ocultando lista de programas...");
+	var listaExternos = $('#listaExternos');
+    var listaInternos = $('#listaInternos');
+    listaExternos.hide().fadeOut('fast');
+	listaInternos.hide().fadeOut('fast');
+}
 // pre-submit callback 
 function showRequest(formData, jqForm, options) { 
     // formData is an array; here we use $.param to convert it to a string to display it 
@@ -69,16 +108,16 @@ function setupForm() {
 	});
 	$('#form-inscripcion').validate({
 		rules: {
-			especialidad: {
-				required: true
-			},
 			difundir: "required",
 			semestre: "required",
 			matricula: "required",
 			promedio: "required",
 			avanceCurso: "required",
 			fechaIngreso: "required",
-			idPrograma: "required",
+			idPrograma: {
+				required: true,
+				min: 1
+			},
 			cvePrograma: "required",
 			area: "required",
 			programaInst: "required",
@@ -99,7 +138,12 @@ function setupForm() {
 			// Institución
 			institucionList: {
 			    required: function(element) {
-			        return $(element).val() != "unregistred";
+			    	if ($(element).val() != "unregistred" && $(element).val() != "0" &&
+			    		$(element).val() != "") {
+			    		return true;
+			    	} else {
+			    		return false;
+			    	}
 			    }
 			},
 			nombreInstitucion: {

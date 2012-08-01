@@ -79,8 +79,18 @@
                                 diasAsistencia += dia.getDiaSemana();
                                 diasAsistencia += " ";
                             }
-                            Integer hrsAcum = (i.getHorasRealizadas() == null) ? 0 : i.getHorasRealizadas();
-                            Short minsAcum = (i.getMinutosRealizados() == null) ? 0 : i.getMinutosRealizados();
+                            Integer hrsAcumNum = (i.getHorasRealizadas() == null) ? 0 : i.getHorasRealizadas();
+                            String hrsAcum = "";
+                            if (hrsAcumNum < 10) {
+                                hrsAcum += "0";
+                            }
+                            hrsAcum += hrsAcumNum;
+                            Short minsAcumNum = (i.getMinutosRealizados() == null) ? 0 : i.getMinutosRealizados();
+                            String minsAcum = "";
+                            if (minsAcumNum < 10) {
+                                minsAcum += "0";
+                            }
+                            minsAcum += minsAcumNum;
                             int anioIngreso = i.getAnioIngreso();
                             int semestre = i.getSemestre();
                             double avanceCursos = i.getAvanceCursos();
@@ -232,20 +242,17 @@
 				<p><i class="icon-question-sign"></i>
 				En caso de que sea una solicitud de inscripci&oacute;n y tenga errores, pulsar el bot&oacute;n <em><strong>Con errores</strong></em>.
 				Si lo que se desea es actualizar &uacute;nicamente el campo de observaciones, pulsar en <em><strong>Actualizar observaciones</strong></em>.</p>
-                <form method="post" action="/SiRASS/FormReceiver" name="form-revisar" id="form-revisar">
-                    <input type="hidden" name="class" value="RevisarInscripcion" />
-                    <input type="hidden" name="id" value="<%= id %>" />
-					<textarea name="observaciones" maxlength="300" class="span8" rows="4"
-                              placeholder="Escribe alguna observaci&oacute;n"><%= observaciones%></textarea>
-					<div class="form-actions">
-						<button class="btn btn-danger" name="errores" value="1" type="submit"><i class="icon-exclamation-sign icon-white"></i>
-							Inscripci&oacute;n con errores
-						</button>
-						<button class="btn btn-warning" name="actualizar" value="1" type="submit"><i class="icon-warning-sign icon-white"></i>
-							Actualizar observaciones
-						</button>
-					</div>
-				</form>
+                <textarea name="observaciones" maxlength="300" class="span8" rows="4"
+                        placeholder="Escribe alguna observaci&oacute;n"><%
+                        if(observaciones != null) {
+                            out.print(observaciones);
+                        }
+                %></textarea>
+                <div class="form-actions">
+                    <button class="btn btn-warning" type="button" onclick="actualizarObservaciones(<%=id%>)"><i class="icon-warning-sign icon-white"></i>
+                        Actualizar observaciones
+                    </button>
+                </div>
 				<div class="right">
 					<h6>Creaci&oacute;n: <small><%=creacion%></small></h6>
 					<h6>Ultima modif.: <small><%=ultimaModif%></small></h6>
@@ -266,54 +273,6 @@
             <jsp:param name="form" value="true" />
             <jsp:param name="bootbox" value="true" />
         </jsp:include>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                // FORM SUBMIT
-                var options = { 
-                    success: registroOK,  // post-submit callback 
-                    error: registroError
-                };                
-                $('#form-revisar').ajaxForm(options);
-            });
-
-            function registroOK(responseText, statusText, xhr, $form) {
-                if (responseText == "1") {
-                    console.log("Correcto :-)");
-                    console.log(xhr);
-                    console.log($form);
-                    var msg = 'La inscripción se ha actualizado correctamente.';
-                    createAlert('Inscripción actualizada!',
-                        msg,
-                        '#feedback', 'alert-success');
-                    bootbox.dialog('<p class="lead">' + msg + '<p>', [{
-                        "label" : "Cerrar",
-                        "class" : "btn-success",
-                        "callback": function() {
-                            document.location.reload(true);
-                        }
-                    }]);
-                } else if (responseText == "0") {
-                    registroError();
-                } else {
-                    registroError();
-                }
-            }
-
-            function registroError(responseText, statusText, xhr, $form) {
-                console.log("Error :-(");
-                console.log(xhr);
-                console.log($form);
-                var msg = '<p class="lead">Hubo un error actualizando el estado de la inscripción. Por favor intenta de nuevo</p>';
-                msg += '<p>Status: ' + statusText + '</p>'
-//                msg += '<p>Error: ' + responseText.status + '</p>'
-                createAlert('Inscripción no actualizada!',
-                    msg,
-                    '#feedback', 'alert-error');
-                bootbox.dialog(msg, [{
-                    "label" : "Cerrar",
-                    "class" : "btn-primary btn-danger"
-                }]);
-            }
         </script>
     </body>
 </html>

@@ -88,6 +88,9 @@ function changeInstitucion(select) {
     var seleccionado = $(select);
     var campo;
     if (seleccionado.attr('id') == "institucionList") {
+    	ocultarListaProgramas();
+    	restablecerRadioPrograma();
+    	restablecerValoresPrograma();
         campo = $('#otraInstitucion');
         $('#plantRegistrados').html('');
         // Se selecciona -- Selecciona una institución --
@@ -115,6 +118,17 @@ function changeInstitucion(select) {
             $('#plantelList').prop('selectedIndex', 0);
             $('#otroPlantel').fadeOut();
             campo.fadeOut();
+            // Habilitar/Deshabilitar lista de programas externos/internos dependiendo
+            // de la escuela de procedencia
+            if (seleccionado.val() == "2") {
+            	console.log("Cualquiera");
+            	$('#tipoProgramaExterno').removeAttr('disabled');
+            	$('#tipoProgramaInterno').removeAttr('disabled');
+            } else if (seleccionado != null && seleccionado != undefined && 
+            	seleccionado.val() > 0) {
+            	console.log("SOLO INTERNO");
+            	$('#tipoProgramaInterno').removeAttr('disabled');
+            }
         }
     } else if (seleccionado.attr('id') == "plantelList") {
         campo = $('#otroPlantel');
@@ -178,7 +192,7 @@ function inscribirPrestador(el) {
 					data: {
 						service: 'inscribirPrestador',
 						numControl: nControl,
-						idInscripcion: id
+						idInscripcion: id,
 					}
 				})
 				.done(function(msg) {
@@ -223,45 +237,6 @@ function rechazarPrestador(el) {
 				if (msg == "1") {
 					bootbox.hideAll();
 					bootbox.alert('<p class="lead">Inscripción rechazada</p>', function() {
-						reloadPage();
-					});
-				} else {
-					bootbox.alert('<p class="lead">Ha ocurrido un error. Intenta de nuevo.</p>');
-				}
-			})
-			.fail(function() {
-				bootbox.alert('<p class="lead">Ha ocurrido un error. Intenta de nuevo.</p>');
-			});
-			return false;
-		}
-	}]);
-}
-
-function validarInscripcion(el) {
-	var id = el.getAttribute('data-id');
-	var msg = '<p class="lead">&iquest;Estás seguro que deseas validar esta inscripción?</p>';
-	msg += '<h6 class="right">Validando inscripción con ID: ' + id + '</h6>';
-	bootbox.dialog(msg, [{
-		'label': 'Cancelar',
-		'class': 'btn-danger'
-	}, {
-		'label': 'OK',
-		'class': 'btn-success',
-		'callback': function() {
-			console.log('Aceptando inscripción...');
-			$.ajax({
-				url: '/SiRASS/Services',
-				data: {
-					service: 'validarInscripcion',
-					idInscripcion: id
-				}
-			})
-			.done(function(msg) {
-				if (msg == "1") {
-                    var m = 'Inscripción aceptada. Ahora, si el prestador ya entregó todos';
-                    m += 'sus documentos, accede al área Inscripciones <b>Correctas</b> e inscribe al prestador.';
-					bootbox.hideAll();
-					bootbox.alert('<p class="lead">' + m + '</p>', function() {
 						reloadPage();
 					});
 				} else {
@@ -390,44 +365,6 @@ function suspenderIncripcion(el) {
 		}
 	}]);
 }
-function cancelarInscripcion(el) {
-	var id = el.getAttribute('data-id');
-	var msg = '<p class="lead">Estás a punto de cancelar esta inscripción</p>';
-	msg += '<p>Si la inscripción es cancelada, el prestador <strong>ya no podrá enviar reportes</strong>.</p>';
-	msg += '<h2>&iquest;Continuar de todas formas?</h2>';
-	msg += '<h6 class="right">Suspendiendo inscripción ' + id + '</h6>';
-	bootbox.dialog(msg, [{
-		'label': 'Cancelar',
-		'class': 'btn-danger'
-	}, {
-		'label': 'Suspender',
-		'class': 'btn-warning',
-		'callback': function() {
-			console.log('Suspendiendo...');
-			$.ajax({
-				url: '/SiRASS/Services',
-				data: {
-					service: 'cancelarInscripcion',
-					idInscripcion: id
-				}
-			})
-			.done(function(msg) {
-				if (msg == "1") {
-					bootbox.hideAll();
-					bootbox.alert('<p class="lead">Inscripción cancelada correctamente</p>', function() {
-						reloadPage();
-					});
-				} else {
-					bootbox.alert('<p class="lead">Ha ocurrido un error. Intenta de nuevo.</p>');
-				}
-			})
-			.fail(function() {
-				bootbox.alert('<p class="lead">Ha ocurrido un error. Intenta de nuevo.</p>');
-			});
-			return false;
-		}
-	}]);
-}
 
 function liberarServicio(el) {
 	var id = el.getAttribute('data-id');
@@ -453,6 +390,44 @@ function liberarServicio(el) {
 				if (msg == "1") {
 					bootbox.hideAll();
 					bootbox.alert('<p class="lead">Servicio Social liberado</p>', function() {
+						reloadPage();
+					});
+				} else {
+					bootbox.alert('<p class="lead">Ha ocurrido un error. Intenta de nuevo.</p>');
+				}
+			})
+			.fail(function() {
+				bootbox.alert('<p class="lead">Ha ocurrido un error. Intenta de nuevo.</p>');
+			});
+			return false;
+		}
+	}]);
+}
+function actualizarObservaciones(id) {
+var obs = $('textarea[name="observaciones"]').val();
+	var msg = '<p class="lead">Estás a punto de actualizar las observaciones de esta inscripción.</p>';
+    msg += '<p class="lead">El nuevo valor será:</p>';
+    msg += '<p class="well">' + obs + '</p>';
+	bootbox.dialog(msg, [{
+		'label': 'Cancelar',
+		'class': 'btn-danger'
+	}, {
+		'label': 'Actualizar observaciones',
+		'class': 'btn-warning',
+		'callback': function() {
+			console.log('Actualizando observaciones...');
+			$.ajax({
+				url: '/SiRASS/Services',
+				data: {
+					service: 'actualizarObservaciones',
+                    observaciones: obs,
+					idInscripcion: id
+				}
+			})
+			.done(function(msg) {
+				if (msg == "1") {
+					bootbox.hideAll();
+					bootbox.alert('<p class="lead">Observaciones actualizadas</p>', function() {
 						reloadPage();
 					});
 				} else {

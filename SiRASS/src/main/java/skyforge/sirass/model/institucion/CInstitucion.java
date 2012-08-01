@@ -13,6 +13,7 @@ public class CInstitucion implements Serializable {
 
     private int idCInstitucion;
     private String nombre;
+    private Boolean educativa;
     private Set<Plantel> planteles = new HashSet<Plantel>(0);
     // Del registro
     private String modificadoPor;
@@ -22,6 +23,14 @@ public class CInstitucion implements Serializable {
     public CInstitucion() {
     }
 
+    public Boolean getEducativa() {
+        return educativa;
+    }
+
+    public void setEducativa(Boolean educativa) {
+        this.educativa = educativa;
+    }
+    
     public CInstitucion(int idCInstitucion) {
         this.idCInstitucion = idCInstitucion;
     }

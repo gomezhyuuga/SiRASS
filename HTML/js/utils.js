@@ -88,6 +88,9 @@ function changeInstitucion(select) {
     var seleccionado = $(select);
     var campo;
     if (seleccionado.attr('id') == "institucionList") {
+    	ocultarListaProgramas();
+    	restablecerRadioPrograma();
+    	restablecerValoresPrograma();
         campo = $('#otraInstitucion');
         $('#plantRegistrados').html('');
         // Se selecciona -- Selecciona una institución --
@@ -115,6 +118,17 @@ function changeInstitucion(select) {
             $('#plantelList').prop('selectedIndex', 0);
             $('#otroPlantel').fadeOut();
             campo.fadeOut();
+            // Habilitar/Deshabilitar lista de programas externos/internos dependiendo
+            // de la escuela de procedencia
+            if (seleccionado.val() == "2") {
+            	console.log("Cualquiera");
+            	$('#tipoProgramaExterno').removeAttr('disabled');
+            	$('#tipoProgramaInterno').removeAttr('disabled');
+            } else if (seleccionado != null && seleccionado != undefined && 
+            	seleccionado.val() > 0) {
+            	console.log("SOLO INTERNO");
+            	$('#tipoProgramaInterno').removeAttr('disabled');
+            }
         }
     } else if (seleccionado.attr('id') == "plantelList") {
         campo = $('#otroPlantel');
@@ -376,6 +390,44 @@ function liberarServicio(el) {
 				if (msg == "1") {
 					bootbox.hideAll();
 					bootbox.alert('<p class="lead">Servicio Social liberado</p>', function() {
+						reloadPage();
+					});
+				} else {
+					bootbox.alert('<p class="lead">Ha ocurrido un error. Intenta de nuevo.</p>');
+				}
+			})
+			.fail(function() {
+				bootbox.alert('<p class="lead">Ha ocurrido un error. Intenta de nuevo.</p>');
+			});
+			return false;
+		}
+	}]);
+}
+function actualizarObservaciones(id) {
+var obs = $('textarea[name="observaciones"]').val();
+	var msg = '<p class="lead">Estás a punto de actualizar las observaciones de esta inscripción.</p>';
+    msg += '<p class="lead">El nuevo valor será:</p>';
+    msg += '<p class="well">' + obs + '</p>';
+	bootbox.dialog(msg, [{
+		'label': 'Cancelar',
+		'class': 'btn-danger'
+	}, {
+		'label': 'Actualizar observaciones',
+		'class': 'btn-warning',
+		'callback': function() {
+			console.log('Actualizando observaciones...');
+			$.ajax({
+				url: '/SiRASS/Services',
+				data: {
+					service: 'actualizarObservaciones',
+                    observaciones: obs,
+					idInscripcion: id
+				}
+			})
+			.done(function(msg) {
+				if (msg == "1") {
+					bootbox.hideAll();
+					bootbox.alert('<p class="lead">Observaciones actualizadas</p>', function() {
 						reloadPage();
 					});
 				} else {

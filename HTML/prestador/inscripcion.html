@@ -181,7 +181,7 @@
 						<input type="hidden" name="tipoSS" id="tipoSS" value="1" />
 						<div class="btn-group" data-toggle="buttons-radio">
 		                    <button type="button" id="ss" value="1"
-		                            class="btn btn-large btn-info">Servicio Social</button>
+		                            class="btn btn-large btn-info active">Servicio Social</button>
 		                    <button type="button" id="pp" value="2"
 		                            class="btn btn-large btn-info">Pr&aacute;ctica Profesional</button>
 		                </div>
@@ -198,7 +198,7 @@
 		                </ul>
 		            </div>
 		            <div class="tab-content">
-		            	<div class="tab-pane active" id="datosEscolares">
+		            	<div class="tab-pane" id="datosEscolares">
 		            		<div class="control-group">
 		            			<label for="institucionList" class="control-label">Instituci&oacute;n o dependencia:</label>
 		            			<div class="controls">
@@ -323,19 +323,45 @@
 								<h6>Pulsa en <a href="#" id="next">Datos del programa</a> para continuar</h6>
 							</div>
 		            	</div>
-		            	<div class="tab-pane" id="datosPrograma">
+		            	<div class="tab-pane active" id="datosPrograma">
 		            		<fieldset>
             		            <legend>Datos del Programa de Servicio Social</legend>
+            		            <input type="hidden" name="nombrePrograma" id="nombrePrograma" />
+            		            <input type="hidden" name="idPrograma" id="idPrograma" />
             		            <div class="control-group">
+            		                <label class="control-label">Tipo de programa:</label>
+            		                <div class="controls">
+            		                    <label for="tipoPrograma">
+            		                    	<input type="radio" name="tipoPrograma" value="1" id="tipoProgramaInterno"
+            		                    	disabled="disabled">
+            		                    	Interno
+            		                    </label>
+            		                    <label for="tipoPrograma">
+            		                    	<input type="radio" name="tipoPrograma" value="2" id="tipoProgramaExterno"
+            		                    	disabled="disabled">
+            		                    	Externo
+            		                    </label>
+            		                </div>
+            		            </div>
+            		            <div class="control-group hide" id="listaInternos">
             		                <label class="control-label">Programa:</label>
             		                <div class="controls">
             		                    <input type="hidden" name="nombrePrograma" id="nombrePrograma" value="" />
-            		                    <select class="input-xlarge" name="idPrograma" size="10" onchange="changePrograma(this)">
+            		                    <select class="span6" name="programa" size="10" onchange="changePrograma(this)">
             		                        <option value="0">-- Seleccionar programa --</option>
-            		                        <optgroup label="Externos">
+            		                        <optgroup label="Programas Internos">
             		                        	<option value="1" data-cve="clave1">Programa 1</option>
             		                        </optgroup>
-            		                        <optgroup label="Internos">
+            		                    </select>
+            		                </div>
+            		            </div>
+            		            <div class="control-group hide" id="listaExternos">
+            		                <label class="control-label">Programa:</label>
+            		                <div class="controls">
+            		                    <input type="hidden" name="nombrePrograma" id="nombrePrograma" value="" />
+            		                    <select class="span6" name="programa" size="10" onchange="changePrograma(this)">
+            		                        <option value="0">-- Seleccionar programa --</option>
+            		                        <optgroup label="Programas Externos">
             		                        	<option value="2" data-cve="clave2">Programa 2</option>
             		                        </optgroup>
             		                    </select>
@@ -356,7 +382,7 @@
             		            </div>
             		            <div class="control-group">
             		                <label class="control-label" for="programaInst">Programa institucional:</label>
-            		                <div class="controls">
+            		                <div class="controls" id="programaInstitucional">
             		                    <input class="input-xlarge" type="text" id="programaInst" name="programaInst" maxlength="30" />
             		                </div>
             		            </div>
