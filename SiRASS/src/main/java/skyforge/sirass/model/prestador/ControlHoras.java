@@ -18,9 +18,12 @@ public class ControlHoras {
     private Date fechaInicio;
     private Date fechaFin;
     private String supervisor;
-    private Short horasMes;
-    private Short horasAnteriores;
-    private Short horasAcumuladas;
+    private Integer horasMes;
+    private Short minutosMes;
+    private Integer horasAnteriores;
+    private Short minutosAnteriores;
+    private Integer horasAcumuladas;
+    private Short minutosAcumulados;
     private Set<RegistroHora> horas = new HashSet<RegistroHora>(0);
     // Del registro
     private String modificadoPor;
@@ -70,28 +73,52 @@ public class ControlHoras {
         this.horas = horas;
     }
 
-    public Short getHorasAcumuladas() {
+    public Integer getHorasAcumuladas() {
         return horasAcumuladas;
     }
 
-    public void setHorasAcumuladas(Short horasAcumuladas) {
+    public void setHorasAcumuladas(Integer horasAcumuladas) {
         this.horasAcumuladas = horasAcumuladas;
     }
 
-    public Short getHorasAnteriores() {
+    public Integer getHorasAnteriores() {
         return horasAnteriores;
     }
 
-    public void setHorasAnteriores(Short horasAnteriores) {
+    public void setHorasAnteriores(Integer horasAnteriores) {
         this.horasAnteriores = horasAnteriores;
     }
 
-    public Short getHorasMes() {
+    public Integer getHorasMes() {
         return horasMes;
     }
 
-    public void setHorasMes(Short horasMes) {
+    public void setHorasMes(Integer horasMes) {
         this.horasMes = horasMes;
+    }
+
+    public Short getMinutosAcumulados() {
+        return minutosAcumulados;
+    }
+
+    public void setMinutosAcumulados(Short minutosAcumulados) {
+        this.minutosAcumulados = minutosAcumulados;
+    }
+
+    public Short getMinutosAnteriores() {
+        return minutosAnteriores;
+    }
+
+    public void setMinutosAnteriores(Short minutosAnteriores) {
+        this.minutosAnteriores = minutosAnteriores;
+    }
+
+    public Short getMinutosMes() {
+        return minutosMes;
+    }
+
+    public void setMinutosMes(Short minutosMes) {
+        this.minutosMes = minutosMes;
     }
 
     public int getIdControlHoras() {

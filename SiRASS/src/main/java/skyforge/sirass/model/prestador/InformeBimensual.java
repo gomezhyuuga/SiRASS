@@ -15,8 +15,10 @@ public class InformeBimensual implements Serializable {
     private short numReporte;
     private Date inicioPeriodo;
     private Date terminoPeriodo;
-    private short horasBimestre;
-    private short horasAcumuladas;
+    private Integer horasBimestre;
+    private Short minutosBimestre;
+    private Integer horasAcumuladas;
+    private Short minutosAcumuladps;
     private String actividades;
     // Del registro
     private String modificadoPor;
@@ -50,21 +52,38 @@ public class InformeBimensual implements Serializable {
         this.estado = estado;
     }
 
-    public short getHorasAcumuladas() {
+    public Integer getHorasAcumuladas() {
         return horasAcumuladas;
     }
 
-    public void setHorasAcumuladas(short horasAcumuladas) {
+    public void setHorasAcumuladas(Integer horasAcumuladas) {
         this.horasAcumuladas = horasAcumuladas;
     }
 
-    public short getHorasBimestre() {
+    public Integer getHorasBimestre() {
         return horasBimestre;
     }
 
-    public void setHorasBimestre(short horasBimestre) {
+    public void setHorasBimestre(Integer horasBimestre) {
         this.horasBimestre = horasBimestre;
     }
+
+    public Short getMinutosAcumuladps() {
+        return minutosAcumuladps;
+    }
+
+    public void setMinutosAcumuladps(Short minutosAcumuladps) {
+        this.minutosAcumuladps = minutosAcumuladps;
+    }
+
+    public Short getMinutosBimestre() {
+        return minutosBimestre;
+    }
+
+    public void setMinutosBimestre(Short minutosBimestre) {
+        this.minutosBimestre = minutosBimestre;
+    }
+
 
     public int getIdInformeBimensual() {
         return idInformeBimensual;

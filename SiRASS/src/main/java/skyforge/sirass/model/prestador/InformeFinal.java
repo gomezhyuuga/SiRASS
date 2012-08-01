@@ -11,7 +11,8 @@ public class InformeFinal implements Serializable {
 
     private int idInformeFinal;
     private int idInscripcion;
-    private short horasAcumuladas;
+    private Integer horasAcumuladas;
+    private Short minutosAcumulados;
     private String introduccion;
     private String objetivoGeneral;
     private String objetivosEspecificos;
@@ -28,12 +29,20 @@ public class InformeFinal implements Serializable {
     public InformeFinal() {
     }
 
-    public short getHorasAcumuladas() {
+    public Integer getHorasAcumuladas() {
         return horasAcumuladas;
     }
 
-    public void setHorasAcumuladas(short horasAcumuladas) {
+    public void setHorasAcumuladas(Integer horasAcumuladas) {
         this.horasAcumuladas = horasAcumuladas;
+    }
+
+    public Short getMinutosAcumulados() {
+        return minutosAcumulados;
+    }
+
+    public void setMinutosAcumulados(Short minutosAcumulados) {
+        this.minutosAcumulados = minutosAcumulados;
     }
 
     public Date getCreacion() {
