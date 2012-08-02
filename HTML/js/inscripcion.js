@@ -30,6 +30,53 @@ $(document).ready(function() {
     		.fadeToggle();
     });
 
+    // Manejar cambio de institución y plantel
+    var institucionList = $('#institucionList');
+    institucionList.change(function() {
+    	console.log("prueba");
+    	restablecerPlantel();
+    	restablecerPrograma();
+    	restablecerInstitucion();
+    	var idSeleccionado = $(this).prop('options')[$(this).prop('selectedIndex')].value;
+    	console.log(idSeleccionado);
+    	if (idSeleccionado != "unregistred" && idSeleccionado != null && idSeleccionado != "") {
+    		console.log("Pidiendo planteles de la institución: " + idSeleccionado);
+            // Cargar lista de planteles con AJAX
+            $.get("localhost:8084/SiRASS/Services", {
+                service: "plantelesByInst", 
+                id: idSeleccionado
+            }, function(data) {
+                console.log(data);
+                $('#plantRegistrados').html(data);
+            });
+            // Determinar si se seleccionó la UACM
+            if (idSeleccionado == 2) {
+            	console.log("UACM SELECCIONADA");
+            	$('#tipoProgramaInterno').removeAttr('disabled');
+            	$('#tipoProgramaExterno').removeAttr('disabled');
+            } else {
+            	console.log("OTRA INSTITUCION SELECCIONADA");
+            	$('#tipoProgramaInterno').removeAttr('disabled');
+            }
+    	} else if (idSeleccionado == "unregistred") {
+    		$('#otraInstitucion').fadeIn();
+    		console.log("OTRA INSTITUCION SELECCIONADA");
+            $('#tipoProgramaInterno').removeAttr('disabled');
+    	} else {
+    		$('#plantRegistrados').html('');
+    	}
+    });
+	var plantelList = $('#plantelList');
+	plantelList.change(function() {
+		var nombrePlantel = $('#nombrePlantel');
+		var divOtroPlantel = $('#otroPlantel');
+		nombrePlantel.val('');
+		divOtroPlantel.fadeOut('fast');
+		var idSeleccionado = $(this).prop('options')[$(this).prop('selectedIndex')].value;
+		if (idSeleccionado == "unregistred") {
+			divOtroPlantel.fadeIn();
+		}
+	});
     // Habilitar/Deshabilitar lista de programas
     var listaExternos = $('#listaExternos');
     var listaInternos = $('#listaInternos');
@@ -48,6 +95,21 @@ $(document).ready(function() {
 	console.log("IT WORKS!");
 });
 
+function restablecerPlantel() {
+	var plantelesList = $('#plantelList');
+	var nombrePlantel = $('#nombrePlantel');
+	var divOtroPlantel = $('#otroPlantel');
+	plantelesList.prop('selectedIndex', 0);
+	nombrePlantel.val('');
+	divOtroPlantel.hide().fadeOut('fast');
+}
+function restablecerInstitucion() {
+	var nombre = $('#nombreInstitucion');
+	var div = $('#otraInstitucion');
+	nombre.val('');
+	div.hide().fadeOut('fast');
+}
+
 function restablecerValoresPrograma() {
 	var cvePrograma = $('#cvePrograma');
 	var nombrePrograma = $('#nombrePrograma');
@@ -60,7 +122,7 @@ function restablecerRadioPrograma() {
 		.attr('disabled', 'disabled')
 		.removeAttr('checked');
     $('#tipoProgramaExterno').attr('disabled', 'disabled')
-    	.removeAttr('checked');;
+    	.removeAttr('checked');
 }
 
 function ocultarListaProgramas() {
@@ -70,6 +132,13 @@ function ocultarListaProgramas() {
     listaExternos.hide().fadeOut('fast');
 	listaInternos.hide().fadeOut('fast');
 }
+
+function restablecerPrograma() {
+	ocultarListaProgramas();
+	restablecerValoresPrograma();
+	restablecerRadioPrograma();
+}
+
 // pre-submit callback 
 function showRequest(formData, jqForm, options) { 
     // formData is an array; here we use $.param to convert it to a string to display it 
@@ -137,14 +206,7 @@ function setupForm() {
 			},
 			// Institución
 			institucionList: {
-			    required: function(element) {
-			    	if ($(element).val() != "unregistred" && $(element).val() != "0" &&
-			    		$(element).val() != "") {
-			    		return true;
-			    	} else {
-			    		return false;
-			    	}
-			    }
+			    required: true
 			},
 			nombreInstitucion: {
 			    required: function(element) {
@@ -153,9 +215,7 @@ function setupForm() {
 			    maxlength: 150
 			},
 			plantelList: {
-			    required: function(element) {
-			        return $(element).val() != "unregistred";
-			    }
+			    required: true
 			},
 			nombrePlantel: {
 			    required: function(element) {
