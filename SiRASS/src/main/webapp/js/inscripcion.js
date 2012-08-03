@@ -84,10 +84,14 @@ $(document).ready(function() {
     	ocultarListaProgramas();
     	if ($(this).val() == "1") {
     		// Programa Interno
+    		listaInternos.find('select').removeAttr('disabled');
     		listaInternos.show().fadeIn();
+    		listaExternos.find('select').attr('disabled', 'disabled');
     	} else if ($(this).val() == "2") {
     		// Programa Externo
+    		listaExternos.find('select').removeAttr('disabled');
     		listaExternos.show().fadeIn();
+    		listaInternos.find('select').attr('disabled', 'disabled');
     	}
     	// Restablecer valores
     	restablecerValoresPrograma();

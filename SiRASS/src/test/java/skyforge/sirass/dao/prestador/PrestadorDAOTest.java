@@ -75,7 +75,7 @@ public class PrestadorDAOTest {
         vars.put("nombrePrograma", new String[]{"Apoyo académico en la UACM"});
         vars.put("cvePrograma", new String[]{"SS/03/94"});
         InscripcionForm form = new InscripcionForm(vars, "jUnit44");
-        Inscripcion inscripcion = form.getObject();
+        Inscripcion inscripcion = form.getObject(null);
         Date curDate = new Date();
         inscripcion.setCreacion(curDate);
         inscripcion.setUltimaModif(curDate);

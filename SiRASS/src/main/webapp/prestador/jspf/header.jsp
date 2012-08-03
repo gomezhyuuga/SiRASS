@@ -61,11 +61,11 @@
 		</div>
 	</nav>
 <%  // Obtención de inscripción
-    if (session.getAttribute("inscripcion") == null) {
-        PrestadorDAO prestadorDAO = new PrestadorDAO();
-        Inscripcion inscripcion = prestadorDAO.getCurrentInscripcion(request.getUserPrincipal().getName());
-        if (inscripcion != null) {
-            session.setAttribute("inscripcion", inscripcion);
-        }
-    }
+    PrestadorDAO prestadorDAO = new PrestadorDAO();
+    Inscripcion inscripcion = prestadorDAO.getCurrentInscripcion(request.getUserPrincipal().getName());
+    if (inscripcion != null) {
+        session.setAttribute("inscripcion", inscripcion);
+    } else {
+        session.setAttribute("inscripcion", null);
+    }   
 %>

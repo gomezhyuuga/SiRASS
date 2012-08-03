@@ -5,6 +5,7 @@
 <%@page import="skyforge.sirass.model.institucion.CInstitucion"%>
 <%@page import="java.util.List"%>
 <%@page import="skyforge.sirass.dao.institucion.CInstitucionDAO"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <input type="hidden" name="class" value="Inscripcion" />
 <div id="tipoServicio" class="form-actions">
 	<input type="hidden" name="tipoSS" id="tipoSS" value="1" />
@@ -129,7 +130,7 @@
 			</div>
 		</div>
 		<div class="control-group">
-            <label class="control-label" for="fechaIngreso">Año de ingreso:</label>
+            <label class="control-label" for="fechaIngreso">AÃ±o de ingreso:</label>
             <div class="controls">
                 <select id="fechaIngreso" name="fechaIngreso" class="input-mini">
                 <%  for (int year = 2010; year >= 1940; year--) {%>
@@ -138,7 +139,7 @@
                 </select>
             </div>
         </div>
-        <!-- solo en caso de ser práctica profesional -->
+        <!-- solo en caso de ser prÃ¡ctica profesional -->
 		<div id="practicas">
 			<div class="control-group">
 			   <label class="control-label" for="creditos">Total de cr&eacute;ditos:</label>
@@ -155,7 +156,7 @@
 			       <input class="input-mini" type="text" id="cursosSuperior" name="cursosSuperior" maxlength="3" />
 			   </div>
 			</div> 
-		</div> <!-- end prácticas profesionales -->
+		</div> <!-- end prÃ¡cticas profesionales -->
         <div class="form-actions">
             <h6>Pulsa en <a href="#" id="next">Datos del programa</a> para continuar</h6>
         </div>
@@ -186,7 +187,6 @@
             <div class="control-group hide" id="listaInternos">
                 <label class="control-label">Programa:</label>
                 <div class="controls">
-                    <input type="hidden" name="nombrePrograma" id="nombrePrograma" value="" />
                     <select class="span6" name="idPrograma" size="10" onchange="changePrograma(this)">
                         <optgroup label="Programas Internos">
                             <% if (internos == null || internos.isEmpty()) {
@@ -203,7 +203,6 @@
             <div class="control-group hide" id="listaExternos">
                 <label class="control-label">Programa:</label>
                 <div class="controls">
-                    <input type="hidden" name="nombrePrograma" id="nombrePrograma" value="" />
                     <select class="span6" name="idPrograma" size="10" onchange="changePrograma(this)">
                         <optgroup label="Programas Externos">
                             <%

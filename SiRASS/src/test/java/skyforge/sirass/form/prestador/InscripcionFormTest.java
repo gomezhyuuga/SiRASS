@@ -65,7 +65,7 @@ public class InscripcionFormTest {
     public void testGetObject() {
         System.out.println("testGetObject...");
         System.out.println("Creando inscripción...");
-        inscripcion = form.getObject();
+        inscripcion = form.getObject(null);
         System.out.println("tipoSS: " + inscripcion.getTipo().getIdTipo());
         System.out.println("difundir: " + inscripcion.getTipo().getIdTipo());
         System.out.println("semestre: " + inscripcion.getSemestre());
@@ -103,7 +103,7 @@ public class InscripcionFormTest {
         System.out.println("Creando inscripción...");
         vars.put("institucionList", new String[]{"1"});
         vars.put("plantelList", new String[]{"3"});
-        inscripcion = form.getObject();
+        inscripcion = form.getObject(null);
         System.out.println("semestre: " + inscripcion.getSemestre());
         System.out.println("fechaIngreso: " + inscripcion.getAnioIngreso());
         System.out.println("area: " + inscripcion.getArea());
@@ -144,7 +144,7 @@ public class InscripcionFormTest {
         vars.put("institucionList", new String[]{"1"});
         vars.put("plantelList", new String[]{"unregistred"});
         vars.put("nombrePlantel", new String[]{"Mi plantel!"});
-        inscripcion = form.getObject();
+        inscripcion = form.getObject(null);
         System.out.println("semestre: " + inscripcion.getSemestre());
         System.out.println("fechaIngreso: " + inscripcion.getAnioIngreso());
         System.out.println("area: " + inscripcion.getArea());
@@ -186,7 +186,7 @@ public class InscripcionFormTest {
         vars.put("nombreInstitucion", new String[]{"Mi institucion!"});
         vars.put("plantelList", new String[]{"unregistred"});
         vars.put("nombrePlantel", new String[]{"Mi plantel!"});
-        inscripcion = form.getObject();
+        inscripcion = form.getObject(null);
         System.out.println("semestre: " + inscripcion.getSemestre());
         System.out.println("fechaIngreso: " + inscripcion.getAnioIngreso());
         System.out.println("area: " + inscripcion.getArea());
@@ -227,7 +227,7 @@ public class InscripcionFormTest {
         vars.put("institucionList", new String[]{"unregistred"});
         vars.put("nombreInstitucion", new String[]{"Mi institucion!"});
         vars.put("plantelList", new String[]{"0"});
-        inscripcion = form.getObject();
+        inscripcion = form.getObject(null);
         System.out.println("semestre: " + inscripcion.getSemestre());
         System.out.println("fechaIngreso: " + inscripcion.getAnioIngreso());
         System.out.println("area: " + inscripcion.getArea());
@@ -266,7 +266,7 @@ public class InscripcionFormTest {
         System.out.println("Creando inscripción...");
         vars.put("institucionList", new String[]{"2"});
         vars.put("plantelList", new String[]{"0"});
-        inscripcion = form.getObject();
+        inscripcion = form.getObject(null);
         System.out.println("semestre: " + inscripcion.getSemestre());
         System.out.println("fechaIngreso: " + inscripcion.getAnioIngreso());
         System.out.println("area: " + inscripcion.getArea());

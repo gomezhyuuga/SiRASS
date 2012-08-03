@@ -55,6 +55,10 @@ public class Inscripcion implements Serializable {
     public Inscripcion() {
     }
 
+    public Inscripcion(int idInscripcion) {
+        this.idInscripcion = idInscripcion;
+    }
+
     public Integer getHorasRealizadas() {
         return horasRealizadas;
     }

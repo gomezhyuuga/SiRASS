@@ -175,4 +175,33 @@ public class DAO {
         s.close();
         return list;
     }
+    
+    /**
+     * Obtiene un registro de cualquier tabla con restricciones y projections
+     * opcionales.
+     * 
+     * @param clase - Entidad que representa la table sobre la cual se hace la consulta
+     * @param crits - Array de criterios a agregar.
+     * @param plist - ProjectionList para obtener solo los elemento sseleccinoados
+     * @return Unico objeto con el registro encontrado
+     */
+    public Object customUniqueResult(Class clase, Criterion[] crits, ProjectionList plist) {
+        Session s = HibernateUtil.getSessionFactory().openSession();
+        Object obj = null;
+        Criteria criteria = s.createCriteria(clase);
+        // Aplicar criterios en caso de ser necesario
+        if (crits != null && crits.length > 0) {
+            for (Criterion c : crits) {
+                criteria.add(c);
+            }
+        }
+        // Aplicar projections en caso de ser necesario
+        if (plist != null) {
+            criteria.setProjection(plist)
+                    .setResultTransformer(new AliasToBeanResultTransformer(clase));
+        }
+        obj = criteria.uniqueResult();
+        s.close();
+        return obj;
+    }
 }

@@ -42,8 +42,12 @@ public class InscripcionForm extends Form {
      *
      * @return Objeto tipo inscripción con los datos encontrados en el map
      */
-    public Inscripcion getObject() {
-        this.inscripcion = new Inscripcion();
+    public Inscripcion getObject(Inscripcion obj) {
+        if (obj == null) {
+            this.inscripcion = new Inscripcion();
+        } else {
+            this.inscripcion = obj;
+        }
         if (this.getVars().get("tipoSS") != null) {
             short tipoSS;
             try {

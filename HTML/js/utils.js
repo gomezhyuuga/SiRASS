@@ -72,6 +72,21 @@ function changePrograma(programas) {
 	        // Cambiar la clave del programa
 	        cvePrograma.val(clave);
 	        nombrePrograma.val(nombre);
+	        // Detección de programa institucional
+	        // var tipo = $('input[name="tipoPrograma"]:checked').val();
+	        // var provieneUACM = false;
+	        // var idInstSeleccionado = $('#institucionList').val();
+	        // if (idInstSeleccionado == 2) {
+	        // 	provieneUACM = true;
+	        // }
+	        // if (tipo == 1) {
+	        // 	console.log("Programa Interno");
+	        // } else if (tipo == 2) {
+	        // 	console.log("Programa Externo");
+	        // 	if (provieneUACM) {
+	        // 		$('#programaInstitucional').find('input').val(nombre);
+	        // 	}
+	        // }
 	    } else {
 	        // No se seleccionó ningún programa de la lista (value=0)
 	        cvePrograma.val('');

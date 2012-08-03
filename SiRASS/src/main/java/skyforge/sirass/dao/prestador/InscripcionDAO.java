@@ -12,6 +12,7 @@ import skyforge.sirass.HibernateUtil;
 import skyforge.sirass.dao.DAO;
 import skyforge.sirass.model.prestador.EstadoInscripcion;
 import skyforge.sirass.model.prestador.Inscripcion;
+import skyforge.sirass.model.prestador.Prestador;
 
 /**
  *
@@ -208,6 +209,15 @@ public class InscripcionDAO extends DAO {
         return this.getHorasRealizadas(criterio);
     }
     
+    public String getObservaciones(int idInscripcion) {
+        Session s = HibernateUtil.getSessionFactory().openSession();
+        String observaciones = (String) s.createQuery("select observaciones from Inscripcion where idInscripcion=:id")
+                .setInteger("id", idInscripcion)
+                .uniqueResult();
+        s.close();
+        return observaciones;
+    }
+    
     private short getHorasRealizadas(Criterion crit) {
         // Obtener solamente horas realizadas
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -222,5 +232,29 @@ public class InscripcionDAO extends DAO {
         } else {
             return horas;
         }
+    }
+    
+    public boolean eliminar(int id) {
+        boolean ok = false;
+        Inscripcion inscripcion = null;
+        Session s = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = s.beginTransaction();
+        try {
+            inscripcion = (Inscripcion) s.load(Inscripcion.class, id);
+            Prestador p = inscripcion.getPrestador();
+            s.delete(inscripcion);
+            p.setInscripcion(null);
+            s.update("Prestador", p);
+            tx.commit();
+            ok = true;
+        } catch (Exception e) {
+            System.out.println("ERROR BORRANDO INSCRIPCION");
+            ok = false;
+            tx.rollback();
+            e.printStackTrace();
+        } finally {
+            s.close();
+        }
+        return ok;
     }
 }

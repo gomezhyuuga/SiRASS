@@ -192,7 +192,7 @@ function inscribirPrestador(el) {
 					data: {
 						service: 'inscribirPrestador',
 						numControl: nControl,
-						idInscripcion: id,
+						idInscripcion: id
 					}
 				})
 				.done(function(msg) {
@@ -237,6 +237,42 @@ function rechazarPrestador(el) {
 				if (msg == "1") {
 					bootbox.hideAll();
 					bootbox.alert('<p class="lead">Inscripción rechazada</p>', function() {
+						reloadPage();
+					});
+				} else {
+					bootbox.alert('<p class="lead">Ha ocurrido un error. Intenta de nuevo.</p>');
+				}
+			})
+			.fail(function() {
+				bootbox.alert('<p class="lead">Ha ocurrido un error. Intenta de nuevo.</p>');
+			});
+			return false;
+		}
+	}]);
+}
+function validarInscripcion(el) {
+	var id = el.getAttribute('data-id');
+	var msg = '<p class="lead">&iquest;Estás seguro que deseas marcar como correcta esta inscripción?</p>';
+	msg += '<h6 class="right">Marcando como correcta la inscripción con ID: ' + id + '</h6>';
+	bootbox.dialog(msg, [{
+		'label': 'Cancelar',
+		'class': 'btn-danger'
+	}, {
+		'label': 'OK',
+		'class': 'btn-success',
+		'callback': function() {
+			console.log('Validando inscripción...');
+			$.ajax({
+				url: '/SiRASS/Services',
+				data: {
+					service: 'validarInscripcion',
+					idInscripcion: id
+				}
+			})
+			.done(function(msg) {
+				if (msg == "1") {
+					bootbox.hideAll();
+					bootbox.alert('<p class="lead">Inscripción validada correctamente.</p>', function() {
 						reloadPage();
 					});
 				} else {

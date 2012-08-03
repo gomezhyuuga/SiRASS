@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +19,7 @@ import skyforge.sirass.dao.prestador.InscripcionDAO;
 import skyforge.sirass.dao.programass.ProgramaSSDAO;
 import skyforge.sirass.model.institucion.Plantel;
 import skyforge.sirass.model.prestador.EstadoInscripcion;
+import skyforge.sirass.model.prestador.Inscripcion;
 
 /**
  *
@@ -59,6 +62,8 @@ public class Services extends HttpServlet {
                 this.updateInscripcionStatus(request, response, EstadoInscripcion.CORRECTA);
             } else if (request.getParameter("service").equals("actualizarObservaciones")) {
                 this.updateObservacionesInscripcion(request, response);
+            } else if (request.getParameter("service").equals("eliminarInscripcion")) {
+                this.eliminarInscripcion(request, response);
             }
         }
     }
@@ -145,6 +150,34 @@ public class Services extends HttpServlet {
                 System.out.println("ERROR ACTUALIZANDO ESTADO DE INSCRIPCIÓN");
                 ex.printStackTrace();
             }
+        }
+    }
+    private void eliminarInscripcion(HttpServletRequest request, HttpServletResponse response) {
+        short status = 0;
+        System.out.println("Borrando inscripcion...");
+        if (request.getParameter("idInscripcion") != null) {
+            try {
+                int idInscripcion = Integer.parseInt(request.getParameter("idInscripcion"));
+                InscripcionDAO dao = new InscripcionDAO();
+                if(dao.eliminar(idInscripcion)) {
+                    status = 1;
+                } else {
+                    status = 0;
+                }
+            } catch (Exception e) {
+                status = 0;
+                System.out.println("ERROR ELIMINANDO INSCRIPCION");
+                e.printStackTrace();
+            }
+        }
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+            out.print(status);
+        } catch (IOException ex) {
+            Logger.getLogger(Services.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            out.close();
         }
     }
 

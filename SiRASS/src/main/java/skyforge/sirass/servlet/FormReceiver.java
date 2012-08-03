@@ -75,7 +75,7 @@ public class FormReceiver extends HttpServlet {
      */
     private int inscripcion(Map<String, String[]> map, String user) {
         InscripcionForm form = new InscripcionForm(map, user);
-        Inscripcion inscripcion = form.getObject();
+        Inscripcion inscripcion = form.getObject(null);
         if (inscripcion != null) {
             inscripcion.setEstado(new EstadoInscripcion((short) 1));
 

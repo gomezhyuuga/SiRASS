@@ -1,3 +1,4 @@
+<%@page import="skyforge.sirass.dao.prestador.InscripcionDAO"%>
 <%@page import="skyforge.sirass.model.prestador.Inscripcion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
@@ -33,10 +34,32 @@
                 <div class="bar" style="width: <%= width + "%" %>; height: 30px;"></div>
             </div>
             <h6><%= horas %>/480 - <%= width + "%"%></h8>
+<%      } else if (aviso.equals("3")) {%>
+            <p class="lead">Tu inscripci&oacute;n ha sido suspendida. Ll&aacute;ma a las oficinas
+                de Servicio Social para obtener m&aacute;s informaci&oacute;n.</p>
+<%      } else if (aviso.equals("4")) {%>
+            <p class="lead">Est&aacute;s dado de baja del programa de Servicio Social. Ll&aacute;ma a las oficinas
+                de Servicio Social para obtener m&aacute;s informaci&oacute;n.</p>
+<%      } else if (aviso.equals("5")) {%>
+            <p class="lead"><b>Felicidades!</b> Haz completado las horas necesarias para liberar tu Servicio Social.</p>
+<%      } else if (aviso.equals("7")) {%>
+            <p class="lead">Lo sentimos, se encontraron errores en tu inscripci&oacute;n.</p>
+            <%
+                InscripcionDAO idao = new InscripcionDAO();
+                Inscripcion inscr = (Inscripcion) session.getAttribute("inscripcion");
+                String observaciones = idao.getObservaciones(inscr.getIdInscripcion());
+                System.out.println(observaciones);
+                if (observaciones != null) {%>
+            <p class="lead">La persona que revis&oacute; tu inscripci&oacute;n anot&oacute; las 
+            siguientes observaciones: </p>
+            <p class="well"><%= observaciones%></p>
+            <%} else {
+                    out.println("<p class=\"lead\">Por favor llama a las oficinas de Servicio Social.</p>");
+            }%>
 <%      } else if (aviso.equals("algo")) {%>
             <p>algo</p>
 <%      } else {%>
-            <p>Tu inscripci&oacute; est&aacute; pendiente.</p>
+            <p>Tu inscripci&oacute;n est&aacute; pendiente.</p>
 <%      }
     }
 %>
