@@ -72,21 +72,6 @@ function changePrograma(programas) {
 	        // Cambiar la clave del programa
 	        cvePrograma.val(clave);
 	        nombrePrograma.val(nombre);
-	        // Detección de programa institucional
-	        // var tipo = $('input[name="tipoPrograma"]:checked').val();
-	        // var provieneUACM = false;
-	        // var idInstSeleccionado = $('#institucionList').val();
-	        // if (idInstSeleccionado == 2) {
-	        // 	provieneUACM = true;
-	        // }
-	        // if (tipo == 1) {
-	        // 	console.log("Programa Interno");
-	        // } else if (tipo == 2) {
-	        // 	console.log("Programa Externo");
-	        // 	if (provieneUACM) {
-	        // 		$('#programaInstitucional').find('input').val(nombre);
-	        // 	}
-	        // }
 	    } else {
 	        // No se seleccionó ningún programa de la lista (value=0)
 	        cvePrograma.val('');
@@ -180,7 +165,7 @@ function inscribirPrestador(el) {
 	msg += '<form name="form-inscribirPrestador" id="form-inscribirPrestador" action="/Inscribir" method="POST">';
 	msg += '<div class="input-append">'
 	msg += '<input type="text" id="numControl" name="numControl" />';
-	msg += '<button onclick="generarNumControl()" type="button" class="btn btn-primary">Generar</button>';
+	msg += '<button onclick="generarNumControl(' + id + ')" type="button" class="btn btn-primary">Generar</button>';
 	msg += '</div>';
 	msg += '<h6>Favor de revisar el número de control. Si hay algún error en el generado, introdúcelo manualmente.</h6>';
 	msg += '</form>';
@@ -207,7 +192,7 @@ function inscribirPrestador(el) {
 					data: {
 						service: 'inscribirPrestador',
 						numControl: nControl,
-						idInscripcion: id,
+						idInscripcion: id
 					}
 				})
 				.done(function(msg) {
@@ -252,6 +237,42 @@ function rechazarPrestador(el) {
 				if (msg == "1") {
 					bootbox.hideAll();
 					bootbox.alert('<p class="lead">Inscripción rechazada</p>', function() {
+						reloadPage();
+					});
+				} else {
+					bootbox.alert('<p class="lead">Ha ocurrido un error. Intenta de nuevo.</p>');
+				}
+			})
+			.fail(function() {
+				bootbox.alert('<p class="lead">Ha ocurrido un error. Intenta de nuevo.</p>');
+			});
+			return false;
+		}
+	}]);
+}
+function validarInscripcion(el) {
+	var id = el.getAttribute('data-id');
+	var msg = '<p class="lead">&iquest;Estás seguro que deseas marcar como correcta esta inscripción?</p>';
+	msg += '<h6 class="right">Marcando como correcta la inscripción con ID: ' + id + '</h6>';
+	bootbox.dialog(msg, [{
+		'label': 'Cancelar',
+		'class': 'btn-danger'
+	}, {
+		'label': 'OK',
+		'class': 'btn-success',
+		'callback': function() {
+			console.log('Validando inscripción...');
+			$.ajax({
+				url: '/SiRASS/Services',
+				data: {
+					service: 'validarInscripcion',
+					idInscripcion: id
+				}
+			})
+			.done(function(msg) {
+				if (msg == "1") {
+					bootbox.hideAll();
+					bootbox.alert('<p class="lead">Inscripción validada correctamente.</p>', function() {
 						reloadPage();
 					});
 				} else {
@@ -419,7 +440,7 @@ function liberarServicio(el) {
 	}]);
 }
 function actualizarObservaciones(id) {
-var obs = $('textarea[name="observaciones"]').val();
+	var obs = $('textarea[name="observaciones"]').val();
 	var msg = '<p class="lead">Estás a punto de actualizar las observaciones de esta inscripción.</p>';
     msg += '<p class="lead">El nuevo valor será:</p>';
     msg += '<p class="well">' + obs + '</p>';
@@ -457,7 +478,30 @@ var obs = $('textarea[name="observaciones"]').val();
 	}]);
 }
 
-function generarNumControl() {
+
+function generarNumControl(id) {
 	console.log('Generando...');
-	$('#numControl').val('SS-E-TEST');
+	var numControl = "Generalo manualmente";
+	$.ajax({
+				url: '/SiRASS/Services',
+				data: {
+					service: 'generarNumControl',
+					idInscripcion: id
+				}
+			})
+			.done(function(msg) {
+				if (msg != "0") {
+					console.log("GENERADO CORRECTAMENTE: " + msg);
+					numControl = msg;
+				} else {
+					console.log("ERROR");
+					bootbox.alert('<p class="lead">Ha ocurrido un error al generar el número de control. Intenta de nuevo.</p>');
+				}
+				$('#numControl').val(numControl);
+			})
+			.fail(function() {
+				console.log("ERROR");
+				bootbox.alert('<p class="lead">Ha ocurrido un error al generar el número de control. Intenta de nuevo.</p>');
+				$('#numControl').val(numControl);
+			});
 }

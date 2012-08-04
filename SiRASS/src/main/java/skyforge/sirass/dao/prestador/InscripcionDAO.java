@@ -13,6 +13,10 @@ import skyforge.sirass.dao.DAO;
 import skyforge.sirass.model.prestador.EstadoInscripcion;
 import skyforge.sirass.model.prestador.Inscripcion;
 import skyforge.sirass.model.prestador.Prestador;
+import skyforge.sirass.model.prestador.TipoInscripcion;
+import skyforge.sirass.model.programass.CategoriaPrograma;
+import skyforge.sirass.model.programass.ProgramaSS;
+import skyforge.sirass.model.programass.TipoPrograma;
 
 /**
  *
@@ -234,6 +238,102 @@ public class InscripcionDAO extends DAO {
         }
     }
     
+    public String generarNumControl(int idInscripcion, Integer start) {
+        String tipo = null;
+        int consecutivo = 0;
+        Integer actual;
+        String numControl = null;
+        // Establecer si ya inicia con un valor
+        if (start != null) {
+            consecutivo = start;
+        }
+        Session s = HibernateUtil.getSessionFactory().openSession();
+        try {
+            // Determinar el tipo de inscripcion
+            ProjectionList plist = Projections.projectionList();
+            plist.add(Projections.property("idInscripcion").as("idInscripcion"));
+            plist.add(Projections.property("tipo").as("tipo"));
+            plist.add(Projections.property("idPrograma").as("idPrograma"));
+            Inscripcion i = (Inscripcion) s.createCriteria(Inscripcion.class)
+                    .add(Restrictions.idEq(idInscripcion))
+                    .setProjection(plist)
+                    .setResultTransformer(new AliasToBeanResultTransformer(Inscripcion.class))
+                    .uniqueResult();
+            if (i != null) {
+                Short t = i.getTipo().getIdTipo();
+                int idPrograma = i.getIdPrograma();
+                if (t == TipoInscripcion.SERVICIO_SOCIAL) {
+                    tipo = "SS";
+                } else if (t == TipoInscripcion.PRACTICA_PROFESIONAL) {
+                    tipo = "PP";
+                }
+                System.out.println("TIPO: " + tipo);
+                numControl = tipo + "-";
+                
+                // Determinar si está en un programa interno o externo
+                Integer tPr = (Integer) s.createCriteria(ProgramaSS.class)
+                        .add(Restrictions.idEq(idPrograma))
+                        .setProjection(Projections.property("categoria.idCategoria"))
+                        .uniqueResult();
+                String prog = null;
+                if (tPr == CategoriaPrograma.INTERNO) {
+                    prog = "I";
+                } else if (tPr == CategoriaPrograma.EXTERNO) {
+                    prog = "E";
+                }
+                numControl += prog + "-";
+                System.out.println("PROGRAMA: " + prog);
+                // Obtener la cantidad de prestadores (consecutivo actual)
+                actual = this.getTotalPrestadores();
+                consecutivo += actual;
+                consecutivo++;
+                System.out.println("NUEVO: " + consecutivo);
+                String consec = String.valueOf(consecutivo);
+                while (consec.length() < 4) {
+                    consec = "0" + consec;
+                }
+                System.out.println("NUEVO_fill: " + consec);
+                numControl += consec;
+            }
+        } catch (Exception e) {
+            System.out.println("ERROR GENERANDO NUM DE CONTROL");
+            e.printStackTrace();
+        } finally {
+            s.close();
+        }
+        return numControl;
+    }
+
+    public InscripcionDAO() {
+    }
+    
+    private Integer getTotalPrestadores() {
+        Integer actual = 0;
+        // Obtener la cantidad de prestadores (consecutivo actual)
+        Session s = HibernateUtil.getSessionFactory().openSession();
+        try {
+            actual = (Integer) s.createCriteria(Inscripcion.class)
+                    .add(Restrictions.ne("estado.idEstado", EstadoInscripcion.CON_ERRORES))
+                    .add(Restrictions.ne("estado.idEstado", EstadoInscripcion.CORRECTA))
+                    .add(Restrictions.ne("estado.idEstado", EstadoInscripcion.EN_ESPERA))
+                    .setProjection(Projections.rowCount())
+                    .uniqueResult();
+            System.out.println("ACTUAL: " + actual);
+        } catch(Exception e) {
+            System.out.println("ERROR OBTENIENDO total de prestadores");
+            e.printStackTrace();
+            actual = null;
+        } finally {
+            s.close();
+        }
+        return actual;
+    }
+    
+    /**
+     * Eliminar una inscripción de la BD
+     * @param id
+     * @return 
+     */
     public boolean eliminar(int id) {
         boolean ok = false;
         Inscripcion inscripcion = null;

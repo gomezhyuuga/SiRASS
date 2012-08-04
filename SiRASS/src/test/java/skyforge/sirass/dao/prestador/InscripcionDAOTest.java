@@ -36,13 +36,22 @@ public class InscripcionDAOTest {
     }
     
     @Test
-//    public void testUpdateEstadoInscripcion() {
-//        System.out.println("### testUpdateEstadoInscripcion ###");
-//        boolean ok = dao.updateEstado(1, Inscripcion.CANCELADA, "jUnit");
-//        Assert.assertTrue(ok);
-//        ok = dao.updateEstadoYObservaciones(1, "Nuevas observaciones", Inscripcion.EN_SERVICIO, "jUnit");
-//        Assert.assertTrue(ok);
-//    }
+    public void testGenerarNumControl() {
+        System.out.println("## testGenerarNumControl...");
+        String numControl;
+        numControl = dao.generarNumControl(1, null);
+        Assert.assertNotNull(numControl);
+        System.out.println("NUMCONTROL: " + numControl);
+//        numControl = dao.generarNumControl(1, 0);
+//        Assert.assertNotNull(numControl);
+//        System.out.println("NUMCONTROL: " + numControl);
+//        numControl = dao.generarNumControl(1, 100);
+//        Assert.assertNotNull(numControl);
+//        System.out.println("NUMCONTROL: " + numControl);
+//        numControl = dao.generarNumControl(1, 1000);
+//        Assert.assertNotNull(numControl);
+//        System.out.println("NUMCONTROL: " + numControl);
+    }
     
 //    @Test
     public void testGetFewWithStatus() {

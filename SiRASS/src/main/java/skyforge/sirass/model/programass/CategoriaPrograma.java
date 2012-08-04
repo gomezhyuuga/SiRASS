@@ -6,6 +6,9 @@ package skyforge.sirass.model.programass;
  */
 public class CategoriaPrograma {
 
+    static public final short INTERNO = 1;
+    static public final short EXTERNO = 2;
+    
     private int idCategoria;
     private String descripcion;
 

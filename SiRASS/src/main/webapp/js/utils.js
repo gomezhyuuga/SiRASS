@@ -165,7 +165,7 @@ function inscribirPrestador(el) {
 	msg += '<form name="form-inscribirPrestador" id="form-inscribirPrestador" action="/Inscribir" method="POST">';
 	msg += '<div class="input-append">'
 	msg += '<input type="text" id="numControl" name="numControl" />';
-	msg += '<button onclick="generarNumControl()" type="button" class="btn btn-primary">Generar</button>';
+	msg += '<button onclick="generarNumControl(' + id + ')" type="button" class="btn btn-primary">Generar</button>';
 	msg += '</div>';
 	msg += '<h6>Favor de revisar el número de control. Si hay algún error en el generado, introdúcelo manualmente.</h6>';
 	msg += '</form>';
@@ -440,7 +440,7 @@ function liberarServicio(el) {
 	}]);
 }
 function actualizarObservaciones(id) {
-var obs = $('textarea[name="observaciones"]').val();
+	var obs = $('textarea[name="observaciones"]').val();
 	var msg = '<p class="lead">Estás a punto de actualizar las observaciones de esta inscripción.</p>';
     msg += '<p class="lead">El nuevo valor será:</p>';
     msg += '<p class="well">' + obs + '</p>';
@@ -478,7 +478,30 @@ var obs = $('textarea[name="observaciones"]').val();
 	}]);
 }
 
-function generarNumControl() {
+
+function generarNumControl(id) {
 	console.log('Generando...');
-	$('#numControl').val('SS-E-TEST');
+	var numControl = "Generalo manualmente";
+	$.ajax({
+				url: '/SiRASS/Services',
+				data: {
+					service: 'generarNumControl',
+					idInscripcion: id
+				}
+			})
+			.done(function(msg) {
+				if (msg != "0") {
+					console.log("GENERADO CORRECTAMENTE: " + msg);
+					numControl = msg;
+				} else {
+					console.log("ERROR");
+					bootbox.alert('<p class="lead">Ha ocurrido un error al generar el número de control. Intenta de nuevo.</p>');
+				}
+				$('#numControl').val(numControl);
+			})
+			.fail(function() {
+				console.log("ERROR");
+				bootbox.alert('<p class="lead">Ha ocurrido un error al generar el número de control. Intenta de nuevo.</p>');
+				$('#numControl').val(numControl);
+			});
 }

@@ -6,6 +6,8 @@ package skyforge.sirass.model.prestador;
  */
 public class TipoInscripcion {
 
+    static public final short SERVICIO_SOCIAL = 1;
+    static public final short PRACTICA_PROFESIONAL = 2;
     private short idTipo;
     private String descripcion;
 

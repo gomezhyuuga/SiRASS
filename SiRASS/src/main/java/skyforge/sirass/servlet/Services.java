@@ -64,6 +64,8 @@ public class Services extends HttpServlet {
                 this.updateObservacionesInscripcion(request, response);
             } else if (request.getParameter("service").equals("eliminarInscripcion")) {
                 this.eliminarInscripcion(request, response);
+            } else if (request.getParameter("service").equals("generarNumControl")) {
+                this.generarNumControl(request, response);
             }
         }
     }
@@ -273,4 +275,25 @@ public class Services extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void generarNumControl(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        InscripcionDAO idao = new InscripcionDAO();
+        String numControl = "0";
+        PrintWriter out = response.getWriter();
+        if (request.getParameter("idInscripcion") != null) {
+            try {
+                int id = Integer.parseInt(request.getParameter("idInscripcion"));
+                String s = idao.generarNumControl(id, null);
+                if (s != null) {
+                    numControl = s;
+                }
+                out.write(numControl);
+            } catch(Exception e) {
+                out.write(numControl);
+                log("ERROR SERVICIO: GENERAR NUM DE CONTROL");
+            } finally {
+                out.close();
+            }
+        }
+    }
 }
