@@ -83,7 +83,7 @@
                                         <%= programaSS.getInstitucion()%>
                                     </th>
                                     <th>
-                                        <a class="btn btn-info btn-mini" target="_blank" href="detalles.jsp?id=<%= programaSS.getIdPrograma()%>">
+                                        <a class="btn btn-info btn-mini" href="detalles.jsp?id=<%= programaSS.getIdPrograma()%>">
                                             <i class = "icon-plus-sign icon-white"></i>M&aacute;s
                                         </a>
                                     </th>

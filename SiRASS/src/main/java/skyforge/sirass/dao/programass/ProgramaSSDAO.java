@@ -31,6 +31,10 @@ public class ProgramaSSDAO extends DAO {
         return super.insert(programa);
     }
     
+    public boolean uObsP(int idPrograma, String obser, String user) {
+        return this.updateObservacionesPrograma(idPrograma, obser, user);
+    }
+    
     public boolean uStatP(int idPrograma, short nvoStado, String user){
         return this.updateEstadoPrograma(idPrograma, null, nvoStado, user);
     }
@@ -361,4 +365,36 @@ public class ProgramaSSDAO extends DAO {
         }
         return status;
     }
+
+    private boolean updateObservacionesPrograma(int idPrograma, String obser, String user) {
+        boolean status = false;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            String q;
+            Query query = null;
+            if (obser != null) {
+                q = "update ProgramaSS set ultimaModif=?, modificadoPor=?, notas=? where idPrograma=?";
+                query = session.createQuery(q);
+                query.setString(2, obser);
+                query.setInteger(3, idPrograma);
+            }
+            Date curDate = new Date(System.currentTimeMillis());
+            query.setTimestamp(0, curDate);
+            query.setString(1, user);
+            int rows = query.executeUpdate();
+            transaction.commit();
+            if (rows > 0) {
+                status = true;
+            }
+        } catch (Exception ex) {
+            transaction.rollback();
+            System.out.println("ERROR ACTUALIZANDO OBSERVACION");
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return status;
+    }
+
 }

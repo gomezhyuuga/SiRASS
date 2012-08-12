@@ -46,7 +46,9 @@ public class Services extends HttpServlet {
                 returnPlanteles(request, response);
             }else if (request.getParameter("service").equals("statProgram")){
                 this.updateStatusProgram(request, response);
-            } else if (request.getParameter("service").equals("rechazarInscripcion")) {
+            }else if (request.getParameter("service").equals("observProgram")){
+                this.updateObserProgram(request, response);
+            }else if (request.getParameter("service").equals("rechazarInscripcion")) {
                 this.updateInscripcionStatus(request, response, EstadoInscripcion.CON_ERRORES);
             } else if (request.getParameter("service").equals("validarInscripcion")) {
                 this.updateInscripcionStatus(request, response, EstadoInscripcion.CORRECTA);
@@ -149,11 +151,33 @@ public class Services extends HttpServlet {
                 pdao.uStatP(idInscripcion, nuevoEstado, user);
                 response.sendRedirect(request.getContextPath() + "/admin/gestionProgramas/");
             } catch (Exception ex) {
-                System.out.println("ERROR ACTUALIZANDO ESTADO DE INSCRIPCIÓN");
+                System.out.println("ERROR ACTUALIZANDO ESTADO DE PROGRAMA");
                 ex.printStackTrace();
             }
         }
     }
+    
+    private void updateObserProgram(HttpServletRequest request, HttpServletResponse response) {
+        int idPrograma;
+        String user = "system";
+        String obser = "sin observaciones";
+        if(request.getUserPrincipal() != null && request.getUserPrincipal().getName() !=null){
+            user = request.getUserPrincipal().getName();
+        }
+        if(request.getParameter("id") != null){
+            try{
+                idPrograma = Integer.parseInt(request.getParameter("id"));
+                obser = request.getParameter("observaciones");
+                ProgramaSSDAO pdao = new ProgramaSSDAO();
+                pdao.uObsP(idPrograma, obser, user);
+                response.sendRedirect(request.getContextPath() + "/admin/gestionProgramas/");
+            }catch (Exception ex){
+                System.out.println("ERROR ACTUALIZANDO OBSERVACIÓN");
+                ex.printStackTrace();
+            }
+        }
+    }
+    
     private void eliminarInscripcion(HttpServletRequest request, HttpServletResponse response) {
         short status = 0;
         System.out.println("Borrando inscripcion...");
@@ -296,4 +320,5 @@ public class Services extends HttpServlet {
             }
         }
     }
+
 }

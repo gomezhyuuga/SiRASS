@@ -35,7 +35,7 @@ public class InscripcionDAOTest {
     public void tearDown() {
     }
     
-    @Test
+    //@Test
     public void testGenerarNumControl() {
         System.out.println("## testGenerarNumControl...");
         String numControl;

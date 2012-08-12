@@ -100,15 +100,8 @@ public class programasDaoTest {
         Assert.assertNotNull(list);
     }*/
     @Test
-    public void testGetListProg(){
-        List<ProgramaSS> list = pdao.getListProgramasByEdo(new CEstado((short) 4));
-        Iterator<ProgramaSS> it = list.iterator();
-        while (it.hasNext()) {
-            ProgramaSS programaSS = it.next();
-            System.out.println(programaSS.getNombre());
-            System.out.println(programaSS.getInstitucion());
-            System.out.println(programaSS.getTel());
-            
-        }
+    public void testUpObservacion(){
+        ProgramaSSDAO pdao = new ProgramaSSDAO();
+        pdao.uObsP(79, "aaaaaaa" , "cool");
     }
 }
