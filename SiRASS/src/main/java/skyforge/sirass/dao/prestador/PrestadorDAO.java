@@ -39,8 +39,9 @@ public class PrestadorDAO extends DAO {
             transaction.begin();
             Prestador p = (Prestador) session.get(Prestador.class, idPrestador);
             inscripcion.setPrestador(p);
-            session.save(inscripcion);
             p.setInscripcion(inscripcion.getIdInscripcion());
+            session.save(inscripcion);
+            session.save(p);
             transaction.commit();
             status = 1;
         } catch (Exception e) {

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteapoyo2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6c7b75d7-ec6a-4e00-9a76-c2728f29b3aa">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="104"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement uuid="93ec3a52-1d14-4592-89f5-1b03705b812e" x="353" y="28" width="114" height="97"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["Hola2"]]></textFieldExpression>
+			</textField>
+			<ellipse>
+				<reportElement uuid="17527b13-7d3f-43fb-864f-4efde1be06e4" x="122" y="28" width="169" height="78"/>
+			</ellipse>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement uuid="93ec3a52-1d14-4592-89f5-1b03705b812e" x="376" y="22" width="114" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["Hola2"]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

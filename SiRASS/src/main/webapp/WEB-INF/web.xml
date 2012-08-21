@@ -54,8 +54,16 @@
         </form-login-config>
     </login-config>
     <error-page>
-        <error-code>401</error-code>
-        <location>/error.jsp</location>
+        <exception-type>java.lang.NullPointerException,java.lang.Exception,java.lang.IllegalStateException</exception-type>
+        <location>/WEB-INF/jspf/avisos/error.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/WEB-INF/jspf/avisos/403.jsp</location>
     </error-page>
     <security-constraint>
         <display-name>Admins</display-name>

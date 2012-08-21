@@ -231,18 +231,6 @@
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="programaInst">Programa institucional:</label>
-                <div class="controls">
-                    <input class="input-xlarge" type="text" id="programaInst" name="programaInst" maxlength="30" />
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label" for="cveProgramaInst">Clave:</label>
-                <div class="controls">
-                    <input class="input-xlarge" type="text" id="cveProgramaInst" name="cveProgramaInst" maxlength="30" />
-                </div>
-            </div>
-            <div class="control-group">
                 <label class="control-label">D&iacute;as de asistencia:</label>
                 <div class="controls">
                     <div class="btn-group" data-toggle="buttons-checkbox">
@@ -255,6 +243,7 @@
                             <option value="6">S&aacute;bado</option>
                             <option value="7">Domingo</option>
                         </select>
+                        <p class="help-block"><em>Para seleccionar múltiples días mantén presionada la tecla <b>Ctrl</b> (o <b>Cmd</b> en Mac) y selecciona los demás días.</em></p>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Carta_CompromisoSS" language="groovy" pageWidth="595" pageHeight="1600" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8deb2ff9-7399-43c1-874f-188946e44acf">
+	<property name="ireport.zoom" value="1.1"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="87"/>
+	<parameter name="url_img" class="java.lang.String"/>
+	<parameter name="nombre" class="java.lang.String"/>
+	<parameter name="ap_materno" class="java.lang.String"/>
+	<parameter name="calle" class="java.lang.String"/>
+	<parameter name="numero" class="java.lang.String"/>
+	<parameter name="colonia" class="java.lang.String"/>
+	<parameter name="delegacion" class="java.lang.String"/>
+	<parameter name="cPostal" class="java.lang.String"/>
+	<parameter name="telCasa" class="java.lang.String"/>
+	<parameter name="telCel" class="java.lang.String"/>
+	<parameter name="email" class="java.lang.String"/>
+	<parameter name="ap_paterno" class="java.lang.String"/>
+	<parameter name="colegio" class="java.lang.String"/>
+	<parameter name="plantel" class="java.lang.String"/>
+	<parameter name="carrera" class="java.lang.String"/>
+	<parameter name="matricula" class="java.lang.String"/>
+	<parameter name="semestre" class="java.lang.String"/>
+	<parameter name="dependenciaRec" class="java.lang.String"/>
+	<parameter name="calleDepRec" class="java.lang.String"/>
+	<parameter name="numeroDepRec" class="java.lang.String"/>
+	<parameter name="coloniaDepRec" class="java.lang.String"/>
+	<parameter name="delegacionDepRec" class="java.lang.String"/>
+	<parameter name="cPostalDepRec" class="java.lang.String"/>
+	<parameter name="responsable_Programa" class="java.lang.String"/>
+	<parameter name="fechaIncio" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaFin" class="java.util.Date"/>
+	<parameter name="ubicacion" class="java.lang.String"/>
+	<parameter name="fechaHoy" class="java.util.Date"/>
+	<parameter name="firma_digital" class="java.lang.String"/>
+	<parameter name="no_formato" class="java.lang.String"/>
+	<parameter name="autorizacionDatos" class="java.lang.Boolean">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="puestoRespSDP" class="java.lang.String"/>
+	<parameter name="nombreRespSDP" class="java.lang.String"/>
+	<parameter name="ubicacionOIP" class="java.lang.String"/>
+	<parameter name="telefonoOIP" class="java.lang.String"/>
+	<parameter name="extensionOIP" class="java.lang.String"/>
+	<parameter name="horarioAtOIP" class="java.lang.String"/>
+	<parameter name="emailOIP" class="java.lang.String"/>
+	<parameter name="paginaWebOIP" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="5" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="102" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="8af9fc5a-a73e-42fd-ab83-b582959e1acf" x="387" y="71" width="166" height="29"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<text><![CDATA[COORDINACIÓN ACADÉMICA
+SERVICIO SOCIAL]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="6ba7ad74-75bd-4a50-b604-769799793f0e" x="3" y="0" width="550" height="71"/>
+				<imageExpression><![CDATA[$P{url_img}]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="4" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="1068" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="4ce5ab84-83c5-4a05-a3a7-e6d6845a8ebc" x="21" y="23" width="511" height="33"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Con el fin de dar cumplimiento a lo establecido en la Ley Reglamentaria de Articulo 5°
+Constitucional relativo al ejercicio de profesiones, el suscrito:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="762660df-c06d-4c87-8a55-6aea4972614c" mode="Opaque" x="93" y="3" width="363" height="20" backcolor="#EBE9E9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[CARTA COMPROMISO DEL SERVICIO SOCIAL]]></text>
+			</staticText>
+			<rectangle radius="10">
+				<reportElement uuid="cf06a5a5-a2f3-49ac-9fa9-006cf15d4aa3" x="22" y="59" width="511" height="139"/>
+			</rectangle>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="112" y="107" width="274" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{calle}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d8596ace-c63c-4f0d-853f-343a44ca028f" x="22" y="97" width="217" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="7"/>
+				</textElement>
+				<text><![CDATA[Nombre(s)]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="22" y="77" width="217" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="47342bb5-0703-44d7-9d94-85f4a5372420" x="23" y="107" width="89" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<text><![CDATA[Domicilio:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d8596ace-c63c-4f0d-853f-343a44ca028f" x="23" y="127" width="89" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="385" y="107" width="149" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{numero}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="cc71cef4-bb5a-427a-bd77-61d2508e5329" mode="Opaque" x="21" y="56" width="513" height="20" backcolor="#D99594"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[DATOS PERSONALES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d8596ace-c63c-4f0d-853f-343a44ca028f" x="386" y="97" width="147" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="7"/>
+				</textElement>
+				<text><![CDATA[Apellido Materno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d8596ace-c63c-4f0d-853f-343a44ca028f" x="385" y="127" width="147" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="7"/>
+				</textElement>
+				<text><![CDATA[Número]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d8596ace-c63c-4f0d-853f-343a44ca028f" x="112" y="127" width="274" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="7"/>
+				</textElement>
+				<text><![CDATA[Calle]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="386" y="77" width="147" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ap_materno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d8596ace-c63c-4f0d-853f-343a44ca028f" x="239" y="97" width="147" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="7"/>
+				</textElement>
+				<text><![CDATA[Apellido Paterno]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="239" y="77" width="147" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ap_paterno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="300" y="167" width="233" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{email}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d8596ace-c63c-4f0d-853f-343a44ca028f" x="455" y="157" width="78" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="7"/>
+				</textElement>
+				<text><![CDATA[Código Postal]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="112" y="167" width="94" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{telCasa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="455" y="137" width="78" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cPostal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d8596ace-c63c-4f0d-853f-343a44ca028f" x="239" y="157" width="216" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="7"/>
+				</textElement>
+				<text><![CDATA[Delegación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d8596ace-c63c-4f0d-853f-343a44ca028f" x="22" y="157" width="217" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="7"/>
+				</textElement>
+				<text><![CDATA[Colonia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d8596ace-c63c-4f0d-853f-343a44ca028f" x="300" y="187" width="233" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="7"/>
+				</textElement>
+				<text><![CDATA[Correo-electrónico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d8596ace-c63c-4f0d-853f-343a44ca028f" x="206" y="187" width="94" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="7"/>
+				</textElement>
+				<text><![CDATA[Celular]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="206" y="167" width="94" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{telCel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="23" y="137" width="216" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{colonia}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="5faddb31-e709-49cb-a04d-9f0bb957f904" x="23" y="167" width="89" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<text><![CDATA[Teléfono:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d8596ace-c63c-4f0d-853f-343a44ca028f" x="112" y="187" width="94" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="7"/>
+				</textElement>
+				<text><![CDATA[Casa]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="239" y="137" width="216" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{delegacion}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="19fa191b-b59c-4759-bd85-5f2dd323802d" x="112" y="167" width="1" height="30"/>
+			</line>
+			<line>
+				<reportElement uuid="bffbeeb4-59b0-44f2-bb8c-34ed68690ce9" x="22" y="187" width="511" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="c054827e-e6c4-489a-bbb7-83f412b02af8" x="239" y="137" width="1" height="30"/>
+			</line>
+			<line>
+				<reportElement uuid="387e952c-c4b0-441d-b2d3-7c4cb356eac9" x="22" y="156" width="511" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="808d12da-3b86-4586-9619-0e0c41e20f6d" x="455" y="137" width="1" height="30"/>
+			</line>
+			<line>
+				<reportElement uuid="a8e50d19-532b-4b27-b252-dc369f8e2e88" x="238" y="77" width="1" height="30"/>
+			</line>
+			<line>
+				<reportElement uuid="bffbeeb4-59b0-44f2-bb8c-34ed68690ce9" x="22" y="97" width="511" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="bffbeeb4-59b0-44f2-bb8c-34ed68690ce9" x="23" y="167" width="510" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="7c574d82-76ef-4be3-98c0-3d2190ac4a5a" x="385" y="78" width="1" height="30"/>
+			</line>
+			<line>
+				<reportElement uuid="50b94971-b8a5-4ad0-a3a7-9bb0b5ce18ab" x="206" y="167" width="1" height="30"/>
+			</line>
+			<line>
+				<reportElement uuid="dbffef23-9254-46bd-b32d-082f86aaa0ab" x="385" y="107" width="1" height="30"/>
+			</line>
+			<line>
+				<reportElement uuid="bc58c95f-518c-40b0-840c-7b7cfa3be38a" x="22" y="137" width="511" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="a8c4dfb6-31da-42e8-9439-863764065e20" x="22" y="107" width="511" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="51e4c80d-b569-44a1-826c-b374b36be390" x="300" y="167" width="1" height="30"/>
+			</line>
+			<line>
+				<reportElement uuid="33126792-6752-4fa9-b92a-650386cac6cc" x="22" y="126" width="511" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="f31b375a-317d-4ddf-ae03-8a280cca0d68" x="110" y="107" width="1" height="30"/>
+			</line>
+			<rectangle radius="10">
+				<reportElement uuid="e19736b1-971c-4430-9a32-806131cd0398" x="22" y="205" width="511" height="219"/>
+			</rectangle>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="22" y="285" width="163" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Matrícula: "+$P{matricula}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="cc71cef4-bb5a-427a-bd77-61d2508e5329" mode="Opaque" x="21" y="205" width="513" height="20" backcolor="#D99594"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[ESCOLARIDAD]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="349" y="285" width="183" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Dependencia Receptora: "+$P{dependenciaRec}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="111" y="265" width="422" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{carrera}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="185" y="285" width="164" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Semestre: "+$P{semestre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="47342bb5-0703-44d7-9d94-85f4a5372420" x="22" y="245" width="89" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<text><![CDATA[Plantel:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="47342bb5-0703-44d7-9d94-85f4a5372420" x="22" y="225" width="89" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<text><![CDATA[Colegio:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="112" y="246" width="422" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{plantel}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="47342bb5-0703-44d7-9d94-85f4a5372420" x="23" y="265" width="88" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<text><![CDATA[Licenciatura:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="112" y="226" width="421" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{colegio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="47342bb5-0703-44d7-9d94-85f4a5372420" x="22" y="384" width="125" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<text><![CDATA[Responsable del Programa:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d8596ace-c63c-4f0d-853f-343a44ca028f" x="385" y="344" width="147" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="7"/>
+				</textElement>
+				<text><![CDATA[Número]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d8596ace-c63c-4f0d-853f-343a44ca028f" x="239" y="374" width="216" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="7"/>
+				</textElement>
+				<text><![CDATA[Delegación]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="23" y="324" width="363" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{calleDepRec}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="386" y="326" width="147" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{numeroDepRec}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="273" y="404" width="260" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Fecha de Término: "+
+$P{fechaFin}.getDate()+" de "+
+(($P{fechaFin}.getMonth()==0)? "Enero" :
+(($P{fechaFin}.getMonth()==1)? "Febrero" :
+(($P{fechaFin}.getMonth()==2)? "Marzo" :
+(($P{fechaFin}.getMonth()==3)? "Aril" :
+(($P{fechaFin}.getMonth()==4)? "Mayo" :
+(($P{fechaFin}.getMonth()==5)? "Junio" :
+(($P{fechaFin}.getMonth()==6)? "Julio" :
+(($P{fechaFin}.getMonth()==7)? "Agosto" :
+(($P{fechaFin}.getMonth()==8)? "Septiembre" :
+(($P{fechaFin}.getMonth()==9)? "Octubre" :
+(($P{fechaFin}.getMonth()==10)? "Noviembre" :"Diciembre")))))))))))
++" del "+($P{fechaFin}.getYear()+1900)]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d8596ace-c63c-4f0d-853f-343a44ca028f" x="21" y="344" width="364" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="7"/>
+				</textElement>
+				<text><![CDATA[Calle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d8596ace-c63c-4f0d-853f-343a44ca028f" x="23" y="374" width="216" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="7"/>
+				</textElement>
+				<text><![CDATA[Colonia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d8596ace-c63c-4f0d-853f-343a44ca028f" x="455" y="374" width="78" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="7"/>
+				</textElement>
+				<text><![CDATA[Código Postal]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="21" y="354" width="218" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{coloniaDepRec}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="455" y="354" width="77" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cPostalDepRec}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="22" y="404" width="251" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Fecha de Inicio: "+
+$P{fechaIncio}.getDate()+" de "+
+(($P{fechaIncio}.getMonth()==0)? "Enero" :
+(($P{fechaIncio}.getMonth()==1)? "Febrero" :
+(($P{fechaIncio}.getMonth()==2)? "Marzo" :
+(($P{fechaIncio}.getMonth()==3)? "Aril" :
+(($P{fechaIncio}.getMonth()==4)? "Mayo" :
+(($P{fechaIncio}.getMonth()==5)? "Junio" :
+(($P{fechaIncio}.getMonth()==6)? "Julio" :
+(($P{fechaIncio}.getMonth()==7)? "Agosto" :
+(($P{fechaIncio}.getMonth()==8)? "Septiembre" :
+(($P{fechaIncio}.getMonth()==9)? "Octubre" :
+(($P{fechaIncio}.getMonth()==10)? "Noviembre" :"Diciembre")))))))))))
++" del "+($P{fechaIncio}.getYear()+1900)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="147" y="384" width="385" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{responsable_Programa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="239" y="354" width="216" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{delegacionDepRec}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="47342bb5-0703-44d7-9d94-85f4a5372420" mode="Opaque" x="23" y="306" width="509" height="19" backcolor="#F4E9E9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Domicilio de la Dependencia Receptora]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="a8c4dfb6-31da-42e8-9439-863764065e20" x="22" y="343" width="511" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="a8c4dfb6-31da-42e8-9439-863764065e20" x="22" y="354" width="511" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="f31b375a-317d-4ddf-ae03-8a280cca0d68" x="238" y="354" width="1" height="30"/>
+			</line>
+			<line>
+				<reportElement uuid="a8c4dfb6-31da-42e8-9439-863764065e20" x="22" y="403" width="511" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="a8c4dfb6-31da-42e8-9439-863764065e20" x="22" y="265" width="511" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="a8c4dfb6-31da-42e8-9439-863764065e20" x="23" y="325" width="510" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="f31b375a-317d-4ddf-ae03-8a280cca0d68" x="386" y="325" width="1" height="29"/>
+			</line>
+			<line>
+				<reportElement uuid="a8c4dfb6-31da-42e8-9439-863764065e20" x="22" y="384" width="511" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="f31b375a-317d-4ddf-ae03-8a280cca0d68" x="146" y="384" width="1" height="19"/>
+			</line>
+			<line>
+				<reportElement uuid="a8c4dfb6-31da-42e8-9439-863764065e20" x="22" y="305" width="511" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="a8c4dfb6-31da-42e8-9439-863764065e20" x="22" y="374" width="511" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="f31b375a-317d-4ddf-ae03-8a280cca0d68" x="455" y="354" width="1" height="30"/>
+			</line>
+			<line>
+				<reportElement uuid="f31b375a-317d-4ddf-ae03-8a280cca0d68" x="273" y="403" width="1" height="21"/>
+			</line>
+			<line>
+				<reportElement uuid="4c0f83db-1c64-473b-bbed-b292d99fe202" x="112" y="225" width="1" height="60"/>
+			</line>
+			<line>
+				<reportElement uuid="a8c4dfb6-31da-42e8-9439-863764065e20" x="22" y="284" width="511" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="a8c4dfb6-31da-42e8-9439-863764065e20" x="22" y="245" width="511" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="44652c9e-7e70-42f6-a2d7-438dc0e0b405" x="23" y="424" width="510" height="73"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<text><![CDATA[Me comprometo a realizar el Servicio Social acatando el Reglamento General de Servicio Social de la Universidad Autónoma de la Ciudad de México y llevarlo a cabo en el lugar y periodos manifestados, así como a participar con mis conocimientos e iniciativa en las actividades que desempeñe, procurando dar una imagen positiva en el organismo o dependencia oficial, de no hacerlo así, quedo enterado(a) de la cancelación respectiva, la cual procederá automáticamente.]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="23" y="497" width="510" height="38"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["En "+$P{ubicacion}+" a los "+$P{fechaHoy}.getDate()+" días del mes de "+
+(($P{fechaHoy}.getMonth()==0)? "Enero" :
+(($P{fechaHoy}.getMonth()==1)? "Febrero" :
+(($P{fechaHoy}.getMonth()==2)? "Marzo" :
+(($P{fechaHoy}.getMonth()==3)? "Aril" :
+(($P{fechaHoy}.getMonth()==4)? "Mayo" :
+(($P{fechaHoy}.getMonth()==5)? "Junio" :
+(($P{fechaHoy}.getMonth()==6)? "Julio" :
+(($P{fechaHoy}.getMonth()==7)? "Agosto" :
+(($P{fechaHoy}.getMonth()==8)? "Septiembre" :
+(($P{fechaHoy}.getMonth()==9)? "Octubre" :
+(($P{fechaHoy}.getMonth()==10)? "Noviembre" :"Diciembre")))))))))))
++" del año "+($P{fechaHoy}.getYear()+1900)+" ."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c99cffb9-c617-4957-8cd2-2bdb963dfce4" x="22" y="608" width="509" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<text><![CDATA[Firma del prestador de sercivicio social]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7378a38f-5787-402e-a8a0-1c73a84af8ff" x="23" y="535" width="511" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<text><![CDATA[De conformidad]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="4c0f83db-1c64-473b-bbed-b292d99fe202" x="185" y="285" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement uuid="4c0f83db-1c64-473b-bbed-b292d99fe202" x="348" y="285" width="1" height="20"/>
+			</line>
+			<break>
+				<reportElement uuid="238ba3b0-057a-4e7b-84b6-b681582bb6af" x="0" y="628" width="100" height="1"/>
+			</break>
+			<textField>
+				<reportElement uuid="88248d21-7659-4281-9182-6244c3741e6e" x="21" y="647" width="510" height="245"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Con fundamento en los artículos 9 y 16 de la Ley de Protección de Datos Personales para el Distrito Federal, los datos personales recabados serán protegidos, incorporados y tratados en el Sistema de Datos Personales de los Prestadores de Servicio Social y Prácticas profesionales y no podrán ser difundidos sin su consentimiento expreso, salvo las excepciones de transmisión previstas en la Ley Antes Mencionada."
++"\n"+"\n"+
+"La responsable del Sistema de Datos Personales de los Prestadores de Servicio y Prácticas Profesionales  es "+ $P{puestoRespSDP}+" "+$P{nombreRespSDP}+ ", responsable del área de Servicio Social, y la dirección donde se podrá ejercer los derechos de acceso, rectificación, cancelación y oposición, así como la revocación de consentimiento es a través de la Oficina de Información Pública de la Universidad Autónoma de la Ciudad de México, ubicado en "+$P{ubicacionOIP}+"; teléfono "+$P{telefonoOIP}+", extensión "+$P{extensionOIP}+", con un horario de atención de "+$P{horarioAtOIP}+", en días hábiles, correo electrónico "+$P{emailOIP}+" o "+$P{paginaWebOIP}+"."
++"\n"+"\n"+
+"Asimismo, el interesado podrá dirigirse al Instituto de Acceso a la Información Pública del Distrito Federal, donde recibirá asesoría  sobre los derechos que tutela la Ley de Protección de Datos Personales para el Distrito Federal al teléfono 5636-4636; correo electrónico: datos.personales@infodf.org.mx o www.infodf.org.mx ."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f45d3f42-7b0f-4a1a-98b4-60d18e86ebc0" x="22" y="892" width="510" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Calibri" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{autorizacionDatos}? "Si":"No")+" autorizo que mis datos sean difundidos."
+]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="e75d6bc9-fce5-417d-a70e-0fb758d346b1" x="173" y="1012" width="208" height="1"/>
+			</line>
+			<textField>
+				<reportElement uuid="8e183884-ec1b-407c-a871-159330301b6d" x="124" y="1013" width="306" height="36"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ap_paterno}+" "+$P{ap_materno}+" "+$P{nombre}
++"\n"+
+"Firma"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="9" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="50" splitType="Stretch">
+			<textField>
+				<reportElement uuid="b6ce52a5-ad12-4ad1-9856-7d13247b9367" x="0" y="0" width="553" height="30"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{firma_digital}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d7fedee1-2630-493f-8425-7b118032d363" x="414" y="30" width="142" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{no_formato}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="6" splitType="Stretch"/>
+	</summary>
+</jasperReport>

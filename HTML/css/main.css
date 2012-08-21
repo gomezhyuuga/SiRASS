@@ -134,3 +134,7 @@ input.valid:focus {
 	padding: 0;
 }
 /* @end */
+
+.red {
+	color: #b53c3c;
+}

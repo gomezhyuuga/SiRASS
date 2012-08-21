@@ -17,7 +17,7 @@ $(document).ready(function() {
     // Configuraciones
     $.datepicker.setDefaults(
     {
-        showAnim: "blind",
+        showAnim: "scale",
         dateFormat: "dd/mm/yy",
         minDate: "-70y",
         maxDate: "-13y",
@@ -73,7 +73,7 @@ $(document).ready(function() {
             },
             nacimiento: {
                 required: true,
-                date: true
+                dateITA: true
             },
             username: {
                 required: true,

@@ -99,6 +99,10 @@ $(document).ready(function() {
 	console.log("IT WORKS!");
 });
 
+function ajustesProgramaInstitucional() {
+    console.log("tests...");
+}
+
 function restablecerPlantel() {
 	var plantelesList = $('#plantelList');
 	var nombrePlantel = $('#nombrePlantel');
@@ -165,7 +169,6 @@ function setupForm() {
 	var options = { 
 	    success: registroOK,  // post-submit callback 
 	    error: registroError,
-        beforeSubmit: showRequest,
         timeout: 3000,
 	    url: "/SiRASS/FormReceiver"
 	};
@@ -234,7 +237,7 @@ function setupForm() {
 function setupDatepickers() {
 	$.datepicker.setDefaults(
 	{
-		showAnim: "blind",
+		showAnim: "scale",
 		dateFormat: "dd/mm/yy",
 		changeMonth: true,
 		changeYear: true
@@ -259,7 +262,7 @@ function registroOK(responseText, statusText, xhr, $form) {
         createAlert('Inscripción correcta!',
             msg,
             '#feedback', 'alert-success');
-        bootbox.dialog('<p class="lead">Inscripción correcta!' + msg + '<p>', [{
+        bootbox.dialog('<p class="lead">Inscripción correcta! ' + msg + '<p>', [{
             "label" : "Continuar",
             "class" : "btn-success",
             "callback": function() {

@@ -15,8 +15,6 @@
             </a>
 <%      } else if (aviso.equals("1")) {%>
             <p class="lead">Tu solicitud de inscripci&oacute;n est&aacute; siendo validada por un responsable de Servicio Social. <a href="#"><strong>Ver estado</strong></a></p>
-            <p>Una vez que se compruebe que es correcta, genera tu <em>Carta Compromiso</em> y entrega los papeles respectivos en las oficinas de Servicio Social.Una vez que se compruebe que es correcta, genera tu <em>Carta Compromiso</em> y entrega los papeles respectivos en las oficinas de Servicio Social.</p>
-            <a href="#" class="btn btn-inverse btn-small">Generar carta compromiso</a>
 <%      } else if (aviso.equals("2")) {%>
             <p>Actualmente est&aacute;s inscrito en el siguiente programa de Servicio Social:</p>
             <p class="lead"><strong>Apoyo al &aacute;rea acad&eacute;mico-administrativa en la UACM</strong></p>
@@ -26,8 +24,10 @@
             double width = 0;
             if (session.getAttribute("inscripcion") != null) {
                 Inscripcion inscr = (Inscripcion) session.getAttribute("inscripcion");
-                horas = inscr.getHorasRealizadas();
-                width = (horas * 5) / 24;
+                if (inscr.getHorasRealizadas() != null && inscr.getHorasRealizadas() != 0) {
+                    horas = inscr.getHorasRealizadas();
+                    width = (horas * 5) / 24;
+                }
             }
 %>
             <div class="progress progress-success" style="height: 30px; border: 1px solid #8c8c8c;">
@@ -42,7 +42,7 @@
                 de Servicio Social para obtener m&aacute;s informaci&oacute;n.</p>
 <%      } else if (aviso.equals("5")) {%>
             <p class="lead"><b>Felicidades!</b> Haz completado las horas necesarias para liberar tu Servicio Social.</p>
-<%      } else if (aviso.equals("7")) {%>
+<%      } else if (aviso.equals("6")) {%>
             <p class="lead">Lo sentimos, se encontraron errores en tu inscripci&oacute;n.</p>
             <%
                 InscripcionDAO idao = new InscripcionDAO();
@@ -56,6 +56,12 @@
             <%} else {
                     out.println("<p class=\"lead\">Por favor llama a las oficinas de Servicio Social.</p>");
             }%>
+<%      } else if (aviso.equals("7")) {%>
+            <p class="lead">Parece que tu inscripci&oacute;n no tiene errores. Ahora genera tu 
+                <em><b>Carta Compromiso</b></em> y <em><b>Solicitud de Servicio</b></em> y entr&eacute;galos junto con los 
+                respectivos papeles en las oficinas de Servicio Social.</p>
+            <a href="#" class="btn btn-inverse btn-small">Generar carta compromiso</a>
+            <a href="#" class="btn btn-inverse btn-small">Generar Solicitud de Servicio</a>
 <%      } else if (aviso.equals("algo")) {%>
             <p>algo</p>
 <%      } else {%>

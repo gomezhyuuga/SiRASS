@@ -338,6 +338,7 @@ public class InscripcionForm extends Form {
     private int registrarCInstitucion(String nombre) {
         CInstitucion cInstitucion = new CInstitucion();
         cInstitucion.setNombre(nombre);
+        cInstitucion.setEducativa(true);
         cInstitucion.setCreacion(curDate);
         cInstitucion.setUltimaModif(curDate);
         cInstitucion.setModificadoPor(modificadoPor);

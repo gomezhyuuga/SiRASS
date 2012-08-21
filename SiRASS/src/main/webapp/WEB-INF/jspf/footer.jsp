@@ -29,12 +29,12 @@
                 request.getParameter("datepicker").equals("true")) { %>
         <!-- jQueryUI + jQueryUI bootstrap theme
         ============================== -->
-        <link type="text/css" href="../css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
-        <script src="../js/jquery-ui-1.8.21.custom.min.js" type="text/javascript"></script>
-        <script src="../js/jquery.ui.datepicker-es.js" type="text/javascript"></script>
-        <script src="../js/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
+        <link type="text/css" href="/SiRASS/css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+        <script src="/SiRASS/js/jquery-ui-1.8.21.custom.min.js" type="text/javascript"></script>
+        <script src="/SiRASS/js/jquery.ui.datepicker-es.js" type="text/javascript"></script>
+        <script src="/SiRASS/js/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
         <!--[if IE]>
-            <link rel="stylesheet" type="text/css" href="../css/custom-theme/jquery.ui.1.8.16.ie.css"/>
+            <link rel="stylesheet" type="text/css" href="/SiRASS/css/custom-theme/jquery.ui.1.8.16.ie.css"/>
         <![endif]-->
         <%  }
             if (request.getParameter("bootbox") != null &&

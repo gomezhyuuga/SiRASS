@@ -5,7 +5,7 @@ $(document).ready(function() {
 function init() {
 	$.datepicker.setDefaults(
 	{
-		showAnim: "blind",
+		showAnim: "scale",
 		dateFormat: "dd/mm/yy",
 		changeMonth: true,
 		changeYear: true
@@ -39,6 +39,13 @@ function init() {
 		debug: true,
 		errorContainer: "#feedback",
 		errorClass: "invalid",
+		invalidHandler: function() {
+//			bootbox.alert("ERROR");
+			console.log("ERROR");
+			var titl = 'Error!';
+			var msg = 'Hay errores en los datos que estás enviando. Por favor revísalos nuevamente.';
+			createAlert(titl, msg, '#feedback', 'alert-error');
+		},
 		wrapper: 'p class="help-block"',
 		ignore: "",
 		submitHandler: function(form) {

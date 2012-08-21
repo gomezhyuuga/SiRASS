@@ -169,7 +169,6 @@ function setupForm() {
 	var options = { 
 	    success: registroOK,  // post-submit callback 
 	    error: registroError,
-        beforeSubmit: showRequest,
         timeout: 3000,
 	    url: "/SiRASS/FormReceiver"
 	};
@@ -238,7 +237,7 @@ function setupForm() {
 function setupDatepickers() {
 	$.datepicker.setDefaults(
 	{
-		showAnim: "blind",
+		showAnim: "scale",
 		dateFormat: "dd/mm/yy",
 		changeMonth: true,
 		changeYear: true

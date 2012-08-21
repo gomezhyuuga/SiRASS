@@ -28,7 +28,10 @@
 				</div>
 <%          if (session.getAttribute("inscripcion") != null) {
                 Inscripcion inscripcion = (Inscripcion) session.getAttribute("inscripcion");
-                int idEstado = inscripcion.getEstado().getIdEstado(); %>
+                short idEstado = 0;
+                if (inscripcion.getEstado() != null) {
+                    idEstado = inscripcion.getEstado().getIdEstado(); 
+                }%>
                 <jsp:include page="/WEB-INF/jspf/avisos/inscripcion.jsp">
                         <jsp:param name="aviso" value="<%= idEstado%>" />
                 </jsp:include>

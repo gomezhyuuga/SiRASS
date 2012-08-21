@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Carta_De_Aceptacion" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6181c798-a5bb-492b-ac2c-2f2ad5de768e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="escuela_de_procedencia" class="java.lang.String"/>
+	<parameter name="cargo" class="java.lang.String"/>
+	<parameter name="clave_de_registro" class="java.lang.String"/>
+	<parameter name="responsable_institucional" class="java.lang.String"/>
+	<parameter name="carrera" class="java.lang.String"/>
+	<parameter name="programa_institucional" class="java.lang.String"/>
+	<parameter name="clave1" class="java.lang.String"/>
+	<parameter name="nombre" class="java.lang.String"/>
+	<parameter name="fecha_de_inicio" class="java.util.Date"/>
+	<parameter name="fecha_de_termino" class="java.util.Date"/>
+	<parameter name="matricula" class="java.lang.String"/>
+	<parameter name="plantel" class="java.lang.String"/>
+	<parameter name="area" class="java.lang.String"/>
+	<parameter name="horas" class="java.lang.Short"/>
+	<parameter name="asistencia" class="java.lang.String"/>
+	<parameter name="fecha" class="java.util.Date"/>
+	<parameter name="responsable_ss" class="java.lang.String"/>
+	<parameter name="datos_uacm" class="java.lang.String"/>
+	<parameter name="sitio_web" class="java.lang.String"/>
+	<parameter name="actividad" class="java.lang.String"/>
+	<parameter name="url_img" class="java.lang.String"/>
+	<parameter name="firma_digital" class="java.lang.String"/>
+	<parameter name="lugar" class="java.lang.String"/>
+	<parameter name="no_formato" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="hora_Entrada" class="java.sql.Time"/>
+	<parameter name="hora_Salida" class="java.sql.Time"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="139" splitType="Stretch">
+			<image>
+				<reportElement uuid="6ba7ad74-75bd-4a50-b604-769799793f0e" x="0" y="0" width="150" height="97"/>
+				<imageExpression><![CDATA[$P{url_img}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="498ad4a2-8a23-4f78-b935-1972eb499abf" x="319" y="58" width="236" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="13"/>
+				</textElement>
+				<text><![CDATA[Nada humano me es ajeno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ed4a7917-4087-44c1-a490-854bda8dcb05" x="150" y="0" width="405" height="29"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="18"/>
+				</textElement>
+				<text><![CDATA[Universidad Autónoma de la Ciudad de México]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="a98f6aff-5b0e-4bb4-aaa3-d1069e5e9bbb" x="0" y="98" width="555" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="d15417dd-4673-40db-8cf1-6f11c886168b" x="397" y="99" width="158" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Coordinación Académica
+Servicio Social
+]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="168" splitType="Stretch">
+			<textField>
+				<reportElement uuid="49fc4b63-be96-4c65-a067-efa3ee81be7c" x="0" y="99" width="378" height="30"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{plantel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3d8d7b2e-f90c-473c-a3b0-cc000cfd2950" positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="0" y="49" width="378" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{responsable_institucional}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b0ea2eee-06d8-46dd-bc9b-138b96e682a8" x="0" y="69" width="378" height="30"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cargo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="762660df-c06d-4c87-8a55-6aea4972614c" x="177" y="22" width="201" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CARTA DE ACEPTACIÓN]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="8e604450-219e-4781-83df-39f535989864" x="378" y="2" width="177" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{clave1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="81acfc71-4275-43b3-9f79-1048d581b720" x="0" y="128" width="378" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{escuela_de_procedencia}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a594063a-2e62-45ee-b7c6-05da28de5a1e" x="0" y="148" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Presente]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="228" splitType="Stretch">
+			<textField>
+				<reportElement uuid="f718229d-63e6-41c8-b163-c93bfcd79e58" positionType="Float" x="0" y="0" width="555" height="133"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="11"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Se hace constar que el C. "+$P{nombre}+", estudiante de la carrera de "+$P{carrera}+", con matrícula "+$P{matricula}+" en esa casa de estudios, ha sido aceptado(a) para realizar su Servicio Social, participando en el programa \""+$P{programa_institucional}+"\" con clave de registro "+$P{clave_de_registro}+", en el área \""+$P{area}+"\" de esta Universidad, durante el periodo comprendido entre el "+$P{fecha_de_inicio}.getDate()+" de "+
+( $P{fecha_de_inicio}.getMonth()==0? "Enero" :
+    ( $P{fecha_de_inicio}.getMonth()==1? "Febrero" :
+        ( $P{fecha_de_inicio}.getMonth()==2? "Marzo" :
+            ( $P{fecha_de_inicio}.getMonth()==3? "Abril" :
+                ( $P{fecha_de_inicio}.getMonth()==4? "Mayo" :
+                    ( $P{fecha_de_inicio}.getMonth()==5? "Junio" :
+                        ( $P{fecha_de_inicio}.getMonth()==6? "Julio" :
+                            ( $P{fecha_de_inicio}.getMonth()==7? "Agosto" :
+                                ( $P{fecha_de_inicio}.getMonth()==8? "Septiembre" :
+                                    ( $P{fecha_de_inicio}.getMonth()==9? "Octubre" :
+                                        ( $P{fecha_de_inicio}.getMonth()==10? "Noviembre" : "Diciembre" )))))))))))
+                                    +" del "+ (1900+$P{fecha_de_inicio}.getYear())
+                                    +" y el "+$P{fecha_de_termino}.getDate()+" de "+
+                                    ( $P{fecha_de_termino}.getMonth()==0 ? "Enero" :
+                                        ( $P{fecha_de_termino}.getMonth()==1 ? "Febrero" :
+                                            ( $P{fecha_de_termino}.getMonth()==2 ? "Marzo" :
+                                                ( $P{fecha_de_termino}.getMonth()==3 ? "Abril" :
+                                                    ( $P{fecha_de_termino}.getMonth()==4 ? "Mayo" :
+                                                        ( $P{fecha_de_termino}.getMonth()==5 ? "Junio" :
+                                                            ( $P{fecha_de_termino}.getMonth()==6 ? "Julio" :
+                                                                ( $P{fecha_de_termino}.getMonth()==7 ? "Agosto" :
+                                                                    ( $P{fecha_de_termino}.getMonth()==8 ? "Septiembre" :
+                                                                        ( $P{fecha_de_termino}.getMonth()==9 ? "Octubre" :
+                                                                            ( $P{fecha_de_termino}.getMonth()==10 ? "Noviembre" : "Diciembre" )))))))))))
+                                                                        +" del "+($P{fecha_de_termino}.getYear()+1900)
+                                                                        +", cubriendo un total de "+$P{horas}+" horas, asistiendo "+$P{asistencia}+" en un horario de "+$P{hora_Entrada}.getHours()+":"+( $P{hora_Entrada}.getMinutes()<10 ? ("0"+$P{hora_Entrada}.getMinutes()) :
+                                                                            $P{hora_Entrada}.getMinutes())+" a "+$P{hora_Salida}.getHours()+":"+( $P{hora_Salida}.getMinutes()<10 ? ("0"+$P{hora_Salida}.getMinutes()) : $P{hora_Salida}.getMinutes() )+", realizando las siguientes actividades: "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8bd26142-f4b5-4cca-9ad5-6f0a58fa4fec" x="0" y="133" width="555" height="95"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{actividad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="148" splitType="Stretch">
+			<textField>
+				<reportElement uuid="c90afe42-9d50-4948-a1a9-e19426fcf03a" x="319" y="88" width="236" height="58"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{firma_digital}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f27e814e-2dd4-46d3-a762-54628be88a4a" x="0" y="48" width="211" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{responsable_ss}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9422cc6e-d5ba-4641-af71-1c64c94533a9" x="0" y="68" width="211" height="20"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<text><![CDATA[Responsable de Servicio Social]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="a0a7e610-9756-4050-82d9-7cdd489eb275" x="0" y="0" width="555" height="48"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Se extiende la presente para los fines legales que convengan al interesado, en "+$P{lugar}+", el día "+
++$P{fecha}.getDate()+" de "+
+($P{fecha}.getMonth()==0?"Enero":
+($P{fecha}.getMonth()==1?"Febrero":
+($P{fecha}.getMonth()==2?"Marzo":
+($P{fecha}.getMonth()==3?"Abril":
+($P{fecha}.getMonth()==4?"Mayo":
+($P{fecha}.getMonth()==5?"Junio":
+($P{fecha}.getMonth()==6?"Julio":
+($P{fecha}.getMonth()==7?"Agosto":
+($P{fecha}.getMonth()==8?"Septiembre":
+($P{fecha}.getMonth()==9?"Octubre":
+($P{fecha}.getMonth()==10?"Noviembre":"Diciembre")))))))))))
++" del "+($P{fecha}.getYear()+1900)+" ."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3b2baedd-3f12-4461-8577-c0a0fdcdbd52" x="0" y="111" width="211" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["C.c.p.  "+"Interesado."]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="41" splitType="Stretch">
+			<line>
+				<reportElement uuid="c0bafd2c-0f04-4357-8d9f-fb15f321d684" x="0" y="0" width="555" height="1"/>
+			</line>
+			<textField>
+				<reportElement uuid="d2435ad5-7aa7-48e2-9408-8615b25c4619" x="0" y="2" width="555" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{datos_uacm}+", Sitio web:  "+$P{sitio_web}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3229f65f-14a9-4631-a5cb-760a663701cd" x="412" y="25" width="143" height="14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{no_formato}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="6" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ControlHoras" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="39fb105c-db07-45f1-8c69-2127f21dc24b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="308"/>
+	<parameter name="url_img" class="java.lang.String"/>
+	<parameter name="no_reporte" class="java.lang.Short"/>
+	<parameter name="ap_paterno" class="java.lang.String"/>
+	<parameter name="ap_materno" class="java.lang.String"/>
+	<parameter name="nombre" class="java.lang.String"/>
+	<parameter name="no_control" class="java.lang.String"/>
+	<parameter name="escuela" class="java.lang.String"/>
+	<parameter name="horas_acumuladas" class="java.lang.Integer"/>
+	<parameter name="suma_de_meses_anteriores" class="java.lang.Integer"/>
+	<parameter name="horas_mes" class="java.lang.Integer"/>
+	<parameter name="supervisor" class="java.lang.String"/>
+	<parameter name="responsable_servicio_social" class="java.lang.String"/>
+	<parameter name="firma_digital" class="java.lang.String"/>
+	<parameter name="periodo_reportado_inicial" class="java.util.Date"/>
+	<parameter name="periodo_reportado_final" class="java.util.Date"/>
+	<parameter name="no_formato" class="java.lang.String"/>
+	<field name="fecha" class="java.util.Date"/>
+	<field name="horaEntrada" class="java.sql.Time"/>
+	<field name="horaSalida" class="java.sql.Time"/>
+	<field name="horasDia" class="java.sql.Time"/>
+	<variable name="No." class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{No.}]]></variableExpression>
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
+	<background>
+		<band height="800" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement uuid="2d7fe194-d170-4e88-928b-0bc061f50d0d" x="0" y="0" width="555" height="800"/>
+			</rectangle>
+		</band>
+	</background>
+	<title>
+		<band height="76" splitType="Stretch">
+			<image>
+				<reportElement uuid="6ba7ad74-75bd-4a50-b604-769799793f0e" x="3" y="5" width="550" height="71"/>
+				<imageExpression><![CDATA[$P{url_img}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="124" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement uuid="dcfd3cc7-8797-4f7f-97b8-d9d55e2d04d3" mode="Transparent" x="37" y="42" width="477" height="76" backcolor="#D99594"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="ff173207-a5fe-49f1-8dce-c8104030426a" x="37" y="42" width="477" height="14" backcolor="#D99594"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="b8293f34-752f-4c1d-8c72-8f2edb07be3a" mode="Opaque" x="182" y="0" width="192" height="21" backcolor="#EBE9E9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONTROL MENSUAL DE HORAS]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="f75b865d-486a-4443-85c7-837f676636c1" x="25" y="21" width="131" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Reporte: "+$P{no_reporte}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b8426a6a-94f1-4b4e-b30b-8a71226a06e2" x="247" y="21" width="308" height="20"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Periodo Reportado: "+$P{periodo_reportado_inicial}.getDate() + " De "+
+($P{periodo_reportado_inicial}.getMonth()==0 ? "Enero" :
+    ($P{periodo_reportado_inicial}.getMonth()==1 ? "Febrero" :
+        ($P{periodo_reportado_inicial}.getMonth()==2 ? "Marzo" :
+            ($P{periodo_reportado_inicial}.getMonth()==3 ? "Abril" :
+                ($P{periodo_reportado_inicial}.getMonth()==4 ? "Mayo" :
+                    ($P{periodo_reportado_inicial}.getMonth()==5 ? "Junio" :
+                     ($P{periodo_reportado_inicial}.getMonth()==6 ? "Julio" :
+                        ($P{periodo_reportado_inicial}.getMonth()==7 ? "Agosto" :
+                            ($P{periodo_reportado_inicial}.getMonth()==8 ? "Septiembre" :
+                                ($P{periodo_reportado_inicial}.getMonth()==9 ? "Octubre" :
+                                    ($P{periodo_reportado_inicial}.getMonth()==10 ? "Noviembre" :
+                                        "Diciembre"))))))))))) +" del " +($P{periodo_reportado_inicial}.getYear()+1900)
++" a "+$P{periodo_reportado_final}.getDate() + " de "+
+($P{periodo_reportado_final}.getMonth()==0 ? "Enero" :
+    ($P{periodo_reportado_final}.getMonth()==1 ? "Febrero" :
+        ($P{periodo_reportado_final}.getMonth()==2 ? "Marzo" :
+            ($P{periodo_reportado_final}.getMonth()==3 ? "Abril" :
+               ($P{periodo_reportado_final}.getMonth()==4 ? "Mayo" :
+                ($P{periodo_reportado_final}.getMonth()==5 ? "Junio" :
+                    ($P{periodo_reportado_final}.getMonth()==6 ? "Julio" :
+                        ($P{periodo_reportado_final}.getMonth()==7 ? "Agosto" :
+                            ($P{periodo_reportado_final}.getMonth()==8 ? "Septiembre" :
+                                ($P{periodo_reportado_final}.getMonth()==9 ? "Octubre" :
+                                    ($P{periodo_reportado_final}.getMonth()==10 ? "Noviembre" :
+                                        "Diciembre"))))))))))) +" del " +($P{periodo_reportado_final}.getYear()+1900)
+                                    +"."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="82c8b6f5-cdb6-4273-8f25-ab960d8b16a2" x="198" y="42" width="144" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATOS DEL ALUMNO]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="895409c2-b924-4c7f-a056-2a1093e4655e" x="37" y="76" width="477" height="1"/>
+			</line>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="37" y="56" width="161" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ap_paterno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2775d1ce-3c6f-482a-a8b8-4853bde5c8a5" x="198" y="56" width="144" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ap_materno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="00a57ddd-dd31-469a-9ea0-e0af297fa056" x="342" y="56" width="172" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d8596ace-c63c-4f0d-853f-343a44ca028f" x="37" y="77" width="161" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="7"/>
+				</textElement>
+				<text><![CDATA[Apellido paterno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6aeda826-2868-47dd-bfa9-47d6058f779e" x="198" y="77" width="144" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="7"/>
+				</textElement>
+				<text><![CDATA[Apellido paterno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="30540537-70a6-4bfc-85a9-4ce1e78ede0c" x="342" y="77" width="172" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="7"/>
+				</textElement>
+				<text><![CDATA[Nombre(s)]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="035c94c7-0673-4c38-98e0-4d671a5e0ce4" x="37" y="87" width="477" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="fa5fa39a-292a-40da-ab80-69daae7227bf" x="198" y="56" width="1" height="62"/>
+			</line>
+			<line>
+				<reportElement uuid="9d379494-2007-464e-a4ee-6e23db2c3e36" x="341" y="57" width="1" height="31"/>
+			</line>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="38" y="88" width="161" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{no_control}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d8596ace-c63c-4f0d-853f-343a44ca028f" x="38" y="108" width="161" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="7"/>
+				</textElement>
+				<text><![CDATA[No. de control]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="9fc8e572-4c18-4c37-885c-401ae505b064" x="198" y="88" width="316" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{escuela}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d8596ace-c63c-4f0d-853f-343a44ca028f" x="198" y="108" width="316" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="7"/>
+				</textElement>
+				<text><![CDATA[Escuela o Facultad]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="035c94c7-0673-4c38-98e0-4d671a5e0ce4" x="38" y="107" width="476" height="1"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="ff173207-a5fe-49f1-8dce-c8104030426a" x="37" y="0" width="477" height="20" backcolor="#D99594"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="87ba2c2e-2025-4a46-a62c-3b657a986e79" x="70" y="0" width="112" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="63031ab3-31e4-416f-bd1c-f0820f208928" x="182" y="0" width="104" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora de entrada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c103b29e-0727-4142-8b72-ae9a15810e39" x="286" y="0" width="107" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora de salida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c922d54c-f888-4845-a337-e2ac5d690c5d" x="393" y="0" width="121" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Horas por día]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="46414354-812d-440a-890e-7008e5d4b9c7" x="38" y="0" width="32" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N°]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="61ba40e0-df75-47f2-966b-e59d257af881" x="69" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement uuid="fcd40d49-72bc-445b-bf37-0081597a5097" x="285" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement uuid="cf362d6a-905c-451f-a1e9-77fdcb33e6fe" x="393" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement uuid="335cac0d-ffca-44c4-b820-5367d2e91cc2" x="69" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement uuid="335cac0d-ffca-44c4-b820-5367d2e91cc2" x="181" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement uuid="335cac0d-ffca-44c4-b820-5367d2e91cc2" x="285" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement uuid="335cac0d-ffca-44c4-b820-5367d2e91cc2" x="69" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement uuid="335cac0d-ffca-44c4-b820-5367d2e91cc2" x="37" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement uuid="335cac0d-ffca-44c4-b820-5367d2e91cc2" x="513" y="0" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement uuid="fee96772-30b7-4b98-a78a-c9b2946bb3d3" x="37" y="0" width="476" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="fee96772-30b7-4b98-a78a-c9b2946bb3d3" x="38" y="19" width="476" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<textField>
+				<reportElement uuid="1aeb4268-eba8-449b-adfc-b993b12b9e20" x="38" y="0" width="32" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{No.}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d6482f31-87b9-4a08-a94b-16f7ef9d54b4" x="70" y="0" width="112" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{fecha}.getDate()<10?"0"+$F{fecha}.getDate(): $F{fecha}.getDate())
++"/"+
+($F{fecha}.getMonth()==0?"Enero":
+($F{fecha}.getMonth()==1?"Febrero":
+($F{fecha}.getMonth()==2?"Marzo":
+($F{fecha}.getMonth()==3?"Abril":
+($F{fecha}.getMonth()==4?"Mayo":
+($F{fecha}.getMonth()==5?"Junio":
+($F{fecha}.getMonth()==6?"Julio":
+($F{fecha}.getMonth()==7?"Agosto":
+($F{fecha}.getMonth()==8?"Septiembre":
+($F{fecha}.getMonth()==9?"Octubre":
+($F{fecha}.getMonth()==10?"Noviembre":"Diciembre")))))))))))
++"/"+(1900+$F{fecha}.getYear())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7eec397b-8cf6-4615-b7ea-c2aa5b67cf7c" x="182" y="0" width="104" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horaEntrada}.getHours()<10 ? ("0"+$F{horaEntrada}.getHours()+":"+ ( $F{horaEntrada}.getMinutes()<10 ? ("0"+$F{horaEntrada}.getMinutes()) : ($F{horaEntrada}.getMinutes()) ) )   : ($F{horaEntrada}.getHours()+":"+( $F{horaEntrada}.getMinutes()<10 ? ("0"+$F{horaEntrada}.getMinutes()) : ($F{horaEntrada}.getMinutes()) ))]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2648e17e-de97-4dda-9955-f8a25c1ff506" x="286" y="0" width="107" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horaSalida}.getHours()<10 ? ("0"+$F{horaSalida}.getHours()+":"+ ( $F{horaSalida}.getMinutes()<10 ? ("0"+$F{horaSalida}.getMinutes()) : ($F{horaSalida}.getMinutes()) ) )   : ($F{horaSalida}.getHours()+":"+( $F{horaSalida}.getMinutes()<10 ? ("0"+$F{horaSalida}.getMinutes()) : ($F{horaSalida}.getMinutes()) ))]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="af9adc57-30e9-40bf-b8af-01af1ccc9630" x="393" y="0" width="121" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{horasDia}.getHours()<10 ? "0"+$F{horasDia}.getHours():$F{horasDia}.getHours())
++":"+
+($F{horasDia}.getMinutes()<10 ? "0"+$F{horasDia}.getMinutes():$F{horasDia}.getMinutes())]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="335cac0d-ffca-44c4-b820-5367d2e91cc2" x="37" y="0" width="1" height="13"/>
+			</line>
+			<line>
+				<reportElement uuid="335cac0d-ffca-44c4-b820-5367d2e91cc2" x="69" y="0" width="1" height="13"/>
+			</line>
+			<line>
+				<reportElement uuid="335cac0d-ffca-44c4-b820-5367d2e91cc2" x="181" y="0" width="1" height="13"/>
+			</line>
+			<line>
+				<reportElement uuid="335cac0d-ffca-44c4-b820-5367d2e91cc2" x="285" y="0" width="1" height="13"/>
+			</line>
+			<line>
+				<reportElement uuid="335cac0d-ffca-44c4-b820-5367d2e91cc2" x="393" y="0" width="1" height="13"/>
+			</line>
+			<line>
+				<reportElement uuid="fee96772-30b7-4b98-a78a-c9b2946bb3d3" x="37" y="12" width="476" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="335cac0d-ffca-44c4-b820-5367d2e91cc2" x="513" y="0" width="1" height="13"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="33" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement uuid="3a481bf9-ccc7-4417-91d7-18d9d8e4e530" x="38" y="1" width="475" height="29"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="a49bec72-a2f6-4518-bb28-afc179206ba8" x="38" y="0" width="475" height="14" backcolor="#F6E6E6"/>
+			</rectangle>
+			<textField>
+				<reportElement uuid="504f0c48-92dc-46b0-b4cd-91e3ef305977" mode="Transparent" x="38" y="0" width="144" height="14" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Calibri" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Horas acumuladas"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7b772c0c-68b6-440a-b8fe-7eaa3c952b6c" mode="Transparent" x="181" y="0" width="212" height="14" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Calibri" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Suma de los meses anteriores"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="650e3177-ca6c-4cb2-a0bd-f9763bde4a98" mode="Transparent" x="393" y="0" width="121" height="14" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Calibri" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Horas por mes"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="504f0c48-92dc-46b0-b4cd-91e3ef305977" mode="Transparent" x="38" y="14" width="144" height="16" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{horas_acumuladas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="504f0c48-92dc-46b0-b4cd-91e3ef305977" mode="Transparent" x="181" y="14" width="212" height="16" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{suma_de_meses_anteriores}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="504f0c48-92dc-46b0-b4cd-91e3ef305977" mode="Transparent" x="393" y="14" width="120" height="16" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{horas_mes}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="238" splitType="Stretch">
+			<rectangle radius="15">
+				<reportElement uuid="a4511ea5-8df7-4e18-a6fa-5ca2c00635ab" x="37" y="2" width="477" height="171"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="69b73add-7c7f-4ac8-afea-9a454bac12e9" x="47" y="2" width="457" height="53"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font fontName="Calibri" size="9"/>
+				</textElement>
+				<text><![CDATA[Conforme a lo establecido en los Artículos 24 y 32 de la Ley de Transparencia y Acceso a la Información Pública del Distrito Federal, parte de la información descrita en el presente formato esta clasificada como confidencial. Por ello, doy mi CONSENTIMIENTO para que sea utilizada en los trámites inherentes al seguimiento  del servicio social; sin que esta pueda ser destinada para propósitos distintos a los aquí señalados.]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="9ffd058c-0e7c-4a54-8026-dafea0c637b2" x="37" y="55" width="477" height="1"/>
+			</line>
+			<rectangle>
+				<reportElement uuid="a49bec72-a2f6-4518-bb28-afc179206ba8" x="37" y="56" width="477" height="34" backcolor="#F6E6E6"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="f48232ad-3156-4b23-ab47-364f787ba732" x="38" y="56" width="161" height="34"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Prestador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1dbd3f2b-b878-4aba-bec2-e48125ea1861" x="199" y="56" width="144" height="34"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Supervisor o jefe inmediato]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6d552655-50d7-47e1-a012-9a808eaf8cde" x="343" y="56" width="171" height="34"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Responsable del programa de Servicio Social]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="740cec57-42ad-48a8-80a5-eb8ac33af513" x="37" y="127" width="477" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="f20d5864-ab5e-4af6-9372-c67e168cd517" x="39" y="127" width="160" height="11"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<text><![CDATA[Firma]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4b3f11d7-0a27-45d0-95aa-15009afbfaec" x="200" y="127" width="143" height="11"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<text><![CDATA[Firma]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b4bd47b2-e521-4e38-bf85-e9042f9e2a3c" x="344" y="127" width="171" height="11"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<text><![CDATA[Firma]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="740cec57-42ad-48a8-80a5-eb8ac33af513" x="37" y="138" width="477" height="1"/>
+			</line>
+			<textField>
+				<reportElement uuid="a294c700-8331-4da9-9908-a6269a7b2ca8" x="37" y="139" width="161" height="34"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{ap_paterno}+" "+$P{ap_materno}+" "+$P{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a294c700-8331-4da9-9908-a6269a7b2ca8" x="198" y="139" width="144" height="34"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{supervisor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a294c700-8331-4da9-9908-a6269a7b2ca8" x="343" y="139" width="171" height="34"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Calibri" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{responsable_servicio_social}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c90afe42-9d50-4948-a1a9-e19426fcf03a" x="37" y="173" width="477" height="48"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{firma_digital}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3229f65f-14a9-4631-a5cb-760a663701cd" x="412" y="221" width="143" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{no_formato}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="7" splitType="Stretch"/>
+	</summary>
+</jasperReport>

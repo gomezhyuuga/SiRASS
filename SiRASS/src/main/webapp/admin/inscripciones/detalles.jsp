@@ -53,7 +53,10 @@
                             String aPaterno = i.getPrestador().getaPaterno();
                             String aMaterno = i.getPrestador().getaMaterno();
                             String institucion = i.getInstitucion().getNombre();
-                            String plantel = i.getPlantel().getNombre();
+                            String plantel = "Sin plantel";
+                            if (i.getPlantel() != null) {
+                                plantel = i.getPlantel().getNombre();
+                            }
                             String matricula = i.getMatricula();
                             String carrera = i.getCarrera();
                             String nombrePrograma = i.getPrograma();

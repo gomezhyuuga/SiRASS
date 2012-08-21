@@ -20,6 +20,11 @@ function createAlert(title, bodyAlert, position, alertClass) {
 	alert.append(info);
 	
 	$(position).after(alert);
+	
+	// Scroll to alert
+	$('html, body').animate({
+	    scrollTop: $(position).offset().top - 60
+	}, 1500);
 }
 
 // pre-submit callback 
@@ -388,6 +393,46 @@ function suspenderIncripcion(el) {
 				if (msg == "1") {
 					bootbox.hideAll();
 					bootbox.alert('<p class="lead">Inscripción suspendida correctamente</p>', function() {
+						reloadPage();
+					});
+				} else {
+					bootbox.alert('<p class="lead">Ha ocurrido un error. Intenta de nuevo.</p>');
+				}
+			})
+			.fail(function() {
+				bootbox.alert('<p class="lead">Ha ocurrido un error. Intenta de nuevo.</p>');
+			});
+			return false;
+		}
+	}]);
+}
+
+function cancelarIncripcion(el) {
+	var id = el.getAttribute('data-id');
+	var msg = '<p class="lead">Estás a punto de cancelar esta inscripción</p>';
+	msg += '<p>Si la inscripción es cancelada, el prestador <strong>ya no podrá enviar reportes</strong> y ';
+	msg += 'aparecerá como si no estuviese inscrito en ningún programa.</p>';
+	msg += '<h2>&iquest;Continuar de todas formas?</h2>';
+	msg += '<h6 class="right">Suspendiendo inscripción ' + id + '</h6>';
+	bootbox.dialog(msg, [{
+		'label': 'Cancelar',
+		'class': 'btn-danger'
+	}, {
+		'label': 'Cancelar',
+		'class': 'btn-warning',
+		'callback': function() {
+			console.log('Cancelando...');
+			$.ajax({
+				url: '/SiRASS/Services',
+				data: {
+					service: 'cancelarInscripcion',
+					idInscripcion: id
+				}
+			})
+			.done(function(msg) {
+				if (msg == "1") {
+					bootbox.hideAll();
+					bootbox.alert('<p class="lead">Inscripción cancelada correctamente</p>', function() {
 						reloadPage();
 					});
 				} else {

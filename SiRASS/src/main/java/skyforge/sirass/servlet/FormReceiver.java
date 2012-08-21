@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import skyforge.sirass.dao.prestador.InscripcionDAO;
 import skyforge.sirass.dao.prestador.PrestadorDAO;
 import skyforge.sirass.dao.user.UsuarioDAO;
+import skyforge.sirass.form.prestador.ControlHorasForm;
 import skyforge.sirass.form.prestador.InscripcionForm;
+import skyforge.sirass.model.prestador.ControlHoras;
 import skyforge.sirass.model.prestador.EstadoInscripcion;
 import skyforge.sirass.model.prestador.Inscripcion;
 import skyforge.sirass.model.prestador.Prestador;
@@ -58,6 +60,9 @@ public class FormReceiver extends HttpServlet {
             } else if (clase.equals("RevisarInscripcion")) {
                 System.out.println("Actualizando estado y observaciones de inscripción....");
                 status = this.revisionInscripcion(map, user);
+            } else if (clase.equals("EnvioControlHoras")) {
+                System.out.println("Registrando un control de horas....");
+                status = this.registroControlHoras(map, user);
             }
         }
         PrintWriter out = response.getWriter();
@@ -77,8 +82,18 @@ public class FormReceiver extends HttpServlet {
         InscripcionForm form = new InscripcionForm(map, user);
         Inscripcion inscripcion = form.getObject(null);
         if (inscripcion != null) {
-            inscripcion.setEstado(new EstadoInscripcion((short) 1));
+            inscripcion.setEstado(new EstadoInscripcion(EstadoInscripcion.EN_ESPERA));
 
+            // Detectar programa institucional y su clave
+            // TODO establecidadas a modo hardcore :S
+            String programaInst = "Multidiciplinario de Servicio Social en Apoyo a las Actividades Académico-Administrativas de la Universidad Autónoma de la Ciudad de México";
+            String claveInst = "CLAVE_INSTITUCIONAL";
+            if (inscripcion.getInstitucion().getIdCInstitucion() == 2) {
+                programaInst = "Multidiciplinario en la UACM";
+            }
+            inscripcion.setProgramaInst(programaInst);
+            inscripcion.setCveProgramaInst(claveInst);
+            
             Date curDate = new Date();
             inscripcion.setCreacion(curDate);
             inscripcion.setUltimaModif(curDate);
@@ -183,4 +198,21 @@ public class FormReceiver extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    /*
+     * Hacer un registor de un control de horas
+     */
+    private int registroControlHoras(Map<String, String[]> map, String user) {
+        short status = 0;
+        ControlHorasForm form = new ControlHorasForm(map, user);
+        ControlHoras controlHoras;
+        
+        controlHoras = form.getObject(null);
+        System.out.println("NREPORTE: " + controlHoras.getnReporte());
+        System.out.println("SUPERVISOR: " + controlHoras.getSupervisor());
+        System.out.println("FECHA_INICIO: " + controlHoras.getFechaInicio());
+        System.out.println("FECHA_TERMINO: " + controlHoras.getFechaFin());
+        System.out.println("MODIFICADO POR: " + controlHoras.getModificadoPor());
+        return status;
+    }
 }

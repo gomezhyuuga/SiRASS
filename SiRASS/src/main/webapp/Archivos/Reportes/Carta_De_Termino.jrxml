@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Carta_De_Termino" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5ddf8fd0-77a1-4ee2-a517-a67c8db3b389">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="url_img" class="java.lang.String"/>
+	<parameter name="clave1" class="java.lang.String"/>
+	<parameter name="responsable_ss" class="java.lang.String"/>
+	<parameter name="nombre" class="java.lang.String"/>
+	<parameter name="puesto" class="java.lang.String"/>
+	<parameter name="firma_digital" class="java.lang.String"/>
+	<parameter name="formato" class="java.lang.String"/>
+	<parameter name="responsable" class="java.lang.String"/>
+	<parameter name="lugar" class="java.lang.String"/>
+	<parameter name="url_img_1" class="java.lang.String"/>
+	<parameter name="fecha" class="java.lang.String"/>
+	<parameter name="clave_institucional" class="java.lang.String"/>
+	<parameter name="dependencia" class="java.lang.String"/>
+	<parameter name="carrera" class="java.lang.String"/>
+	<parameter name="area" class="java.lang.String"/>
+	<parameter name="fecha_de_inicio" class="java.lang.String"/>
+	<parameter name="fecha_de_termino" class="java.lang.String"/>
+	<parameter name="programa_institucional" class="java.lang.String"/>
+	<parameter name="matricula" class="java.lang.String"/>
+	<parameter name="horas" class="java.lang.String"/>
+	<parameter name="actividad" class="java.lang.String"/>
+	<parameter name="CLAVE_INSTITUCIONAL" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="141" splitType="Stretch">
+			<image>
+				<reportElement uuid="6ba7ad74-75bd-4a50-b604-769799793f0e" x="0" y="0" width="150" height="97"/>
+				<imageExpression><![CDATA[$P{url_img}]]></imageExpression>
+			</image>
+			<line>
+				<reportElement uuid="a98f6aff-5b0e-4bb4-aaa3-d1069e5e9bbb" x="0" y="98" width="555" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="ed4a7917-4087-44c1-a490-854bda8dcb05" x="150" y="0" width="405" height="29"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="18"/>
+				</textElement>
+				<text><![CDATA[Universidad Autónoma de la Ciudad de México]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="498ad4a2-8a23-4f78-b935-1972eb499abf" x="319" y="58" width="236" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="13"/>
+				</textElement>
+				<text><![CDATA[Nada humano me es ajeno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d15417dd-4673-40db-8cf1-6f11c886168b" x="397" y="99" width="158" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Narrow" size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Coordinación Académica
+Servicio Social
+]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="179" splitType="Stretch">
+			<textField>
+				<reportElement uuid="8e604450-219e-4781-83df-39f535989864" x="378" y="1" width="177" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{clave1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3d8d7b2e-f90c-473c-a3b0-cc000cfd2950" positionType="FixRelativeToBottom" stretchType="RelativeToTallestObject" x="0" y="78" width="378" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{responsable}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a594063a-2e62-45ee-b7c6-05da28de5a1e" x="0" y="158" width="100" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Presente]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="b0ea2eee-06d8-46dd-bc9b-138b96e682a8" x="0" y="98" width="211" height="30"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{puesto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5c73962d-4f26-437b-bbaf-c8b1d7ff4c02" x="211" y="21" width="344" height="20"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{lugar}+", a "+$P{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="49fc4b63-be96-4c65-a067-efa3ee81be7c" x="0" y="128" width="211" height="30"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dependencia}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="223" splitType="Stretch">
+			<textField>
+				<reportElement uuid="b7bc9c3d-aba9-4b71-94b3-3debbe238f1b" x="0" y="0" width="555" height="116"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Se hace constar que la C. "+$P{nombre}+", estudiante de la carrera de"+ $P{carrera}+", con número de matrícula "+$P{matricula}+" ha cumplido satisfactoriamente con las actividades asignadas durante la prestación de su Servicio Social en el programa “"+$P{programa_institucional}+"”, con clave de registro "+$P{clave_institucional}+$P{CLAVE_INSTITUCIONAL}+" en la "+$P{area}+" de esta Universidad, durante el periodo comprendido del "+$P{fecha_de_inicio}+" al "+$P{fecha_de_termino}+", acumulando un total de "+$P{horas}+" horas y realizando las siguientes actividades:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8bd26142-f4b5-4cca-9ad5-6f0a58fa4fec" x="0" y="116" width="555" height="95"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{actividad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="9" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="215" splitType="Stretch">
+			<textField>
+				<reportElement uuid="8e604450-219e-4781-83df-39f535989864" x="0" y="0" width="177" height="20"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{clave1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="4e07576a-7a1a-4b76-8012-f7e2c1b2ca9c" x="0" y="20" width="555" height="21"/>
+				<textElement>
+					<font fontName="Arial" size="11"/>
+				</textElement>
+				<text><![CDATA[Se extiende la presente para los fines legales que convengan al interesado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="762660df-c06d-4c87-8a55-6aea4972614c" x="177" y="54" width="197" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="13" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Atentamente]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="f27e814e-2dd4-46d3-a762-54628be88a4a" x="165" y="122" width="220" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{responsable_ss}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9422cc6e-d5ba-4641-af71-1c64c94533a9" x="165" y="142" width="220" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Responsable de Servicio Social]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="c90afe42-9d50-4948-a1a9-e19426fcf03a" x="397" y="157" width="158" height="58"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{firma_digital}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement uuid="c139e5ab-f46e-4b2b-a1db-d99e2ad9fb0f" x="455" y="0" width="100" height="17"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{formato}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="10" splitType="Stretch"/>
+	</summary>
+</jasperReport>
