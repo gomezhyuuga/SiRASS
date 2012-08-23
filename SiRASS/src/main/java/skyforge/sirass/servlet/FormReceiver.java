@@ -212,7 +212,15 @@ public class FormReceiver extends HttpServlet {
         System.out.println("SUPERVISOR: " + controlHoras.getSupervisor());
         System.out.println("FECHA_INICIO: " + controlHoras.getFechaInicio());
         System.out.println("FECHA_TERMINO: " + controlHoras.getFechaFin());
+        System.out.println("HRS_MES: " + controlHoras.getHorasMes());
+        System.out.println("MINS_MES: " + controlHoras.getMinutosMes());
+        System.out.println("HRS_ANTERIORES: " + controlHoras.getHorasAnteriores());
+        System.out.println("MINS_ANTERIORES: " + controlHoras.getMinutosAnteriores());
+        System.out.println("HRS_ACUMULADAS: " + controlHoras.getHorasAcumuladas());
+        System.out.println("MINS_ACUMULADOS: " + controlHoras.getMinutosAcumulados());
         System.out.println("MODIFICADO POR: " + controlHoras.getModificadoPor());
+        
+        controlHoras.setCreacion(new Date());
         return status;
     }
 }

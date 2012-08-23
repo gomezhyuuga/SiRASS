@@ -3,8 +3,7 @@ package skyforge.sirass.dao.prestador;
 import java.util.Collections;
 import java.util.List;
 import org.hibernate.*;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.*;
 import skyforge.sirass.HibernateUtil;
 import skyforge.sirass.dao.DAO;
 import skyforge.sirass.dao.prestador.PrestadorDAO;
@@ -145,5 +144,29 @@ public class ControlHorasDAO extends DAO {
         lista = Collections.checkedList(criteria.list(), ControlHoras.class);
         session.close();
         return lista;
+    }
+    
+    public ControlHoras getLastReport(int idInscripcion) {
+        ControlHoras control = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        String q = "";
+//        q = "from ControlHoras control where maxelement(control.creacion) > current_date";
+//        q = "from ControlHoras as lastReport ";
+//        q += "where lastReport.creacion in (select max( lastReport.creacion ) from ControlHoras where idInscripcion = :id)";
+//        Query query = session.createQuery(q);
+//        query.setInteger("id", idInscripcion);
+//        control = (ControlHoras) query.uniqueResult();
+        DetachedCriteria maxQuery = DetachedCriteria.forClass( ControlHoras.class );
+        maxQuery.setProjection( Projections.max( "creacion" ) );
+
+        Criteria query = session.createCriteria( ControlHoras.class );
+        query.add( Property.forName( "creacion" ).eq( maxQuery ) );
+//        Criteria criteria = session.createCriteria(ControlHoras.class)
+//                .setProjection(Projections.max("creacion"))
+//                .add(Restrictions.eq("idInscripcion", idInscripcion));
+        query.uniqueResult();
+        // Obtener el último control de horas
+        session.close();
+        return control;
     }
 }
