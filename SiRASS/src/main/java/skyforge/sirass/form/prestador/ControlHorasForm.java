@@ -4,13 +4,17 @@
  */
 package skyforge.sirass.form.prestador;
 
+import java.sql.Time;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import skyforge.sirass.form.Form;
 import skyforge.sirass.model.prestador.ControlHoras;
+import skyforge.sirass.model.prestador.RegistroHora;
 
 /**
  *
@@ -51,6 +55,15 @@ public class ControlHorasForm extends Form {
             try {
                 nReporte = Short.parseShort(data);
                 this.controlHoras.setnReporte(nReporte);
+            } catch (Exception e) {
+                System.out.println("ERROR OBTENIENDO NUM_REPORTE");
+            }
+        }
+        if (this.getVars().get("inscripcion") != null) {
+            String data = this.getVars().get("inscripcion")[0];
+            try {
+                int idInscripcion = Integer.parseInt(data);
+                this.controlHoras.setIdInscripcion(idInscripcion);
             } catch (Exception e) {
                 System.out.println("ERROR OBTENIENDO NUM_REPORTE");
             }
@@ -133,6 +146,49 @@ public class ControlHorasForm extends Form {
                 Logger.getLogger(InscripcionForm.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
+        // OBTENER HORAS
+        HashSet<RegistroHora> registros = new HashSet<RegistroHora>();
+        int counter;
+        String fechaStr;
+        String horaEntradaStr;
+        String horaSalidaStr;
+        String horasDiaStr;
+        RegistroHora regHora;
+        for (counter = 1; counter < 30; counter++) {
+            if (this.getVars().get("hEntrada" + counter) != null &&
+                this.getVars().get("hSalida" + counter) != null &&
+                this.getVars().get("acum" + counter) != null &&
+                this.getVars().get("fecha" + counter) != null) {
+                fechaStr = this.getVars().get("fecha" + counter)[0];
+                horaEntradaStr = this.getVars().get("hEntrada" + counter)[0];
+                horaSalidaStr = this.getVars().get("hSalida" + counter)[0];
+                horasDiaStr = this.getVars().get("acum" + counter)[0];
+                Date fecha;
+                Time horaEntrada;
+                Time horaSalida;
+                Time horas;
+                try {
+                    regHora = new RegistroHora();
+                    regHora.setControlHoras(controlHoras);
+                    fecha = this.getDateFormat().parse(fechaStr);
+                    SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
+                    horaEntrada = new Time(timeFormat.parse(horaEntradaStr).getTime());
+                    horaSalida = new Time(timeFormat.parse(horaSalidaStr).getTime());
+                    horas = new Time(timeFormat.parse(horasDiaStr).getTime());
+
+                    regHora.setFecha(fecha);
+                    regHora.setHoraEntrada(horaEntrada);
+                    regHora.setHoraSalida(horaSalida);
+                    regHora.setHorasDia(horas);
+                    registros.add(regHora);
+                } catch (ParseException ex) {
+                    Logger.getLogger(InscripcionForm.class.getName()).log(Level.SEVERE, "ERROR EN FECHAS");
+                    Logger.getLogger(InscripcionForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        controlHoras.setHoras(registros);
         
         controlHoras.setModificadoPor(modificadoPor);
         return this.controlHoras;

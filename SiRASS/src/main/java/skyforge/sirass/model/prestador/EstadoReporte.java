@@ -5,7 +5,11 @@ package skyforge.sirass.model.prestador;
  * @author gomezhyuuga
  */
 public class EstadoReporte {
-
+    
+    public static final short SIN_REVISION = 1;
+    public static final short CON_ERRORES = 2;
+    public static final short CORRECTO = 3;
+    
     private String descripcion;
     private short idEstado;
 

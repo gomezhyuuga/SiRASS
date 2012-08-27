@@ -45,7 +45,18 @@ public class ControlHorasDAOTest {
     @Test
     public void testGetLastReport() {
         System.out.println("testGetLastReport...");
-        dao.getLastReport(15);
-        assert false;
+        controlHoras = dao.getLastReport(15);
+        Assert.assertNotNull(controlHoras);
+        System.out.println("CONTROL");
+        System.out.println("ID: " + controlHoras.getIdControlHoras());
+        System.out.println("ID_INSCRIPCION: " + controlHoras.getIdInscripcion());
+        System.out.println("N_REPORTE: " + controlHoras.getnReporte());
+        System.out.println("FECHA_INICIO: " + controlHoras.getFechaInicio());
+        System.out.println("FECHA_FIN: " + controlHoras.getFechaFin());
+        System.out.println("SUPERVISOR: " + controlHoras.getSupervisor());
+        System.out.println("HRS_ACUM: " + controlHoras.getHorasAcumuladas());
+        System.out.println("HRS_ANT: " + controlHoras.getHorasAnteriores());
+        System.out.println("HRS_MES: " + controlHoras.getHorasMes());
+        
     }
 }

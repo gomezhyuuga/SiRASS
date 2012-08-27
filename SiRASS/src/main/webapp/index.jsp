@@ -1,3 +1,10 @@
+<%
+    if (request.getUserPrincipal() != null &&
+            session.getAttribute("home") != null) {
+        String pag = (String) session.getAttribute("home");
+        response.sendRedirect(application.getContextPath() + "/" + pag);
+    }
+%>
 <!DOCTYPE html>
 <html lang="es">
 <head>

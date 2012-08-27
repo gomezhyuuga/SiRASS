@@ -12,15 +12,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import skyforge.sirass.dao.prestador.ControlHorasDAO;
 import skyforge.sirass.dao.prestador.InscripcionDAO;
 import skyforge.sirass.dao.prestador.PrestadorDAO;
 import skyforge.sirass.dao.user.UsuarioDAO;
 import skyforge.sirass.form.prestador.ControlHorasForm;
 import skyforge.sirass.form.prestador.InscripcionForm;
-import skyforge.sirass.model.prestador.ControlHoras;
-import skyforge.sirass.model.prestador.EstadoInscripcion;
-import skyforge.sirass.model.prestador.Inscripcion;
-import skyforge.sirass.model.prestador.Prestador;
+import skyforge.sirass.model.prestador.*;
 import skyforge.sirass.model.user.Usuario;
 
 /**
@@ -208,7 +206,12 @@ public class FormReceiver extends HttpServlet {
         ControlHoras controlHoras;
         
         controlHoras = form.getObject(null);
+        controlHoras.setCreacion(new Date());
+        controlHoras.setUltimaModif(new Date());
+        controlHoras.setEstado(new EstadoReporte(EstadoReporte.SIN_REVISION));
+        System.out.println("INSCRIPCION: " + controlHoras.getIdInscripcion());
         System.out.println("NREPORTE: " + controlHoras.getnReporte());
+        System.out.println("ESTADO: " + controlHoras.getEstado().getIdEstado());
         System.out.println("SUPERVISOR: " + controlHoras.getSupervisor());
         System.out.println("FECHA_INICIO: " + controlHoras.getFechaInicio());
         System.out.println("FECHA_TERMINO: " + controlHoras.getFechaFin());
@@ -219,8 +222,18 @@ public class FormReceiver extends HttpServlet {
         System.out.println("HRS_ACUMULADAS: " + controlHoras.getHorasAcumuladas());
         System.out.println("MINS_ACUMULADOS: " + controlHoras.getMinutosAcumulados());
         System.out.println("MODIFICADO POR: " + controlHoras.getModificadoPor());
+        System.out.println("HORAS: " + controlHoras.getHoras().size());
+        if (controlHoras != null &&
+            controlHoras.getHoras() != null &&
+            controlHoras.getHoras().size() >= 1) {
+            ControlHorasDAO dao = new ControlHorasDAO();
+            int stat = dao.insert(controlHoras);
+            System.out.println("STAT: " + stat);
+            if (stat == 1) {
+                status = 1;
+            }
+        }
         
-        controlHoras.setCreacion(new Date());
         return status;
     }
 }

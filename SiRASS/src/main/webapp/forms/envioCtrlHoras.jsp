@@ -1,4 +1,27 @@
+<%@page import="skyforge.sirass.model.prestador.ControlHoras"%>
+<%@page import="skyforge.sirass.model.prestador.Inscripcion"%>
+<%@page import="skyforge.sirass.dao.prestador.ControlHorasDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    ControlHorasDAO cDAO = new ControlHorasDAO();
+    Inscripcion insc = (Inscripcion) session.getAttribute("inscripcion");
+    ControlHoras control = cDAO.getLastReport(insc.getIdInscripcion());
+    int horasAnteriores = 0;
+    short minsAnteriores = 0;
+    short lastReport = 1;
+    String total = "0:0";
+    if (control != null) {
+        if (control.getHorasAcumuladas() != null) {
+            horasAnteriores = control.getHorasAcumuladas();
+        }
+        if (control.getMinutosAcumulados() != null) {
+            minsAnteriores = control.getMinutosAcumulados();
+        }
+        total = horasAnteriores + ":" + minsAnteriores;
+        lastReport = control.getnReporte();
+    }
+%>
+<input type="hidden" name="inscripcion" value="<%= insc.getIdInscripcion()%>" />
 <ul class="nav nav-tabs">
 					<li class="active">
 						<a href="#datosReporte" data-toggle="tab">Datos del reporte</a>
@@ -16,12 +39,14 @@
 									<label class="control-label" for="nReporte">Número de reporte:</label>
 									<div class="controls">
 										<select name="nReporte" id="nReporte" class="input-mini">
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
-											<option value="5">5</option>
-											<option value="6">6</option>
+                                        <%  for (int i = 1; i < 25; i++) {
+                                                if (i == (lastReport+1)) { %>
+                                            <option value="<%= i %>" selected="selected"><%=i%></option>
+                                        <%      } else {
+                                        %>
+                                            <option value="<%= i %>"><%=i%></option>
+                                        <%      }
+                                            }   %>
 										</select>
 									</div>
 								</div>
@@ -82,15 +107,15 @@
 								<tr>
 									<th>Anteriores</th>
 									<td>
-										<span class="hrsAnteriores">20</span>
-										<input type="hidden" name="hrsAnteriores" />
+										<span class="hrsAnteriores"><%= horasAnteriores %></span>
+                                        <input type="hidden" name="hrsAnteriores" value="<%= horasAnteriores %>" />
 									</td>
 									<td>
-										<span class="minsAnteriores">12</span>
-										<input type="hidden" name="minsAnteriores" />
+										<span class="minsAnteriores"><%= minsAnteriores %></span>
+										<input type="hidden" name="minsAnteriores" value="<%= minsAnteriores %>" />
 									</td>
 									<td>
-										<span class="totalAnterior">20:12</span>
+										<span class="totalAnterior"><%= total %></span>
 									</td>
 								</tr>
 								<tr>

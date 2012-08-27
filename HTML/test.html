@@ -13,6 +13,39 @@
 	
 	<section>
 		<header>
+			<h1>JS Object</h1>
+		</header>
+		<p>
+		<script type="text/javascript">
+			function registroHora(fecha, horaEntrada, horaSalida) {
+				this.fecha = fecha;
+				this.horaEntrada = horaEntrada;
+				this.horaSalida = horaSalida;
+			}
+			var registro1 = new registroHora("10/02/2012", "20:00", "24:00");
+			var registro2 = new registroHora("11/03/2012", "18:00", "20:00");
+			var registro3 = new registroHora("12/04/2012", "16:00", "22:00");
+			console.log(registro1);
+			var registros = new Array();
+			registros.push(registro1);
+			registros.push(registro2);
+			registros.push(registro3);
+			console.log(registros);
+			console.log(JSON.stringify(registros));
+			$.ajax({
+			  url: "formData.jsp",
+			  data: JSON.stringify(registros),
+			  processData: false,
+			  dataType: "json",
+			  success:function(a) { console.log("SUCCESS " + a )},
+			  error:function() {}
+			});
+		</script>
+		</p>
+	</section>
+	
+	<section>
+		<header>
 			<h1>compareTo( )</h1>
 		</header>
 		<aside id="diferencia">

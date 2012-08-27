@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.List;
 import org.hibernate.*;
 import org.hibernate.criterion.*;
+import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.exception.DataException;
 import skyforge.sirass.HibernateUtil;
 import skyforge.sirass.dao.DAO;
 import skyforge.sirass.dao.prestador.PrestadorDAO;
@@ -25,7 +27,41 @@ public class ControlHorasDAO extends DAO {
      * @return - 1 si se guardó correctamente, 0 si hubo un error
      */
     public int insert(ControlHoras controlHoras) {
-        return super.insert(controlHoras);
+        int status = 0;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            Inscripcion insc = (Inscripcion) session.load(Inscripcion.class, controlHoras.getIdInscripcion());
+            insc.setHorasRealizadas(controlHoras.getHorasAcumuladas());
+            insc.setMinutosRealizados(controlHoras.getMinutosAcumulados());
+            session.save(controlHoras);
+            session.update(insc);
+            transaction.commit();
+            return 1;
+        } catch (ConstraintViolationException e) {
+            transaction.rollback();
+            System.out.println("#### --- ####");
+            System.out.println("Error haciendo insert de controlHoras. Motivo:");
+            System.out.println(e.getLocalizedMessage());
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            System.out.println("#### --- ####");
+            return e.getErrorCode();
+        } catch (DataException e) {
+            transaction.rollback();
+            System.out.println("#### --- ####");
+            System.out.println("Error haciendo insert de controlHoras. Datos incorrectos. Motivo:");
+            System.out.println(e.getLocalizedMessage());
+            System.out.println("errorCode: " + e.getErrorCode());
+            System.out.println("sql: " + e.getSQL());
+            System.out.println("sqlState: " + e.getSQLState());
+            e.printStackTrace();
+            System.out.println("#### --- ####");
+            return e.getErrorCode();
+        } finally {
+            session.close();
+        }
     }
 
     public int deleteByPK(int idControlHoras) {
@@ -149,22 +185,11 @@ public class ControlHorasDAO extends DAO {
     public ControlHoras getLastReport(int idInscripcion) {
         ControlHoras control = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
-        String q = "";
-//        q = "from ControlHoras control where maxelement(control.creacion) > current_date";
-//        q = "from ControlHoras as lastReport ";
-//        q += "where lastReport.creacion in (select max( lastReport.creacion ) from ControlHoras where idInscripcion = :id)";
-//        Query query = session.createQuery(q);
-//        query.setInteger("id", idInscripcion);
-//        control = (ControlHoras) query.uniqueResult();
         DetachedCriteria maxQuery = DetachedCriteria.forClass( ControlHoras.class );
         maxQuery.setProjection( Projections.max( "creacion" ) );
-
         Criteria query = session.createCriteria( ControlHoras.class );
         query.add( Property.forName( "creacion" ).eq( maxQuery ) );
-//        Criteria criteria = session.createCriteria(ControlHoras.class)
-//                .setProjection(Projections.max("creacion"))
-//                .add(Restrictions.eq("idInscripcion", idInscripcion));
-        query.uniqueResult();
+        control = (ControlHoras) query.uniqueResult();
         // Obtener el último control de horas
         session.close();
         return control;

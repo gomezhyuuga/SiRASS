@@ -39,7 +39,7 @@
 				</div>
 				<p>Desde esta página puedes enviar tu <em><strong>Control Mensual de Horas</strong></em>. Llena los siguientes campos, después pulsa en enviar y espera a que un <em>administrador</em> <strong>revise</strong> tu reporte.</p>
 				<div id="feedback"></div>
-                <form method="post" action="/SiRASS/FormReceiver" class="form-horizontal" name="form-controlHoras" id="form-controlHoras">
+                <form method="get" action="/SiRASS/FormReceiver" class="form-horizontal" name="form-controlHoras" id="form-controlHoras">
                     <input type="hidden" name="class" value="EnvioControlHoras" />
                     <%@include file="../../forms/envioCtrlHoras.jsp" %>
                 </form>
