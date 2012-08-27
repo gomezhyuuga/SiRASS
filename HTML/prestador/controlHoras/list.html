@@ -17,44 +17,48 @@
 	
 	<!-- jQuery 1.7.2
 	============================== -->
-	<script src="../../js/jquery-1.7.2.min.js" type="text/javascript"></script>
+	<script src="../../../SiRASS/src/main/webapp/js/jquery-1.7.2.min.js" type="text/javascript"></script>
 	<!-- jQueryUI + jQueryUI bootstrap theme
 	============================== -->
-	<link type="text/css" href="../../css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
-	<script src="../../js/jquery-ui-1.8.21.custom.min.js" type="text/javascript"></script>
-	<script src="../../js/jquery.ui.datepicker-es.js" type="text/javascript"></script>
+	<link type="text/css" href="../../../SiRASS/src/main/webapp/css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+	<script src="../../../SiRASS/src/main/webapp/js/jquery-ui-1.8.21.custom.min.js" type="text/javascript"></script>
+	<script src="../../../SiRASS/src/main/webapp/js/jquery.ui.datepicker-es.js" type="text/javascript"></script>
 	<!--[if IE]>
-		<link rel="stylesheet" type="text/css" href="../../css/custom-theme/jquery.ui.1.8.16.ie.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../SiRASS/src/main/webapp/css/custom-theme/jquery.ui.1.8.16.ie.css"/>
 	<![endif]-->
-	<script src="../../js/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
-	<script src="../../js/makeusabrew-bootbox-85c33b4/bootbox.min.js" type="text/javascript"></script>
+	<script src="../../../SiRASS/src/main/webapp/js/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
+	<script src="../../../SiRASS/src/main/webapp/js/makeusabrew-bootbox-85c33b4/bootbox.min.js" type="text/javascript"></script>
 	<!-- AJAX FORM -->
-	<script src="../../js/jquery.form.js" type="text/javascript"></script>
+	<script src="../../../SiRASS/src/main/webapp/js/jquery.form.js" type="text/javascript"></script>
 	<!-- Validator
 	============================== -->
-	<script src="../../js/jquery-validation-1.9.0/jquery.validate.min.js" type="text/javascript"></script>
-	<script src="../../js/jquery-validation-1.9.0/additional-methods.min.js" type="text/javascript"></script>
-	<script src="../../js/jquery-validation-1.9.0/localization/messages_es.js" type="text/javascript"></script>
-	<script src="../../js/utils.js" type="text/javascript"></script>
-	<script src="../../js/jquery.mockjax.js" type="text/javascript"></script>
+	<script src="../../../SiRASS/src/main/webapp/js/jquery-validation-1.9.0/jquery.validate.min.js" type="text/javascript"></script>
+	<script src="../../../SiRASS/src/main/webapp/js/jquery-validation-1.9.0/additional-methods.min.js" type="text/javascript"></script>
+	<script src="../../../SiRASS/src/main/webapp/js/jquery-validation-1.9.0/localization/messages_es.js" type="text/javascript"></script>
+	<script src="../../../SiRASS/src/main/webapp/js/utils.js" type="text/javascript"></script>
+	<script src="../../../SiRASS/src/main/webapp/js/jquery.mockjax.js" type="text/javascript"></script>
 	<!-- Bootstrap
 	============================== -->
-	<link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css" type="text/css" />
-	<script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="../../../SiRASS/src/main/webapp/bootstrap/css/bootstrap.min.css" type="text/css" />
+	<script src="../../../SiRASS/src/main/webapp/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 	
 	<title>SiRASS - Sistema de Registro y Administraci&oacute;n de Servicio Social</title>
 	<meta name="description" content="Sistema de Registro y Administraci&oacute;n de Servicio Social" />
 	<meta name="author" content="Skyforge" />
 	<meta name="keywords" content="servicio social, uacm, skyforge, practicas profesionales" />
-	<link rel="stylesheet" type="text/css" href="../../css/main.css">
-	<script src="../../js/date-es-MX.js" type="text/javascript"></script>
-	<script src="../../js/controlHoras.js" type="text/javascript"></script>
-		<link rel="icon" href="../../favicon.ico" type="image/x-icon" />
+	<link rel="stylesheet" type="text/css" href="../../../SiRASS/src/main/webapp/css/main.css">
+	<script src="../../../SiRASS/src/main/webapp/js/date-es-MX.js" type="text/javascript"></script>
+	<script src="../../../SiRASS/src/main/webapp/js/controlHoras.js" type="text/javascript"></script>
+		<link rel="icon" href="../../../SiRASS/src/main/webapp/favicon.ico" type="image/x-icon" />
 	<style type="text/css">
 		table thead tr th {
 			text-align: center !important;
 			vertical-align: middle !important;
 		}
+		td {
+			vertical-align: middle !important;
+		}
+
 	</style>
 </head>
 <body>
@@ -142,7 +146,7 @@
 					<li class="nav-header">Generar reportes</li>
 			                        <li id="controlHoras"><a href="controlHoras.jsp">Control Mensual de Horas</a></li>
 			                        <li id="informeBim"><a href="informeBim.jsp">Informe Bimensual</a></li>
-					<li id="informeFin"><a href="informeFin.jsp">Informe Final</a></li>
+					<li id="informeFin"><a href="informeFin.jsp">Informe Final</a></li>s
 					<li class="divider"></li>
 					<!-- pendientes -->
 					<li class="nav-header">Revisiones</li>
@@ -184,14 +188,14 @@
 						<tr>
 							<th rowspan="2">#</th>
 							<th colspan="2">Fecha</th>
-							<th colspan="3">Horas</th>
+							<th colspan="2" class="span2">Horas</th>
+							<th rowspan="2" class="span1">Estado</th>
 							<th rowspan="2">Acción</th>
 						</tr>
 						<tr>
-							<th>Inicio</th>
+							<th class="span1">Inicio</th>
 							<th>Fin</th>
 							<th>Mes</th>
-							<th>Anteriores</th>
 							<th>Acumuladas</th>
 						</tr>
 					</thead>
@@ -202,9 +206,11 @@
 							<td>20/02/2012</td>
 							<td>23:30</td>
 							<td>11:20</td>
-							<td>33:02</td>
 							<td class="center">
-								<div class="btn-group center">
+								<span class="label block">Sin revisar</span>
+							</td>
+							<td>
+								<div class="btn-group">
 									<a class="btn dropdown-toggle btn-primary btn-small center" data-toggle="dropdown" href="#">
 									    Acción
 									    <span class="caret"></span>
@@ -213,6 +219,11 @@
 										<li>
 											<a href="#"><i class="icon-exclamation-sign"></i>
 												Detalles
+											</a>
+										</li>
+										<li>
+											<a href="#"><i class="icon-download"></i>
+												Generar
 											</a>
 										</li>
 										<li>
@@ -230,7 +241,9 @@
 							<td>20/02/2012</td>
 							<td>23:30</td>
 							<td>11:20</td>
-							<td>33:02</td>
+							<td class="center">
+								<span class="label label-success block">Correcto</span>
+							</td>
 							<td>
 								<div class="btn-group center">
 									<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -251,7 +264,9 @@
 							<td>20/02/2012</td>
 							<td>23:30</td>
 							<td>11:20</td>
-							<td>33:02</td>
+							<td class="center">
+								<span class="label label-important block">Con errores</span>
+							</td>
 							<td>
 								<div class="btn-group">
 									<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">

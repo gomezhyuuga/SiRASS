@@ -1,3 +1,4 @@
+<%@page import="skyforge.sirass.model.prestador.EstadoReporte"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
 <%@page import="skyforge.sirass.model.prestador.ControlHoras"%>
@@ -15,6 +16,9 @@
 			text-align: center !important;
 			vertical-align: middle !important;
 		}
+        td {
+            vertical-align: middle !important;
+        }
 	</style>
 </head>
 <body>
@@ -28,7 +32,7 @@
 			<!-- Sidebar
 			============================== -->
             <jsp:include page="../jspf/sidebar.jsp">
-                <jsp:param name="active" value="controlHoras" />
+                <jsp:param name="active" value="revControl" />
             </jsp:include>
 			<!-- Contenido
 			============================== -->
@@ -57,15 +61,15 @@
                         <tr>
 							<th rowspan="2">#</th>
 							<th colspan="2">Fecha</th>
-							<th colspan="3">Horas</th>
+							<th colspan="2">Horas</th>
+                            <th rowspan="2" style="width: 85px;">Estado</th>
 							<th rowspan="2">Acción</th>
 						</tr>
 						<tr>
 							<th>Inicio</th>
 							<th>Fin</th>
 							<th>Mes</th>
-							<th>Anteriores</th>
-							<th>Acumuladas</th>
+							<th>Acum.</th>
 						</tr>
 					</thead>
                     <tbody>
@@ -77,10 +81,25 @@
 							<td><%= c.getFechaInicio()%></td>
 							<td><%= c.getFechaFin()%></td>
 							<td><%= c.getHorasMes() + ":" + c.getMinutosMes() %></td>
-							<td><%= c.getHorasAnteriores() + ":" + c.getMinutosAnteriores()%></td>
 							<td><%= c.getHorasAcumuladas() + ":" + c.getMinutosAcumulados()%></td>
+                            <td class="center">
+                                <%
+                                    String lbl = "";
+                                    String estado = "";
+                                    estado = c.getEstado().getDescripcion();
+                                    switch (c.getEstado().getIdEstado()) {
+                                        case EstadoReporte.CON_ERRORES:
+                                            lbl = "label-important";
+                                            break;
+                                        case EstadoReporte.CORRECTO:
+                                            lbl = "label-success";
+                                            break;
+                                    }
+                                %>
+                                <span class="label block <%=lbl%>"><%=estado%></span>
+                            </td>
 							<td>
-								<div class="btn-group center">
+								<div class="btn-group">
 									<a class="btn dropdown-toggle btn-primary btn-small" data-toggle="dropdown" href="#">
 									    Acción
 									    <span class="caret"></span>
@@ -89,6 +108,11 @@
 										<li>
 											<a href="detalles.jsp?id=<%=c.getIdControlHoras()%>"><i class="icon-exclamation-sign"></i>
 												Detalles
+											</a>
+										</li>
+                                        <li>
+											<a href="/SiRASS/Generator?type=HRS&id=<%= c.getIdControlHoras()%>"><i class="icon-download"></i>
+												Generar
 											</a>
 										</li>
 										<li>

@@ -77,15 +77,19 @@ input.valid:focus {
 
 /* @group Utils */
 .center {
-	text-align: center;
+	text-align: center !important;
 }
 .right {
-	text-align: right;
+	text-align: right !important;
 }
 .centerDiv {
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block !important;
+}
+
+.block {
+	display: block !important;
 }
 
 /*.container, .container-fluid {
