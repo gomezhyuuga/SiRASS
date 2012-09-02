@@ -42,7 +42,7 @@ public class ControlHorasDAOTest {
     //
     // @Test
     // public void hello() {}
-    @Test
+    //@Test
     public void testGetLastReport() {
         System.out.println("testGetLastReport...");
         controlHoras = dao.getLastReport(15);

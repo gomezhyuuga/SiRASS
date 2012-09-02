@@ -1,8 +1,13 @@
 package skyforge.sirass.dao.institucion;
 
 import java.util.List;
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
+import skyforge.sirass.HibernateUtil;
 import skyforge.sirass.dao.DAO;
 import skyforge.sirass.model.institucion.Plantel;
 
@@ -31,5 +36,23 @@ public class PlantelDAO extends DAO {
     public List<Plantel> getPlanteles(int idCInstitucion) {
         Criterion[] crits = {Restrictions.eq("idCInstitucion", idCInstitucion)};
         return (List<Plantel>) super.list(Plantel.class, crits);
+    }
+
+    public Plantel getPlantelById(int id){
+        Plantel plantel = new Plantel();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            Criteria criteria = session.createCriteria(Plantel.class);
+            plantel = (Plantel) criteria.add(Restrictions.eq("idPlantel", id)).uniqueResult();
+            transaction.commit();
+        } catch (HibernateException ex) {
+            System.out.println("Error obteniendo institucion");
+        } finally {
+            session.close();
+        }
+        
+        return plantel;
     }
 }
