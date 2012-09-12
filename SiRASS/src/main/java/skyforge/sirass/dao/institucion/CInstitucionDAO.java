@@ -1,7 +1,12 @@
 package skyforge.sirass.dao.institucion;
 
 import java.util.List;
-import org.hibernate.criterion.*;
+import org.hibernate.*;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+import skyforge.sirass.HibernateUtil;
 import skyforge.sirass.dao.DAO;
 import skyforge.sirass.model.institucion.CInstitucion;
 
@@ -31,5 +36,23 @@ public class CInstitucionDAO extends DAO {
         plist.add(Projections.property("nombre").as("nombre"));
         Criterion[] crits = {Restrictions.eq("educativa", true)};
         return this.customList(CInstitucion.class, crits, plist);
+    }
+
+    public CInstitucion getById(int id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        CInstitucion cInstitucion = null;
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            Criteria criteria = session.createCriteria(CInstitucion.class);
+            criteria.setFetchMode("planteles", FetchMode.JOIN);
+            cInstitucion = (CInstitucion) criteria.add(Restrictions.eq("idCInstitucion", id)).uniqueResult();
+            transaction.commit();
+        } catch (HibernateException ex) {
+            System.out.println("Error obteniendo institucion");
+        } finally {
+            session.close();
+        }
+        return cInstitucion;
     }
 }

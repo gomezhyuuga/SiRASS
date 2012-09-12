@@ -268,6 +268,17 @@ public class ProgramaSSDAO extends DAO {
         session.close();
         return programas;
     }
+    
+    public List<ProgramaSS> getIdInstitutoByEdo(int id, int edo) {
+        List<ProgramaSS> programas = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        //Obtener programas de la institucion por su ID
+        CEstado estado = new CEstado((short) edo);
+        Criteria criteria = session.createCriteria(ProgramaSS.class).add(Restrictions.eq("idInstitucion", id)).add(Restrictions.eq("estado", estado)).setFetchMode("estado", FetchMode.JOIN);
+        programas = criteria.list();
+        session.close();
+        return programas;
+    }
 
     public int upProgSS(ProgramaSS programaSS, String command) {
         Session session = HibernateUtil.getSessionFactory().openSession();

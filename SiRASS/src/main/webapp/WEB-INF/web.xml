@@ -28,6 +28,10 @@
         <servlet-name>Generator</servlet-name>
         <servlet-class>skyforge.sirass.servlet.Generator</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>sendPropuesta</servlet-name>
+        <servlet-class>skyforge.sirass.servlet.sendPropuesta</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -53,8 +57,13 @@
         <url-pattern>/Test</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>Generator</servlet-name>
         <url-pattern>/Generator</url-pattern>
+=======
+        <servlet-name>sendPropuesta</servlet-name>
+        <url-pattern>/sendPropuesta</url-pattern>
+>>>>>>> 23aa9b343d195ed7dc32008372b7cfe450706279
     </servlet-mapping>
     <session-config>
         <session-timeout>

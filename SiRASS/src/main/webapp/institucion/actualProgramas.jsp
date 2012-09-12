@@ -1,27 +1,27 @@
-<%--  
-    Document   : instituto
+<%-- 
+    Document   : admin
     Created on : 10-jul-2012, 16:16:52
-    Author     : jolmes
+    Author     : gomezhyuuga
 --%>
 
-<%@page import="skyforge.sirass.dao.programass.ProgramaSSDAO"%>
 <%@page import="skyforge.sirass.model.programass.ProgramaSS"%>
+<%@page import="skyforge.sirass.dao.programass.ProgramaSSDAO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="skyforge.sirass.model.user.Usuario"%>
 <%@page import="skyforge.sirass.dao.user.UsuarioDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-
 <% UsuarioDAO dao = new UsuarioDAO();
     Usuario user = dao.getByUsername(String.valueOf(session.getAttribute("username")));
     List<ProgramaSS> misProgramas = new ArrayList<ProgramaSS>();
     ProgramaSSDAO prodao = new ProgramaSSDAO();
     if (user != null) {
         int id = user.getInstitucion().getIdInstitucion();
-        misProgramas = prodao.getIdInstitutoByEdo(id, 1);
+        misProgramas = prodao.getByIdInstituto(id);
     }
 %>
+
+<!DOCTYPE html>
 
 <html>
     <head>
@@ -40,25 +40,25 @@
                 <!-- Sidebar
                 ============================== -->
                 <jsp:include page="jspf/sidebar.jsp">
-                    <jsp:param name="active" value="home" />
+                    <jsp:param name="active" value="actualPropues" />
                 </jsp:include>
                 <!-- Contenido
                 ============================== -->
                 <div class="span8 solid">
-                    <% int tamMisProg = misProgramas.size();
-                        if (misProgramas != null && tamMisProg != 0) {%>
-                        <div class="page-header">
-                            <h1>Bienvenido <%= request.getUserPrincipal().getName() %></h1>
-                        </div>
-                        <p>Esta es tu lista de programas registrados</p>
-                        <%@include file="listProgramaSS.jsp" %>
-                    <% }%>
-                    <% if (misProgramas == null || tamMisProg == 0) {%>
-                    <h1>Bienvenido, <%= (String) session.getAttribute("username")%></h1>
-                    <p>Actualmente no tienes inscrito ning&uacute;n programa de Servicio Social.</p>
-                    <p><a class="btn btn-large btn-primary " href="./enviarPropuesta.jsp">Inscribir un programa</a></p>
-                    <% }%>
+                    <header>
+                            <% int tamaMisProg = misProgramas.size();
+                                if (misProgramas != null && tamaMisProg != 0) {%>
+                                <h1>Actualizar programa</h1>
+                                <p>Selecciona el programa que quieres actualizar</p>
+                            <%@include file="actualprog.jsp" %>
+                            <% } %>
+                            <% if(tamaMisProg == 0 || misProgramas == null){%>
+                                <h1>Actualizar programa</h1>
+                                <p>Actualmente no tienes programas</p>
+                            <% } %>
+                    </header>
                 </div>
+                    
             </div>
         </div>
         <!-- Footer
