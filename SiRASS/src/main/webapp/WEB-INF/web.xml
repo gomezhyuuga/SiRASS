@@ -57,13 +57,12 @@
         <url-pattern>/Test</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
         <servlet-name>Generator</servlet-name>
         <url-pattern>/Generator</url-pattern>
-=======
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>sendPropuesta</servlet-name>
         <url-pattern>/sendPropuesta</url-pattern>
->>>>>>> 23aa9b343d195ed7dc32008372b7cfe450706279
     </servlet-mapping>
     <session-config>
         <session-timeout>
