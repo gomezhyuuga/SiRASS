@@ -46,6 +46,7 @@
 					<h1>Inscripción al Servicio Social</h1>
 				</div>
 				<p>Para inscribirte en un programa de Servicio Social llena los siguientes datos.</p>
+                <div id="feedback"></div>
                 <form method="post" action="/SiRASS/FormReceiver" class="form-horizontal" id="form-inscripcion" name="form-inscripcion">
                     <jsp:include page="/forms/inscripcion.jsp" />
                 </form>

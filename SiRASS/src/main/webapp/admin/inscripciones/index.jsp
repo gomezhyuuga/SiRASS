@@ -123,6 +123,9 @@
 												<a href="#" onclick="suspenderIncripcion(this)" data-id="<%=id%>">Suspender</a>
 											</li>
 											<li>
+                                                <a href="#" onclick="cancelarIncripcion(this)" data-id="<%=id%>">Cancelar</a>
+											</li>
+											<li>
 												<a href="#" onclick="liberarServicio(this)" data-id="<%=id%>">Liberar servicio</a>
 											</li>
 										</ul>

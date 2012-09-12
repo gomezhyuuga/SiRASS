@@ -5,10 +5,12 @@ import java.util.Date;
 import java.util.List;
 import org.hibernate.*;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import skyforge.sirass.HibernateUtil;
 import skyforge.sirass.dao.DAO;
-import skyforge.sirass.dao.prestador.PrestadorDAO;
 import skyforge.sirass.model.prestador.InformeBimensual;
 import skyforge.sirass.model.prestador.Inscripcion;
 
@@ -111,5 +113,18 @@ public class InformeBimensualDAO extends DAO {
             session.close();
         }
         return status;
+    }
+    
+    public InformeBimensual getLastReport(int idInscripcion) {
+        InformeBimensual control = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        DetachedCriteria maxQuery = DetachedCriteria.forClass( InformeBimensual.class );
+        maxQuery.setProjection( Projections.max( "creacion" ) );
+        Criteria query = session.createCriteria( InformeBimensual.class );
+        query.add( Property.forName( "creacion" ).eq( maxQuery ) );
+        control = (InformeBimensual) query.uniqueResult();
+        // Obtener el último control de horas
+        session.close();
+        return control;
     }
 }

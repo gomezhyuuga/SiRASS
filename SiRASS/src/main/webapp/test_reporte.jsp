@@ -7,8 +7,7 @@
 
 
 
-<%@page import="skyforge.sirass.dao.prestador.InscripcionDAO"%>
-<%@page import="skyforge.sirass.dao.prestador.ControlHorasDAO"%>
+<%@page import="skyforge.sirass.reports.Carta_Compromiso"%>
 <%@page import="skyforge.sirass.reports.Reporte"%>
 <%@page import="skyforge.sirass.reports.Reporte"%>
 <%@page import="skyforge.sirass.reports.Control_Mensual_De_Horas"%>
@@ -38,6 +37,17 @@ prestador.setaPaterno("González");
 prestador.setaMaterno("Ruiz");
 prestador.setNombre("Eder");
 prestador.setnControl("SS-E-0660");
+prestador.setdCalle("Callesita");
+prestador.setdNumInt("12");
+prestador.setdNumExt("124");
+prestador.setdDelegacion("Azcapo");
+prestador.setdColonia("Bombita");
+prestador.setdCP("12345");
+prestador.setTelCasa("55555");
+prestador.setTelCel("04455");
+prestador.setEmail("jnsa@hotmail.com");
+
+
 
 Inscripcion inscripcion=new Inscripcion();
 CInstitucion cInstitucion=new CInstitucion();
@@ -50,6 +60,8 @@ inscripcion.setResponsable("DRA. Gloria Villegas Moreno");
 inscripcion.setCargoResponsable("Directora");
 inscripcion.setFechaInicio(new Date(112,3,16));
 inscripcion.setMatricula("306219234");
+inscripcion.setSemestre((short)6);
+inscripcion.setDifundir(false);
 inscripcion.setCarrera("Filosofia");
 inscripcion.setFechaFin(new Date(112,9,23));
 inscripcion.setProgramaInst("Multidisiplinario de servicio social en apoyo en a las actividades academico administrativas de la UACM");
@@ -107,53 +119,50 @@ registroh1.setFecha(new Date( 112,11,2));
         registroh1.setHoraSalida(new Time(4, 5, 10));
         registroh1.setHorasDia(new Time(4,3,2));
         registroh1.setIdRegistroHora(1);
- RegistroHora registro2 = new RegistroHora();
- registro2.setFecha(new Date( 112,11,2));
-        registro2.setHoraEntrada(new Time(3, 2, 1));
-        registro2.setHoraSalida(new Time(4, 5, 10));
-        registro2.setHorasDia(new Time(4,3,2));
-        registro2.setIdRegistroHora(1);
  registro.add(registroh1);
- registro.add(registro2);
  controlHoras.setHoras(registro);
 
 
  ProgramaSS programaSS=new ProgramaSS();
+ programaSS.setInstitucion("Colegio de bellas artes");
+ programaSS.setDomicilio("Calor , 1740, De la palma, Azcapotzalco");
  programaSS.setCvePrograma("UACM/CA/SS/CA-013/2012");
  programaSS.setArea("Colegio De Humanidades Y Ciencias");
  
 /** Aqui termina la creación de objetos . **/
  //------------------------------------------------------
 
-response.setContentType("application/xlsx");
-response.setHeader("Content-Disposition","Attachment;filename=ok.xlsx");//Ponemos el tipo de documento   
+response.setContentType("application/pdf");
+response.setHeader("Content-Disposition","Attachment;filename= "+Reporte.Carta_Compromiso);//Ponemos el tipo de documento   
 response.reset();//Para que se vea en el explorador
 
  
 //Para Generar un control mensual de mhoras
-ControlHorasDAO aO = new ControlHorasDAO();
-InscripcionDAO aO1 = new InscripcionDAO();
-inscripcion = aO1.getByPK(16);
-controlHoras = aO.getByPK(14);
-controlHoras.printHoras();
-controlHoras.setHoras(registro);
-Control_Mensual_De_Horas controldehoras=new Control_Mensual_De_Horas(inscripcion.getPrestador(), inscripcion, "RES", controlHoras,true);
-Reporte r=new Reporte(request.getRealPath("Archivos/"));        
+/**
+Control_Mensual_De_Horas controldehoras=new Control_Mensual_De_Horas(prestador, inscripcion, responsablesPrograma, controlHoras,true);
+Reporte r=new Reporte(request.getRealPath("Archivos\\"));        
 r.establecerDatos(Reporte.Control_Mensual_De_Horas, controldehoras);
 r.generar(response.getOutputStream());
-
+**/
  
 //Para generar una carta de aceptacion
-
-/*Carta_De_Aceptacion cartadeaceptacion=new Carta_De_Aceptacion(prestador, inscripcion, programaSS, "Apoyo a la investigacion y recopilacion de biografia par elaboracion de articulo",  "Martha Tera", true);
+/*
+Carta_De_Aceptacion cartadeaceptacion=new Carta_De_Aceptacion(prestador, inscripcion, programaSS, "Apoyo a la investigacion y recopilacion de biografia par elaboracion de articulo",  "Martha Tera","2012 - 54 / 1 - 835", true);
     Reporte reporte=new Reporte(request.getRealPath("Archivos"));
     reporte.establecerDatos(Reporte.Carta_De_Aceptacion, cartadeaceptacion);
-    reporte.generar(response.getOutputStream());*/
+    reporte.generar(response.getOutputStream());
+*/
+
+
+//Para una carta compromiso
+Carta_Compromiso cartaCompromiso=new Carta_Compromiso(prestador, inscripcion, programaSS, "la Licenciada", "Martha Tera", false);
+Reporte reporte=new Reporte(request.getRealPath("Archivos"));
+reporte.establecerDatos(Reporte.Carta_Compromiso, cartaCompromiso);
+reporte.generar(response.getOutputStream());
 
  
- 
 //Codigo para verificar la firma digital
-//Signature sig=new Signature(request.getRealPath("Archivos").concat("/"));
+//Signature sig=new Signature(request.getRealPath("Archivos").concat("\\"));
 //sig.sendObject(controldehoras.objResumen);
 //System.out.println(sig.isAuthentic("48.44.2.20.82.-74.-68.-92.30.37.-86.71.-98.-3.-21.-115.-96.33.-121.5.-25.-36.-69.-45.2.20.105.-107.124.12.-45.79.-87.-41.108.-125.33.-89.-60.-76.-54.10.-103.89.-29.31"));
 

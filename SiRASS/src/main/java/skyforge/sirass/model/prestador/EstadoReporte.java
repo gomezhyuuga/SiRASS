@@ -1,10 +1,12 @@
 package skyforge.sirass.model.prestador;
 
+import java.io.Serializable;
+
 /**
  *
  * @author gomezhyuuga
  */
-public class EstadoReporte {
+public class EstadoReporte implements Serializable {
     
     public static final short SIN_REVISION = 1;
     public static final short CON_ERRORES = 2;

@@ -13,10 +13,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import skyforge.sirass.dao.prestador.ControlHorasDAO;
+import skyforge.sirass.dao.prestador.InformeBimensualDAO;
 import skyforge.sirass.dao.prestador.InscripcionDAO;
 import skyforge.sirass.dao.prestador.PrestadorDAO;
 import skyforge.sirass.dao.user.UsuarioDAO;
 import skyforge.sirass.form.prestador.ControlHorasForm;
+import skyforge.sirass.form.prestador.InformeBimensualForm;
 import skyforge.sirass.form.prestador.InscripcionForm;
 import skyforge.sirass.model.prestador.*;
 import skyforge.sirass.model.user.Usuario;
@@ -61,6 +63,9 @@ public class FormReceiver extends HttpServlet {
             } else if (clase.equals("EnvioControlHoras")) {
                 System.out.println("Registrando un control de horas....");
                 status = this.registroControlHoras(map, user);
+            } else if (clase.equals("EnvioInformeBim")) {
+                System.out.println("Registrando un informe bimensual....");
+                status = this.registroInformeBim(map, user);
             }
         }
         PrintWriter out = response.getWriter();
@@ -234,6 +239,23 @@ public class FormReceiver extends HttpServlet {
             }
         }
         
+        return status;
+    }
+
+    private int registroInformeBim(Map<String, String[]> map, String user) {
+        int status = 0;
+        InformeBimensualForm form = new InformeBimensualForm(map, user);
+        InformeBimensual informe = form.getObject(null);
+        System.out.println("obteniendo datos...");
+        if (informe != null) {
+            System.out.println("datos ok");
+            informe.setEstado(new EstadoReporte(EstadoReporte.SIN_REVISION));
+            informe.setUltimaModif(new Date());
+            informe.setCreacion(new Date());
+            
+            InformeBimensualDAO idao = new InformeBimensualDAO();
+            status = idao.insert(informe);
+        }
         return status;
     }
 }

@@ -550,3 +550,22 @@ function generarNumControl(id) {
 				$('#numControl').val(numControl);
 			});
 }
+
+function generarSolicitudSS(el) {
+	var id = el.getAttribute('data-id');
+	var msg = '<p class="lead">Generando. Espera un momento...</p>';
+    bootbox.alert('<p class="lead">Generando. Espera un momento...</p>');
+    console.log('Generando SolicitudSS...');
+    setTimeout(function() {
+        window.location = "/SiRASS/Generator?id=" + id + "&doc=SolicitudSS"
+    }, 1500);
+    
+    /*$.ajax({
+        url: '/SiRASS/Generator',
+        data: {
+            id: id,
+            doc: "SolicitudSS"
+        },
+        dataType: "pdf"
+    });*/
+}

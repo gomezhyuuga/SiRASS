@@ -45,6 +45,8 @@
 	</div>
     <!-- Footer
 	============================== -->
-    <jsp:include page="/WEB-INF/jspf/footer.jsp" />
+    <jsp:include page="/WEB-INF/jspf/footer.jsp">
+        <jsp:param name="bootbox" value="true" />
+    </jsp:include>
 </body>
 </html>

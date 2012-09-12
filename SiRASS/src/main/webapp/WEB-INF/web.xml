@@ -24,6 +24,10 @@
         <servlet-name>Test</servlet-name>
         <servlet-class>skyforge.sirass.servlet.Test</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Generator</servlet-name>
+        <servlet-class>skyforge.sirass.servlet.Generator</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>Test</servlet-name>
         <url-pattern>/Test</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Generator</servlet-name>
+        <url-pattern>/Generator</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -72,6 +80,10 @@
     <error-page>
         <error-code>403</error-code>
         <location>/WEB-INF/jspf/avisos/403.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/jspf/avisos/error.jsp</location>
     </error-page>
     <security-constraint>
         <display-name>Admins</display-name>

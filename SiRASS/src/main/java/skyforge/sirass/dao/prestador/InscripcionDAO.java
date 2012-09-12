@@ -10,13 +10,9 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.AliasToBeanResultTransformer;
 import skyforge.sirass.HibernateUtil;
 import skyforge.sirass.dao.DAO;
-import skyforge.sirass.model.prestador.EstadoInscripcion;
-import skyforge.sirass.model.prestador.Inscripcion;
-import skyforge.sirass.model.prestador.Prestador;
-import skyforge.sirass.model.prestador.TipoInscripcion;
+import skyforge.sirass.model.prestador.*;
 import skyforge.sirass.model.programass.CategoriaPrograma;
 import skyforge.sirass.model.programass.ProgramaSS;
-import skyforge.sirass.model.programass.TipoPrograma;
 
 /**
  *
@@ -202,6 +198,29 @@ public class InscripcionDAO extends DAO {
         inscripciones = criteria.list();
         return inscripciones;
     }
+    /**
+     * Obtiene una inscripción con únicamnete los atributos para generar un reporte:
+     * idInscripcion, plantel, institucion
+     * 
+     * @param crits - Restricciones a aplicar al hacer la consulta
+     * @return Lista de inscripciones, null si no hay
+     */
+    public Inscripcion getByPKForReport(int id) {
+        Inscripcion inscripcion = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        // Obtener el control de Horas
+        inscripcion = (Inscripcion) session.createCriteria(Inscripcion.class)
+                .add(Restrictions.eq("idInscripcion", id))
+                .setFetchMode("prestador", FetchMode.JOIN)
+                .setFetchMode("tipo", FetchMode.JOIN)
+                .setFetchMode("estado", FetchMode.JOIN)
+                .setFetchMode("dias", FetchMode.SELECT)
+                .setFetchMode("idInstitucion", FetchMode.JOIN)
+                .setFetchMode("idPlantel", FetchMode.JOIN)
+                .uniqueResult();
+        session.close();
+        return inscripcion;
+    }
     
     /**
      * Devuelve la cantidad de horas realizadas en el servicio social
@@ -343,6 +362,9 @@ public class InscripcionDAO extends DAO {
             inscripcion = (Inscripcion) s.load(Inscripcion.class, id);
             Prestador p = inscripcion.getPrestador();
             s.delete(inscripcion);
+            s.createQuery("delete from ControlHoras where idInscripcion=:id")
+                    .setInteger("id", inscripcion.getIdInscripcion())
+                    .executeUpdate();
             p.setInscripcion(null);
             s.update("Prestador", p);
             tx.commit();
@@ -356,5 +378,15 @@ public class InscripcionDAO extends DAO {
             s.close();
         }
         return ok;
+    }
+    
+    public List<DiasInscripcion> getDiasInscripcion(int id) {
+        List<DiasInscripcion> list = null;
+        Session s = HibernateUtil.getSessionFactory().openSession();
+        list = s.createCriteria(DiasInscripcion.class)
+                .add(Restrictions.eq("idInscripcion", id))
+                .list();
+        s.close();
+        return list;
     }
 }

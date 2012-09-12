@@ -8,7 +8,7 @@
     ControlHoras control = cDAO.getLastReport(insc.getIdInscripcion());
     int horasAnteriores = 0;
     short minsAnteriores = 0;
-    short lastReport = 1;
+    short lastReport = 0;
     String total = "0:0";
     if (control != null) {
         if (control.getHorasAcumuladas() != null) {

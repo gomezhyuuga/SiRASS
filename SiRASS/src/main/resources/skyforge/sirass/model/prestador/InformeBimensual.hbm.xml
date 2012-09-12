@@ -9,9 +9,10 @@
     <property column="numReporte" length="4" name="numReporte" not-null="true" type="short"/>
     <property column="inicioPeriodo" name="inicioPeriodo" not-null="true" type="date"/>
     <property column="terminoPeriodo" name="terminoPeriodo" not-null="true" type="date"/>
-    <property column="horasBimestre" name="horasBimestre" not-null="true" type="short"/>
-    <property column="horasAcumuladas" name="horasAcumuladas" not-null="false" type="short"/>
+    <property column="horasBimestre" name="horasBimestre" not-null="true" type="int"/>
+    <property column="horasAcumuladas" name="horasAcumuladas" not-null="false" type="int"/>
     <property column="actividades" name="actividades" not-null="true" type="text"/>
+    <property column="observaciones" name="observaciones" not-null="false" type="text"/>
     <!-- relaciones -->
     <many-to-one cascade="evict" class="skyforge.sirass.model.prestador.EstadoReporte" column="estado" name="estado"/>
     <!-- del registro -->

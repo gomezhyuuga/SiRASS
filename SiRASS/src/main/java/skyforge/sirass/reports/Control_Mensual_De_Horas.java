@@ -46,7 +46,7 @@ public class Control_Mensual_De_Horas implements Reporte_Base{
         
     }
 
-    public Control_Mensual_De_Horas(Prestador prestador,Inscripcion inscripcion, Set<ResponsablePrograma> responsablesPrograma, ControlHoras controlHoras, boolean firma_digital) {
+    public Control_Mensual_De_Horas(Prestador prestador,Inscripcion inscripcion, String responsable, ControlHoras controlHoras, boolean firma_digital) {
         url_img="Imagen-Encabezado.png";
         no_formato="05";
         no_reporte=controlHoras.getnReporte();
@@ -56,17 +56,22 @@ public class Control_Mensual_De_Horas implements Reporte_Base{
         ap_materno=prestador.getaMaterno();
         nombre=prestador.getNombre();
         no_control=prestador.getnControl();
-        escuela=inscripcion.getPlantel().getNombre();
+        escuela=inscripcion.getInstitucion().getNombre();
+        if (inscripcion.getPlantel() != null &&
+                inscripcion.getPlantel().getNombre() != null) {
+            escuela += " - " + inscripcion.getPlantel().getNombre();
+        }
         horas_acumuladas=controlHoras.getHorasAcumuladas();
         suma_de_meses_anteriores=controlHoras.getHorasAnteriores();
         horas_mes=controlHoras.getHorasMes();
         supervisor=controlHoras.getSupervisor();
         horas=controlHoras.getHoras();
         this.firma_digital=firma_digital;
-        if(responsablesPrograma.size()>1){
-            responsable_servicio_social="";
-        }else{
-            responsable_servicio_social=responsablesPrograma.iterator().next().getResponsable();}
+//        if(responsablesPrograma.size()>1){
+//            responsable_servicio_social="";
+//        }else{
+//            responsable_servicio_social=responsablesPrograma.iterator().next().getResponsable();}
+        responsable_servicio_social = responsable;
         establecerObjResumen();
     }
 

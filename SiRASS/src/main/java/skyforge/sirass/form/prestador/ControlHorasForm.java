@@ -65,7 +65,7 @@ public class ControlHorasForm extends Form {
                 int idInscripcion = Integer.parseInt(data);
                 this.controlHoras.setIdInscripcion(idInscripcion);
             } catch (Exception e) {
-                System.out.println("ERROR OBTENIENDO NUM_REPORTE");
+                System.out.println("ERROR OBTENIENDO inscripcion");
             }
         }
         if (this.getVars().get(supervisorField) != null) {

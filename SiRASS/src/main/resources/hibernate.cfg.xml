@@ -4,8 +4,8 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <!-- P6Spy log -->
-    <property name="hibernate.connection.driver_class">com.p6spy.engine.spy.P6SpyDriver</property>
-    <!--        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>-->
+<!--    <property name="hibernate.connection.driver_class">com.p6spy.engine.spy.P6SpyDriver</property>-->
+            <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/SiRASS</property>
     <property name="hibernate.connection.username">skyforge</property>
     <property name="hibernate.connection.password">skyforge</property>

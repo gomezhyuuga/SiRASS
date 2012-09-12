@@ -104,6 +104,18 @@ public class ControlHorasDAO extends DAO {
         session.close();
         return controlHoras;
     }
+    public ControlHoras getByPK2(int id) {
+        ControlHoras controlHoras = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        // Obtener el control de Horas
+        controlHoras = (ControlHoras) session.createCriteria(ControlHoras.class)
+                .add(Restrictions.eq("idControlHoras", id))
+                .setFetchMode("horas", FetchMode.JOIN)
+                .setFetchMode("estado", FetchMode.JOIN)
+                .uniqueResult();
+        session.close();
+        return controlHoras;
+    }
 
     /**
      * Devuelve todos los controles de horas de una inscripción. Solo contiene

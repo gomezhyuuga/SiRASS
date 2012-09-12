@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="skyforge.sirass.model.prestador.EstadoReporte"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
@@ -46,7 +47,7 @@
                 </jsp:include>
 <%              } else { %>
                 <div class="page-header">
-					<h1>Reportes envíados <small>Control Mensual de Horas</small></h1>
+					<h1>Control Mensual de Horas <small>Reportes env&iacute;ados</small></h1>
 				</div>
 				<div id="feedback"></div>
 				<p>Desde esta página puedes ver los reportes que haz enviado y el estado de los mismos.</p>
@@ -54,6 +55,7 @@
                     ControlHorasDAO controlHorasDAO = new ControlHorasDAO();
                     List<ControlHoras> reportes = controlHorasDAO.getListByInscripcion(inscripcion.getIdInscripcion());
                     if (reportes.size() >= 1) {
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                         Iterator<ControlHoras> it = reportes.iterator();
                 %>
                 <table class="table table-bordered table-striped table-condensed">
@@ -76,12 +78,12 @@
                         <%
                             while (it.hasNext()) {
                                 ControlHoras c = it.next(); %>
-                            <tr>
-							<td><%= c.getnReporte()%></td>
-							<td><%= c.getFechaInicio()%></td>
-							<td><%= c.getFechaFin()%></td>
-							<td><%= c.getHorasMes() + ":" + c.getMinutosMes() %></td>
-							<td><%= c.getHorasAcumuladas() + ":" + c.getMinutosAcumulados()%></td>
+                        <tr>
+                            <td class="right"><%= c.getnReporte()%></td>
+                            <td class="center"><%= dateFormat.format(c.getFechaInicio())%></td>
+                            <td class="center"><%= dateFormat.format(c.getFechaFin())%></td>
+                            <td class="right"><%= c.getHorasMes() + ":" + c.getMinutosMes() %></td>
+                            <td class="right"><%= c.getHorasAcumuladas() + ":" + c.getMinutosAcumulados()%></td>
                             <td class="center">
                                 <%
                                     String lbl = "";
@@ -100,18 +102,18 @@
                             </td>
 							<td>
 								<div class="btn-group">
-									<a class="btn dropdown-toggle btn-primary btn-small" data-toggle="dropdown" href="#">
+									<a class="btn dropdown-toggle btn-primary" data-toggle="dropdown" href="#">
 									    Acción
 									    <span class="caret"></span>
 									  </a>
 									<ul class="dropdown-menu">
 										<li>
-											<a href="detalles.jsp?id=<%=c.getIdControlHoras()%>"><i class="icon-exclamation-sign"></i>
+											<a href="ver.jsp?id=<%=c.getIdControlHoras()%>"><i class="icon-exclamation-sign"></i>
 												Detalles
 											</a>
 										</li>
                                         <li>
-											<a href="/SiRASS/Generator?type=HRS&id=<%= c.getIdControlHoras()%>"><i class="icon-download"></i>
+											<a href="/SiRASS/Generator?doc=ControlHoras&id=<%= c.getIdControlHoras()%>"><i class="icon-download"></i>
 												Generar
 											</a>
 										</li>

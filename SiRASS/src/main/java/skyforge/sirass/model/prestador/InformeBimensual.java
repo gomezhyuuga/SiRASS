@@ -20,12 +20,21 @@ public class InformeBimensual implements Serializable {
     private Integer horasAcumuladas;
     private Short minutosAcumuladps;
     private String actividades;
+    private String observaciones;
     // Del registro
     private String modificadoPor;
     private Date ultimaModif;
     private Date creacion;
 
     public InformeBimensual() {
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
     }
 
     public String getActividades() {

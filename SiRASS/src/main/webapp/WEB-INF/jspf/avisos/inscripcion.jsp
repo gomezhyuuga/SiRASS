@@ -57,11 +57,14 @@
                     out.println("<p class=\"lead\">Por favor llama a las oficinas de Servicio Social.</p>");
             }%>
 <%      } else if (aviso.equals("7")) {%>
+            <%
+                Inscripcion inscr = (Inscripcion) session.getAttribute("inscripcion");
+            %>
             <p class="lead">Parece que tu inscripci&oacute;n no tiene errores. Ahora genera tu 
                 <em><b>Carta Compromiso</b></em> y <em><b>Solicitud de Servicio</b></em> y entr&eacute;galos junto con los 
                 respectivos papeles en las oficinas de Servicio Social.</p>
-            <a href="#" class="btn btn-inverse btn-small">Generar carta compromiso</a>
-            <a href="#" class="btn btn-inverse btn-small">Generar Solicitud de Servicio</a>
+            <a href="#" data-id="<%= inscr.getIdInscripcion() %>" onclick="generarSolicitudSS(this)" class="btn btn-inverse btn-small">Generar Solicitud</a>
+            <a href="#" class="btn btn-inverse btn-small">Generar Carta Compromiso</a>
 <%      } else if (aviso.equals("algo")) {%>
             <p>algo</p>
 <%      } else {%>

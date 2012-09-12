@@ -1,5 +1,6 @@
 package skyforge.sirass.model.prestador;
 
+import java.io.Serializable;
 import java.sql.Time;
 import java.util.Date;
 
@@ -7,7 +8,7 @@ import java.util.Date;
  *
  * @author gomezhyuuga
  */
-public class RegistroHora {
+public class RegistroHora implements Serializable {
 
     private ControlHoras controlHoras;
     private int idRegistroHora;

@@ -92,6 +92,20 @@ input.valid:focus {
 	display: block !important;
 }
 
+.paragraph {
+    text-align: justify !important;
+    width: 96% !important;
+    resize: none !important;
+    background-color: inherit !important;
+    border: none !important;
+    cursor: default !important;
+}
+
+.paragraph:hover, .paragraph:active, .paragraph:focus {
+    box-shadow: none !important;
+    border: none !important;
+}
+
 /*.container, .container-fluid {
 	background-color: white;
 }*/
