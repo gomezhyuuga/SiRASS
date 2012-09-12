@@ -107,7 +107,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="actualizar.jsp?id=<%=inf.getIdInformeBimensual()%>" id="editar">
+                                            <a href="editar.jsp?id=<%=inf.getIdInformeBimensual()%>" id="editar">
                                                 <i class="icon-edit"></i>
                                                 Editar
                                             </a>

@@ -91,6 +91,31 @@ public class InformeBimensualDAO extends DAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         int status = 0;
         Transaction trans = session.beginTransaction();
+        try {
+            InformeBimensual nuevo = (InformeBimensual) session.load(InformeBimensual.class, informe.getIdInformeBimensual());
+            nuevo.setActividades(informe.getActividades());
+            nuevo.setHorasAcumuladas(informe.getHorasAcumuladas());
+            nuevo.setHorasBimestre(informe.getHorasBimestre());
+            nuevo.setInicioPeriodo(informe.getInicioPeriodo());
+            nuevo.setTerminoPeriodo(informe.getTerminoPeriodo());
+            nuevo.setModificadoPor(informe.getModificadoPor());
+            nuevo.setNumReporte(informe.getNumReporte());
+            nuevo.setUltimaModif(new Date());
+            session.update(nuevo);
+            trans.commit();
+            status = 1;
+        } catch (Exception e) {
+            System.out.println("ERROR ACTUALIZANDO INFORME BIMENSUAL");
+            trans.rollback();
+        } finally {
+            session.close();
+        }
+        return status;
+    }
+    /*public int update(InformeBimensual informe) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        int status = 0;
+        Transaction trans = session.beginTransaction();
         Query q = session.createQuery("from InformeBimensual where idInformeBimensual = :idInforme");
         InformeBimensual nuevo = (InformeBimensual) q.setInteger("idInforme", informe.getIdInformeBimensual()).list().get(0);
         nuevo.setActividades(informe.getActividades());
@@ -113,7 +138,7 @@ public class InformeBimensualDAO extends DAO {
             session.close();
         }
         return status;
-    }
+    }*/
     
     public InformeBimensual getLastReport(int idInscripcion) {
         InformeBimensual control = null;

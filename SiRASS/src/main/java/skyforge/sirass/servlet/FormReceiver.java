@@ -66,6 +66,9 @@ public class FormReceiver extends HttpServlet {
             } else if (clase.equals("EnvioInformeBim")) {
                 System.out.println("Registrando un informe bimensual....");
                 status = this.registroInformeBim(map, user);
+            } else if (clase.equals("ActualizarInformeBim")) {
+                System.out.println("Actualizando un informe bimensual....");
+                status = this.updateInformeBim(map, user);
             }
         }
         PrintWriter out = response.getWriter();
@@ -255,6 +258,24 @@ public class FormReceiver extends HttpServlet {
             
             InformeBimensualDAO idao = new InformeBimensualDAO();
             status = idao.insert(informe);
+        }
+        return status;
+    }
+
+    private int updateInformeBim(Map<String, String[]> map, String user) {
+        int status = 0;
+        if (map.get("id") != null) {
+            try {
+                int id = Integer.parseInt(map.get("id")[0]);
+                InformeBimensualForm form = new InformeBimensualForm(map, user);
+                InformeBimensualDAO bimensualDAO = new InformeBimensualDAO();
+                InformeBimensual informe = bimensualDAO.getByPK(id);
+                informe = form.getObject(informe);
+                status = bimensualDAO.update(informe);
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("ERROR ACTUALIZANDO INFORME BIMENSUAL");
+            }
         }
         return status;
     }
