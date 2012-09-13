@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InformeBimensual" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a2bfb59-7524-402c-852b-5e94a5319641">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="ID" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     DinformeBimensual.`idInformeBimensual` AS DinformeBimensual_idInformeBimensual,
+     DinformeBimensual.`idInscripcion` AS DinformeBimensual_idInscripcion,
+     DinformeBimensual.`estado` AS DinformeBimensual_estado,
+     DinformeBimensual.`numReporte` AS DinformeBimensual_numReporte,
+     DinformeBimensual.`inicioPeriodo` AS DinformeBimensual_inicioPeriodo,
+     DinformeBimensual.`terminoPeriodo` AS DinformeBimensual_terminoPeriodo,
+     DinformeBimensual.`horasBimestre` AS DinformeBimensual_horasBimestre,
+     DinformeBimensual.`minutosBimestre` AS DinformeBimensual_minutosBimestre,
+     DinformeBimensual.`horasAcumuladas` AS DinformeBimensual_horasAcumuladas,
+     DinformeBimensual.`minutosAcumulados` AS DinformeBimensual_minutosAcumulados,
+     DinformeBimensual.`actividades` AS DinformeBimensual_actividades,
+     DInscripcion.`idInscripcion` AS DInscripcion_idInscripcion,
+     DInscripcion.`tipo` AS DInscripcion_tipo,
+     DInscripcion.`estado` AS DInscripcion_estado,
+     DInscripcion.`horasRealizadas` AS DInscripcion_horasRealizadas,
+     DInscripcion.`minutosRealizados` AS DInscripcion_minutosRealizados,
+     DInscripcion.`idPrestador` AS DInscripcion_idPrestador,
+     DInscripcion.`idInstitucion` AS DInscripcion_idInstitucion,
+     DInscripcion.`idPlantel` AS DInscripcion_idPlantel,
+     DInscripcion.`carrera` AS DInscripcion_carrera,
+     DInscripcion.`matricula` AS DInscripcion_matricula,
+     DInscripcion.`programaInst` AS DInscripcion_programaInst,
+     DInscripcion.`cvePorgramaInst` AS DInscripcion_cvePorgramaInst,
+     DInscripcion.`idPrograma` AS DInscripcion_idPrograma,
+     DInscripcion.`programa` AS DInscripcion_programa,
+     DInscripcion.`cvePrograma` AS DInscripcion_cvePrograma,
+     DInscripcion.`area` AS DInscripcion_area,
+     DInscripcion.`semestre` AS DInscripcion_semestre,
+     MPrestador.`idPrestador` AS MPrestador_idPrestador,
+     MPrestador.`nControl` AS MPrestador_nControl,
+     MPrestador.`nombre` AS MPrestador_nombre,
+     MPrestador.`aPaterno` AS MPrestador_aPaterno,
+     MPrestador.`aMaterno` AS MPrestador_aMaterno,
+     MPrestador.`inscripcion` AS MPrestador_inscripcion,
+     CInstitucion.`idCInstitucion` AS CInstitucion_idCInstitucion,
+     CInstitucion.`nombre` AS CInstitucion_nombre,
+     CPlantel.`idCPlantel` AS CPlantel_idCPlantel,
+     CPlantel.`nombre` AS CPlantel_nombre
+FROM
+     `MPrestador` MPrestador INNER JOIN `DInscripcion` DInscripcion ON MPrestador.`idPrestador` = DInscripcion.`idPrestador`
+     INNER JOIN `DinformeBimensual` DinformeBimensual ON DInscripcion.`idInscripcion` = DinformeBimensual.`idInscripcion`
+     INNER JOIN `CInstitucion` CInstitucion ON DInscripcion.`idInstitucion` = CInstitucion.`idCInstitucion`
+     LEFT JOIN `CPlantel` CPlantel ON DInscripcion.`idPlantel` = CPlantel.`idCPlantel`
+WHERE
+     DinformeBimensual.`idInformeBimensual` = $P{ID}]]>
+	</queryString>
+	<field name="DinformeBimensual_idInformeBimensual" class="java.lang.Integer"/>
+	<field name="DinformeBimensual_idInscripcion" class="java.lang.Integer"/>
+	<field name="DinformeBimensual_estado" class="java.lang.Integer"/>
+	<field name="DinformeBimensual_numReporte" class="java.lang.Integer"/>
+	<field name="DinformeBimensual_inicioPeriodo" class="java.sql.Date"/>
+	<field name="DinformeBimensual_terminoPeriodo" class="java.sql.Date"/>
+	<field name="DinformeBimensual_horasBimestre" class="java.lang.Integer"/>
+	<field name="DinformeBimensual_minutosBimestre" class="java.lang.Integer"/>
+	<field name="DinformeBimensual_horasAcumuladas" class="java.lang.Integer"/>
+	<field name="DinformeBimensual_minutosAcumulados" class="java.lang.Integer"/>
+	<field name="DinformeBimensual_actividades" class="java.lang.String"/>
+	<field name="DInscripcion_idInscripcion" class="java.lang.Integer"/>
+	<field name="DInscripcion_tipo" class="java.lang.Integer"/>
+	<field name="DInscripcion_estado" class="java.lang.Integer"/>
+	<field name="DInscripcion_horasRealizadas" class="java.lang.Integer"/>
+	<field name="DInscripcion_minutosRealizados" class="java.lang.Integer"/>
+	<field name="DInscripcion_idPrestador" class="java.lang.Integer"/>
+	<field name="DInscripcion_idInstitucion" class="java.lang.Integer"/>
+	<field name="DInscripcion_idPlantel" class="java.lang.Integer"/>
+	<field name="DInscripcion_carrera" class="java.lang.String"/>
+	<field name="DInscripcion_matricula" class="java.lang.String"/>
+	<field name="DInscripcion_programaInst" class="java.lang.String"/>
+	<field name="DInscripcion_cvePorgramaInst" class="java.lang.String"/>
+	<field name="DInscripcion_idPrograma" class="java.lang.Integer"/>
+	<field name="DInscripcion_programa" class="java.lang.String"/>
+	<field name="DInscripcion_cvePrograma" class="java.lang.String"/>
+	<field name="DInscripcion_area" class="java.lang.String"/>
+	<field name="DInscripcion_semestre" class="java.lang.Integer"/>
+	<field name="MPrestador_idPrestador" class="java.lang.Integer"/>
+	<field name="MPrestador_nControl" class="java.lang.String"/>
+	<field name="MPrestador_nombre" class="java.lang.String"/>
+	<field name="MPrestador_aPaterno" class="java.lang.String"/>
+	<field name="MPrestador_aMaterno" class="java.lang.String"/>
+	<field name="MPrestador_inscripcion" class="java.lang.Integer"/>
+	<field name="CInstitucion_idCInstitucion" class="java.lang.Integer"/>
+	<field name="CInstitucion_nombre" class="java.lang.String"/>
+	<field name="CPlantel_idCPlantel" class="java.lang.Integer"/>
+	<field name="CPlantel_nombre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement uuid="b3b3c58e-da6d-49fa-aa83-b8ce779a5ca7" x="-1" y="0" width="556" height="79"/>
+				<imageExpression><![CDATA["/Users/gomezhyuuga/Proyectos/SiRASS/SiRASS/src/main/resources/reports/assets/header.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="26">
+			<staticText>
+				<reportElement uuid="153376c0-6eca-4ffa-8411-59991059b90c" x="112" y="0" width="330" height="25" forecolor="#990000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INFORME BIMENSUAL]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="637">
+			<rectangle radius="10">
+				<reportElement uuid="b0f20d99-d7b4-47b2-9788-150830278d36" mode="Transparent" x="0" y="43" width="480" height="100"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="59d4e2bd-4a29-4acf-8c46-e59c24e2b6dd" stretchType="RelativeToBandHeight" mode="Opaque" x="500" y="0" width="32" height="443" forecolor="#FFFFFF" backcolor="#990000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Right">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SERVICIO SOCIAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="59d4e2bd-4a29-4acf-8c46-e59c24e2b6dd" stretchType="RelativeToBandHeight" mode="Opaque" x="525" y="0" width="30" height="443" forecolor="#FFFFFF" backcolor="#990000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="Right">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COORDINACIÓN ACADÉMICA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7e8a3cbb-4760-43c0-aa69-f3db87276da8" x="207" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº Control:]]></text>
+			</staticText>
+			<elementGroup>
+				<staticText>
+					<reportElement uuid="e1ec85d0-1370-436d-8239-c176eb5fb1e2" x="79" y="113" width="38" height="10"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Semestre]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="19f94fff-cad3-4126-9f48-948c5a53686d" x="0" y="113" width="79" height="10"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Matrícula]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="98c98fe2-e71b-441d-9aac-b6ebf0e04e79" x="117" y="113" width="363" height="10"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Colegio o facultad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="5f4326a8-4d9e-4636-b3ba-cb77a0207aee" x="1" y="123" width="41" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Plantel:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="e1ec85d0-1370-436d-8239-c176eb5fb1e2" x="0" y="73" width="42" height="20"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Carrera:]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="22ba087e-7355-41fd-b0f2-863c4c0cd538" x="42" y="73" width="438" height="20"/>
+					<box>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DInscripcion_carrera}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="22ba087e-7355-41fd-b0f2-863c4c0cd538" x="0" y="93" width="79" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DInscripcion_matricula}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="22ba087e-7355-41fd-b0f2-863c4c0cd538" x="79" y="93" width="38" height="20"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DInscripcion_semestre}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="22ba087e-7355-41fd-b0f2-863c4c0cd538" x="117" y="93" width="363" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CInstitucion_nombre}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="22ba087e-7355-41fd-b0f2-863c4c0cd538" x="42" y="123" width="438" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CPlantel_nombre}]]></textFieldExpression>
+				</textField>
+			</elementGroup>
+			<elementGroup>
+				<staticText>
+					<reportElement uuid="1fec9193-4bfe-46b0-bab9-6401b89bf343" x="0" y="63" width="160" height="10"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7" isStrikeThrough="false"/>
+					</textElement>
+					<text><![CDATA[Nombre(s)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="66f91f85-6262-4e3d-b2a3-fea37492422c" x="160" y="63" width="160" height="10"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7" isStrikeThrough="false"/>
+					</textElement>
+					<text><![CDATA[Apellido Paterno]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="18d5dee5-2bd2-4815-a4a8-6e7cde983075" x="320" y="63" width="160" height="10"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7" isStrikeThrough="false"/>
+					</textElement>
+					<text><![CDATA[Apellido Materno]]></text>
+				</staticText>
+				<textField>
+					<reportElement uuid="22ba087e-7355-41fd-b0f2-863c4c0cd538" x="0" y="43" width="160" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{MPrestador_nombre}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="22ba087e-7355-41fd-b0f2-863c4c0cd538" x="160" y="43" width="160" height="20"/>
+					<box>
+						<leftPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{MPrestador_aPaterno}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="22ba087e-7355-41fd-b0f2-863c4c0cd538" x="320" y="43" width="160" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{MPrestador_aMaterno}]]></textFieldExpression>
+				</textField>
+			</elementGroup>
+			<rectangle radius="10">
+				<reportElement uuid="b870b58d-41ab-4ce6-92e6-3f16b63fedbc" mode="Transparent" x="1" y="167" width="479" height="120"/>
+			</rectangle>
+			<elementGroup>
+				<staticText>
+					<reportElement uuid="57c84bd2-66b1-4584-8fb2-f29c77878f2d" x="1" y="187" width="370" height="10"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+					<text><![CDATA[Programa institucional]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="57c84bd2-66b1-4584-8fb2-f29c77878f2d" x="371" y="187" width="109" height="10"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+					<text><![CDATA[Clave]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="57c84bd2-66b1-4584-8fb2-f29c77878f2d" x="1" y="247" width="479" height="10"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+					<text><![CDATA[Área o dependencia]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="22ba087e-7355-41fd-b0f2-863c4c0cd538" x="1" y="167" width="370" height="20"/>
+					<box>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DInscripcion_programaInst}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="22ba087e-7355-41fd-b0f2-863c4c0cd538" x="371" y="167" width="109" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DInscripcion_cvePorgramaInst}]]></textFieldExpression>
+				</textField>
+			</elementGroup>
+			<elementGroup>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="22ba087e-7355-41fd-b0f2-863c4c0cd538" x="1" y="197" width="370" height="20"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DInscripcion_programa}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="22ba087e-7355-41fd-b0f2-863c4c0cd538" x="371" y="197" width="109" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DInscripcion_cvePrograma}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="57c84bd2-66b1-4584-8fb2-f29c77878f2d" x="1" y="217" width="370" height="10"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+					<text><![CDATA[Asignado al programa interno]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="57c84bd2-66b1-4584-8fb2-f29c77878f2d" x="371" y="217" width="109" height="10"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+					<text><![CDATA[Clave interna]]></text>
+				</staticText>
+			</elementGroup>
+			<elementGroup>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="22ba087e-7355-41fd-b0f2-863c4c0cd538" x="1" y="227" width="479" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DInscripcion_area}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="57c84bd2-66b1-4584-8fb2-f29c77878f2d" x="1" y="277" width="206" height="10"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+					<text><![CDATA[Periodo reportado]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="57c84bd2-66b1-4584-8fb2-f29c77878f2d" x="207" y="277" width="177" height="10"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+					<text><![CDATA[Total de horas realizadas en el bimestre reportado]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="57c84bd2-66b1-4584-8fb2-f29c77878f2d" x="384" y="277" width="96" height="10"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+					<text><![CDATA[Total de horas acumuladas]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="6c1dd638-6bac-4ff1-82fc-96973317b282" x="94" y="257" width="20" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[al]]></text>
+				</staticText>
+				<textField pattern="dd-MMM-yyyy" isBlankWhenNull="true">
+					<reportElement uuid="22ba087e-7355-41fd-b0f2-863c4c0cd538" x="1" y="257" width="93" height="20"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DinformeBimensual_inicioPeriodo}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="22ba087e-7355-41fd-b0f2-863c4c0cd538" x="207" y="257" width="177" height="20"/>
+					<box>
+						<leftPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DinformeBimensual_horasBimestre}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement uuid="22ba087e-7355-41fd-b0f2-863c4c0cd538" x="384" y="257" width="96" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DinformeBimensual_horasAcumuladas}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd-MMM-yyyy" isBlankWhenNull="true">
+					<reportElement uuid="22ba087e-7355-41fd-b0f2-863c4c0cd538" x="114" y="257" width="93" height="20"/>
+					<textElement verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DinformeBimensual_terminoPeriodo}]]></textFieldExpression>
+				</textField>
+			</elementGroup>
+			<staticText>
+				<reportElement uuid="94c695a6-a20e-4014-b137-5fe1b9a0bbe9" x="1" y="0" width="57" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="8d84d8a7-018e-4534-8060-9f84391bb830" x="58" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{DinformeBimensual_numReporte}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ae9bdafe-06e8-48b3-bd1c-ec9c8981e6ba" x="307" y="0" width="145" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{MPrestador_nControl}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d3f421ee-9ab0-4d7b-aeff-9f0d1a31dd86" mode="Opaque" x="1" y="23" width="479" height="16" forecolor="#FFFFFF" backcolor="#999999"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DATOS ESCOLARES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d3f421ee-9ab0-4d7b-aeff-9f0d1a31dd86" mode="Opaque" x="1" y="147" width="479" height="16" forecolor="#FFFFFF" backcolor="#999999"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[DATOS DEL PROGRAMA]]></text>
+			</staticText>
+			<rectangle radius="10">
+				<reportElement uuid="f09f3ba1-e073-45ad-b76a-053e0fe297cc" mode="Transparent" x="-1" y="298" width="481" height="145"/>
+			</rectangle>
+			<rectangle radius="10">
+				<reportElement uuid="57a6a511-a8a9-4ceb-84c8-74f4a1770b1c" mode="Transparent" x="1" y="495" width="479" height="103"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="2834cccf-bbb5-48ee-b135-a6f7703f17b8" x="-1" y="298" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Actividades:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="70725eb7-dbf8-4593-a47c-f49de959b19a" x="-1" y="318" width="481" height="125"/>
+				<box leftPadding="6" rightPadding="4"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DinformeBimensual_actividades}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e6d766a7-717f-4aae-a3c8-b0d7d3d2f86b" x="1" y="447" width="479" height="25"/>
+				<textElement>
+					<font size="6" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Las firmas que validan el informe deberán asentarse preferentemente en la misma hoja en caso de no ser así se tendrá que agregar la siguiente  leyenda:
+“Las presentes firmas forman parte integral  del Informe Bimensual No. (Número de informe reportado o Informe Final de Actividades) del prestador de Servicio Social Nombre completo del prestador. No. de Control:_____________________ Periodo reportado:____________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d3f421ee-9ab0-4d7b-aeff-9f0d1a31dd86" mode="Opaque" x="1" y="475" width="479" height="16" forecolor="#FFFFFF" backcolor="#999999"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[AUTORIZACIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="57c84bd2-66b1-4584-8fb2-f29c77878f2d" x="1" y="528" width="160" height="21"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Firma del Prestador de Servicio Social]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="57c84bd2-66b1-4584-8fb2-f29c77878f2d" x="161" y="528" width="160" height="21"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[(Nombre, Firma y Cargo del Responsable del Programa)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="57c84bd2-66b1-4584-8fb2-f29c77878f2d" x="321" y="528" width="159" height="21"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Lic. Martha G. Tera Ponce
+Responsable de la Oficina de Servicio  Social de la UACM
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="57c84bd2-66b1-4584-8fb2-f29c77878f2d" x="0" y="578" width="161" height="20"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[(Nombre, firma y Cargo del Supervisor o Jefe Inmediato)]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement uuid="e0de43e0-7f7d-45d3-80c9-824ea8d6453d" mode="Transparent" x="161" y="495" width="160" height="103"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="35505276-1859-49ac-b84c-496944c918bf" x="1" y="602" width="479" height="25"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[NOTA: ESTE REPORTE DEBERÁ SER LLENADO A MÁQUINA, ENTREGADO CADA DOS MESES EN ORIGINAL Y COPIA, DENTRO DE LOS PRIMEROS 5 DÍAS HÁBILES DE LA FECHA DE TERMINO DEL MISMO, (No es válido si presenta tachaduras, enmendaduras y/o correcciones).
+NOTA: Las firmas tendrán que estar en la misma hoja.]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="26">
+			<staticText>
+				<reportElement uuid="4aa57e32-5b1c-40a7-91db-774de96b76d5" x="468" y="0" width="87" height="20" forecolor="#999999"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FORMATO 008]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>
