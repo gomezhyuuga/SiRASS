@@ -6,7 +6,7 @@
             <generator class="native" />
         </id>
         <property column="idInscripcion" length="11" name="idInscripcion" not-null="true" type="integer"/>
-        <property column="horasAcumuladas" length="4" name="horasAcumuladas" not-null="true" type="short"/>
+        <property column="horasAcumuladas" name="horasAcumuladas" not-null="true" type="int"/>
         <property name="introduccion" column="introduccion" type="text" not-null="true" />
         <property name="objetivoGeneral" column="objetivoGral" type="text" not-null="true" />
         <property name="actividades" column="actividades" type="text" not-null="true" />

@@ -227,7 +227,7 @@ public class InscripcionDAO extends DAO {
      * @param idInscripcion - ID de la inscripción
      * @return Las horas acumuladas pudiendo ser 0 <= horas <= 480
      */
-    public short getHorasRealizadas(int idInscripcion) {
+    public int getHorasRealizadas(int idInscripcion) {
         Criterion criterio = Restrictions.eq("idInscripcion", idInscripcion);
         return this.getHorasRealizadas(criterio);
     }
@@ -241,10 +241,10 @@ public class InscripcionDAO extends DAO {
         return observaciones;
     }
     
-    private short getHorasRealizadas(Criterion crit) {
+    private int getHorasRealizadas(Criterion crit) {
         // Obtener solamente horas realizadas
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Short horas = (Short) session.createCriteria(Inscripcion.class)
+        Integer horas = (Integer) session.createCriteria(Inscripcion.class)
                 .add(crit)
                 .setProjection(Projections.property("horasRealizadas"))
                 .uniqueResult();

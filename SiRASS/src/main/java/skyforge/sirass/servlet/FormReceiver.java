@@ -12,13 +12,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import skyforge.sirass.dao.prestador.ControlHorasDAO;
-import skyforge.sirass.dao.prestador.InformeBimensualDAO;
-import skyforge.sirass.dao.prestador.InscripcionDAO;
-import skyforge.sirass.dao.prestador.PrestadorDAO;
+import skyforge.sirass.dao.prestador.*;
 import skyforge.sirass.dao.user.UsuarioDAO;
 import skyforge.sirass.form.prestador.ControlHorasForm;
 import skyforge.sirass.form.prestador.InformeBimensualForm;
+import skyforge.sirass.form.prestador.InformeFinalForm;
 import skyforge.sirass.form.prestador.InscripcionForm;
 import skyforge.sirass.model.prestador.*;
 import skyforge.sirass.model.user.Usuario;
@@ -66,6 +64,9 @@ public class FormReceiver extends HttpServlet {
             } else if (clase.equals("EnvioInformeBim")) {
                 System.out.println("Registrando un informe bimensual....");
                 status = this.registroInformeBim(map, user);
+            } else if (clase.equals("EnvioInformeFin")) {
+                System.out.println("Registrando un informe final....");
+                status = this.registroInformeFin(map, user);
             } else if (clase.equals("ActualizarInformeBim")) {
                 System.out.println("Actualizando un informe bimensual....");
                 status = this.updateInformeBim(map, user);
@@ -275,6 +276,37 @@ public class FormReceiver extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("ERROR ACTUALIZANDO INFORME BIMENSUAL");
+            }
+        }
+        return status;
+    }
+
+    private int registroInformeFin(Map<String, String[]> map, String user) {
+        int status = 0;
+        if (map.get("inscripcion") != null) {
+            try {
+                int id = Integer.parseInt(map.get("inscripcion")[0]);
+                InformeFinalForm form = new InformeFinalForm(map, user);
+                InformeFinalDAO finalDAO = new InformeFinalDAO();
+                InformeFinal informe;
+                informe = form.getObject(null);
+                InscripcionDAO idao = new InscripcionDAO();
+                
+                int horas = idao.getHorasRealizadas(id);
+                if (horas > 0) {
+                    informe.setHorasAcumuladas(horas);
+                    
+                    informe.setEstado(new EstadoReporte(EstadoReporte.SIN_REVISION));
+                    informe.setCreacion(new Date());
+                    informe.setUltimaModif(new Date());
+
+                    status = finalDAO.insert(informe);
+                } else {
+                    System.out.println("SIN HORAS ACUMULADAS FINALES");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("ERROR ACTUALIZANDO INFORME FINAL");
             }
         }
         return status;
