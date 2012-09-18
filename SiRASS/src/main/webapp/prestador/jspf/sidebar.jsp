@@ -34,7 +34,7 @@
 							Informe Bimensual
 						</a>
 					</li>
-			                        <li id="revFin"><a href="/SiRASS/prestador/final/revision.jsp">
+			                        <li id="revFin"><a href="/SiRASS/prestador/final/ver.jsp">
 						<i class="icon-eye-open"></i>
 							Informe Final
 						</a>

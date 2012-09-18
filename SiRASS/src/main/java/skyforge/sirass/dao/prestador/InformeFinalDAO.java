@@ -25,6 +25,11 @@ public class InformeFinalDAO extends DAO {
         return super.insert(informe);
     }
     
+    /**
+     * Devuelve el informe final asociado a cierta inscripción
+     * @param idInscripcion
+     * @return InformeFinal. Si no se encuentra devuelve null.
+     */
     public InformeFinal getByInscripcion(int idInscripcion) {
         InformeFinal informe = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -34,10 +39,12 @@ public class InformeFinalDAO extends DAO {
                 .setFetchMode("estado", FetchMode.JOIN)
                 .addOrder(Order.desc("creacion"))
                 .list();
+        session.close();
         if (list != null && !list.isEmpty()) {
             informe = (InformeFinal) list.get(0);
+            return informe;
+        } else {
+            return null;
         }
-        session.close();
-        return informe;
     }
 }

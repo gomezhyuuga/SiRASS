@@ -21,12 +21,21 @@ public class InformeFinal implements Serializable {
     private String metasAlcanzadas;
     private String resultados;
     private EstadoReporte estado;
+    private String observaciones;
     // Del registro
     private String modificadoPor;
     private Date ultimaModif;
     private Date creacion;
 
     public InformeFinal() {
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
     }
 
     public Integer getHorasAcumuladas() {
