@@ -16,7 +16,7 @@
 <html>
     <head>
         <jsp:include page="/WEB-INF/jspf/head.jsp">
-            <jsp:param name="title" value="Bienvenido Administrador" />
+            <jsp:param name="title" value="Bienvenido Institución" />
         </jsp:include>
     </head>
     <body>
@@ -220,8 +220,8 @@
                                                 <button class = "btn btn-large" type ="reset">Limpiar campos</button>
                                             </div>                                            
                                         </div>
-                                </form>
                             </div>
+                                </form>
                         </div>
                     </div>
                 </div>

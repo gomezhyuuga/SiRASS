@@ -10,9 +10,6 @@
 						<a href="/SiRASS/programas">Programas</a>
 					</li>
 					<li>
-						<a href="/SiRASS/institucion/">Programas</a>
-					</li>
-					<li>
 						<a href="/SiRASS/ayuda">Ayuda</a>
 					</li>
 		    	</ul>

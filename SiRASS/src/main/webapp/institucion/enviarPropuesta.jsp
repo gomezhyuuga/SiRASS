@@ -12,7 +12,7 @@
 <html>
     <head>
         <jsp:include page="/WEB-INF/jspf/head.jsp">
-            <jsp:param name="title" value="Bienvenido Administrador" />
+            <jsp:param name="title" value="Bienvenido Institución" />
         </jsp:include>
     </head>
     <body>
@@ -51,38 +51,6 @@
                                     <!-- Datos del programa y caracteristicas
                                     ====================================== -->
                                     <input type="hidden" id="usuario" name="usuario" value ="<%= request.getUserPrincipal().getName()%>" />
-                                    <div class="tab-pane" id="tab4">
-                                        <div class="row well">
-                                            <fieldset>
-                                                <legend>Responsable del programa</legend>
-                                                <div class = "control-group">
-                                                    <label class = "control-label" for = "respoIns"> Responsable </label>
-                                                    <div class = "controls">
-                                                        <input type = "text" id = "respoIns" name = "respoIns" maxlength = "100"/>
-                                                    </div>
-                                                </div>
-                                                <div class = "control-group">
-                                                    <label class = "control-label" for = "cargoRespoIns"> Cargo: </label>
-                                                    <div class = "controls">
-                                                        <input type = "text" id = "cargoRespoIns" name = "cargoRespoIns" maxlength = "100"/>
-                                                    </div>
-                                                </div>
-                                                <div class="control-group">
-                                                    <label class="control-label" for="emailInst">Email:</label>
-                                                    <div class="controls">
-                                                        <div class="input-prepend">
-                                                            <span class="add-on">
-                                                                <i class="icon-envelope"></i>
-                                                            </span>
-                                                        </div><input class="input-large" type="text" id="emailInst" name="emailInst" maxlength="30" />
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-                                        </div>
-                                        <div class="form-actions">
-                                            <h6>Pulsa en <a href="#" id="next">Observaciones del Programa</a> para continuar</h6>
-                                        </div>
-                                    </div>
                                     <div class="tab-pane active" id="tab1">
                                         <!-- datos del programa -->
                                         <div class = "row well">
@@ -284,6 +252,38 @@
                                             <h6>Pulsa en <a href="#" id="next">Responsable</a> para continuar</h6>
                                         </div>
                                     </div>
+                                    <div class="tab-pane" id="tab4">
+                                        <div class="row well">
+                                            <fieldset>
+                                                <legend>Responsable del programa</legend>
+                                                <div class = "control-group">
+                                                    <label class = "control-label" for = "respoIns"> Responsable </label>
+                                                    <div class = "controls">
+                                                        <input type = "text" id = "respoIns" name = "respoIns" maxlength = "100"/>
+                                                    </div>
+                                                </div>
+                                                <div class = "control-group">
+                                                    <label class = "control-label" for = "cargoRespoIns"> Cargo: </label>
+                                                    <div class = "controls">
+                                                        <input type = "text" id = "cargoRespoIns" name = "cargoRespoIns" maxlength = "100"/>
+                                                    </div>
+                                                </div>
+                                                <div class="control-group">
+                                                    <label class="control-label" for="emailInst">Email:</label>
+                                                    <div class="controls">
+                                                        <div class="input-prepend">
+                                                            <span class="add-on">
+                                                                <i class="icon-envelope"></i>
+                                                            </span>
+                                                        </div><input class="input-large" type="text" id="emailInst" name="emailInst" maxlength="30" />
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                        <div class="form-actions">
+                                            <h6>Pulsa en <a href="#" id="next">Observaciones del Programa</a> para continuar</h6>
+                                        </div>
+                                    </div>
                                     <div class="tab-pane" id="tab5">
                                         <div class="row well">
                                             <fieldset>
@@ -296,10 +296,10 @@
                                                 </div>
                                             </fieldset>
                                         </div>
-                                    <!-- botón de accion -->
-                                    <div class = "form-actions">
-                                        <button class = "btn btn-primary btn-large" type = "submit">Enviar Datos</button>
-                                    </div>
+                                        <!-- botón de accion -->
+                                        <div class = "form-actions">
+                                            <button class = "btn btn-primary btn-large" type = "submit">Enviar Datos</button>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
