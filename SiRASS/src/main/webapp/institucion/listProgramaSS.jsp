@@ -31,13 +31,10 @@
                     <td class="center"><%=p.getVacantes()%></td>
                     <td class="center"><%=p.getOcupadas()%></td>
                     <td>
-                        <form action="viewProgramSS.jsp" method="get">
-                            <button name="idPrograma" class="btn btn-small btn-warning"
-                                    value="<%=p.getIdPrograma()%>" type="submit">
+                        <a href="../programas/detalles.jsp?id=<%=p.getIdPrograma()%>" target="_blank" class="btn btn-small btn-warning">
                                 <i class="icon-info-sign icon-white"></i>
                                 Ver
-                            </button>
-                        </form>
+                            </a>
                     </td>
                 </tr>
                 <% } %>
