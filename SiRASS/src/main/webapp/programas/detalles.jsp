@@ -144,7 +144,12 @@
 		    		<p>- <%= tp.getDescripcion() %></p>
                                 <% } %>
 		    	<h3>Duraci&oacute;n</h3>
-                        <p><%= progamaSS.getTiempo().getDescripcion() %> <strong>Vigencia </strong><%= progamaSS.getFechaTiempo() %></p>
+                        <% String vigen = String.valueOf(progamaSS.getFechaTiempo());
+                           if(vigen == "null"){
+                               vigen = "no asignado";
+                           }
+                        %>
+                        <p><%= progamaSS.getTiempo().getDescripcion() %> <strong>Vigencia </strong><%= vigen %></p>
 		    	<h3>Alcance</h3>
                                 <%while(it1.hasNext()){
                                     AlcancePrograma al = (AlcancePrograma) it1.next();
@@ -200,6 +205,12 @@
 		  </div>
 		</div>
         <%  if (request.isUserInRole("admin")) {%>
+        <h6 class="right">ID: <%= progamaSS.getIdPrograma() %></h6>
+        <h6 class="right">Creaci&oacute;n: <%= progamaSS.getCreacion() %></h6>
+        <h6 class="right">Ultima Modificaci&oacute;n: <%= progamaSS.getUltimaModif() %></h6>
+        <h6 class="right">Modificado Por: <%= progamaSS.getModificadoPor() %></h6>
+        <%  }%>
+        <%  if (request.isUserInRole("institucion")) {%>
         <h6 class="right">ID: <%= progamaSS.getIdPrograma() %></h6>
         <h6 class="right">Creaci&oacute;n: <%= progamaSS.getCreacion() %></h6>
         <h6 class="right">Ultima Modificaci&oacute;n: <%= progamaSS.getUltimaModif() %></h6>

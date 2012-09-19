@@ -10,17 +10,9 @@
 						<a href="/SiRASS/programas">Programas</a>
 					</li>
 					<li>
-						<a href="/SiRASS/institucion/">Programas</a>
-					</li>
-					<li>
 						<a href="/SiRASS/ayuda">Ayuda</a>
 					</li>
 		    	</ul>
-		    	<form class="navbar-search pull-left" method="post" action="">
-		    		<input class="search-query"
-		    			placeholder="Buscar prestador..."
-			    		type="text" name="search" value="" />
-		    	</form>
 				<!-- opciones de cuenta -->
 				<ul class="nav pull-right">
 					<li class="divider-vertical"></li>

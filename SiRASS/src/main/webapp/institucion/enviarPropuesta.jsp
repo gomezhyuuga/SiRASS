@@ -1,7 +1,7 @@
 <%-- 
-    Document   : admin
+    Document   : enviarPropuesta
     Created on : 10-jul-2012, 16:16:52
-    Author     : gomezhyuuga
+    Author     : JL Macías
 --%>
 
 <%@page import="java.util.Calendar"%>
@@ -12,7 +12,7 @@
 <html>
     <head>
         <jsp:include page="/WEB-INF/jspf/head.jsp">
-            <jsp:param name="title" value="Bienvenido Administrador" />
+            <jsp:param name="title" value="Bienvenido Institución" />
         </jsp:include>
     </head>
     <body>
