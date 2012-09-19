@@ -26,7 +26,7 @@
 <html>
     <head>
         <jsp:include page="/WEB-INF/jspf/head.jsp">
-            <jsp:param name="title" value="Bienvenido Institución" />
+            <jsp:param name="title" value="Bienvenido Administrador" />
         </jsp:include>
     </head>
     <body>

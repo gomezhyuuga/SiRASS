@@ -1,7 +1,7 @@
 <%-- 
-    Document   : editarPrograma
+    Document   : admin
     Created on : 10-jul-2012, 16:16:52
-    Author     : JL Macías
+    Author     : gomezhyuuga
 --%>
 
 <%@page import="skyforge.sirass.model.programass.ResponsablePrograma"%>
@@ -16,7 +16,7 @@
 <html>
     <head>
         <jsp:include page="/WEB-INF/jspf/head.jsp">
-            <jsp:param name="title" value="Bienvenido Institución" />
+            <jsp:param name="title" value="Bienvenido Administrador" />
         </jsp:include>
     </head>
     <body>
