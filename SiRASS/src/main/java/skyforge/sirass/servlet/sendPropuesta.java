@@ -95,8 +95,8 @@ public class sendPropuesta extends HttpServlet {
         prog.setResultados(request.getParameter("resulProgIns"));
         prog.setLugar(request.getParameter("lugarProgIns"));
         int pv = Integer.parseInt(request.getParameter("vacanProgIns"));
-        prog.setPlazas(pv);
-        prog.setVacantes(pv);
+        prog.setPlazas(0);
+        prog.setVacantes(0);
         System.err.println("------------------------");
         System.err.println("plazas "+ prog.getPlazas());
         System.err.println("vacantes "+prog.getVacantes());

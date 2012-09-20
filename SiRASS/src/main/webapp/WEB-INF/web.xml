@@ -32,6 +32,10 @@
         <servlet-name>sendPropuesta</servlet-name>
         <servlet-class>skyforge.sirass.servlet.sendPropuesta</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>actualDate</servlet-name>
+        <servlet-class>skyforge.sirass.servlet.actualDate</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>sendPropuesta</servlet-name>
         <url-pattern>/sendPropuesta</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>actualDate</servlet-name>
+        <url-pattern>/actualDate</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

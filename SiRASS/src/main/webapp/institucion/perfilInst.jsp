@@ -67,7 +67,7 @@
                                         <fieldset>
                                             <legend>Datos de la unidad prestataria</legend>
                                             <input type="hidden" id="idInstituto" name="idInstituto" value ="<%= ins.getIdInstitucion()%>" />
-                                            <input type="hidden" id="processProfile" name ="processProfile" value ="Institucion" />
+                                            <input type="hidden" id="idR" name ="idR" value ="Institucion" />
                                             <div class="control-group">
                                                 <label class="control-label" for="nombreInst">Instituci&oacute;n:</label>
                                                 <div class="controls">
