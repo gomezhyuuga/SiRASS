@@ -30,7 +30,6 @@ public class InstitucionDAO extends DAO {
         Transaction transaction = session.beginTransaction();
         Query query = null;
         try {
-            Date curDate = new Date();
             String q = "update Institucion set domicilio=?, responsable=?, "
                     + "cargo=?, tel=?, telExt=?, email=?, modificadoPor=?, "
                     + "ultimaModif=? WHERE idInstitucion=?";

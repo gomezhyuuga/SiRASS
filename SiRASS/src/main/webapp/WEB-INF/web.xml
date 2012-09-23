@@ -36,6 +36,10 @@
         <servlet-name>actualDate</servlet-name>
         <servlet-class>skyforge.sirass.servlet.actualDate</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>upPrograma</servlet-name>
+        <servlet-class>skyforge.sirass.servlet.upPrograma</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -71,6 +75,10 @@
     <servlet-mapping>
         <servlet-name>actualDate</servlet-name>
         <url-pattern>/actualDate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>upPrograma</servlet-name>
+        <url-pattern>/upPrograma</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import skyforge.sirass.dao.institucion.InstitucionDAO;
+import skyforge.sirass.dao.user.UsuarioDAO;
 import skyforge.sirass.model.institucion.Institucion;
 
 /**
@@ -29,25 +30,24 @@ public class actualDate extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     java.util.Date utilDate = new java.util.Date();
     java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(utilDate.getTime());
-    int stat = 0;
-    
+    int stat = 0, stat2 = 0;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-            if(!request.getParameter("idR").equals(null)){
-                if(request.getParameter("idR").equals("Institucion")){
-                    this.upDatosInstitucion(request, response);
-                }
-                if(request.getParameter("idR").equals("Administrador")){
-                    this.upDatosAdministrador(request, response);
-                }
-                if(request.getParameter("idR").equals("Prestador")){
-                    this.upDatosPrestador(request, response);
-                }
+        if (!request.getParameter("idR").equals(null)) {
+            if (request.getParameter("idR").equals("Institucion")) {
+                this.upDatosInstitucion(request, response);
             }
+            if (request.getParameter("idR").equals("Administrador")) {
+                this.upDatosAdministrador(request, response);
+            }
+            if (request.getParameter("idR").equals("Prestador")) {
+                this.upDatosPrestador(request, response);
+            }
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -95,7 +95,7 @@ public class actualDate extends HttpServlet {
         String domic, respo, cargo, tel, tex, mail, modby;
         int idins;
         InstitucionDAO idao = new InstitucionDAO();
-        Institucion institucion = new Institucion();
+        UsuarioDAO udao = new UsuarioDAO();
         domic = String.valueOf(request.getParameter("domiU"));
         respo = String.valueOf(request.getParameter("responU"));
         cargo = String.valueOf(request.getParameter("cargoResU"));
@@ -104,12 +104,16 @@ public class actualDate extends HttpServlet {
         mail = String.valueOf(request.getParameter("emailInst"));
         idins = Integer.parseInt(request.getParameter("idInstituto"));
         modby = String.valueOf(request.getParameter("usuario"));
-        
+
         stat = idao.upIns(domic, respo, cargo, tel, tex, mail, modby, idins);
-        if(stat == 1){
-            response.sendRedirect(request.getContextPath() + "/institucion/");
-        }
-        else{
+        if (stat == 1) {
+            stat2 = udao.upPass(request.getParameter("usuario"), request.getParameter("npassword"), request.getParameter("passwordVeif"));
+            if (stat2 == 1) {
+                response.sendRedirect(request.getContextPath() + "/institucion/");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/institucion/perfilInst.jsp");
+            }
+        } else {
             response.sendRedirect(request.getContextPath() + "/institucion/perfilInst.jsp");
         }
     }

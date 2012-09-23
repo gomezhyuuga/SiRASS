@@ -167,17 +167,34 @@ public class UsuarioDAO extends DAO {
             else return 0;
         }
 
-        public int upPass(Usuario user, String command) {
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            Transaction transaction = session.beginTransaction();
-            int updateDates = session.createQuery(command)
-                    .setString("npass", user.getPassword())
-                    .setString("modifyBy", user.getModificadoPor())
-                    .setString("ultimod", String.valueOf(user.getUltimaModif()))
-                    .setString("usuario", user.getUsuario())
-                    .executeUpdate();
-            transaction.commit();
-            session.close();
-            return updateDates;
+        public int upPass(String user, String nPass, String vPass) {
+            String passCorrecto;
+            int stat = 0;
+            if(nPass.equals(vPass)){
+                passCorrecto = nPass;
+                java.util.Date utilDate = new java.util.Date();
+                java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(utilDate.getTime());
+                Session session = HibernateUtil.getSessionFactory().openSession();
+                Transaction transaction = session.beginTransaction();
+                Query query = null;
+
+                String q = "update Usuario set password=?, modificadoPor=?, "
+                        + "ultimaModif=? WHERE usuario=?";
+                query = session.createQuery(q);
+                query.setString(0, passCorrecto);
+                query.setString(1, user);
+                query.setDate(2, sqlTimestamp);
+                query.setString(3, user);
+                int rows = query.executeUpdate();
+                transaction.commit();
+                if(rows > 0){
+                    stat = 1;
+                }
+            }
+            if(!nPass.equals(vPass)){
+                stat = 0;
+            }
+
+            return stat;
         }
 }

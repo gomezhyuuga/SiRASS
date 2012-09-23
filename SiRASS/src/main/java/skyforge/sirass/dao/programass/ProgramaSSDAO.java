@@ -284,14 +284,15 @@ public class ProgramaSSDAO extends DAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         transaction.begin();
-        int stat = session.createQuery(command).setString("nameProg", programaSS.getNombre())
-                .setString("objG", programaSS
-                .getObjGeneral())
+        int stat = session.createQuery(command)
+                .setString("nameProg", programaSS.getNombre())
+                .setString("objG", programaSS.getObjGeneral())
                 .setString("desa", programaSS.getDesarrollo())
                 .setString("obs", programaSS.getObservaciones())
                 .setString("mp", programaSS.getModificadoPor())
                 .setString("um", String.valueOf(programaSS.getUltimaModif()))
-                .setString("id", String.valueOf(programaSS.getIdPrograma())).executeUpdate();
+                .setString("id", String.valueOf(programaSS.getIdPrograma()))
+                .executeUpdate();
         transaction.commit();
         session.close();
         return stat;
