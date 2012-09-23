@@ -79,6 +79,7 @@
                                                             j++;
                                                             ResponsablePrograma resp = (ResponsablePrograma) it3.next();
                                                     %>
+                                                    <input type="hidden" name="respon<%= j%>" id ="respon<%= j%>" value ="<%= resp.getIdResponsable() %>" />
                                                     <div class = "control-group">
                                                         <label class = "control-label" for = "respoIns"> Responsable </label>
                                                         <div class = "controls">
@@ -175,6 +176,7 @@
                                                             ActividadPrograma act = (ActividadPrograma) it.next();
                                                             String licen = act.getLicenciatura();
                                                     %>
+                                                    <input type="hidden" name="actividad<%= i%>" id ="actividad<%= i%>" value ="<%= act.getIdActividad() %>" />
                                                     <div class = "control-group">
                                                         <label class = "control-label" for = "licenProg"> Licenciatura: </label>
                                                         <div class = "controls">
@@ -194,7 +196,7 @@
                                                         </div>
                                                     </div>
                                                     <% }%>
-                                                    <input type="hidden" name="ultimaLicen" value="<%= i%>" />
+                                                    <input type="hidden" name="ultimaLicen" id="ultimaLicen" value="<%= i%>" />
                                                     <!--<button class = "btn btn-info" type = "button"><i class="icon-plus icon-white"></i> Agregar</button>
                                                     <p class = "help-block"><em> Si quieres agregar otra licenciatura presiona el bot&oacute;n</em></p>-->
                                                 </fieldset> <!-- Fin perfil Academico -->
