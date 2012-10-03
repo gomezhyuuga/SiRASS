@@ -222,25 +222,35 @@
                                         <!-- Perfil academico -->
                                         <div class = "row well">
                                             <fieldset>
-                                                <legend>Perfil Acad&eacute;mico</legend>
-                                                <div class = "control-group">
-                                                    <label class = "control-label" for = "actProgIns"> Actividades: </label>
-                                                    <div class = "controls">
-                                                        <textarea name = "actProgIns" id = "actProgIns" rows = "5" maxlength = "400" placeholder = "Write 5 activities how min in MAX 400 chars" ></textarea>
-                                                    </div>
+                                                <legend class="center">Perfil Acad&eacute;mico</legend>
+                                                <div class="span5" style="text-align: right;">
+                                                    <a class="btn btn-primary" id="addLicen">Agregar Licenciatura</a>
+                                                    <p style="text-align: left;" class = "help-block"><em> Si quieres agregar otra licenciatura presiona el bot&oacute;n</em></p>
                                                 </div>
-                                                <div class = "control-group">
-                                                    <label class = "control-label" for = "licenProgIns"> Licenciatura: </label>
-                                                    <div class = "controls">
-                                                        <input type = "text" name = "licenProgIns" id = "licenProgIns" maxlength ="50" />
-                                                    </div>
-                                                </div>
-                                                <div class = "control-group">
-                                                    <label class = "control-label" for = "vacanProgIns"> No. Vacantes: </label>
-                                                    <div class = "controls">
-                                                        <input class="input-small" type = "text" name = "vacanProgIns" id = "vacanProgIns" maxlength ="3" />
-                                                    </div>
-                                                </div>
+                                                <table class="table table-condensed " id="table-acts">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Licenciatura</th>
+                                                            <th>Vacantes</th>
+                                                            <th>Actividades</th>
+                                                            <th>Eliminar</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="rows-acts">
+                                                        <tr id="row1">
+                                                            <td>
+                                                                <input class="input-large" type = "text" name = "licenProgIns" id = "licenProgIns" maxlength ="50" />
+                                                            </td>
+                                                            <td> 
+                                                                <input class="input-mini" type = "text" name = "vacanProgIns" id = "vacanProgIns" maxlength ="3" />
+                                                            </td>
+                                                            <td>
+                                                                <textarea name = "actProgIns" id = "actProgIns" rows = "5" maxlength = "400" placeholder = "Escribe 5 actividades como como mínimo en MAX 400 letras" ></textarea>
+                                                            </td>
+                                                            <td><input class="btn btn-mini btn-danger" type="button" id="elim1" onclick="delRowAct(1)" value="Eliminar" /></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                                 <!--<button class = "btn btn-info" type = "button"><i class="icon-plus icon-white"></i> Agregar</button>
                                                 <p class = "help-block"><em> Si quieres agregar otra licenciatura presiona el bot&oacute;n</em></p>-->
                                             </fieldset> <!-- Fin perfil Academico -->
@@ -253,28 +263,34 @@
                                         <div class="row well">
                                             <fieldset>
                                                 <legend>Responsable del programa</legend>
-                                                <div class = "control-group">
-                                                    <label class = "control-label" for = "respoIns"> Responsable </label>
-                                                    <div class = "controls">
-                                                        <input type = "text" id = "respoIns" name = "respoIns" maxlength = "100"/>
-                                                    </div>
+                                                <div class="span5" style="text-align: right;">
+                                                    <a class="btn btn-primary" id="addRespon">Agregar Responsable</a>
+                                                    <p style="text-align: left;" class = "help-block"><em> Si quieres agregar otro responsable presiona el bot&oacute;n</em></p>
                                                 </div>
-                                                <div class = "control-group">
-                                                    <label class = "control-label" for = "cargoRespoIns"> Cargo: </label>
-                                                    <div class = "controls">
-                                                        <input type = "text" id = "cargoRespoIns" name = "cargoRespoIns" maxlength = "100"/>
-                                                    </div>
-                                                </div>
-                                                <div class="control-group">
-                                                    <label class="control-label" for="emailInst">Email:</label>
-                                                    <div class="controls">
-                                                        <div class="input-prepend">
-                                                            <span class="add-on">
-                                                                <i class="icon-envelope"></i>
-                                                            </span>
-                                                        </div><input class="input-large" type="text" id="emailInst" name="emailInst" maxlength="30" />
-                                                    </div>
-                                                </div>
+                                                <table class="table table-condensed " id="table-acts">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Resposable</th>
+                                                            <th>Cargo</th>
+                                                            <th><span class="add-on"><i class="icon-envelope"></i></span>Email</th>
+                                                            <th>Eliminar</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="rows-respo">
+                                                        <tr id="row1">
+                                                            <td>
+                                                                <input class="input-medium" type = "text" id = "respoIns" name = "respoIns" maxlength = "100"/>
+                                                            </td>
+                                                            <td> 
+                                                                <input class="input-medium" type = "text" id = "cargoRespoIns" name = "cargoRespoIns" maxlength = "100"/>
+                                                            </td>
+                                                            <td>
+                                                                <input class="input-medium" type="text" id="emailInst" name="emailInst" maxlength="30" />
+                                                            </td>
+                                                            <td><input class="btn btn-mini btn-danger" type="button" id="elim1" onclick="delRowAct(1)" value="Eliminar" /></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </fieldset>
                                         </div>
                                         <div class="form-actions">
@@ -288,7 +304,7 @@
                                                 <div class = "control-group">
                                                     <label class = "control-label" for = "obsProgIns">  Observaciones: </label>
                                                     <div class = "controls">
-                                                        <textarea class="span5" id = "obsProgIns" name = "obsProgIns" maxlength = "600" placeholder = "write information about this in max 600 chars"></textarea>
+                                                        <textarea class="span5" id = "obsProgIns" name = "obsProgIns" maxlength = "600" placeholder = "Escribe informaci&oacute;n sobre esto en MAX 600 letras"></textarea>
                                                     </div>
                                                 </div>
                                             </fieldset>
