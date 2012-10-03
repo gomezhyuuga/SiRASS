@@ -4,6 +4,11 @@
     Author     : gomezhyuuga
 --%>
 
+<%@page import="java.util.Iterator"%>
+<%@page import="skyforge.sirass.model.programass.TipoPrograma"%>
+<%@page import="java.util.List"%>
+<%@page import="com.sun.org.apache.bcel.internal.generic.AALOAD"%>
+<%@page import="skyforge.sirass.dao.programass.tipoProgramaDAO"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.util.GregorianCalendar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -46,11 +51,10 @@
                         <!-- Formulario
                         ============================================== -->
                         <div id = "formulario">
-                            <form method="post" action="/SiRASS/sendPropuesta" name = "enviaPropuesta" id = "enviaPropuesta" class = "form-horizontal">
+                            <form method="post" action="#" name = "enviaPropuesta" id = "enviaPropuesta" class = "form-horizontal">
                                 <div class ="tab-content">
                                     <!-- Datos del programa y caracteristicas
                                     ====================================== -->
-                                    <input type="hidden" id="usuario" name="usuario" value ="<%= request.getUserPrincipal().getName()%>" />
                                     <div class="tab-pane active" id="tab1">
                                         <!-- datos del programa -->
                                         <div class = "row well">
@@ -65,37 +69,37 @@
                                                 <div class = "control-group">
                                                     <label class = "control-label" for = "objProgIns">  Objetivo General: </label>
                                                     <div class = "controls">
-                                                        <textarea class="span5" id="objProgIns" name="objProgIns" maxlength = "400" placeholder = "write information about the objective in max 400 chars"></textarea>
+                                                        <textarea class="span5" id="objProgIns" name="objProgIns" maxlength = "400" placeholder = "Escribe informaci&oacute;n en max. 400 letras"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class = "control-group">
                                                     <label class = "control-label" for = "justProgIns">  Justificaci&oacute;n: </label>
                                                     <div class = "controls">
-                                                        <textarea class="span5" id = "justProgIns" name = "justProgIns" maxlength = "300" placeholder = "write information about this in max 300 chars"></textarea>
+                                                        <textarea class="span5" id = "justProgIns" name = "justProgIns" maxlength = "300" placeholder = "Escribe informaci&oacute;n en max. 300 letras"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class = "control-group">
                                                     <label class = "control-label" for = "desProgIns">  Desarrollo: </label>
                                                     <div class = "controls">
-                                                        <textarea class="span5" id = "desProgIns" name = "desProgIns" maxlength = "500" placeholder = "write information about this in max 500 chars"></textarea>
+                                                        <textarea class="span5" id = "desProgIns" name = "desProgIns" maxlength = "500" placeholder = "Escribe informaci&oacute;n en max. 500 letras"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class = "control-group">
                                                     <label class = "control-label" for = "recurProgIns">  Recursos: </label>
                                                     <div class = "controls">
-                                                        <textarea class="span5" id = "recurProgIns" name = "recurProgIns" maxlength = "100" placeholder = "write information about this in max 100 chars"></textarea>
+                                                        <textarea class="span5" id = "recurProgIns" name = "recurProgIns" maxlength = "100" placeholder = "Escribe informaci&oacute;n en max. 100 letras"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class = "control-group">
                                                     <label class = "control-label" for = "evalProgIns">  Evaluaci&oacute;n: </label>
                                                     <div class = "controls">
-                                                        <textarea class="span5" id = "evalProgIns" name = "evalProgIns" maxlength = "400" placeholder = "write information about this in max 400 chars"></textarea>
+                                                        <textarea class="span5" id = "evalProgIns" name = "evalProgIns" maxlength = "400" placeholder = "Escribe informaci&oacute;n en max. 400 letras"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class = "control-group">
                                                     <label class = "control-label" for = "resulProgIns">  Resultados: </label>
                                                     <div class = "controls">
-                                                        <textarea class="span5" id = "resulProgIns" name = "resulProgIns" maxlength = "300" placeholder = "write information about this in max 300 chars"></textarea>
+                                                        <textarea class="span5" id = "resulProgIns" name = "resulProgIns" maxlength = "300" placeholder = "Escribe informaci&oacute;n en max. 300 letras"></textarea>
                                                     </div>
                                                 </div>
                                             </fieldset><!-- fin datos del programa -->
@@ -112,49 +116,42 @@
                                                 <div class = "control-group">
                                                     <label class = "control-label" for = "tipoProgIns"> Tipo: </label>
                                                     <div class = "controls">
-                                                        <select name = "tipoProgIns" id = "tipoProgIns">
-                                                            <option value = "1">H&iacute;brido</option>
-                                                            <option value = "2">Atenci&oacute;n a la comunidad universitaria</option>
-                                                            <option value = "3">Administrativo</option>
-                                                            <option value = "4">Comunitario</option>
-                                                            <option value = "5">Educativo</option>
-                                                            <option value = "6">Investigaci&oacute;n</option>
-                                                            <option value = "7">Operacional</option>
+                                                        <select name = "tipoProgIns" id = "tipoProgIns" onchange="changeTypeProgram(this)">
+                                                            <% tipoProgramaDAO tipDAO = new tipoProgramaDAO();
+                                                                List<TipoPrograma> type = tipDAO.getAllTypes();
+                                                                if (type != null && !type.isEmpty()) {
+                                                                    Iterator<TipoPrograma> it = type.iterator();
+                                                                    while (it.hasNext()) {
+                                                                        TipoPrograma tp = it.next();
+                                                            %>
+                                                            <option value="<%= tp.getIdTipo()%>"><%= tp.getDescripcion()%></option>
+                                                            <%}
+                                                                }
+                                                            %>
+                                                            <option value = "sinRegistro">Otra...</option>
                                                         </select>
+                                                    </div>
+                                                </div>
+                                                <div class="control-group hide" id="otroTipo">
+                                                    <label for="nombreOtroTipo" class="control-label">Nombre:</label>
+                                                    <div class="controls">
+                                                        <input type="text" id="nombreOtroTipo" name="nombreOtroTipo"
+                                                               placeholder="Nombre del Tipo no existente" class="input-xlarge" maxlength="45" />
                                                     </div>
                                                 </div>
                                                 <div class = "control-group">
                                                     <label class = "control-label" for = "duraProgIns"> Duraci&oacute;n: </label>
                                                     <div class = "controls">
-                                                        <select name = "duraProgIns" id = "duraProgIns">
-                                                            <option value="1">Determinado</option>
-                                                            <option value="2">Indeterminado</option>
+                                                        <select name = "duraProgIns" id = "duraProgIns" onchange="changeTypeProgram(this)">
+                                                            <option value="1">Indeterminado</option>
+                                                            <option value="2">Determinado</option>
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class = "control-group">
-                                                    <label class = "control-label" for = "timeDurProgIns"> Fecha de Vencimiento: </label>
-                                                    <div class = "controls">
-                                                        <%Calendar date = new GregorianCalendar();
-                                                            int day = date.get(Calendar.DAY_OF_MONTH);
-                                                            int month = date.get(Calendar.MONTH);
-                                                        %>
-                                                        <select class="span1" name="vDia" id="vDia">
-                                                            <%for (int i = day; i <= 31; i++) {%>
-                                                            <option><%= i%></option>
-                                                            <% }%>
-                                                        </select>
-                                                        <select class="span1" name="vMes" id="vMes">
-                                                            <% for (int i = month; i <= month + 6; i++) {%>
-                                                            <option><%= i%></option>
-                                                            <% }%>
-                                                        </select>
-                                                        <select class="span1" name="vAno" id="vAno">
-                                                            <%int anio = date.get(Calendar.YEAR);
-                                                            %>
-                                                            <option><%= anio%></option>
-                                                        </select>
-                                                        <p class="help-block"><em>SOLO en caso de Determinado.</em></p>
+                                                <div class="control-group hide" id="fechaDeterminado">
+                                                    <label class="control-label" for="vencimiento">Fecha de Vencimiento:</label>
+                                                    <div class="controls">
+                                                        <input type="text" name="vencimiento" id="vencimiento" class="input-small center" />
                                                     </div>
                                                 </div>
                                                 <div class = "control-group">
@@ -167,7 +164,7 @@
                                                             <option value = "4">Nacional</option>
                                                             <option value = "5">Regional</option>
                                                         </select>
-                                                        <p class="help-block"><em>En caso de ser mas de uno mantener presionada la tecla "ctrl".</em></p>
+                                                        <p class="help-block"><em>Para seleccionar múltiples Alcances mantén presionada la tecla <b>Ctrl</b> (o <b>Cmd</b> en Mac) y selecciona los demás.</em></p>
                                                     </div>
                                                 </div>
                                                 <div class = "control-group">
@@ -181,7 +178,7 @@
                                                             <option value = "5">Ni&ntilde;os</option>
                                                             <option value = "6">Tercera edad</option>
                                                         </select>
-                                                        <p class="help-block"><em>En caso de ser mas de uno mantener presionada la tecla "ctrl".</em></p>
+                                                        <p class="help-block"><em>Para seleccionar múltiples datos de población mantén presionada la tecla <b>Ctrl</b> (o <b>Cmd</b> en Mac) y selecciona los demás.</em></p>
                                                     </div>
                                                 </div>
                                                 <div class = "control-group">
@@ -202,7 +199,7 @@
                                                             <option value = "6">S&aacute;bado</option>
                                                             <option value = "7">Domingo</option>
                                                         </select>
-                                                        <p class="help-block"><em>En caso de ser mas de uno mantener presionada la tecla "ctrl".</em></p>
+                                                        <p class="help-block"><em>Para seleccionar múltiples días mantén presionada la tecla <b>Ctrl</b> (o <b>Cmd</b> en Mac) y selecciona los demás.</em></p>
                                                     </div>
                                                 </div>
                                                 <div class = "control-group">
@@ -298,7 +295,7 @@
                                         </div>
                                         <!-- botón de accion -->
                                         <div class = "form-actions">
-                                            <button class = "btn btn-primary btn-large" type = "submit">Enviar Datos</button>
+                                            <a href="#" onclick="enviarPropuesta(this)" class = "btn btn-primary btn-large" >Enviar Datos</a>
                                         </div>
                                     </div>
                                 </div>
@@ -310,6 +307,11 @@
         </div>
         <!-- Footer
             ============================== -->
-        <jsp:include page="/WEB-INF/jspf/footer.jsp" />
+        <jsp:include page="/WEB-INF/jspf/footer.jsp">
+            <jsp:param name="datepicker" value="true" />
+            <jsp:param name="bootbox" value="true" />
+            <jsp:param name="form" value="true" />
+            <jsp:param name="script" value="programas" />
+        </jsp:include>
     </body>
 </html>

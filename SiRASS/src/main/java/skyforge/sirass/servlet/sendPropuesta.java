@@ -5,6 +5,7 @@
 package skyforge.sirass.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -46,9 +47,10 @@ public class sendPropuesta extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
+
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/plain;charset=utf-8");
-
+        PrintWriter out = response.getWriter();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date fechadate = null;
 
@@ -56,11 +58,11 @@ public class sendPropuesta extends HttpServlet {
         Plantel plant = new Plantel();
         PlantelDAO pdao = new PlantelDAO();
         CInstitucionDAO cdao = new CInstitucionDAO();
-        System.err.println(String.valueOf(request.getParameter("usuario")));
-        Usuario user = dao.getByUsername(String.valueOf(request.getParameter("usuario")));
+        System.err.println(String.valueOf(request.getUserPrincipal().getName()));
+        Usuario user = dao.getByUsername(String.valueOf(request.getUserPrincipal().getName()));
         Institucion ins = user.getInstitucion();
         System.err.println("------------------------");
-        System.err.println("Institucion "+user.getInstitucion().getIdInstitucion());
+        System.err.println("Institucion " + user.getInstitucion().getIdInstitucion());
         CInstitucion cInstitucion = cdao.getById(ins.getIdCInstitucion());
         String plantel = String.valueOf(user.getInstitucion().getIdPlantel());
         if (!"null".equals(plantel)) {
@@ -94,14 +96,15 @@ public class sendPropuesta extends HttpServlet {
         prog.setEvaluacion(request.getParameter("evalProgIns"));
         prog.setResultados(request.getParameter("resulProgIns"));
         prog.setLugar(request.getParameter("lugarProgIns"));
+        System.err.println("------------------------->"+request.getParameter("vacanProgIns"));
         int pv = Integer.parseInt(request.getParameter("vacanProgIns"));
         prog.setPlazas(0);
         prog.setVacantes(0);
         System.err.println("------------------------");
-        System.err.println("plazas "+ prog.getPlazas());
-        System.err.println("vacantes "+prog.getVacantes());
+        System.err.println("plazas " + prog.getPlazas());
+        System.err.println("vacantes " + prog.getVacantes());
         prog.setOcupadas(0);
-        
+
         int hora = Integer.parseInt(request.getParameter("horaProgIns"));
         prog.setHorario(new HorarioPrograma((short) hora));
         prog.setPlazas(50);
@@ -149,34 +152,34 @@ public class sendPropuesta extends HttpServlet {
             lisAlcan.add(alcan);
         }
         prog.setAlcance(lisAlcan);
-        
+
         String tipo[] = request.getParameterValues("tipoProgIns");
         HashSet<TipoPrograma> lisTipo = new HashSet<TipoPrograma>();
-        for(int i = 0; i< tipo.length; i++){
+        for (int i = 0; i < tipo.length; i++) {
             TipoPrograma tipoP = new TipoPrograma();
             tipoP.setIdTipo(Short.parseShort(tipo[i]));
             lisTipo.add(tipoP);
         }
         prog.setTipo(lisTipo);
-        
+
         String poblaProg[] = request.getParameterValues("poblaProgIns");
         HashSet<PoblacionPrograma> lisPobla = new HashSet<PoblacionPrograma>();
-        for (int i = 0; i < poblaProg.length; i++){
+        for (int i = 0; i < poblaProg.length; i++) {
             PoblacionPrograma pobla = new PoblacionPrograma();
             pobla.setIdPoblacion(Short.parseShort(poblaProg[i]));
             lisPobla.add(pobla);
         }
         prog.setPoblacion(lisPobla);
-        
+
         String diasProg[] = request.getParameterValues("diasProgIns");
         HashSet<Dia> lisdia = new HashSet<Dia>();
-        for (int i = 0; i < diasProg.length; i++){
+        for (int i = 0; i < diasProg.length; i++) {
             Dia dia = new Dia();
             dia.setIdDia(Short.parseShort(diasProg[i]));
             lisdia.add(dia);
         }
         prog.setDias(lisdia);
-        
+
         // De las licenciaturas
         HashSet<ActividadPrograma> lisActs = new HashSet<ActividadPrograma>();
         ActividadPrograma acts = new ActividadPrograma();
@@ -187,25 +190,35 @@ public class sendPropuesta extends HttpServlet {
         System.err.println(request.getParameter("actProgIns"));
         System.err.println("......" + request.getParameter("licenProgIns"));
         System.err.println(Short.parseShort(request.getParameter("vacanProgIns")));
-        
+
         acts.setPrograma(prog);
         lisActs.add(acts);
         prog.setActividad(lisActs);
-        
+
         //Estado En espera
         CEstado estado = new CEstado();
         estado.setIdEstado((short) 4);
         estado.setDescripcion("Esperando");
         prog.setEstado(estado);
-        
-        prog.setNotas("Programa Registrado por "+request.getParameter("usuario")+" a la fecha y hora "+curDate);
+
+        prog.setNotas("Programa Registrado por " + request.getParameter("usuario") + " a la fecha y hora " + curDate);
 
         ProgramaSSDAO daoP = new ProgramaSSDAO();
         int i = daoP.insert(prog);
-        if(i != 0){
-            response.sendRedirect("/SiRASS/institucion/");
+        int status;
+        if(i == 1){
+            status = 1;
+        }else{
+            status = 0;
         }
-
+        try {
+            out = response.getWriter();
+            out.print(status);
+        } catch (IOException ex) {
+            Logger.getLogger(Services.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            out.close();
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
