@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import skyforge.sirass.dao.institucion.CInstitucionDAO;
 import skyforge.sirass.dao.institucion.PlantelDAO;
 import skyforge.sirass.dao.programass.ProgramaSSDAO;
+import skyforge.sirass.dao.programass.tipoProgramaDAO;
 import skyforge.sirass.dao.user.UsuarioDAO;
 import skyforge.sirass.model.Dia;
 import skyforge.sirass.model.institucion.CInstitucion;
@@ -96,13 +97,15 @@ public class sendPropuesta extends HttpServlet {
         prog.setEvaluacion(request.getParameter("evalProgIns"));
         prog.setResultados(request.getParameter("resulProgIns"));
         prog.setLugar(request.getParameter("lugarProgIns"));
-        System.err.println("------------------------->"+request.getParameter("vacanProgIns"));
+        System.err.println("------------------------->" + request.getParameter("vacanProgIns"));
         int pv = Integer.parseInt(request.getParameter("vacanProgIns"));
         prog.setPlazas(0);
         prog.setVacantes(0);
         System.err.println("------------------------");
         System.err.println("plazas " + prog.getPlazas());
         System.err.println("vacantes " + prog.getVacantes());
+
+
         prog.setOcupadas(0);
 
         int hora = Integer.parseInt(request.getParameter("horaProgIns"));
@@ -112,11 +115,9 @@ public class sendPropuesta extends HttpServlet {
         prog.setObservaciones(request.getParameter("obsProgIns"));
         int tTiempo = Integer.parseInt(request.getParameter("duraProgIns"));
         prog.setTiempo(new TipoTIempoPrograma((short) tTiempo));
-        if (tTiempo == 1) {
+        if (tTiempo == 2) {
             String deterDate = "";
-            deterDate = request.getParameter("vAno");
-            deterDate = deterDate + "-" + request.getParameter("vMes");
-            deterDate = deterDate + "-" + request.getParameter("vDia");
+            deterDate = request.getParameter("vencimiento").substring(6, 10).concat("-").concat(request.getParameter("vencimiento").substring(3, 5).concat("-").concat(request.getParameter("vencimiento").substring(0, 2)));
             fechadate = sdf.parse(deterDate);
         } else {
             Calendar date = new GregorianCalendar();
@@ -128,19 +129,38 @@ public class sendPropuesta extends HttpServlet {
         prog.setFechaTiempo(fechadate);
 
         prog.setCreacion(curDate);
-        prog.setModificadoPor(request.getParameter("usuario"));
+        prog.setModificadoPor(request.getUserPrincipal().getName());
         prog.setUltimaModif(curDate);
 
         //Del responsable
-
+        String respon[] = request.getParameterValues("respoIns");
+        String cargoRes[] = request.getParameterValues("cargoRespoIns");
+        String mailRes[] = request.getParameterValues("emailInst");
         HashSet<ResponsablePrograma> listResp = new HashSet<ResponsablePrograma>();
-        ResponsablePrograma r = new ResponsablePrograma();
-        r.setResponsable(request.getParameter("respoIns"));
-        r.setCargo(request.getParameter("cargoRespoIns"));
-        r.setEmail(request.getParameter("emailInst"));
-        r.setPrograma(prog);
-        listResp.add(r);
+        for (int z = 0; z < respon.length; z++) {
+            ResponsablePrograma r = new ResponsablePrograma();
+            r.setResponsable(respon[z]);
+            r.setCargo(cargoRes[z]);
+            r.setEmail(mailRes[z]);
+            r.setPrograma(prog);
+            listResp.add(r);
+        }
         prog.setResponsables(listResp);
+
+        // De las licenciaturas
+        String actsProg[] = request.getParameterValues("actProgIns");
+        String licenProg[] = request.getParameterValues("licenProgIns");
+        String vacanProg[] = request.getParameterValues("vacanProgIns");
+        HashSet<ActividadPrograma> lisActs = new HashSet<ActividadPrograma>();
+        for (int j = 0; j < actsProg.length; j++) {
+            ActividadPrograma acts = new ActividadPrograma();
+            acts.setActividad(actsProg[j]);
+            acts.setLicenciatura(licenProg[j]);
+            acts.setnSolicitados(Short.parseShort(vacanProg[j]));
+            acts.setPrograma(prog);
+            lisActs.add(acts);
+        }
+        prog.setActividad(lisActs);
 
         //Select Multpiple
 
@@ -153,14 +173,20 @@ public class sendPropuesta extends HttpServlet {
         }
         prog.setAlcance(lisAlcan);
 
-        String tipo[] = request.getParameterValues("tipoProgIns");
         HashSet<TipoPrograma> lisTipo = new HashSet<TipoPrograma>();
-        for (int i = 0; i < tipo.length; i++) {
+        String tipo = request.getParameter("tipoProgIns");
+        if (tipo.equals("sinRegistro")) {
+            tipoProgramaDAO tdao = new tipoProgramaDAO();
             TipoPrograma tipoP = new TipoPrograma();
-            tipoP.setIdTipo(Short.parseShort(tipo[i]));
+            TipoPrograma tipoP2 = new TipoPrograma();
+            tipoP.setDescripcion(request.getParameter("nombreOtroTipo"));
+            tdao.insert(tipoP);
+        } else {
+            TipoPrograma tipoP = new TipoPrograma();
+            tipoP.setIdTipo(Short.parseShort(tipo));
             lisTipo.add(tipoP);
+            prog.setTipo(lisTipo);
         }
-        prog.setTipo(lisTipo);
 
         String poblaProg[] = request.getParameterValues("poblaProgIns");
         HashSet<PoblacionPrograma> lisPobla = new HashSet<PoblacionPrograma>();
@@ -180,21 +206,6 @@ public class sendPropuesta extends HttpServlet {
         }
         prog.setDias(lisdia);
 
-        // De las licenciaturas
-        HashSet<ActividadPrograma> lisActs = new HashSet<ActividadPrograma>();
-        ActividadPrograma acts = new ActividadPrograma();
-        acts.setActividad(request.getParameter("actProgIns"));
-        acts.setLicenciatura(request.getParameter("licenProgIns"));
-        acts.setnSolicitados(Short.parseShort(request.getParameter("vacanProgIns")));
-        System.err.println("------------------------");
-        System.err.println(request.getParameter("actProgIns"));
-        System.err.println("......" + request.getParameter("licenProgIns"));
-        System.err.println(Short.parseShort(request.getParameter("vacanProgIns")));
-
-        acts.setPrograma(prog);
-        lisActs.add(acts);
-        prog.setActividad(lisActs);
-
         //Estado En espera
         CEstado estado = new CEstado();
         estado.setIdEstado((short) 4);
@@ -206,9 +217,9 @@ public class sendPropuesta extends HttpServlet {
         ProgramaSSDAO daoP = new ProgramaSSDAO();
         int i = daoP.insert(prog);
         int status;
-        if(i == 1){
+        if (i == 1) {
             status = 1;
-        }else{
+        } else {
             status = 0;
         }
         try {

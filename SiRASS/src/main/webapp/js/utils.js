@@ -570,40 +570,6 @@ function generarSolicitudSS(el) {
     });*/
 }
 
-function enviarPropuesta(el) {
-	var id = el.getAttribute('data-id');
-	var msg = '<p class="lead">Est&aacute;s a punto de enviar tu propuesta de programa.</p>';
-	msg += '<p>Una vez enviada y aceptada no se podr&aacute;n actualizar los datos de la misma a menos que contenga errores y/o la vigencia de la convocatoria sea v&aacute;lida.</p>';
-	msg += '<h2>&iquest;He le&iacute;do y los datos son correctos</h2>';
-	bootbox.dialog(msg, [{
-		'label': 'Cancelar',
-		'class': 'btn-danger'
-	}, {
-		'label': 'Aceptar y enviar',
-		'class': 'btn-success',
-		'callback': function() {
-			console.log('Enviando...');
-			$.ajax({
-				url: '/SiRASS/sendPropuesta',
-                                data: document.enviaPropuesta.submit()
-			})
-			.done(function(msg) {
-				if (msg == "1") {
-                            window.alert(msg);
-					bootbox.hideAll();
-					bootbox.alert('<p class="lead">Propuesta de programa enviada correctamente</p>', function() {
-						reloadPage();
-					});
-				} else {
-					bootbox.alert('<p class="lead">Ha ocurrido un error. Intenta de nuevo.</p>');
-				}
-			})
-			
-			return false;
-		}
-	}]);
-}
-
 function changeTypeProgram(select) {
     var seleccionado = $(select);
     var campo;

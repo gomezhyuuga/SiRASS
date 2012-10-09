@@ -21,7 +21,7 @@
     <property column="recursos" length="65535" name="recursos" not-null="true" type="java.lang.String"/>
     <property column="evaluacion" length="65535" name="evaluacion" not-null="true" type="java.lang.String"/>
     <property column="resultados" length="65535" name="resultados" not-null="true" type="java.lang.String"/>
-    <property column="lugar" length="150" name="lugar" not-null="true" type="java.lang.String"/>
+    <property column="lugar" length="300" name="lugar" not-null="true" type="java.lang.String"/>
     <property column="plazas" length="11" name="plazas" not-null="true" type="integer"/>
     <property column="vacantes" length="11" name="vacantes" not-null="true" type="java.lang.Integer"/>
     <property column="ocupadas" length="11" name="ocupadas" not-null="true" type="java.lang.Integer"/>

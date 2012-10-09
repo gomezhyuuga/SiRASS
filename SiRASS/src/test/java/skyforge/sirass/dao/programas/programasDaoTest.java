@@ -9,9 +9,11 @@ import java.util.List;
 import org.junit.*;
 import static org.junit.Assert.*;
 import skyforge.sirass.dao.programass.ProgramaSSDAO;
+import skyforge.sirass.dao.programass.tipoProgramaDAO;
 import skyforge.sirass.model.programass.CEstado;
 import skyforge.sirass.model.programass.CategoriaPrograma;
 import skyforge.sirass.model.programass.ProgramaSS;
+import skyforge.sirass.model.programass.TipoPrograma;
 
 /**
  *
@@ -99,9 +101,16 @@ public class programasDaoTest {
         List<ProgramaSS> list = pdao.getListFewInternos();
         Assert.assertNotNull(list);
     }*/
-    @Test
+    /*@Test
     public void testUpObservacion(){
         ProgramaSSDAO pdao = new ProgramaSSDAO();
         pdao.uObsP(79, "aaaaaaa" , "cool");
+    }*/
+    @Test
+    public void testInsertTipo(){
+        tipoProgramaDAO tdao = new tipoProgramaDAO();
+        TipoPrograma tp = new TipoPrograma();
+        tp.setDescripcion("dfdsfdsfsdfsdf");
+        tdao.insert(tp);
     }
 }
