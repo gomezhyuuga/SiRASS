@@ -1,5 +1,6 @@
 package skyforge.sirass.dao.programass;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.*;
@@ -398,6 +399,37 @@ public class ProgramaSSDAO extends DAO {
             transaction.commit();
             if (rows > 0) {
                 status = true;
+            }
+        } catch (Exception ex) {
+            transaction.rollback();
+            System.out.println("ERROR ACTUALIZANDO OBSERVACION");
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return status;
+    }
+
+    public int upPV(int pv , int id) {
+        int status;
+        status = 0;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            String q;
+            Query query = null;
+            if (pv != 0) {
+                q = "update ProgramaSS set plazas=?, vacantes=? where idPrograma=?";
+                query = session.createQuery(q);
+                query.setInteger(0, pv);
+                query.setInteger(1, pv);
+                query.setInteger(2, id);
+            }
+            System.out.println(id);
+            int rows = query.executeUpdate();
+            transaction.commit();
+            if (rows > 0) {
+                status = 1;
             }
         } catch (Exception ex) {
             transaction.rollback();

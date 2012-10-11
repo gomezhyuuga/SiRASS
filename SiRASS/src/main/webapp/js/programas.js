@@ -139,8 +139,7 @@ function vForm(){
                 digits: true
             },
             actProgIns: {
-                required: true,
-                maxlength: 400
+                required: true
             },
             respoIns:{
                 required: true,
@@ -156,9 +155,6 @@ function vForm(){
                 required: true,
                 maxlength: 30,
                 email: true
-            },
-            obsProgIns:{
-                required: true
             }
         }
     });

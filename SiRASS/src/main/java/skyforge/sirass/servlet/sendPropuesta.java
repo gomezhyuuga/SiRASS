@@ -99,8 +99,8 @@ public class sendPropuesta extends HttpServlet {
         prog.setLugar(request.getParameter("lugarProgIns"));
         System.err.println("------------------------->" + request.getParameter("vacanProgIns"));
         int pv = Integer.parseInt(request.getParameter("vacanProgIns"));
-        prog.setPlazas(0);
-        prog.setVacantes(0);
+        prog.setPlazas(pv);
+        prog.setVacantes(pv);
         System.err.println("------------------------");
         System.err.println("plazas " + prog.getPlazas());
         System.err.println("vacantes " + prog.getVacantes());
@@ -178,7 +178,6 @@ public class sendPropuesta extends HttpServlet {
         if (tipo.equals("sinRegistro")) {
             tipoProgramaDAO tdao = new tipoProgramaDAO();
             TipoPrograma tipoP = new TipoPrograma();
-            TipoPrograma tipoP2 = new TipoPrograma();
             tipoP.setDescripcion(request.getParameter("nombreOtroTipo"));
             tdao.insert(tipoP);
         } else {
@@ -211,13 +210,20 @@ public class sendPropuesta extends HttpServlet {
         estado.setIdEstado((short) 4);
         estado.setDescripcion("Esperando");
         prog.setEstado(estado);
+        
+        Calendar date = new GregorianCalendar();
+            int anio = date.get(Calendar.YEAR);
+            int mes = date.get(Calendar.MONTH);
+            int dia = date.get(Calendar.DAY_OF_MONTH);
+            fechadate = sdf.parse(anio + "-" + mes + "-" + dia);
 
-        prog.setNotas("Programa Registrado por " + request.getParameter("usuario") + " a la fecha y hora " + curDate);
+        prog.setNotas("Programa Registrado por " + request.getParameter("usuario") + " a la fecha y hora " + fechadate);
 
         ProgramaSSDAO daoP = new ProgramaSSDAO();
         int i = daoP.insert(prog);
+        int j = daoP.upPV(pv, prog.getIdPrograma());
         int status;
-        if (i == 1) {
+        if (i == 1 && j == 1) {
             status = 1;
         } else {
             status = 0;

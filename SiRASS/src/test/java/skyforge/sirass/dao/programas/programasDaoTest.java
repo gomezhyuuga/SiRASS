@@ -4,6 +4,7 @@
  */
 package skyforge.sirass.dao.programas;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.*;
@@ -106,11 +107,4 @@ public class programasDaoTest {
         ProgramaSSDAO pdao = new ProgramaSSDAO();
         pdao.uObsP(79, "aaaaaaa" , "cool");
     }*/
-    @Test
-    public void testInsertTipo(){
-        tipoProgramaDAO tdao = new tipoProgramaDAO();
-        TipoPrograma tp = new TipoPrograma();
-        tp.setDescripcion("dfdsfdsfsdfsdf");
-        tdao.insert(tp);
-    }
 }

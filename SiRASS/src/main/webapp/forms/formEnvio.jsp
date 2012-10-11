@@ -197,7 +197,7 @@
                         <input class="input-mini" type = "text" name = "vacanProgIns" id = "vacanProgIns" />
                     </td>
                     <td>
-                        <textarea name = "actProgIns" id = "actProgIns" rows = "5" placeholder = "Escribe 5 actividades como como mínimo en MAX 400 letras" ></textarea>
+                        <textarea name = "actProgIns" id = "actProgIns" rows = "5" placeholder = "Escribe 5 actividades como  mínimo" ></textarea>
                     </td>
                     <td><input class="btn btn-mini btn-danger" type="button" id="elim1" onclick="delRowAct(1)" value="Eliminar" /></td>
                 </tr>
