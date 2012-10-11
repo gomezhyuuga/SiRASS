@@ -59,11 +59,8 @@ public class sendPropuesta extends HttpServlet {
         Plantel plant = new Plantel();
         PlantelDAO pdao = new PlantelDAO();
         CInstitucionDAO cdao = new CInstitucionDAO();
-        System.err.println(String.valueOf(request.getUserPrincipal().getName()));
         Usuario user = dao.getByUsername(String.valueOf(request.getUserPrincipal().getName()));
         Institucion ins = user.getInstitucion();
-        System.err.println("------------------------");
-        System.err.println("Institucion " + user.getInstitucion().getIdInstitucion());
         CInstitucion cInstitucion = cdao.getById(ins.getIdCInstitucion());
         String plantel = String.valueOf(user.getInstitucion().getIdPlantel());
         if (!"null".equals(plantel)) {
@@ -97,13 +94,9 @@ public class sendPropuesta extends HttpServlet {
         prog.setEvaluacion(request.getParameter("evalProgIns"));
         prog.setResultados(request.getParameter("resulProgIns"));
         prog.setLugar(request.getParameter("lugarProgIns"));
-        System.err.println("------------------------->" + request.getParameter("vacanProgIns"));
         int pv = Integer.parseInt(request.getParameter("vacanProgIns"));
         prog.setPlazas(pv);
         prog.setVacantes(pv);
-        System.err.println("------------------------");
-        System.err.println("plazas " + prog.getPlazas());
-        System.err.println("vacantes " + prog.getVacantes());
 
 
         prog.setOcupadas(0);
@@ -217,7 +210,7 @@ public class sendPropuesta extends HttpServlet {
             int dia = date.get(Calendar.DAY_OF_MONTH);
             fechadate = sdf.parse(anio + "-" + mes + "-" + dia);
 
-        prog.setNotas("Programa Registrado por " + request.getParameter("usuario") + " a la fecha y hora " + fechadate);
+        prog.setNotas("Programa Registrado por " + request.getUserPrincipal().getName() + " a la fecha y hora " + sdf.parse(anio + "-" + mes + "-" + dia));
 
         ProgramaSSDAO daoP = new ProgramaSSDAO();
         int i = daoP.insert(prog);

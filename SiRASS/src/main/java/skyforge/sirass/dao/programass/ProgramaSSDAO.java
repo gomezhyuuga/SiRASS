@@ -333,6 +333,21 @@ public class ProgramaSSDAO extends DAO {
         session.close();
         return programas;
     }
+    public List<ProgramaSS> getListProgramasByIdEdoCont(int id, CEstado estado) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List<ProgramaSS> programas = null;
+        ProjectionList plist = Projections.projectionList();
+        plist.add(Projections.property("p.idPrograma").as("idPrograma"));
+        programas = (List<ProgramaSS>) session.createCriteria(ProgramaSS.class, "p")
+                .add(Restrictions.eq("idInstitucion", id))
+                .add(Restrictions.eq("estado", estado))
+                .setFetchMode("estado", FetchMode.JOIN)
+                .setProjection(plist)
+                .setResultTransformer(new AliasToBeanResultTransformer(ProgramaSS.class))
+                .list();
+        session.close();
+        return programas;
+    }
     
     private boolean updateEstadoPrograma(int idInscripcion, String observaciones,
             Short nuevoEstado, String user) {

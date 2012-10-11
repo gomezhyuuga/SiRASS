@@ -79,28 +79,22 @@ function vForm(){
                 maxlength: 100
             },
             objProgIns: {
-                required: true,
-                maxlength: 400
+                required: true
             },
             justProgIns: {
-                required: true,
-                maxlength: 300
+                required: true
             },
             desProgIns: {
-                required: true,
-                maxlength: 500
+                required: true
             },
             recurProgIns: {
-                required: true,
-                maxlength: 100
+                required: true
             },
             evalProgIns: {
-                required: true,
-                maxlength: 400
+                required: true
             },
             resulProgIns: {
-                required: true,
-                maxlength: 300
+                required: true
             },
             tipoProgIns:{
                 required: true
