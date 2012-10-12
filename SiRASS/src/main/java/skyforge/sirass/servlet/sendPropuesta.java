@@ -179,8 +179,6 @@ public class sendPropuesta extends HttpServlet {
             System.out.println("IDTIPO: " + tipoP.getIdTipo());
             lisTipo.add(tipoP);
             prog.setTipo(lisTipo);
-//            lisTipo.add(tipoP);
-//            prog.setTipo(lisTipo);
         } else {
             TipoPrograma tipoP = new TipoPrograma();
             tipoP.setIdTipo(Short.parseShort(tipo));
