@@ -10,6 +10,9 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.exception.DataException;
 import skyforge.sirass.HibernateUtil;
 import skyforge.sirass.dao.DAO;
 import skyforge.sirass.model.programass.TipoPrograma;
@@ -22,7 +25,21 @@ public class tipoProgramaDAO extends DAO{
     
     //Registrar nuevos tipos de programa
     public int insert(TipoPrograma tipoPrograma) {
-        return super.insert(tipoPrograma);
+        return super.insert((TipoPrograma) tipoPrograma);
+    }
+    
+    public short getIdTipoByName(String nombre) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        // Obtener los responsables de programas
+        Criteria criteria = session.createCriteria(TipoPrograma.class)
+                .add(Restrictions.eq("descripcion", nombre));
+        TipoPrograma t = (TipoPrograma) criteria.list().get(0);
+        session.close();
+        if (t != null) {
+            return t.getIdTipo();
+        } else {
+            return 0;
+        }
     }
     
     public List<TipoPrograma> getAllTypes(){

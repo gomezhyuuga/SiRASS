@@ -169,12 +169,18 @@ public class sendPropuesta extends HttpServlet {
         HashSet<TipoPrograma> lisTipo = new HashSet<TipoPrograma>();
         String tipo = request.getParameter("tipoProgIns");
         if (tipo.equals("sinRegistro")) {
-            tipoProgramaDAO tdao = new tipoProgramaDAO();
+            String descripcionTipo = request.getParameter("nombreOtroTipo");
+            registrarTipo(descripcionTipo);
+            tipoProgramaDAO dtp = new tipoProgramaDAO();
+            short idTipoNuevo = dtp.getIdTipoByName(descripcionTipo);
             TipoPrograma tipoP = new TipoPrograma();
-            tipoP.setDescripcion(request.getParameter("nombreOtroTipo"));
-            //tdao.insert(tipoP);
+            tipoP.setIdTipo(idTipoNuevo);
+            tipoP.setDescripcion(descripcionTipo);
+            System.out.println("IDTIPO: " + tipoP.getIdTipo());
             lisTipo.add(tipoP);
             prog.setTipo(lisTipo);
+//            lisTipo.add(tipoP);
+//            prog.setTipo(lisTipo);
         } else {
             TipoPrograma tipoP = new TipoPrograma();
             tipoP.setIdTipo(Short.parseShort(tipo));
@@ -215,14 +221,17 @@ public class sendPropuesta extends HttpServlet {
         prog.setNotas("Programa Registrado por " + request.getUserPrincipal().getName() + " a la fecha y hora " + sdf.parse(anio + "-" + mes + "-" + dia));
 
         ProgramaSSDAO daoP = new ProgramaSSDAO();
+        prog.setPlazas(pv);
+        prog.setVacantes(pv);
         int i = daoP.insert(prog);
-        int j = daoP.upPV(pv, prog.getIdPrograma());
+//        int j = daoP.upPV(pv, prog.getIdPrograma());
         int status;
-        if (i == 1 && j == 1) {
-            status = 1;
-        } else {
-            status = 0;
-        }
+        status = i;
+//        if (i == 1 && j == 1) {
+//            status = 1;
+//        } else {
+//            status = 0;
+//        }
         try {
             out = response.getWriter();
             out.print(status);
@@ -281,4 +290,12 @@ public class sendPropuesta extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void registrarTipo(String nombreTipo) {
+        System.out.println("NOMBRE: " + nombreTipo);
+        tipoProgramaDAO dao = new tipoProgramaDAO();
+        TipoPrograma tipo = new TipoPrograma();
+        tipo.setDescripcion(nombreTipo);
+        dao.insert(tipo);
+    }
 }
