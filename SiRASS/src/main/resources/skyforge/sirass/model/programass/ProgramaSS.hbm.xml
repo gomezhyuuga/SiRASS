@@ -30,9 +30,9 @@
     <property column="fechaTiempo" name="fechaTiempo" not-null="false" type="date"/>
     <!--Relaciones-->
     <many-to-one cascade="all" class="skyforge.sirass.model.programass.CEstado" column="status" name="estado"/>
-    <set name="tipo" table="DTipoPrograma">
+    <set cascade="save-update" name="tipo" table="DTipoPrograma">
       <key column="idPrograma"/>
-      <many-to-many class="skyforge.sirass.model.programass.TipoPrograma" column="idTipo"/>
+      <many-to-many class="skyforge.sirass.model.programass.TipoPrograma" column="idTipo"  />
     </set>
     <set name="alcance" table="DAlcancePrograma">
       <key column="idPrograma"/>
@@ -42,9 +42,9 @@
       <key column="idPrograma"/>
       <many-to-many class="skyforge.sirass.model.programass.PoblacionPrograma" column="idPoblacion"/>
     </set>
-    <set name="dias" table="DDiaPrograma">
+    <set name="dias" table="DDiaPrograma" order-by="idDia">
       <key column="idPrograma"/>
-      <many-to-many class="skyforge.sirass.model.Dia" column="idDia"/>
+      <many-to-many class="skyforge.sirass.model.Dia" column="idDia" order-by="diaSemana"/>
     </set>
     <set cascade="all" fetch="select" inverse="true" lazy="true" name="responsables" table="DResponsablePrograma">
       <key column="idPrograma" not-null="true"/>
