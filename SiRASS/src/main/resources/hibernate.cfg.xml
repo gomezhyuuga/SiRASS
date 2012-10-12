@@ -46,5 +46,6 @@
     <mapping resource="skyforge/sirass/model/programass/TipoPrograma.hbm.xml"/>
     <mapping resource="skyforge/sirass/model/programass/TipoTiempoPrograma.hbm.xml"/>
     <!-- otros -->
+    <mapping resource="skyforge/sirass/model/programass/DTipoPrograma.hbm.xml.xml"/>
   </session-factory>
 </hibernate-configuration>

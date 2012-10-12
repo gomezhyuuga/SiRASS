@@ -172,7 +172,6 @@ public class sendPropuesta extends HttpServlet {
             tipoProgramaDAO tdao = new tipoProgramaDAO();
             TipoPrograma tipoP = new TipoPrograma();
             tipoP.setDescripcion(request.getParameter("nombreOtroTipo"));
-            //tdao.insert(tipoP);
             lisTipo.add(tipoP);
             prog.setTipo(lisTipo);
         } else {
