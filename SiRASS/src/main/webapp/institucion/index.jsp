@@ -1,4 +1,4 @@
-<%--  
+<%--
     Document   : instituto
     Created on : 10-jul-2012, 16:16:52
     Author     : jolmes
@@ -51,37 +51,62 @@
                 ============================== -->
                 <div class="span8 solid">
                     <% int tamMisProg = misProgramas.size();
-                       int tam2 = misProgramas2.size();
-                       int tam3 = misProgramas3.size();
-                       
+                        int tam2 = misProgramas2.size();
+                        int tam3 = misProgramas3.size();
+                        String plural,progPlu,rP,pP;
+                        plural = "";progPlu = "";rP = "";pP = "";
+                        if(tam2>1){ plural = "Necesitan ser corregidos";pP = "tienen problemas";progPlu = "tus programas";}
+                        if(tam2 == 1){ plural = "Necesita ser corregido";pP = "tiene problema";progPlu = "tu programa";}
+                        if(tam3>1){ progPlu = "tus programas";rP = "han sido revisados";}
+                        if(tam3 == 1){ progPlu = "tu programa";rP = "ha sido revisado";}
+                        if((tam2 + tam3) > 1 ){ progPlu = "tus programas"; }
                         if (misProgramas != null && tamMisProg != 0) {%>
-                        <div class="page-header">
-                            <h1>Bienvenido <%= request.getUserPrincipal().getName() %></h1>
-                        </div>
-                        <p>Esta es tu lista de programas registrados</p>
-                        <%@include file="listProgramaSS.jsp" %>
+                            <div class="page-header">
+                                <h1>Bienvenido <%= request.getUserPrincipal().getName()%></h1>
+                            </div>
+                            <p>Esta es tu lista</p>
+                            <%@include file="listProgramaSS.jsp" %>
                     <% }%>
                     <% if (misProgramas == null || tamMisProg == 0) {%>
+                        <% if ((misProgramas2 == null || tam2 == 0) && tam3 == 0) {%>
+                            <div class="page-header">
+                                <h1><strong>Bienvenido</strong>, <small><%= (String) session.getAttribute("username")%></small></h1>
+                            </div>
+                                <p class="lead">¿No haz enviado ning&uacute;n programa de Servicio Social?</p>
+                                <p class="lead"><strong>¡Si tienes una propuesta enviala!</strong></p>
+                                <p><a class="btn btn-large btn-primary " href="./enviarPropuesta.jsp">Enviar propuesta</a></p>
+                        <% }%>
                         <% if ((misProgramas2 == null || tam2 == 0) && tam3 != 0) {%>
-                            <h1>Bienvenido, <%= (String) session.getAttribute("username")%></h1>
-                            <p>Actualmente no te han revisado ning&uacute;n programa de Servicio Social, pero si tienes una propuesta más enviala</p>
-                            <p><a class="btn btn-large btn-primary " href="./enviarPropuesta.jsp">Enviar propuesta</a></p>
-                        <% } %>
+                            <div class="page-header">
+                                <h1><strong>Bienvenido</strong>, <small><%= (String) session.getAttribute("username")%></small></h1>
+                            </div>
+                                <p class="lead">Actualmente <%= progPlu %> de Servicio Social no <%= rP %></p>
+                                <p><a class="btn btn-large btn-primary " href="./enviarPropuesta.jsp">Enviar propuesta</a></p>
+                        <% }%>
                         <% if ((misProgramas3 == null || tam3 == 0) && tam2 != 0) {%>
-                            <h1>Bienvenido, <%= (String) session.getAttribute("username")%></h1>
-                            <p>Actualmente <%= tam2 %> de tus programas de Servicio Social tienen problemas y es necesario corregir en el apartado <i class = "icon-exclamation-sign"></i>Avisos podrás ver si hay error en tu solicitud y las observaciones</p>
-                        <% } %>
-                    <%}%>
-                    <% if ((misProgramas2 != null && tam2 != 0) && (tam3 != 0 && misProgramas3 != null)) {%>
-                            <h1>Bienvenido, <%= (String) session.getAttribute("username")%></h1>
-                            <p>Actualmente <%= tam2 %> de tus programas de Servicio Social necesita ser corregido en el apartado <i class = "icon-exclamation-sign"></i>Avisos podrás ver el/los error(s) en las observaciones</p>
-                            <p>Y <%= tam2 %> son programas aún o revisados</p>
-                        <% } %>
+                            <div class="page-header">
+                                <h1><strong>Bienvenido</strong>, <small><%= (String) session.getAttribute("username")%></small></h1>
+                            </div>
+                                <p>Actualmente <%= progPlu %> de Servicio Social <%= pP %><small>...</small></p>
+                                <ul>
+                                    <li><p class="text-error">Es necesario corregir <strong><%= tam2%></strong>, y en <small><a href="#notifs"><i class = "icon-exclamation-sign"></i>Avisos</a></small> podrás ver ¿Por qué?</p></li>
+                                </ul>
+                                 
+                        <% }%>
+                        <%}%>
+                        <% if ((misProgramas2 != null && tam2 != 0) && (tam3 != 0 && misProgramas3 != null)) {%>
+                            <h1><strong>Bienvenido</strong>, <small><%= (String) session.getAttribute("username")%></small></h1>
+                            <p class="lead">Actualmente de <%= progPlu %> de Servicio Social<small>...</small></p>
+                            <ul>
+                                <li><p class="text-error"><%= plural%> <strong><%= tam2 %></strong>, y en <small><a href="#notifs"><i class = "icon-exclamation-sign"></i>Avisos</a></small> podrás ver los errores</p></li>
+                                <li><p class="text-warning">Y aún sin revisión <strong><%= tam3%></strong></p></li>
+                            </ul>
+                        <% }%>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- Footer
-            ============================== -->
-        <jsp:include page="/WEB-INF/jspf/footer.jsp" />
+            <!-- Footer
+                ============================== -->
+            <jsp:include page="/WEB-INF/jspf/footer.jsp" />
     </body>
 </html>

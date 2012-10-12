@@ -42,6 +42,7 @@
         <jsp:param name="datepicker" value="true" />
         <jsp:param name="bootbox" value="true" />
         <jsp:param name="script" value="signup" />
+        <jsp:param name="script" value="inscripcion" />
     </jsp:include>
 </body>
 </html>

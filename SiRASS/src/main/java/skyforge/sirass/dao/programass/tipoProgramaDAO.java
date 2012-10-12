@@ -4,9 +4,12 @@
  */
 package skyforge.sirass.dao.programass;
 
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import skyforge.sirass.HibernateUtil;
 import skyforge.sirass.dao.DAO;
 import skyforge.sirass.model.programass.TipoPrograma;
