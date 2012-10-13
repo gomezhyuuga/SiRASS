@@ -94,9 +94,6 @@ public class sendPropuesta extends HttpServlet {
         prog.setEvaluacion(request.getParameter("evalProgIns"));
         prog.setResultados(request.getParameter("resulProgIns"));
         prog.setLugar(request.getParameter("lugarProgIns"));
-        int pv = Integer.parseInt(request.getParameter("vacanProgIns"));
-        prog.setPlazas(pv);
-        prog.setVacantes(pv);
 
 
         prog.setOcupadas(0);
@@ -144,12 +141,16 @@ public class sendPropuesta extends HttpServlet {
         String actsProg[] = request.getParameterValues("actProgIns");
         String licenProg[] = request.getParameterValues("licenProgIns");
         String vacanProg[] = request.getParameterValues("vacanProgIns");
+        int pv = 0;
         HashSet<ActividadPrograma> lisActs = new HashSet<ActividadPrograma>();
         for (int j = 0; j < actsProg.length; j++) {
+            int valPV;
             ActividadPrograma acts = new ActividadPrograma();
             acts.setActividad(actsProg[j]);
             acts.setLicenciatura(licenProg[j]);
             acts.setnSolicitados(Short.parseShort(vacanProg[j]));
+            valPV = Integer.parseInt(vacanProg[j]);
+            pv += valPV;
             acts.setPrograma(prog);
             lisActs.add(acts);
         }
@@ -176,7 +177,6 @@ public class sendPropuesta extends HttpServlet {
             TipoPrograma tipoP = new TipoPrograma();
             tipoP.setIdTipo(idTipoNuevo);
             tipoP.setDescripcion(descripcionTipo);
-            System.out.println("IDTIPO: " + tipoP.getIdTipo());
             lisTipo.add(tipoP);
             prog.setTipo(lisTipo);
         } else {
@@ -222,14 +222,8 @@ public class sendPropuesta extends HttpServlet {
         prog.setPlazas(pv);
         prog.setVacantes(pv);
         int i = daoP.insert(prog);
-//        int j = daoP.upPV(pv, prog.getIdPrograma());
         int status;
         status = i;
-//        if (i == 1 && j == 1) {
-//            status = 1;
-//        } else {
-//            status = 0;
-//        }
         try {
             out = response.getWriter();
             out.print(status);
