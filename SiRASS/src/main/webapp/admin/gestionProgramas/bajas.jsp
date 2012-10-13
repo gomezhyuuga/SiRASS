@@ -78,6 +78,7 @@
                                 <tr>
                                     <th>
                                         <%= programaSS.getNombre()%>
+                                        <input type="hidden" name="<%= programaSS.getIdPrograma()%>" id="<%= programaSS.getIdPrograma()%>" value="<%= programaSS.getCvePrograma()%>" />
                                     </th>
                                     <th>
                                         <%= programaSS.getInstitucion()%>
@@ -89,7 +90,7 @@
                                     </th>
                                     <th>
                             <div class="btn-group">
-                                <a href="/SiRASS/Services?service=statProgram&id=<%=programaSS.getIdPrograma()%>&status=<%= programaSS.ACTIVO%>"
+                                <a href="#" onclick="activarProg(this)" data-id="<%= programaSS.getIdPrograma()%>"
                                    class="btn btn-success btn-mini">Reactivar
                                 </a>
                                 <a class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown">
@@ -97,7 +98,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="/SiRASS/Services?service=statProgram&id=<%=programaSS.getIdPrograma()%>&status=<%= programaSS.SUSPENDIDO%>">
+                                        <a href="#" onclick="suspendProg(this)" data-id="<%= programaSS.getIdPrograma()%>">
                                             <i class="icon-minus"></i> Suspender</a>
                                     </li>
                                 </ul>
@@ -118,6 +119,9 @@
         </div>
         <!-- Footer
             ============================== -->
-        <jsp:include page="/WEB-INF/jspf/footer.jsp" />
+        <jsp:include page="/WEB-INF/jspf/footer.jsp">
+            <jsp:param name="form" value="true" />
+            <jsp:param name="bootbox" value="true" />
+        </jsp:include>
     </body>
 </html>

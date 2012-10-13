@@ -20,6 +20,7 @@ import skyforge.sirass.dao.programass.ProgramaSSDAO;
 import skyforge.sirass.model.institucion.Plantel;
 import skyforge.sirass.model.prestador.EstadoInscripcion;
 import skyforge.sirass.model.prestador.Inscripcion;
+import skyforge.sirass.model.programass.CEstado;
 
 /**
  *
@@ -44,11 +45,13 @@ public class Services extends HttpServlet {
             // Obtener lista de planteles por ID de institución
             if (request.getParameter("service").equals("plantelesByInst")) {
                 returnPlanteles(request, response);
-            }else if (request.getParameter("service").equals("statProgram")){
+            } else if (request.getParameter("service").equals("statProgram")) {
                 this.updateStatusProgram(request, response);
-            }else if (request.getParameter("service").equals("observProgram")){
+            } else if (request.getParameter("service").equals("observProgram")) {
                 this.updateObserProgram(request, response);
-            }else if (request.getParameter("service").equals("rechazarInscripcion")) {
+            } else if(request.getParameter("service").equals("cveProg")) {
+                this.upCveProg(request,response);
+            } else if (request.getParameter("service").equals("rechazarInscripcion")) {
                 this.updateInscripcionStatus(request, response, EstadoInscripcion.CON_ERRORES);
             } else if (request.getParameter("service").equals("validarInscripcion")) {
                 this.updateInscripcionStatus(request, response, EstadoInscripcion.CORRECTA);
@@ -77,24 +80,24 @@ public class Services extends HttpServlet {
         int idInscripcion;
         String user = "system";
         PrintWriter out = response.getWriter();
-        if (request.getUserPrincipal() != null  &&
-            request.getUserPrincipal().getName() != null &&
-            request.isUserInRole("admin")) {
+        if (request.getUserPrincipal() != null
+                && request.getUserPrincipal().getName() != null
+                && request.isUserInRole("admin")) {
             user = request.getUserPrincipal().getName();
             if (request.getParameter("idInscripcion") != null && request.getParameter("observaciones") != null) {
-            try {
-                idInscripcion = Integer.parseInt(request.getParameter("idInscripcion"));
-                InscripcionDAO idao = new InscripcionDAO();
-                String observaciones = request.getParameter("observaciones");
-                boolean ok = idao.updateObservaciones(idInscripcion, observaciones, user);
-                if (ok) {
-                    status = 1;
+                try {
+                    idInscripcion = Integer.parseInt(request.getParameter("idInscripcion"));
+                    InscripcionDAO idao = new InscripcionDAO();
+                    String observaciones = request.getParameter("observaciones");
+                    boolean ok = idao.updateObservaciones(idInscripcion, observaciones, user);
+                    if (ok) {
+                        status = 1;
+                    }
+                } catch (Exception ex) {
+                    System.out.println("ERROR ACTUALIZANDO ESTADO DE INSCRIPCIÓN");
+                    ex.printStackTrace();
                 }
-            } catch (Exception ex) {
-                System.out.println("ERROR ACTUALIZANDO ESTADO DE INSCRIPCIÓN");
-                ex.printStackTrace();
             }
-        }
         }
         try {
             out.print(status);
@@ -102,6 +105,7 @@ public class Services extends HttpServlet {
             out.close();
         }
     }
+
     private void updateInscripcionStatus(HttpServletRequest request, HttpServletResponse response,
             short estado) throws IOException {
         short status = 0;
@@ -109,9 +113,9 @@ public class Services extends HttpServlet {
         int idInscripcion;
         String user = "system";
         PrintWriter out = response.getWriter();
-        if (request.getUserPrincipal() != null  &&
-            request.getUserPrincipal().getName() != null &&
-            request.isUserInRole("admin")) {
+        if (request.getUserPrincipal() != null
+                && request.getUserPrincipal().getName() != null
+                && request.isUserInRole("admin")) {
             user = request.getUserPrincipal().getName();
         }
         if (request.getParameter("idInscripcion") != null) {
@@ -133,51 +137,94 @@ public class Services extends HttpServlet {
             out.close();
         }
     }
-    
+
     private void updateStatusProgram(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
+        int stat = 0;
         short nuevoEstado;
         int idInscripcion;
+        String cve;
         String user = "system";
-        if (request.getUserPrincipal() != null  &&
-            request.getUserPrincipal().getName() != null) {
+        if (request.getUserPrincipal() != null
+                && request.getUserPrincipal().getName() != null) {
             user = request.getUserPrincipal().getName();
         }
-        if (request.getParameter("id") != null &&
-            request.getParameter("status") != null) {
+        if (request.getParameter("id") != null
+                && request.getParameter("status") != null && request.getParameter("cveP") != null) {
             try {
                 nuevoEstado = Short.parseShort(request.getParameter("status"));
                 idInscripcion = Integer.parseInt(request.getParameter("id"));
+                cve = request.getParameter("cveP");
+                System.out.println("CLAVE" + cve);
                 ProgramaSSDAO pdao = new ProgramaSSDAO();
-                pdao.uStatP(idInscripcion, nuevoEstado, user);
-                response.sendRedirect(request.getContextPath() + "/admin/gestionProgramas/");
+                stat = pdao.uStatP(idInscripcion, nuevoEstado, null, user, cve);
             } catch (Exception ex) {
                 System.out.println("ERROR ACTUALIZANDO ESTADO DE PROGRAMA");
                 ex.printStackTrace();
             }
+            try {
+                out.print(stat);
+            } finally {
+                out.close();
+            }
         }
     }
-    
-    private void updateObserProgram(HttpServletRequest request, HttpServletResponse response) {
+
+    private void updateObserProgram(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
+        int stat = 0;
         int idPrograma;
         String user = "system";
         String obser = "sin observaciones";
-        if(request.getUserPrincipal() != null && request.getUserPrincipal().getName() !=null){
+        if (request.getUserPrincipal() != null && request.getUserPrincipal().getName() != null) {
             user = request.getUserPrincipal().getName();
         }
-        if(request.getParameter("id") != null){
-            try{
+        if (request.getParameter("id") != null) {
+            try {
                 idPrograma = Integer.parseInt(request.getParameter("id"));
                 obser = request.getParameter("observaciones");
                 ProgramaSSDAO pdao = new ProgramaSSDAO();
-                pdao.uObsP(idPrograma, obser, user);
-                response.sendRedirect(request.getContextPath() + "/admin/gestionProgramas/");
-            }catch (Exception ex){
+                short nvoEdo = (short) 3;
+                stat = pdao.uObsP(idPrograma, nvoEdo, obser, user, null);
+            } catch (Exception ex) {
                 System.out.println("ERROR ACTUALIZANDO OBSERVACIÓN");
                 ex.printStackTrace();
+            }
+            try {
+                out.print(stat);
+            } finally {
+                out.close();
             }
         }
     }
     
+    private void upCveProg(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
+        int stat = 0;
+        int idPrograma;
+        String cve;
+        String user = "system";
+        if (request.getUserPrincipal() != null && request.getUserPrincipal().getName() != null) {
+            user = request.getUserPrincipal().getName();
+        }
+        if (request.getParameter("id") != null) {
+            try {
+                idPrograma = Integer.parseInt(request.getParameter("id"));
+                cve = request.getParameter("cveP");
+                ProgramaSSDAO pdao = new ProgramaSSDAO();
+                stat = pdao.uCveP(idPrograma, user, cve);
+            } catch (Exception ex) {
+                System.out.println("ERROR ACTUALIZANDO OBSERVACIÓN");
+                ex.printStackTrace();
+            }
+            try {
+                out.print(stat);
+            } finally {
+                out.close();
+            }
+        }
+    }
+
     private void eliminarInscripcion(HttpServletRequest request, HttpServletResponse response) {
         short status = 0;
         System.out.println("Borrando inscripcion...");
@@ -185,7 +232,7 @@ public class Services extends HttpServlet {
             try {
                 int idInscripcion = Integer.parseInt(request.getParameter("idInscripcion"));
                 InscripcionDAO dao = new InscripcionDAO();
-                if(dao.eliminar(idInscripcion)) {
+                if (dao.eliminar(idInscripcion)) {
                     status = 1;
                 } else {
                     status = 0;
@@ -312,7 +359,7 @@ public class Services extends HttpServlet {
                     numControl = s;
                 }
                 out.write(numControl);
-            } catch(Exception e) {
+            } catch (Exception e) {
                 out.write(numControl);
                 log("ERROR SERVICIO: GENERAR NUM DE CONTROL");
             } finally {
@@ -320,5 +367,4 @@ public class Services extends HttpServlet {
             }
         }
     }
-
 }

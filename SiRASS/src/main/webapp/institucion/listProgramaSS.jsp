@@ -10,8 +10,6 @@
                 <tr>
                     <th>Nombre Programa:</th>
                     <th>Area:</th>
-                    <th>Email:</th>
-                    <th>Telefono</th>
                     <th>Plazas</th>
                     <th>Vacantes</th>
                     <th>Ocupadas</th>
@@ -21,12 +19,6 @@
                 <tr>
                     <td ><%=p.getNombre()%></td>
                     <td ><%=p.getArea()%></td>
-                    <td><%=p.getEmail()%></td>
-                    <% String telext = p.getTelExt();
-                       String tel = p.getTel();
-                    %>
-                    <% if(telext == null){ telext = "sin extensi&oacute;n";} %>
-                    <td ><%= tel %> - <%= telext %></td>
                     <td class="center"><%=p.getPlazas()%></td>
                     <td class="center"><%=p.getVacantes()%></td>
                     <td class="center"><%=p.getOcupadas()%></td>

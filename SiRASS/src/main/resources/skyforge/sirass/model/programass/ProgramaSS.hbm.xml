@@ -30,7 +30,7 @@
     <property column="fechaTiempo" name="fechaTiempo" not-null="false" type="date"/>
     <!--Relaciones-->
     <many-to-one cascade="all" class="skyforge.sirass.model.programass.CEstado" column="status" name="estado"/>
-    <set cascade="save-update" name="tipo" table="DTipoPrograma">
+    <set name="tipo" table="DTipoPrograma">
       <key column="idPrograma"/>
       <many-to-many class="skyforge.sirass.model.programass.TipoPrograma" column="idTipo"  />
     </set>

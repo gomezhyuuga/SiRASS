@@ -25,16 +25,6 @@
         <jsp:include page="/WEB-INF/jspf/head.jsp">
             <jsp:param name="title" value="Bienvenido Administrador" />
         </jsp:include>
-        <script type="text/javascript">
-            function getURL(id)
-            {
-                var dir = "/SiRASS/Services?service=observProgram&id="+id+"&observaciones=";
-                dir += document.getElementById('observaciones').value;
-                alert(document.getElementById('observaciones').value);
-                alert(dir);
-                window.location.href=dir;
-            }
-        </script>
     </head>
     <body>
         <!-- Navbar
@@ -214,7 +204,7 @@
                             }%></textarea>
                         <input type="hidden" name="id" value="<%= progamaSS.getIdPrograma()%>" />
                         <div class="form-actions">
-                            <a class="btn btn-warning" href="javascript:getURL(<%= id%>)"><i class="icon-warning-sign icon-white"></i>
+                            <a class="btn btn-warning" href="#" onclick="actualObservProg(this)" data-id="<%= progamaSS.getIdPrograma()%>"><i class="icon-warning-sign icon-white"></i>
                                 Actualizar observaciones
                             </a>
                         </div>
@@ -235,6 +225,9 @@
         </div>
         <!-- Footer
             ============================== -->
-        <jsp:include page="/WEB-INF/jspf/footer.jsp" />
+        <jsp:include page="/WEB-INF/jspf/footer.jsp">
+            <jsp:param name="form" value="true" />
+            <jsp:param name="bootbox" value="true" />
+        </jsp:include>
     </body>
 </html>

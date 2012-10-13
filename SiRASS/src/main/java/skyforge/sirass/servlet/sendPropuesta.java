@@ -179,7 +179,7 @@ public class sendPropuesta extends HttpServlet {
             tipoP.setDescripcion(descripcionTipo);
             lisTipo.add(tipoP);
             prog.setTipo(lisTipo);
-        } else {
+        } else if (!tipo.equals("sinRegistro")) {
             TipoPrograma tipoP = new TipoPrograma();
             tipoP.setIdTipo(Short.parseShort(tipo));
             lisTipo.add(tipoP);
@@ -284,7 +284,6 @@ public class sendPropuesta extends HttpServlet {
     }// </editor-fold>
 
     private void registrarTipo(String nombreTipo) {
-        System.out.println("NOMBRE: " + nombreTipo);
         tipoProgramaDAO dao = new tipoProgramaDAO();
         TipoPrograma tipo = new TipoPrograma();
         tipo.setDescripcion(nombreTipo);

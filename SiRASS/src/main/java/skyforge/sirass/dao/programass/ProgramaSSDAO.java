@@ -32,12 +32,16 @@ public class ProgramaSSDAO extends DAO {
         return super.insert(programa);
     }
     
-    public boolean uObsP(int idPrograma, String obser, String user) {
-        return this.updateObservacionesPrograma(idPrograma, obser, user);
+    public int uObsP(int idPrograma, short nvoEdo, String obser, String user, String cveProg) {
+        return this.updateEstadoPrograma(idPrograma, nvoEdo, obser, user, null);
     }
     
-    public boolean uStatP(int idPrograma, short nvoStado, String user){
-        return this.updateEstadoPrograma(idPrograma, null, nvoStado, user);
+    public int uCveP(int idPrograma, String user, String cveProg) {
+        return this.updateClavePrograma(idPrograma,  user, cveProg);
+    }
+    
+    public int uStatP(int idPrograma, short nvoStado, String obser, String user, String cveProg){
+        return this.updateEstadoPrograma(idPrograma, nvoStado, null, user, cveProg);
     }
 
     /**
@@ -349,31 +353,26 @@ public class ProgramaSSDAO extends DAO {
         return programas;
     }
     
-    private boolean updateEstadoPrograma(int idInscripcion, String observaciones,
-            Short nuevoEstado, String user) {
-        boolean status = false;
+    private int updateEstadoPrograma(int idInscripcion, Short nuevoEstado, String observaciones,
+             String user, String cveProg) {
+        int status = 0;
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
             String q;
             Query query = null;
-            if (observaciones == null) {
-                q = "update ProgramaSS set ultimaModif=?, modificadoPor=?, estado=? where idPrograma=?";
-                query = session.createQuery(q);
-                query.setShort(2, nuevoEstado);
-                query.setInteger(3, idInscripcion);
-            } else if (nuevoEstado == null) {
-                q = "update ProgramaSS set ultimaModif=?, modificadoPor=?, nota=? "
-                        + "where idPrograma=?";
+            if (observaciones != null && cveProg == null) {
+                q = "update ProgramaSS set ultimaModif=?, modificadoPor=?, notas=?, estado=? where idPrograma=?";
                 query = session.createQuery(q);
                 query.setString(2, observaciones);
-                query.setInteger(3, idInscripcion);
-            } else if (observaciones != null && nuevoEstado != null) {
-                q = "update ProgramaSS set ultimaModif=?, modificadoPor=?, estado=?, nota=? "
+                query.setShort(3, nuevoEstado);
+                query.setInteger(4, idInscripcion);
+            } else if (cveProg != null) {
+                q = "update ProgramaSS set ultimaModif=?, modificadoPor=?, cvePrograma=?, estado=? "
                         + "where idPrograma=?";
                 query = session.createQuery(q);
-                query.setShort(2, nuevoEstado);
-                query.setString(3, observaciones);
+                query.setString(2, cveProg);
+                query.setShort(3, nuevoEstado);
                 query.setInteger(4, idInscripcion);
             }
             Date curDate = new Date(System.currentTimeMillis());
@@ -382,7 +381,7 @@ public class ProgramaSSDAO extends DAO {
             int rows = query.executeUpdate();
             transaction.commit();
             if (rows > 0) {
-                status = true;
+                status = 1;
             }
         } catch (Exception ex) {
             transaction.rollback();
@@ -394,53 +393,22 @@ public class ProgramaSSDAO extends DAO {
         return status;
     }
 
-    private boolean updateObservacionesPrograma(int idPrograma, String obser, String user) {
-        boolean status = false;
+    private int updateClavePrograma(int idPrograma, String user, String cveProg) {
+        int status = 0;
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
             String q;
             Query query = null;
-            if (obser != null) {
-                q = "update ProgramaSS set ultimaModif=?, modificadoPor=?, notas=? where idPrograma=?";
+            if (cveProg != null) {
+                q = "update ProgramaSS set cvePrograma=?, ultimaModif=?, modificadoPor=? where idPrograma=?";
                 query = session.createQuery(q);
-                query.setString(2, obser);
+                query.setString(0, cveProg);
                 query.setInteger(3, idPrograma);
             }
             Date curDate = new Date(System.currentTimeMillis());
-            query.setTimestamp(0, curDate);
-            query.setString(1, user);
-            int rows = query.executeUpdate();
-            transaction.commit();
-            if (rows > 0) {
-                status = true;
-            }
-        } catch (Exception ex) {
-            transaction.rollback();
-            System.out.println("ERROR ACTUALIZANDO OBSERVACION");
-            ex.printStackTrace();
-        } finally {
-            session.close();
-        }
-        return status;
-    }
-
-    public int upPV(int pv , int id) {
-        int status;
-        status = 0;
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
-        try {
-            String q;
-            Query query = null;
-            if (pv != 0) {
-                q = "update ProgramaSS set plazas=?, vacantes=? where idPrograma=?";
-                query = session.createQuery(q);
-                query.setInteger(0, pv);
-                query.setInteger(1, pv);
-                query.setInteger(2, id);
-            }
-            System.out.println(id);
+            query.setTimestamp(1, curDate);
+            query.setString(2, user);
             int rows = query.executeUpdate();
             transaction.commit();
             if (rows > 0) {
@@ -448,7 +416,7 @@ public class ProgramaSSDAO extends DAO {
             }
         } catch (Exception ex) {
             transaction.rollback();
-            System.out.println("ERROR ACTUALIZANDO OBSERVACION");
+            System.out.println("ERROR ACTUALIZANDO CLAVE");
             ex.printStackTrace();
         } finally {
             session.close();

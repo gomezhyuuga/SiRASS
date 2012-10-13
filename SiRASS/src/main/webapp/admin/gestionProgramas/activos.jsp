@@ -39,10 +39,10 @@
                     </div>
                     <p class="lead">Selecciona una opción para filtrar los programas.</p>
                     <div class=" breadcrumb form-actions">
-                            <a class="btn btn-success" href="./"><i class="icon-plus icon-white"></i> Registrados recientemente</a> <span class="divider">/</span>
-                            <a class="btn btn-warning" href="./suspendidos.jsp"><i class="icon-minus icon-white"></i> Solicitud de baja</a> <span class="divider">/</span>
-                            <a class="btn btn-danger" href="./bajas.jsp"><i class="icon-remove icon-white"></i> Inactivos</a> <span class="divider">/</span>
-                            <a class="btn btn-info active" href="#"><i class="icon-question-sign icon-white"></i> Activos</a>
+                        <a class="btn btn-success" href="./"><i class="icon-plus icon-white"></i> Registrados recientemente</a> <span class="divider">/</span>
+                        <a class="btn btn-warning" href="./suspendidos.jsp"><i class="icon-minus icon-white"></i> Solicitud de baja</a> <span class="divider">/</span>
+                        <a class="btn btn-danger" href="./bajas.jsp"><i class="icon-remove icon-white"></i> Inactivos</a> <span class="divider">/</span>
+                        <a class="btn btn-info active" href="#"><i class="icon-question-sign icon-white"></i> Activos</a>
                     </div>
                     <div id="enEspera">
                         <%
@@ -83,9 +83,9 @@
                                 <tr>
                                     <th>
                                         <% if (cve != "Sin clave") {%>
-                                        <input class="input-medium" type="text"maxlength="20" name="cveP" id="cveP" value="<%= cve%>" />
+                                        <input class="input-medium" type="text"maxlength="18" name="<%= programaSS.getIdPrograma()%>" id="<%= programaSS.getIdPrograma()%>" value="<%= cve%>" />
                                         <% } else {%>
-                                        <input class="input-medium" type="text"maxlength="20" name="cveP" id="cveP" placeholder="<%= cve%>" />
+                                        <input class="input-medium" type="text"maxlength="18" name="<%= programaSS.getIdPrograma()%>" id="<%= programaSS.getIdPrograma()%>" placeholder="<%= cve%>" />
                                         <% }%>
                                     </th>
                                     <th>
@@ -100,26 +100,26 @@
                                         </a>
                                     </th>
                                     <th>
-                                        <div class="btn-group">
-                                            <a class="btn btn-info btn-mini">Cambiar
-                                            </a>
-                                            <a class="btn btn-info btn-mini dropdown-toggle" data-toggle="dropdown">
-                                                <span class="caret"></span>
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a href="/SiRASS/Services?service=statProgram&id=<%=programaSS.getIdPrograma()%>&status=<%= programaSS.SUSPENDIDO %>">
-                                                        <i class="icon-minus"></i> Suspender</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/SiRASS/Services?service=statProgram&id=<%=programaSS.getIdPrograma()%>&status=<%= programaSS.INACTIVO %>">
-                                                        <i class="icon-remove"></i> Remover</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </th>
-                                </tr>
-                                <% }%>
+                            <div class="btn-group">
+                                <a class="btn btn-info btn-mini" href="#" onclick="cambiarCve(this)" data-id="<%= programaSS.getIdPrograma()%>">Cambiar
+                                </a>
+                                <a class="btn btn-info btn-mini dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#" onclick="suspendProg(this)" data-id="<%= programaSS.getIdPrograma()%>">
+                                            <i class="icon-minus"></i> Suspender</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" onclick="inactProg(this)" data-id="<%= programaSS.getIdPrograma()%>">
+                                            <i class="icon-remove"></i> Remover</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            </th>
+                            </tr>
+                            <% }%>
                             </tbody>
                         </table>
                         <%
@@ -133,6 +133,9 @@
         </div>
         <!-- Footer
             ============================== -->
-        <jsp:include page="/WEB-INF/jspf/footer.jsp" />
+        <jsp:include page="/WEB-INF/jspf/footer.jsp">
+            <jsp:param name="form" value="true" />
+            <jsp:param name="bootbox" value="true" />
+        </jsp:include>
     </body>
 </html>

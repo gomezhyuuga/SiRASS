@@ -76,16 +76,16 @@
                                     while (it.hasNext()) {
                                         ProgramaSS programaSS = it.next();
                                         String cve = programaSS.getCvePrograma();
-                                        if (cve == "null" && cve.equals(null)) {
+                                        if (cve == "" && cve.equals(null)) {
                                             cve = "Sin clave";
                                         }
                                 %>
                                 <tr>
                                     <th>
                                         <% if (cve != "Sin clave") {%>
-                                        <input type="text"maxlength="20" name="cveP" id="cveP" value="<%= cve%>" class="input-medium" />
+                                        <input type="text" maxlength="18" name="<%=programaSS.getIdPrograma()%>" id="<%=programaSS.getIdPrograma()%>" value="<%= cve%>" class="input-medium" />
                                         <% } else {%>
-                                        <input class="input-medium" type="text"maxlength="20" name="cveP" id="cveP" placeholder="<%= cve%>" />
+                                        <input class="input-medium" type="text" maxlength="18" name="<%=programaSS.getIdPrograma()%>" id="<%=programaSS.getIdPrograma()%>" placeholder="<%= cve%>" />
                                         <% }%>
                                     </th>
                                     <th>
@@ -100,23 +100,23 @@
                                         </a>
                                     </th>
                                     <th>
-                                        <div class="btn-group">
-                                            <a class="btn btn-success btn-mini" 
-                                            href="/SiRASS/Services?service=statProgram&id=<%=programaSS.getIdPrograma()%>&status=<%= programaSS.ACTIVO %>">Activar</a>
-                                            <a class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown">
-                                                <span class="caret"></span>
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a href="/SiRASS/Services?service=statProgram&id=<%=programaSS.getIdPrograma()%>&status=<%= programaSS.SUSPENDIDO %>"><i class="icon-minus"></i> Suspender</a>
-                                                </li>
-                                                <li>
-                                                    <a href="/SiRASS/Services?service=statProgram&id=<%=programaSS.getIdPrograma()%>&status=<%= programaSS.INACTIVO %>"><i class="icon-remove"></i> Remover</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </th>
-                                </tr>
+                            <div class="btn-group">
+                                <a class="btn btn-success btn-mini" 
+                                   href="#" onclick="activarProg(this)" data-id="<%= programaSS.getIdPrograma()%>">Activar</a>
+                                <a class="btn btn-success btn-mini dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#" onclick="suspendProg(this)" data-id="<%= programaSS.getIdPrograma()%>"><i class="icon-minus"></i> Suspender</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" onclick="inactProg(this)" data-id="<%= programaSS.getIdPrograma()%>"><i class="icon-remove"></i> Remover</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            </th>
+                            </tr>
                             <% }%>
                             </tbody>
                         </table>
@@ -131,6 +131,9 @@
         </div>
         <!-- Footer
             ============================== -->
-        <jsp:include page="/WEB-INF/jspf/footer.jsp" />
+        <jsp:include page="/WEB-INF/jspf/footer.jsp">
+            <jsp:param name="form" value="true" />
+            <jsp:param name="bootbox" value="true" />
+        </jsp:include>
     </body>
 </html>
