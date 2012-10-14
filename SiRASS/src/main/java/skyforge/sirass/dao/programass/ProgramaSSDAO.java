@@ -284,6 +284,26 @@ public class ProgramaSSDAO extends DAO {
         session.close();
         return programas;
     }
+    public List<ProgramaSS> getListProgramasByEdoSimple(int id, int estado) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List<ProgramaSS> programas = null;
+        ProjectionList plist = Projections.projectionList();
+        plist.add(Projections.property("p.nombre").as("nombre"));
+        plist.add(Projections.property("p.idPrograma").as("idPrograma"));
+        plist.add(Projections.property("p.area").as("area"));
+        plist.add(Projections.property("p.plazas").as("plazas"));
+        plist.add(Projections.property("p.vacantes").as("vacantes"));
+        plist.add(Projections.property("p.ocupadas").as("ocupadas"));
+        programas = (List<ProgramaSS>) session.createCriteria(ProgramaSS.class, "p")
+                .add(Restrictions.eq("idInstitucion", id))
+                .add(Restrictions.eq("estado", estado))
+                .setFetchMode("estado", FetchMode.JOIN)
+                .setProjection(plist)
+                .setResultTransformer(new AliasToBeanResultTransformer(ProgramaSS.class))
+                .list();
+        session.close();
+        return programas;
+    }
 
     public int upProgSS(ProgramaSS programaSS, String command) {
         Session session = HibernateUtil.getSessionFactory().openSession();

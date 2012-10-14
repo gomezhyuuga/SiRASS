@@ -22,7 +22,7 @@
     ProgramaSSDAO prodao = new ProgramaSSDAO();
     if (user != null) {
         int id = user.getInstitucion().getIdInstitucion();
-        misProgramas = prodao.getIdInstitutoByEdo(id, 1);
+        misProgramas = prodao.getListProgramasByEdoSimple(id, 1);
         misProgramas2 = prodao.getListProgramasByIdEdoCont(id, new CEstado((short) 3));
         misProgramas3 = prodao.getListProgramasByIdEdoCont(id, new CEstado((short) 4));
     }
