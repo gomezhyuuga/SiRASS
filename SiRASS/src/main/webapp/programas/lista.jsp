@@ -72,7 +72,7 @@
                         <td>
                             <%= programaSS.getInstitucion()%>
                         </td>
-                        <td>
+                        <td class="center">
                             <%= programaSS.getVacantes()%>
                         </td>
                         <td>
