@@ -131,36 +131,81 @@
                                     Iterator it5 = day.iterator();
 
                                 %>
-                                <h3>Tipo</h3>
-                                <%while (it4.hasNext()) {
-                                        TipoPrograma tp = (TipoPrograma) it4.next();
-                                %>
-                                <p>- <%= tp.getDescripcion()%></p>
-                                <% }%>
-                                <h3>Duraci&oacute;n</h3>
-                                <p><%= progamaSS.getTiempo().getDescripcion()%> <strong>Vigencia </strong><%= progamaSS.getFechaTiempo()%></p>
-                                <h3>Alcance</h3>
-                                <%while (it1.hasNext()) {
-                                        AlcancePrograma al = (AlcancePrograma) it1.next();
-                                %>
-                                <p>- <%= al.getDescripcion()%></p>
-                                <% }%>
-                                <h3>Poblaci&oacute;n a atender</h3>
-                                <%while (it2.hasNext()) {
-                                        PoblacionPrograma pp = (PoblacionPrograma) it2.next();
-                                %>
-                                <p>- <%= pp.getDescripcion()%></p>
-                                <% }%>
-                                <h3>Lugar de Realizaci&oacute;n</h3>
-                                <p><%= progamaSS.getLugar()%></p>
-                                <h3>Días de Realización</h3>
-                                <%while (it5.hasNext()) {
-                                        Dia d = (Dia) it5.next();
-                                %>
-                                <p>- <%= d.getDiaSemana()%></p>
-                                <% }%>
-                                <h3>Horario</h3>
-                                <p><%= progamaSS.getHorario().getDescripcion()%></p>
+
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <td><h3>Lugar de Realizaci&oacute;n</h3></td>
+                                            <td><h3>Duraci&oacute;n</h3></td>
+                                            <td><h3>Horario</h3></td>
+                                            <td><h3>Tipo</h3></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><%= progamaSS.getLugar()%></td>
+                                            <td><%= progamaSS.getTiempo().getDescripcion()%> <strong>Vigencia </strong><%= progamaSS.getFechaTiempo()%></td>
+                                            <td><%= progamaSS.getHorario().getDescripcion()%></td>
+                                            <%while (it4.hasNext()) {
+                                                    TipoPrograma tp = (TipoPrograma) it4.next();
+                                            %>
+                                            <td>- <%= tp.getDescripcion()%></td>
+                                            <% }%>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <td><h3>Alcance</h3></td>
+                                            <td><h3>Poblaci&oacute;n a atender</h3></td>
+                                            <td><h3>D&iacute;as de asistencia</h3></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <table class="table table-bordered table-striped">
+                                                    <tbody>
+                                                        <%while (it1.hasNext()) {
+                                                                AlcancePrograma al = (AlcancePrograma) it1.next();
+                                                        %>
+                                                        <tr>
+                                                            <td>- <%= al.getDescripcion()%></td>
+                                                        </tr>
+                                                        <% }%>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                            <td>
+                                                <table class="table table-bordered table-striped">
+                                                    <tbody>
+                                                        <%while (it2.hasNext()) {
+                                                                PoblacionPrograma pp = (PoblacionPrograma) it2.next();
+                                                        %>
+                                                        <tr>
+                                                            <td>- <%= pp.getDescripcion()%></td>
+                                                        </tr>
+                                                        <% }%>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                            <td>
+                                                <table class="table table-bordered table-striped">
+                                                    <tbody>
+                                                        <%while (it5.hasNext()) {
+                                                                Dia d = (Dia) it5.next();
+                                                        %>
+                                                        <tr>
+                                                            <td>- <%= d.getDiaSemana()%></td>
+                                                        </tr>
+                                                        <% }%>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <div class="tab-pane" id="PerfAcad">
                                 <table class="table table-striped table-bordered" style="width: 100%;">
@@ -199,8 +244,8 @@
                         <p><i class="icon-question-sign"></i>
                             Si desea actualizar, pulsar en <em><strong>Actualizar observaciones</strong></em>.</p>
                             <%--<form action="/SiRASS/Services?service=observProgram" method="post">--%>
-                        <textarea name="observaciones" id="observaciones" maxlength="300" class="span8" rows="4" placeholder="Escribe alguna observaci&oacute;n"><% if(progamaSS.getNotas() != null) {
-                            out.print(progamaSS.getNotas());
+                        <textarea name="observaciones" id="observaciones" maxlength="300" class="span8" rows="4" placeholder="Escribe alguna observaci&oacute;n"><% if (progamaSS.getNotas() != null) {
+                                out.print(progamaSS.getNotas());
                             }%></textarea>
                         <input type="hidden" name="id" value="<%= progamaSS.getIdPrograma()%>" />
                         <div class="form-actions">

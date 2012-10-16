@@ -102,9 +102,10 @@ public class programasDaoTest {
         List<ProgramaSS> list = pdao.getListFewInternos();
         Assert.assertNotNull(list);
     }*/
-    /*@Test
+    @Test
     public void testUpObservacion(){
         ProgramaSSDAO pdao = new ProgramaSSDAO();
-        pdao.uObsP(79, "aaaaaaa" , "cool");
-    }*/
+        List<ProgramaSS> programaSS = pdao.getListProgramasByVigencia();
+        System.out.println(programaSS.size());
+    }
 }

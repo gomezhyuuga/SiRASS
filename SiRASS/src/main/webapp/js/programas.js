@@ -320,9 +320,9 @@ function programaOK(responseText, statusText, xhr, $form) {
     if (responseText == "1") {
         console.log("Registro correcto :-)");
         createAlert('Registro exitoso!',
-            'Haz registrado correctamente tu programa. Espera a que sea validado en las oficinas de la UACM, estate pendiente en el apartado <i class = "icon-exclamation-sign"></i>Avisos por si hay error en tu solicitud ',
+            'Haz registrado correctamente tu programa.',
             '#feedback', 'alert-success');
-        bootbox.dialog('<p class="lead">Registro exitoso!<p>', [{
+        bootbox.dialog('<p class="lead">Registro exitoso! Espera a que sea validado en las oficinas de la UACM, estate pendiente en el apartado <i class = "icon-exclamation-sign"></i>Avisos por si hay error en tu solicitud <p>', [{
             "label" : "Aceptar",
             "class" : "btn-success",
             "callback": function() {
