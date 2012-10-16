@@ -42,7 +42,7 @@
                         <a class="btn btn-warning btn-small" href="./suspendidos.jsp"><i class="icon-minus icon-white"></i> Solicitud de baja</a> <span class="divider">/</span>
                         <a class="btn btn-danger btn-small" href="./bajas.jsp"><i class="icon-remove icon-white"></i> Inactivos</a> <span class="divider">/</span>
                         <a class="btn btn-info btn-small" href="./activos.jsp"><i class="icon-question-sign icon-white"></i> Activos</a><span class="divider">/</span>
-                        <a class="btn btn-inverse btn-small active" href="#"><i class="icon-exclamation-sign icon-white"></i> Vigencia</a>
+                        <a class="btn btn-inverse btn-small active" href="#"><i class="icon-warning-sign icon-white"></i> Vigencia</a>
                     </div>
                     <div class="vigenciaProg">
                         <%
