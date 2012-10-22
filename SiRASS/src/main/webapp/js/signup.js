@@ -149,7 +149,7 @@ $(document).ready(function() {
                 rangelength: [8, 20]
             },
             telExt: {
-                required: true,
+                required: false,
                 rangelength: [1, 10]
             }
         }

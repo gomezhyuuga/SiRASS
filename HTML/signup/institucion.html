@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<!--[if gte IE 9]>
+	  <style type="text/css">
+	    .gradient {
+	       filter: none;
+	    }
+	    
+
+	  </style>
+	<![endif]-->
+	
+	<!-- jQuery 1.7.2
+	============================== -->
+	<script src="../../SiRASS/src/main/webapp/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+	<!-- jQueryUI + jQueryUI bootstrap theme
+	============================== -->
+	<link type="text/css" href="../../SiRASS/src/main/webapp/css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+	<script src="../../SiRASS/src/main/webapp/js/jquery-ui-1.8.21.custom.min.js" type="text/javascript"></script>
+	<script src="../../SiRASS/src/main/webapp/js/jquery.ui.datepicker-es.js" type="text/javascript"></script>
+	<!--[if IE]>
+		<link rel="stylesheet" type="text/css" href="../css/custom-theme/jquery.ui.1.8.16.ie.css"/>
+	<![endif]-->
+	<!-- AJAX FORM -->
+	<script src="../../SiRASS/src/main/webapp/js/jquery.form.js" type="text/javascript"></script>
+	<!-- Validator
+	============================== -->
+	<script src="../../SiRASS/src/main/webapp/js/jquery-validation-1.9.0/jquery.validate.min.js" type="text/javascript"></script>
+	<script src="../../SiRASS/src/main/webapp/js/jquery-validation-1.9.0/additional-methods.min.js" type="text/javascript"></script>
+	<script src="../../SiRASS/src/main/webapp/js/jquery-validation-1.9.0/localization/messages_es.js" type="text/javascript"></script>
+	
+	<!-- Bootstrap
+	============================== -->
+	<link rel="stylesheet" href="../../SiRASS/src/main/webapp/bootstrap/css/bootstrap.min.css" type="text/css" />
+	<script src="../../SiRASS/src/main/webapp/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+	
+	<title>SiRASS - Sistema de Registro y Administraci&oacute;n de Servicio Social</title>
+	<meta name="description" content="Sistema de Registro y Administraci&oacute;n de Servicio Social" />
+	<meta name="author" content="Skyforge" />
+	<meta name="keywords" content="servicio social, uacm, skyforge, practicas profesionales" />
+	<link rel="stylesheet" type="text/css" href="../../SiRASS/src/main/webapp/css/main.css">
+	
+	<script src="../../SiRASS/src/main/webapp/js/makeusabrew-bootbox-85c33b4/bootbox.min.js" type="text/javascript"></script>
+	<script src="../../SiRASS/src/main/webapp/js/signup.js" type="text/javascript"></script>
+	<script src="../../SiRASS/src/main/webapp/js/utils.js" type="text/javascript"></script>
+	<link rel="icon" href="../favicon.ico" type="image/x-icon" />
+</head>
+<body>
+	<!-- Navbar
+	============================== -->
+	<nav class="navbar navbar-fixed-top">
+	  <div class="navbar-inner">
+	    <div class="container">
+	    	<a class="brand" href="#">
+	    	  SiRASS
+	    	</a>
+	    	<ul class="nav">
+	    		<li class="divider-vertical"></li>
+				<li>
+					<a href="#">Programas</a>
+				</li>
+				<li>
+					<a href="#">Proceso</a>
+				</li>
+				<li>
+					<a href="#">Ayuda</a>
+				</li>
+	    	</ul>
+	    	<span class="navbar-text pull-right">
+	    		<a href="#">Reg&iacute;strate</a>
+	    	</span>
+	    </div>
+	  </div>
+	</nav>
+	<!-- Contenido
+	============================== -->
+	<div class="container content solid">
+		<div class="hero-unit">
+			<h1>Registro de Instituci&oacute;n</h1>
+			<p>Al registrarte podr&aacute;s solicitar la afiliaci&oacute;n de <em>Programas de Servicio Social</em> con la <b>Universidad Aut&oacute;noma de la Ciudad de M&eacute;xico</b> y gestionar los mismos.</p>
+		</div>
+		<input type="hidden" name="class" value="SignupInstitucion" />
+		<legend>Datos de la instituci&oacute;n</legend>
+		<div class="row">
+			<div class="span6">
+				<!-- Datos de la instituci&oacute;n
+				============================== -->
+				<div class="control-group">
+					<label for="institucionList" class="control-label">Instituci&oacute;n o dependencia:</label>
+					<div class="controls">
+						<select name="institucionList" id="institucionList" class="input-xlarge" onchange="changeInstitucion(this)">
+							<option selected="selected" value="">-- Selecciona tu instituci&oacute;n --</option>
+							<optgroup label="No registrada">
+								<option value="unregistred">Otra</option>
+							</optgroup>
+							<optgroup id="instRegistradas" label="Registradas">
+								<option value="1">IPN</option>
+								<option value="2">UACM</option>
+								<option value="3">UNAM</option>
+								<option value="4">DGB</option>
+							</optgroup>
+						</select>
+					</div>
+				</div>
+				<div class="control-group hide" id="otraInstitucion">
+					<label for="nombreInstitucion" class="control-label">Nombre:</label>
+					<div class="controls">
+						<input type="text" id="nombreInstitucion" name="nombreInstitucion"
+							placeholder="Nombre de la instituci&oacute;n" class="input-xlarge" maxlength="150" />
+					</div>
+				</div>
+				<div class="control-group">
+					<label for="plantelList" class="control-label">Plantel:</label>
+					<div class="controls">
+						<select name="plantelList" id="plantelList" class="input-xlarge" onchange="changeInstitucion(this)">
+							<option value="">-- Selecciona tu plantel --</option>
+							<option value="0">Sin plantel</option>
+							<optgroup label="No registrado">
+								<option value="unregistred">Otro</option>
+							</optgroup>
+							<optgroup id="plantRegistrados" label="Registrados">
+							</optgroup>
+						</select>
+					</div>
+				</div>
+				<div class="control-group hide" id="otroPlantel">
+					<label for="nombrePlantel" class="control-label">Nombre:</label>
+					<div class="controls">
+						<input type="text" id="nombrePlantel" name="nombrePlantel"
+							placeholder="Nombre del plantel" class="input-xlarge" maxlength="100" />
+					</div>
+				</div>
+				<div class="control-group">
+		            <label class="control-label" for="domicilio">Domicilio:</label>
+		            <div class="controls">
+		                <input class="input-xlarge" type="text" id="domicilio" name="domicilio" maxlength="60" placeholder="Calle, N&uacute;mero" />
+		            </div>
+		        </div>
+		        <div class="control-group">
+		            <label class="control-label" for="area">&Aacute;rea o subdirecci&oacute;n:</label>
+		            <div class="controls">
+		                <input class="input-xlarge" type="text" id="area" name="area" maxlength="50" placeholder="Subdirecci&oacute;n administrativa" />
+		            </div>
+		        </div>
+			</div> <!-- fin datos instituci&oacute;n -->
+			<div class="span6">
+				<div class="control-group">
+				    <label class="control-label" for="responsable">Responsable del programa:</label>
+				    <div class="controls">
+				        <input class="input-xlarge" type="text" id="responsable" name="responsable" maxlength="50" placeholder="Persona que est&aacute; registrando la cuenta" />
+				    </div>
+				</div>
+				<div class="control-group">
+				    <label class="control-label" for="cargo">Cargo:</label>
+				    <div class="controls">
+				        <input class="input-xlarge" type="text" id="cargo" name="cargo" maxlength="50" placeholder="Responsable de Administraci&oacute;n" />
+				    </div>
+				</div>
+				<div class="control-group">
+				    <label class="control-label" for="tel">Tel&eacute;fono:</label>
+				    <div class="controls form-inline">
+				        <input class="span2" type="text" id="tel" name="tel" maxlength="25"
+				               placeholder="Tel&eacute;fono"/>
+				         Ext.
+				        <input type="text" id="telExt" name="telExt" maxlength="15"
+				        	placeholder="Extensi&oacute;n" style="width: 99px;"/>
+				    </div>
+				</div>
+				<div class="control-group">
+				    <label for="email" class="control-label">Email:</label>
+				    <div class="controls">
+				    	<div class="input-prepend">
+				    		<span class="add-on">
+				    			<i class="icon-envelope"></i>
+				    		</span><input type="text" id="email" name="email" style="width: 184px;"
+				    			placeholder="john@doe.com" />
+				    	</div>
+				    </div>
+				</div>
+			</div>
+		</div> <!-- fin row -->
+		<!-- Datos de usuario
+		============================== -->
+
+			<legend>Informaci&oacute;n de usuario</legend>
+			<div class="control-group">
+				<label class="control-label" for="username">Nombre de usuario:</label>
+				<div class="controls">
+					<input type="text" id="username" name="username" maxlength="15"
+						placeholder="Usuario [6-15 caracteres]" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="password">Contrase&ntilde;a:</label>
+				<div class="controls">
+					<input type="password" id="password" name="password" maxlength="16"
+						placeholder="Password [6-16 caracteres]" />
+				</div>
+			</div>					
+			<div class="control-group">
+				<label class="control-label" for="passwordVerif">Verificar contrase&ntilde;a:</label>
+				<div class="controls">
+					<input type="password" id="passwordVerif" name="passwordVerif" maxlength="16"
+						placeholder="Repite tu password"/>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="difundir">Autorizo que mis datos sean difundidos:</label>
+				<div class="controls">
+					<label class="radio inline">
+						<input type="radio" id="difundir" name="difundir" value="1" checked="checked" /> S&iacute;
+					</label>
+					<label class="radio inline">
+						<input type="radio" name="difundir" value="0" /> No
+					</label>
+				</div>
+			</div>
+		<div class="form-actions">
+			<button type="submit" class="btn btn-success input-large">Registrar</button>
+			<button type="reset" class="btn input-large">Limpiar</button>
+		</div>
+	</div>
+	<!-- Footer
+	============================== -->
+	<footer class="container">
+  		<hr />
+		<div class="row">
+			<div class="span4">
+				<h6>Skyforge - 2012</h6>
+			</div>
+			<div class="span4 offset4 right">
+				<h6><a href="http://www.uacm.edu.mx/">UACM - "Nada humano me es ajeno"</a></h6>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>

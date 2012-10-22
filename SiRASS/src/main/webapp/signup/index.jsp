@@ -14,26 +14,20 @@
 	============================== -->
 	<div class="container content solid">
 		<div class="hero-unit">
-			<h1>Registro</h1>
-			<p>Reg&iacute;strate en el sistema y empieza ahora mismo. Selecciona tu tipo de usuario.</p>
-			<div id="tipoUsuario" class="centerDiv center" style="width: 205px;">
-				<h4>Tipo de usuario</h4>
-				<div class="btn-group" style="display: inline-block;" data-toggle="buttons-radio">
-					<button class="btn btn-large btn-inverse active" id="btnPrestador">Prestador</button>
-					<button class="btn btn-large btn-inverse" id="btnInstitucion">Instituci&oacute;n</button>
-				</div>
-			</div>
+			<h1>Regístrate</h1>
+			<p>Para este tipo de registro debes ser alumno de la UACM y estar <b>inscrito</b>. Si eres alumno externo, contacta con la oficina de Servicio Social para saber cómo inscribirte.</p>
+			<form method="post" class="">
+				<input type="text" name="matricula" value="" placeholder="Matrícula" class="input-medium" />
+				<br />
+				<button class="btn btn-primary btn-large">Registrar</button>
+			</form>
 		</div>
-		<!-- feedback -->
-		<div class="alert alert-block hide alert-error" id="feedback">
-			<a class="close" data-dismiss="alert" href="#">&times;</a>
-			<h4 class="alert-heading">Datos inv&aacute;lidos!</h4>
-			<p>Por favor revisa los campos marcados en <strong>rojo</strong>. Los datos que ingresaste
-			en ellos no son v&aacute;lidos.</p>
-		</div>
-		<form method="post" action="#" name="form-signup" id="form-signup" class="form-horizontal">
-            <jsp:include page="../forms/signupPrestador.jsp" />
-		</form>
+                <button class="btn btn-warning btn-mini pull-right">
+			<a href="institucion.jsp" style="color: inherit;">
+				<i class="icon-white icon-chevron-right"></i>
+				Soy una instituci&oacute;n que desea afiliar un programa de servicio social.
+			</a>
+		</button>
 	</div>
     <!-- Footer
 	============================== -->
@@ -41,8 +35,6 @@
         <jsp:param name="form" value="true" />
         <jsp:param name="datepicker" value="true" />
         <jsp:param name="bootbox" value="true" />
-        <jsp:param name="script" value="signup" />
-        <jsp:param name="script" value="inscripcion" />
     </jsp:include>
 </body>
 </html>
