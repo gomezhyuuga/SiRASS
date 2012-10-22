@@ -15,26 +15,28 @@
                 Editar Datos</a>
         </li>
         <li class = "nav-header"> Genestionar Programas </li>
-        <li id="sendPropues"><a href="enviarPropuesta.jsp">
-                <i class = "icon-pencil"></i> 
-
-                Enviar propuesta de programa</a></li>
-        <li id="actualPropues"><a href="actualProgramas.jsp"> 
+        <li id="sendPropues">
+            <a href="enviarPropuesta.jsp">
+                <i class = "icon-pencil"></i>
+                Enviar propuesta de programa
+            </a>
+        </li>
+<!--        <li id="actualPropues"><a href="actualProgramas.jsp"> 
                 <i class = "icon-refresh"></i> 
                 Actualizar programa</a>
         </li>
         <li id="bajaPropues"><a href="bajaPrograma.jsp"> 
                 <i class = "icon-remove"></i> 
                 Solicitar baja de programa</a>
-        </li>
+        </li>-->
         <!-- Avisos -->
-        <li class = "divider"></li>
+<!--        <li class = "divider"></li>
         <li id="avisosPropues">
             <a href="#notifs">
                 <i class = "icon-exclamation-sign"></i>
                 Avisos
             </a>
-        </li>		
+        </li>		-->
         <li class="divider"></li>
     </ul>
 </nav>
