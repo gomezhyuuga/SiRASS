@@ -14,13 +14,13 @@
                 <i class="icon-pencil"></i> 
                 Editar Datos</a>
         </li>
-        <li class = "nav-header"> Genestionar Programas </li>
+<!--        <li class = "nav-header"> Genestionar Programas </li>
         <li id="sendPropues">
             <a href="enviarPropuesta.jsp">
                 <i class = "icon-pencil"></i>
                 Enviar propuesta de programa
             </a>
-        </li>
+        </li>-->
 <!--        <li id="actualPropues"><a href="actualProgramas.jsp"> 
                 <i class = "icon-refresh"></i> 
                 Actualizar programa</a>
