@@ -23,7 +23,7 @@
                     <td class="center"><%=p.getVacantes()%></td>
                     <td class="center"><%=p.getOcupadas()%></td>
                     <td>
-                        <form action="editarPrograma.jsp" method="get">
+                        <form action="editarPrograma.jsp" method="post">
                             <button name="idPrograma" class="btn btn-small btn-warning"
                                     value="<%=p.getIdPrograma()%>" type="submit">
                                 <i class="icon-info-sign icon-white"></i>

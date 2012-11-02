@@ -28,37 +28,37 @@
         <div class = "control-group">
             <label class = "control-label" for = "objProgIns">  Objetivo General: </label>
             <div class = "controls">
-                <textarea class="span5" id="objProgIns" name="objProgIns" placeholder = "Escribe informaci&oacute;n en max. 400 letras"></textarea>
+                <textarea class="span5" id="objProgIns" name="objProgIns" placeholder = "Escribe informaci&oacute;n en min. 400 letras"></textarea>
             </div>
         </div>
         <div class = "control-group">
             <label class = "control-label" for = "justProgIns">  Justificaci&oacute;n: </label>
             <div class = "controls">
-                <textarea class="span5" id = "justProgIns" name = "justProgIns" placeholder = "Escribe informaci&oacute;n en max. 300 letras"></textarea>
+                <textarea class="span5" id = "justProgIns" name = "justProgIns" placeholder = "Escribe informaci&oacute;n en min. 300 letras"></textarea>
             </div>
         </div>
         <div class = "control-group">
             <label class = "control-label" for = "desProgIns">  Desarrollo: </label>
             <div class = "controls">
-                <textarea class="span5" id = "desProgIns" name = "desProgIns" placeholder = "Escribe informaci&oacute;n en max. 500 letras"></textarea>
+                <textarea class="span5" id = "desProgIns" name = "desProgIns" placeholder = "Escribe informaci&oacute;n en min. 500 letras"></textarea>
             </div>
         </div>
         <div class = "control-group">
             <label class = "control-label" for = "recurProgIns">  Recursos: </label>
             <div class = "controls">
-                <textarea class="span5" id = "recurProgIns" name = "recurProgIns" placeholder = "Escribe informaci&oacute;n en max. 100 letras"></textarea>
+                <textarea class="span5" id = "recurProgIns" name = "recurProgIns" placeholder = "Escribe informaci&oacute;n en min. 100 letras"></textarea>
             </div>
         </div>
         <div class = "control-group">
             <label class = "control-label" for = "evalProgIns">  Evaluaci&oacute;n: </label>
             <div class = "controls">
-                <textarea class="span5" id = "evalProgIns" name = "evalProgIns" placeholder = "Escribe informaci&oacute;n en max. 400 letras"></textarea>
+                <textarea class="span5" id = "evalProgIns" name = "evalProgIns" placeholder = "Escribe informaci&oacute;n en min. 400 letras"></textarea>
             </div>
         </div>
         <div class = "control-group">
             <label class = "control-label" for = "resulProgIns">  Resultados: </label>
             <div class = "controls">
-                <textarea class="span5" id = "resulProgIns" name = "resulProgIns" placeholder = "Escribe informaci&oacute;n en max. 300 letras"></textarea>
+                <textarea class="span5" id = "resulProgIns" name = "resulProgIns" placeholder = "Escribe informaci&oacute;n en min. 300 letras"></textarea>
             </div>
         </div>
         <div class="form-actions">
@@ -244,7 +244,7 @@
         <div class = "control-group">
             <label class = "control-label" for = "obsProgIns">  Observaciones: </label>
             <div class = "controls">
-                <textarea class="span5" id = "obsProgIns" name = "obsProgIns" maxlength = "600" placeholder = "Escribe informaci&oacute;n sobre esto en MAX 600 letras"></textarea>
+                <textarea class="span5" id = "obsProgIns" name = "obsProgIns" maxlength = "600" placeholder = "Escribe alguna observación, no debe ser necesaria"></textarea>
             </div>
         </div>
         <div class = "form-actions">
@@ -252,4 +252,3 @@
         </div>
     </div>
 </div>
-
