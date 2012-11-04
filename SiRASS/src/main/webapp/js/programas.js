@@ -69,7 +69,7 @@ function vForm(){
     });
     
     jQuery.validator.addMethod("lettersonlyAcent", function(value, element) {
-        return this.optional(element) || /^[a-záéíóú\s]+$/i.test(value);
+        return this.optional(element) || /^[a-záéíóú.\s]+$/i.test(value);
     }, "Este campo solo puede contener letras");
     
     $('#form-sendP').validate({
@@ -142,8 +142,7 @@ function vForm(){
             },
             cargoRespoIns:{
                 required: true,
-                maxlength: 100,
-                lettersonlyAcent: true
+                maxlength: 100
             },
             emailInst:{
                 required: true,

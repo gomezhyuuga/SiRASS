@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import skyforge.sirass.dao.institucion.CInstitucionDAO;
 import skyforge.sirass.dao.institucion.PlantelDAO;
 import skyforge.sirass.dao.programass.ProgramaSSDAO;
+import skyforge.sirass.dao.programass.ResponsableProgramaDAO;
 import skyforge.sirass.dao.programass.tipoProgramaDAO;
 import skyforge.sirass.dao.user.UsuarioDAO;
 import skyforge.sirass.model.Dia;
@@ -46,10 +47,9 @@ public class upPrograma extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     java.util.Date utilDate = new java.util.Date();
     java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(utilDate.getTime());
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
 
@@ -112,7 +112,14 @@ public class upPrograma extends HttpServlet {
         prog.setTiempo(new TipoTIempoPrograma((short) tTiempo));
         if (tTiempo == 2) {
             String deterDate = "";
-            deterDate = request.getParameter("vencimiento");
+            deterDate = request.getParameter("vencimiento").substring(6, 10).concat("-").concat(request.getParameter("vencimiento").substring(3, 5).concat("-").concat(request.getParameter("vencimiento").substring(0, 2)));
+            if (deterDate == null && deterDate == "") {
+                Calendar date = new GregorianCalendar();
+                int anio = date.get(Calendar.YEAR);
+                int mes = date.get(Calendar.MONTH);
+                int dia = date.get(Calendar.DAY_OF_MONTH);
+                deterDate = (anio + 1) + "-" + mes + "-" + dia;
+            }
             fechadate = sdf.parse(deterDate);
         } else {
             Calendar date = new GregorianCalendar();
@@ -131,13 +138,20 @@ public class upPrograma extends HttpServlet {
         String respon[] = request.getParameterValues("respoIns");
         String cargoRes[] = request.getParameterValues("cargoRespoIns");
         String mailRes[] = request.getParameterValues("emailInst");
+        String idRes[] = request.getParameterValues("idRespon");
         HashSet<ResponsablePrograma> listResp = new HashSet<ResponsablePrograma>();
         for (int z = 0; z < respon.length; z++) {
             ResponsablePrograma r = new ResponsablePrograma();
+            if (idRes.length > z) {
+                if (idRes[z] != null && idRes[z] != "") {
+                    r.setIdResponsable(Integer.parseInt(idRes[z]));
+                }
+            }
             r.setResponsable(respon[z]);
             r.setCargo(cargoRes[z]);
             r.setEmail(mailRes[z]);
             r.setPrograma(prog);
+
             listResp.add(r);
         }
         prog.setResponsables(listResp);
@@ -146,11 +160,17 @@ public class upPrograma extends HttpServlet {
         String actsProg[] = request.getParameterValues("actProgIns");
         String licenProg[] = request.getParameterValues("licenProgIns");
         String vacanProg[] = request.getParameterValues("vacanProgIns");
+        String idLicen[] = request.getParameterValues("idLicen");
         int pv = 0;
         HashSet<ActividadPrograma> lisActs = new HashSet<ActividadPrograma>();
         for (int j = 0; j < actsProg.length; j++) {
             int valPV;
             ActividadPrograma acts = new ActividadPrograma();
+            if (idLicen.length > j) {
+                if (idLicen[j] != null && idLicen[j] != "") {
+                    acts.setIdActividad(Integer.parseInt(idLicen[j]));
+                }
+            }
             acts.setActividad(actsProg[j]);
             acts.setLicenciatura(licenProg[j]);
             acts.setnSolicitados(Short.parseShort(vacanProg[j]));
@@ -214,14 +234,14 @@ public class upPrograma extends HttpServlet {
         estado.setIdEstado((short) 4);
         estado.setDescripcion("Esperando");
         prog.setEstado(estado);
-        
-        Calendar date = new GregorianCalendar();
-            int anio = date.get(Calendar.YEAR);
-            int mes = date.get(Calendar.MONTH);
-            int dia = date.get(Calendar.DAY_OF_MONTH);
-            fechadate = sdf.parse(anio + "-" + mes + "-" + dia);
 
-        prog.setNotas("Observaciónes a corregir: "+request.getParameter("observaciones"));
+        Calendar date = new GregorianCalendar();
+        int anio = date.get(Calendar.YEAR);
+        int mes = date.get(Calendar.MONTH);
+        int dia = date.get(Calendar.DAY_OF_MONTH);
+        fechadate = sdf.parse(anio + "-" + mes + "-" + dia);
+
+        prog.setNotas(request.getParameter("observaciones"));
 
         ProgramaSSDAO daoP = new ProgramaSSDAO();
         prog.setPlazas(pv);
@@ -294,5 +314,4 @@ public class upPrograma extends HttpServlet {
         tipo.setDescripcion(nombreTipo);
         dao.insert(tipo);
     }
-    
 }

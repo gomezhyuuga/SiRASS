@@ -3,6 +3,10 @@
     Created on : 25/10/2012, 07:59:51 PM
     Author     : Jorge Macias
 --%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.util.GregorianCalendar"%>
+<%@page import="java.util.Calendar"%>
 <%@page import="skyforge.sirass.model.programass.ActividadPrograma"%>
 <%@page import="skyforge.sirass.model.programass.ResponsablePrograma"%>
 <%@page import="skyforge.sirass.model.Dia"%>
@@ -30,7 +34,7 @@
         misProgramas = prodao.getByPK(idprog);
     }
 %>
-<textarea name="observaciones" readonly id="observaciones" maxlength="300" class="span8" rows="4" placeholder="Escribe alguna observaci&oacute;n"><%= misProgramas.getNotas() %></textarea>
+<textarea name="observaciones" readonly id="observaciones" maxlength="300" class="span8" rows="4" placeholder="Escribe alguna observaci&oacute;n"><%= misProgramas.getNotas()%></textarea>
 <div class="tabbable">
     <ul class="nav nav-tabs">
         <li class="active"><a href="#tab1" data-toggle="tab">Datos</a></li>
@@ -42,8 +46,8 @@
 </div>
 <div class="tab-content">
     <div class="tab-pane active" id="tab1">
-        <input type="hidden" name="idPrograma" id="idPrograma" value="<%= idprog %>"/>
-        <input type="hidden" name="cvePrograma" id="cvePrograma" value="<%= misProgramas.getCvePrograma() %>"/>
+        <input type="hidden" name="idPrograma" id="idPrograma" value="<%= idprog%>"/>
+        <input type="hidden" name="cvePrograma" id="cvePrograma" value="<%= misProgramas.getCvePrograma()%>"/>
         <div class = "control-group">
             <label class = "control-label" for = "nomProgIns">  Nombre del programa: </label>
             <div class = "controls">
@@ -141,11 +145,12 @@
             <div class = "controls">
                 <select name = "duraProgIns" id = "duraProgIns" onchange="changeTypeProgram(this)">
                     <% String deter, indeter;
-                        deter = indeter = "";
+                        deter = "";
+                        indeter = "";
                         if (misProgramas.getTiempo().getIdTiempo() == 1) {
-                            indeter = "selected";
+                            indeter = "selected=\"selected\"";
                         } else {
-                            deter = "selected";
+                            deter = "selected=\"selected\"";
                         }
                     %>
                     <option value="1" <%= indeter%>>Indeterminado</option>
@@ -153,10 +158,24 @@
                 </select>
             </div>
         </div>
+        <%
+            String fecha;
+            fecha = String.valueOf(misProgramas.getFechaTiempo());
+            if (fecha != null && fecha != "null") {
+                fecha = fecha.substring(8, 10).concat("/" + fecha.substring(5, 7) + "/" + fecha.substring(0, 4));
+            } else {
+                Date fecha1 = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                Calendar date = new GregorianCalendar();
+                int anio = date.get(Calendar.YEAR);
+                fecha = String.valueOf(sdf.format(fecha1));
+                fecha = fecha.substring(0,6).concat(String.valueOf(anio+1));
+            }
+        %>
         <div class="control-group hide" id="fechaDeterminado">
             <label class="control-label" for="vencimiento">Fecha de Vencimiento:</label>
             <div class="controls">
-                <input type="text" name="vencimiento" id="vencimiento" class="input-small center" value="<%= misProgramas.getFechaTiempo()%>"/>
+                <input type="text" name="vencimiento" id="vencimiento" class="input-small center" value="<%= fecha%>"/>
             </div>
         </div>
         <div class = "control-group">
@@ -333,19 +352,20 @@
                     Iterator it = actividades.iterator();
                     int num = 1;
                     while (it.hasNext()) {
-                        ActividadPrograma res = (ActividadPrograma) it.next();
+                        ActividadPrograma act = (ActividadPrograma) it.next();
                 %>
                 <tr id="row<%=num%>">
                     <td>
-                        <input class="input-large" type = "text" name = "licenProgIns" id = "licenProgIns" value="<%= res.getLicenciatura()%>" />
+                        <input type = "hidden" id = "idLicen" name = "idLicen" value="<%= act.getIdActividad()%>" />
+                        <input class="input-large" type = "text" name = "licenProgIns" id = "licenProgIns" value="<%= act.getLicenciatura()%>" />
                     </td>
                     <td> 
-                        <input class="input-mini" type = "text" name = "vacanProgIns" id = "vacanProgIns" value="<%= res.getnSolicitados()%>"/>
+                        <input class="input-mini" type = "text" name = "vacanProgIns" id = "vacanProgIns" value="<%= act.getnSolicitados()%>"/>
                     </td>
                     <td>
-                        <textarea name = "actProgIns" id = "actProgIns" rows = "5" placeholder = "Escribe 5 actividades como  mínimo" ><%=res.getActividad()%></textarea>
+                        <textarea name = "actProgIns" id = "actProgIns" rows = "5" placeholder = "Escribe 5 actividades como  mínimo" ><%=act.getActividad()%></textarea>
                     </td>
-                    <td><input class="btn btn-mini btn-danger" type="button" id="elim1" onclick="delRowAct(<%=num%>)" value="Eliminar" /></td>
+                    <td><input class="btn btn-mini btn-danger" type="button" id="elim<%= num%>" name="elim<%= num%>" onclick="delRowAct(<%= num%>)" value="Eliminar" /></td>
                 </tr>
                 <% num++;
                     }%>
@@ -379,6 +399,7 @@
                 %>
                 <tr id="row<%= num%>">
                     <td>
+                        <input type = "hidden" id = "idRespon" name = "idRespon" value="<%= res.getIdResponsable()%>" />
                         <input class="input-medium" type = "text" id = "respoIns" name = "respoIns" value="<%= res.getResponsable()%>" />
                     </td>
                     <td> 
@@ -387,7 +408,7 @@
                     <td>
                         <input class="input-medium" type="text" id="emailInst" name="emailInst" maxlength="30" value="<%= res.getEmail()%>" />
                     </td>
-                    <td><input class="btn btn-mini btn-danger" type="button" id="elim1" onclick="delRowAct(<%=num%>)" value="Eliminar" /></td>
+                    <td><input class="btn btn-mini btn-danger" type="button" id="elim<%= num%>" name="elim<%= num%>" onclick="delRowAct(<%= num%>)" value="Eliminar" /></td>
                 </tr>
                 <% num++;
                     }%>

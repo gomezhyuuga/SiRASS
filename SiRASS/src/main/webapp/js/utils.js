@@ -584,11 +584,11 @@ function changeTypeProgram(select) {
     } else if (seleccionado.attr('id') == "duraProgIns") {
         campo = $('#fechaDeterminado');
         // Se selecciona otro
-        if (seleccionado.val() == "2") {
+        if (seleccionado.val() == "1") {
+            campo.fadeOut();
+        } else {
             campo.fadeIn();
             asignarUI();
-        } else {
-            campo.fadeOut();
         }
     }
 }

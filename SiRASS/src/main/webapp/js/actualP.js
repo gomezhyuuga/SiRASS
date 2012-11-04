@@ -1,5 +1,10 @@
 $(document).ready(function() {
     
+    if(document.getElementById('duraProgIns').value == 2){
+        campo = $('#fechaDeterminado');
+        campo.fadeIn();
+    }
+    
     vForm();
     
     asignarUI();
@@ -55,7 +60,7 @@ function vForm(){
         success: programaOK,  // post-submit callback 
         error: programaError,
         timeout: 3000,
-        url: "/SiRASS/sendPropuesta"
+        url: "/SiRASS/upPrograma"
     };
     $.validator.setDefaults({
         debug: true,
@@ -69,10 +74,10 @@ function vForm(){
     });
     
     jQuery.validator.addMethod("lettersonlyAcent", function(value, element) {
-        return this.optional(element) || /^[a-záéíóú\s]+$/i.test(value);
+        return this.optional(element) || /^[a-záéíóú.\s]+$/i.test(value);
     }, "Este campo solo puede contener letras");
     
-    $('#form-sendP').validate({
+    $('#form-actualP').validate({
         rules: {
             nomProgIns: {
                 required: true,
@@ -142,8 +147,7 @@ function vForm(){
             },
             cargoRespoIns:{
                 required: true,
-                maxlength: 100,
-                lettersonlyAcent: true
+                maxlength: 100
             },
             emailInst:{
                 required: true,
@@ -318,11 +322,11 @@ function createRowRespo(index){
 }
 function programaOK(responseText, statusText, xhr, $form) {
     if (responseText == "1") {
-        console.log("Registro correcto :-)");
-        createAlert('Registro exitoso!',
-            'Haz registrado correctamente tu programa.',
+        console.log("Actualización correcta :-)");
+        createAlert('Actualización correcta!',
+            'Haz actualizado correctamente tu programa.',
             '#feedback', 'alert-success');
-        bootbox.dialog('<p class="lead">Registro exitoso! Espera a que sea validado en las oficinas de la UACM, estate pendiente en el apartado <i class = "icon-exclamation-sign"></i>Avisos por si hay error en tu solicitud <p>', [{
+        bootbox.dialog('<p class="lead">Actualización correcta! Espera a que sea visto y validado en las oficinas de la UACM, estate pendiente en el apartado <i class = "icon-exclamation-sign"></i>Avisos por si hay que corregir tu programa<p>', [{
             "label" : "Aceptar",
             "class" : "btn-success",
             "callback": function() {
@@ -330,11 +334,11 @@ function programaOK(responseText, statusText, xhr, $form) {
             }
         }]);
     } else if (responseText == "0") {
-        console.log("Error registrando :-(");
-        createAlert('Registro incorrecto!',
-            'Hubo un error registrando tu programa. Revisa que los datos sean correctos e intenta de nuevo.',
+        console.log("Error actualizando :-(");
+        createAlert('Actualización incorrecta!',
+            'Hubo un error actualizando tu programa. Revisa que los datos sean correctos e intenta de nuevo.',
             '#feedback', 'alert-error');
-        bootbox.dialog('<p class="lead">Error en el registro! Intenta de nuevo, tal\n\
+        bootbox.dialog('<p class="lead">Error en la actualización! Intenta de nuevo, tal\n\
             vez haya un dato incorrecto<p>', [{
             "label" : "Cerrar",
             "class" : "btn-primary btn-danger"
@@ -343,11 +347,11 @@ function programaOK(responseText, statusText, xhr, $form) {
 }
 
 function programaError(responseText, statusText, xhr, $form) {
-    console.log("Error registrando :-(");
-    createAlert('Registro incorrecto!',
-        'Hubo un error registrando tu programa. Revisa que los datos sean correctos e intenta de nuevo.',
+    console.log("Error actualizando :-(");
+    createAlert('Actualización incorrecta!',
+        'Hubo un error actualizando tu programa. Revisa que los datos sean correctos e intenta de nuevo.',
         '#feedback', 'alert-error');
-    bootbox.dialog('<p class="lead">Error en el registro! Intenta de nuevo, tal\n\
+    bootbox.dialog('<p class="lead">Error en la actualización! Intenta de nuevo, tal\n\
             vez haya un dato incorrecto<p>', [{
         "label" : "Cerrar",
         "class" : "btn-primary btn-danger"

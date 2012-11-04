@@ -63,7 +63,7 @@
             <jsp:param name="datepicker" value="true" />
             <jsp:param name="bootbox" value="true" />
             <jsp:param name="form" value="true" />
-            <jsp:param name="script" value="programas" />
+            <jsp:param name="script" value="actualP" />
         </jsp:include>
     </body>
 </html>
