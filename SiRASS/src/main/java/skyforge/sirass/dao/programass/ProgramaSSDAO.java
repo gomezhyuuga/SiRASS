@@ -31,6 +31,10 @@ public class ProgramaSSDAO extends DAO {
     public int insert(ProgramaSS programa) {
         return super.insert(programa);
     }
+
+    public int update(ProgramaSS programa){
+        return super.update(programa);
+    }
     
     public int uObsP(int idPrograma, short nvoEdo, String obser, String user, String cveProg) {
         return this.updateEstadoPrograma(idPrograma, nvoEdo, obser, user, null);

@@ -51,7 +51,7 @@
                         <p>Por favor revisa los campos marcados en <strong>rojo</strong>. Los datos que ingresaste
                             en ellos no son v&aacute;lidos.</p>
                     </div>
-                    <form method="post" action="/SiRASS/sendPropuesta" name="form-sendP" id="form-sendP" class="form-horizontal">
+                    <form method="post" action="/SiRASS/upPrograma" name="form-actualP" id="form-actualP" class="form-horizontal">
                         <jsp:include page="/forms/formActual.jsp" />
                     </form>
                 </div>

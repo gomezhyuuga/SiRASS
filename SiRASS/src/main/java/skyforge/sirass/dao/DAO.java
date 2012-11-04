@@ -64,6 +64,40 @@ public class DAO {
             session.close();
         }
     }
+    
+    public int update(Object obj) {
+        int status = 0;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.update(obj);
+            transaction.commit();
+            return 1;
+        } catch (ConstraintViolationException e) {
+            transaction.rollback();
+            System.out.println("#### --- ####");
+            System.out.println("Error haciendo update. Motivo:");
+            System.out.println(e.getLocalizedMessage());
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            System.out.println("#### --- ####");
+            return e.getErrorCode();
+        } catch (DataException e) {
+            transaction.rollback();
+            System.out.println("#### --- ####");
+            System.out.println("Error haciendo update. Datos incorrectos. Motivo:");
+            System.out.println(e.getLocalizedMessage());
+            System.out.println("errorCode: " + e.getErrorCode());
+            System.out.println("sql: " + e.getSQL());
+            System.out.println("sqlState: " + e.getSQLState());
+            e.printStackTrace();
+            System.out.println("#### --- ####");
+            return e.getErrorCode();
+        } finally {
+            session.close();
+        }
+    }
 
     public Object get(Class clase, int id) {
         Session session = HibernateUtil.getSessionFactory().openSession();

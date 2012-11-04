@@ -6,15 +6,29 @@ package skyforge.sirass.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import skyforge.sirass.dao.institucion.CInstitucionDAO;
+import skyforge.sirass.dao.institucion.PlantelDAO;
 import skyforge.sirass.dao.programass.ProgramaSSDAO;
-import skyforge.sirass.model.programass.ActividadPrograma;
-import skyforge.sirass.model.programass.ProgramaSS;
-import skyforge.sirass.model.programass.ResponsablePrograma;
+import skyforge.sirass.dao.programass.tipoProgramaDAO;
+import skyforge.sirass.dao.user.UsuarioDAO;
+import skyforge.sirass.model.Dia;
+import skyforge.sirass.model.institucion.CInstitucion;
+import skyforge.sirass.model.institucion.Institucion;
+import skyforge.sirass.model.institucion.Plantel;
+import skyforge.sirass.model.programass.*;
+import skyforge.sirass.model.user.Usuario;
 
 /**
  *
@@ -37,56 +51,192 @@ public class upPrograma extends HttpServlet {
     java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(utilDate.getTime());
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ParseException {
+
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/plain;charset=utf-8");
-        ProgramaSSDAO pdao = new ProgramaSSDAO();
-        ProgramaSS programaSS = upProg(request);
-        programaSS.setModificadoPor(request.getParameter("usuario"));
-        programaSS.setUltimaModif(sqlTimestamp);
-        programaSS.setIdPrograma(Integer.parseInt(request.getParameter("idPrograma")));
+        PrintWriter out = response.getWriter();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date fechadate = null;
+
+        UsuarioDAO dao = new UsuarioDAO();
+        Plantel plant = new Plantel();
+        PlantelDAO pdao = new PlantelDAO();
+        CInstitucionDAO cdao = new CInstitucionDAO();
+        Usuario user = dao.getByUsername(String.valueOf(request.getUserPrincipal().getName()));
+        Institucion ins = user.getInstitucion();
+        CInstitucion cInstitucion = cdao.getById(ins.getIdCInstitucion());
+        String plantel = String.valueOf(user.getInstitucion().getIdPlantel());
+        if (!"null".equals(plantel)) {
+            plant = pdao.getPlantelById(Integer.parseInt(plantel));
+        }
+        int categoInt = 0;
+        String catego = cInstitucion.getNombre();
+        if ("UACM".equals(catego)) {
+            categoInt = 1;
+        } else {
+            categoInt = 2;
+        }
+
+        Date curDate = new Date(System.currentTimeMillis());
+
+        ProgramaSS prog = new ProgramaSS();
+        prog.setIdPrograma(Integer.parseInt(request.getParameter("idPrograma")));
+        prog.setIdInstitucion(ins.getIdInstitucion());
+        prog.setCvePrograma(request.getParameter("cvePrograma"));
+        prog.setCategoria(new CategoriaPrograma(categoInt));
+        prog.setInstitucion(catego + " - " + plant.getNombre());
+        prog.setArea(ins.getArea());
+        prog.setDomicilio(ins.getDomicilio());
+        prog.setTel(ins.getTel());
+        prog.setTelExt(ins.getTelExt());
+        prog.setEmail(ins.getEmail());
+        prog.setNombre(request.getParameter("nomProgIns"));
+        prog.setObjGeneral(request.getParameter("objProgIns"));
+        prog.setJustificacion(request.getParameter("justProgIns"));
+        prog.setDesarrollo(request.getParameter("desProgIns"));
+        prog.setRecursos(request.getParameter("recurProgIns"));
+        prog.setEvaluacion(request.getParameter("evalProgIns"));
+        prog.setResultados(request.getParameter("resulProgIns"));
+        prog.setLugar(request.getParameter("lugarProgIns"));
+
+
+        prog.setOcupadas(0);
+
+        int hora = Integer.parseInt(request.getParameter("horaProgIns"));
+        prog.setHorario(new HorarioPrograma((short) hora));
+        prog.setPlazas(50);
+        prog.setVacantes(40);
+        prog.setObservaciones(request.getParameter("obsProgIns"));
+        int tTiempo = Integer.parseInt(request.getParameter("duraProgIns"));
+        prog.setTiempo(new TipoTIempoPrograma((short) tTiempo));
+        if (tTiempo == 2) {
+            String deterDate = "";
+            deterDate = request.getParameter("vencimiento");
+            fechadate = sdf.parse(deterDate);
+        } else {
+            Calendar date = new GregorianCalendar();
+            int anio = date.get(Calendar.YEAR);
+            int mes = date.get(Calendar.MONTH);
+            int dia = date.get(Calendar.DAY_OF_MONTH);
+            fechadate = sdf.parse((anio + 1) + "-" + mes + "-" + dia);
+        }
+        prog.setFechaTiempo(fechadate);
+
+        prog.setCreacion(curDate);
+        prog.setModificadoPor(request.getUserPrincipal().getName());
+        prog.setUltimaModif(curDate);
+
+        //Del responsable
         String respon[] = request.getParameterValues("respoIns");
-        String cargo[] = request.getParameterValues("cargoRespoIns");
-        String emailres[] = request.getParameterValues("emailInst");
+        String cargoRes[] = request.getParameterValues("cargoRespoIns");
+        String mailRes[] = request.getParameterValues("emailInst");
         HashSet<ResponsablePrograma> listResp = new HashSet<ResponsablePrograma>();
-        for (int i = 0; i < respon.length; i++) {
+        for (int z = 0; z < respon.length; z++) {
             ResponsablePrograma r = new ResponsablePrograma();
-            r.setResponsable(respon[i]);
-            r.setCargo(cargo[i]);
-            r.setEmail(emailres[i]);
-            r.setPrograma(programaSS);
+            r.setResponsable(respon[z]);
+            r.setCargo(cargoRes[z]);
+            r.setEmail(mailRes[z]);
+            r.setPrograma(prog);
             listResp.add(r);
         }
-        programaSS.setResponsables(listResp);
+        prog.setResponsables(listResp);
 
-        String licen[] = request.getParameterValues("licenProg");
-        String acts[] = request.getParameterValues("actsProg");
-        String vacan[] = request.getParameterValues("vacanProg");
+        // De las licenciaturas
+        String actsProg[] = request.getParameterValues("actProgIns");
+        String licenProg[] = request.getParameterValues("licenProgIns");
+        String vacanProg[] = request.getParameterValues("vacanProgIns");
+        int pv = 0;
         HashSet<ActividadPrograma> lisActs = new HashSet<ActividadPrograma>();
-        for (int i = 0; i < licen.length; i++) {
-            ActividadPrograma actP = new ActividadPrograma();
-            actP.setActividad(acts[i]);
-            actP.setLicenciatura(licen[i]);
-            actP.setnSolicitados(Short.parseShort(vacan[i]));
-            actP.setPrograma(programaSS);
-            lisActs.add(actP);
+        for (int j = 0; j < actsProg.length; j++) {
+            int valPV;
+            ActividadPrograma acts = new ActividadPrograma();
+            acts.setActividad(actsProg[j]);
+            acts.setLicenciatura(licenProg[j]);
+            acts.setnSolicitados(Short.parseShort(vacanProg[j]));
+            valPV = Integer.parseInt(vacanProg[j]);
+            pv += valPV;
+            acts.setPrograma(prog);
+            lisActs.add(acts);
         }
-        programaSS.setActividad(lisActs);
+        prog.setActividad(lisActs);
 
-        String command = "UPDATE ProgramaSS SET nombre = :nameProg, objGeneral = :objG, desarrollo = :desa,"
-                + "observaciones = :obs, modificadoPor = :mp, ultimaModif = :um "
-                + "WHERE idPrograma = :id";
-        
+        //Select Multpiple
 
-        int stat = pdao.upProgSS(programaSS, command);
-        
-        if (stat == 1) {
-            response.sendRedirect(request.getContextPath() + "/institucion/actualProgramas.jsp");
+        String alcances[] = request.getParameterValues("alcanProgIns");
+        HashSet<AlcancePrograma> lisAlcan = new HashSet<AlcancePrograma>();
+        for (int i = 0; i < alcances.length; i++) {
+            AlcancePrograma alcan = new AlcancePrograma();
+            alcan.setIdAlcance(Short.parseShort(alcances[i]));
+            lisAlcan.add(alcan);
         }
-        else{
-            response.sendRedirect(request.getContextPath() + "/institucion/editarPrograma.jsp?idPrograma="+request.getParameter("idPrograma"));
+        prog.setAlcance(lisAlcan);
+
+        HashSet<TipoPrograma> lisTipo = new HashSet<TipoPrograma>();
+        String tipo = request.getParameter("tipoProgIns");
+        if (tipo.equals("sinRegistro")) {
+            String descripcionTipo = request.getParameter("nombreOtroTipo");
+            registrarTipo(descripcionTipo);
+            tipoProgramaDAO dtp = new tipoProgramaDAO();
+            short idTipoNuevo = dtp.getIdTipoByName(descripcionTipo);
+            TipoPrograma tipoP = new TipoPrograma();
+            tipoP.setIdTipo(idTipoNuevo);
+            tipoP.setDescripcion(descripcionTipo);
+            lisTipo.add(tipoP);
+            prog.setTipo(lisTipo);
+        } else if (!tipo.equals("sinRegistro")) {
+            TipoPrograma tipoP = new TipoPrograma();
+            tipoP.setIdTipo(Short.parseShort(tipo));
+            lisTipo.add(tipoP);
+            prog.setTipo(lisTipo);
         }
+
+        String poblaProg[] = request.getParameterValues("poblaProgIns");
+        HashSet<PoblacionPrograma> lisPobla = new HashSet<PoblacionPrograma>();
+        for (int i = 0; i < poblaProg.length; i++) {
+            PoblacionPrograma pobla = new PoblacionPrograma();
+            pobla.setIdPoblacion(Short.parseShort(poblaProg[i]));
+            lisPobla.add(pobla);
+        }
+        prog.setPoblacion(lisPobla);
+
+        String diasProg[] = request.getParameterValues("diasProgIns");
+        HashSet<Dia> lisdia = new HashSet<Dia>();
+        for (int i = 0; i < diasProg.length; i++) {
+            Dia dia = new Dia();
+            dia.setIdDia(Short.parseShort(diasProg[i]));
+            lisdia.add(dia);
+        }
+        prog.setDias(lisdia);
+
+        //Estado En espera
+        CEstado estado = new CEstado();
+        estado.setIdEstado((short) 4);
+        estado.setDescripcion("Esperando");
+        prog.setEstado(estado);
         
+        Calendar date = new GregorianCalendar();
+            int anio = date.get(Calendar.YEAR);
+            int mes = date.get(Calendar.MONTH);
+            int dia = date.get(Calendar.DAY_OF_MONTH);
+            fechadate = sdf.parse(anio + "-" + mes + "-" + dia);
+
+        prog.setNotas("Observaciónes a corregir: "+request.getParameter("observaciones"));
+
+        ProgramaSSDAO daoP = new ProgramaSSDAO();
+        prog.setPlazas(pv);
+        prog.setVacantes(pv);
+        int i = daoP.update(prog);
+        int status;
+        status = i;
+        try {
+            out = response.getWriter();
+            out.print(status);
+        } catch (IOException ex) {
+            Logger.getLogger(Services.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            out.close();
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -102,7 +252,11 @@ public class upPrograma extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(sendPropuesta.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -117,7 +271,11 @@ public class upPrograma extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(sendPropuesta.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -130,14 +288,11 @@ public class upPrograma extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private ProgramaSS upProg(HttpServletRequest request) {
-        ProgramaSS programaSS = new ProgramaSS();
-        programaSS.setNombre(request.getParameter("nomProgIns"));
-        programaSS.setObjGeneral(request.getParameter("objProgIns"));
-        programaSS.setDesarrollo(request.getParameter("desProgIns"));
-        programaSS.setObservaciones(request.getParameter("obsProgIns"));
-
-        return programaSS;
+    private void registrarTipo(String nombreTipo) {
+        tipoProgramaDAO dao = new tipoProgramaDAO();
+        TipoPrograma tipo = new TipoPrograma();
+        tipo.setDescripcion(nombreTipo);
+        dao.insert(tipo);
     }
     
 }

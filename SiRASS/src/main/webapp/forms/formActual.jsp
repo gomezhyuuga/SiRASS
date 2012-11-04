@@ -42,6 +42,8 @@
 </div>
 <div class="tab-content">
     <div class="tab-pane active" id="tab1">
+        <input type="hidden" name="idPrograma" id="idPrograma" value="<%= idprog %>"/>
+        <input type="hidden" name="cvePrograma" id="cvePrograma" value="<%= misProgramas.getCvePrograma() %>"/>
         <div class = "control-group">
             <label class = "control-label" for = "nomProgIns">  Nombre del programa: </label>
             <div class = "controls">

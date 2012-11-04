@@ -155,7 +155,6 @@ public class Services extends HttpServlet {
                 nuevoEstado = Short.parseShort(request.getParameter("status"));
                 idInscripcion = Integer.parseInt(request.getParameter("id"));
                 cve = request.getParameter("cveP");
-                System.out.println("CLAVE" + cve);
                 ProgramaSSDAO pdao = new ProgramaSSDAO();
                 stat = pdao.uStatP(idInscripcion, nuevoEstado, null, user, cve);
             } catch (Exception ex) {

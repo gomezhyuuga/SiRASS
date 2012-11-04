@@ -50,6 +50,9 @@
                 <!-- Contenido
                 ============================== -->
                 <div class="span8 solid">
+                    <div class="page-header">
+                                <h1><strong>Bienvenido</strong>, <small><%= (String) session.getAttribute("username")%></small></h1>
+                    </div>
                     <% int tamMisProg = misProgramas.size();
                         int tam2 = misProgramas2.size();
                         int tam3 = misProgramas3.size();
@@ -61,32 +64,19 @@
                         if(tam3 == 1){ progPlu = "tu programa";rP = "ha sido revisado";}
                         if((tam2 + tam3) > 1 ){ progPlu = "tus programas"; }
                         if (misProgramas != null && tamMisProg != 0) {%>
-                            <div class="page-header">
-                                <h1>Bienvenido <%= request.getUserPrincipal().getName()%></h1>
-                            </div>
-                            <p>Esta es tu lista</p>
                             <%@include file="listProgramaSS.jsp" %>
                     <% }%>
                     <% if (misProgramas == null || tamMisProg == 0) {%>
                         <% if ((misProgramas2 == null || tam2 == 0) && tam3 == 0) {%>
-                            <div class="page-header">
-                                <h1><strong>Bienvenido</strong>, <small><%= (String) session.getAttribute("username")%></small></h1>
-                            </div>
                                 <p class="lead">¿No haz enviado ning&uacute;n programa de Servicio Social?</p>
                                 <p class="lead"><strong>¡Si tienes una propuesta enviala!</strong></p>
                                 <p><a class="btn btn-large btn-primary " href="./enviarPropuesta.jsp">Enviar propuesta</a></p>
                         <% }%>
                         <% if ((misProgramas2 == null || tam2 == 0) && tam3 != 0) {%>
-                            <div class="page-header">
-                                <h1><strong>Bienvenido</strong>, <small><%= (String) session.getAttribute("username")%></small></h1>
-                            </div>
                                 <p class="lead">Actualmente <%= progPlu %> de Servicio Social no <%= rP %></p>
                                 <p><a class="btn btn-large btn-primary " href="./enviarPropuesta.jsp">Enviar propuesta</a></p>
                         <% }%>
                         <% if ((misProgramas3 == null || tam3 == 0) && tam2 != 0) {%>
-                            <div class="page-header">
-                                <h1><strong>Bienvenido</strong>, <small><%= (String) session.getAttribute("username")%></small></h1>
-                            </div>
                                 <p>Actualmente <%= progPlu %> de Servicio Social <%= pP %><small>...</small></p>
                                 <ul>
                                     <li><p class="text-error">Es necesario corregir <strong><%= tam2%></strong>, y en <small><a href="#notifs"><i class = "icon-exclamation-sign"></i>Avisos</a></small> podrás ver ¿Por qué?</p></li>
@@ -95,7 +85,6 @@
                         <% }%>
                         <%}%>
                         <% if ((misProgramas2 != null && tam2 != 0) && (tam3 != 0 && misProgramas3 != null)) {%>
-                            <h1><strong>Bienvenido</strong>, <small><%= (String) session.getAttribute("username")%></small></h1>
                             <p class="lead">Actualmente de <%= progPlu %> de Servicio Social<small>...</small></p>
                             <ul>
                                 <li><p class="text-error"><%= plural%> <strong><%= tam2 %></strong>, y en <small><a href="#notifs"><i class = "icon-exclamation-sign"></i>Avisos</a></small> podrás ver los errores</p></li>
