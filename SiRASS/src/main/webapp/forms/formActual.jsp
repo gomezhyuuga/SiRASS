@@ -169,7 +169,7 @@
                 Calendar date = new GregorianCalendar();
                 int anio = date.get(Calendar.YEAR);
                 fecha = String.valueOf(sdf.format(fecha1));
-                fecha = fecha.substring(0,6).concat(String.valueOf(anio+1));
+                fecha = fecha.substring(0, 6).concat(String.valueOf(anio + 1));
             }
         %>
         <div class="control-group hide" id="fechaDeterminado">
@@ -356,6 +356,7 @@
                 %>
                 <tr id="row<%=num%>">
                     <td>
+                        <input type = "hidden" id = "idLicen<%=num%>" name = "idLicen<%=num%>" value="<%= act.getIdActividad()%>" />
                         <input type = "hidden" id = "idLicen" name = "idLicen" value="<%= act.getIdActividad()%>" />
                         <input class="input-large" type = "text" name = "licenProgIns" id = "licenProgIns" value="<%= act.getLicenciatura()%>" />
                     </td>
@@ -365,12 +366,14 @@
                     <td>
                         <textarea name = "actProgIns" id = "actProgIns" rows = "5" placeholder = "Escribe 5 actividades como  mínimo" ><%=act.getActividad()%></textarea>
                     </td>
-                    <td><input class="btn btn-mini btn-danger" type="button" id="elim<%= num%>" name="elim<%= num%>" onclick="delRowAct(<%= num%>)" value="Eliminar" /></td>
+                    <td><input class="btn btn-mini btn-danger" type="button" id="elim<%= num%>" name="elim<%= num%>" onclick="delRowActCop(<%= num%>)" value="Eliminar" /></td>
                 </tr>
                 <% num++;
                     }%>
             </tbody>
         </table>
+        <div id="acts-el">
+        </div>
         <div class="form-actions">
             <h6>Pulsa en <a href="#" id="nextR">Responsable</a> para continuar</h6>
         </div>
@@ -397,8 +400,9 @@
                     while (it3.hasNext()) {
                         ResponsablePrograma res = (ResponsablePrograma) it3.next();
                 %>
-                <tr id="row<%= num%>">
+                <tr id="rowr<%= num%>">
                     <td>
+                        <input type = "hidden" id = "idRespon<%= num%>" name = "idRespon<%= num%>" value="<%= res.getIdResponsable()%>" />
                         <input type = "hidden" id = "idRespon" name = "idRespon" value="<%= res.getIdResponsable()%>" />
                         <input class="input-medium" type = "text" id = "respoIns" name = "respoIns" value="<%= res.getResponsable()%>" />
                     </td>
@@ -408,12 +412,14 @@
                     <td>
                         <input class="input-medium" type="text" id="emailInst" name="emailInst" maxlength="30" value="<%= res.getEmail()%>" />
                     </td>
-                    <td><input class="btn btn-mini btn-danger" type="button" id="elim<%= num%>" name="elim<%= num%>" onclick="delRowAct(<%= num%>)" value="Eliminar" /></td>
+                    <td><input class="btn btn-mini btn-danger" type="button" id="elim<%= num%>" name="elim<%= num%>" onclick="delRowResCop(<%= num%>)" value="Eliminar" /></td>
                 </tr>
                 <% num++;
                     }%>
             </tbody>
         </table>
+        <div id="respo-el">
+        </div>
         <div class="form-actions">
             <h6>Pulsa en <a href="#" id="nextO">Observaciones del Programa</a> para continuar</h6>
         </div>

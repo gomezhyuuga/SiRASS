@@ -9,7 +9,9 @@ import java.util.Iterator;
 import java.util.List;
 import org.junit.*;
 import static org.junit.Assert.*;
+import skyforge.sirass.dao.programass.ActividadProgramaDAO;
 import skyforge.sirass.dao.programass.ProgramaSSDAO;
+import skyforge.sirass.dao.programass.ResponsableProgramaDAO;
 import skyforge.sirass.dao.programass.tipoProgramaDAO;
 import skyforge.sirass.model.programass.CEstado;
 import skyforge.sirass.model.programass.CategoriaPrograma;
@@ -102,10 +104,15 @@ public class programasDaoTest {
         List<ProgramaSS> list = pdao.getListFewInternos();
         Assert.assertNotNull(list);
     }*/
-    @Test
+    /*@Test
     public void testUpObservacion(){
         ProgramaSSDAO pdao = new ProgramaSSDAO();
         List<ProgramaSS> programaSS = pdao.getListProgramasByVigencia();
         System.out.println(programaSS.size());
-    }
+    }*/
+    /*@Test
+    public void testDelRespon(){
+        ActividadProgramaDAO redao = new ActividadProgramaDAO();
+        redao.deleteActiv("207", 71);
+    }*/
 }

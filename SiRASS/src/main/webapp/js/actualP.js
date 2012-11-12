@@ -16,20 +16,20 @@ $(document).ready(function() {
         addRespon();
     });
     $('#nextC').on('click', function() {
-    	$('a[href="#tab2"]').fadeToggle()
-    		.fadeToggle();
+        $('a[href="#tab2"]').fadeToggle()
+        .fadeToggle();
     });
     $('#nextP').on('click', function() {
-    	$('a[href="#tab3"]').fadeToggle()
-    		.fadeToggle();
+        $('a[href="#tab3"]').fadeToggle()
+        .fadeToggle();
     });
     $('#nextR').on('click', function() {
-    	$('a[href="#tab4"]').fadeToggle()
-    		.fadeToggle();
+        $('a[href="#tab4"]').fadeToggle()
+        .fadeToggle();
     });
     $('#nextO').on('click', function() {
-    	$('a[href="#tab5"]').fadeToggle()
-    		.fadeToggle();
+        $('a[href="#tab5"]').fadeToggle()
+        .fadeToggle();
     });
     
     
@@ -193,7 +193,7 @@ function addRespon(){
     var index;
     if (rows.contents('tr:last') != null && rows.contents('tr:last') != undefined
         && rows.contents('tr:last').length != 0 ) {
-        index = rows.contents('tr:last').attr('id').substring(3);
+        index = rows.contents('tr:last').attr('id').substring(4);
     } else {
         index = 0;
     }
@@ -202,10 +202,53 @@ function addRespon(){
     rows.append(newRow);
 }
 
+function delRowActCop(el) {
+    var row = $('#row' + el);
+    var div = $('#acts-el');
+    var id1 = document.getElementById('idLicen'+el).value;
+    // console.log(row);
+    var newHiddeAct = createHiddenAct(id1);
+    div.append(newHiddeAct);
+    row.remove();
+    
+}
 function delRowAct(el) {
     var row = $('#row' + el);
-    // console.log(row);
     row.remove();
+    
+}
+function delRowRes(el) {
+    var row = $('#rowr' + el);
+    row.remove();
+}
+function delRowResCop(el) {
+    var row = $('#rowr' + el);
+    var div = $('#respo-el');
+    var id = document.getElementById('idRespon'+el).value;
+    //console.log(row);
+    var newHidde = createHiddenRes(id);
+    div.append(newHidde);
+    row.remove();
+}
+function createHiddenRes(id){
+    var inputHidde = $('<input type ="hidden" />');
+    inputHidde.attr({
+        id: 'idResponCop',
+        name: 'idResponCop',
+        value: id
+    })
+    return inputHidde;
+    
+}
+function createHiddenAct(id1){
+    var inputHidde = $('<input type ="hidden" />');
+    inputHidde.attr({
+        id: 'idActCop',
+        name: 'idActCop',
+        value: id1
+    })
+    return inputHidde;
+    
 }
 
 function createRowActs(index){
@@ -280,7 +323,7 @@ function createRowRespo(index){
     var inputElim = $('<input type="button" />');
         
     // Set attrs
-    tr.attr('id', 'row' + index);
+    tr.attr('id', 'rowr' + index);
     inputRespon.attr({
         id: 'respoIns',
         name: 'respoIns',
@@ -301,7 +344,7 @@ function createRowRespo(index){
     });
     inputElim.attr({
         id: 'elim' + index,
-        onclick: 'delRowAct(' + index + ')',
+        onclick: 'delRowRes(' + index + ')',
         class: "btn btn-mini btn-danger",
         value: 'Eliminar'
     });

@@ -202,6 +202,11 @@ function delRowAct(el) {
     // console.log(row);
     row.remove();
 }
+function delRowRes(el) {
+    var row = $('#rowr' + el);
+    // console.log(row);
+    row.remove();
+}
 
 function createRowActs(index){
     // Create elements

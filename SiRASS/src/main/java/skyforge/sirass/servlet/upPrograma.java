@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import skyforge.sirass.dao.institucion.CInstitucionDAO;
 import skyforge.sirass.dao.institucion.PlantelDAO;
+import skyforge.sirass.dao.programass.ActividadProgramaDAO;
 import skyforge.sirass.dao.programass.ProgramaSSDAO;
 import skyforge.sirass.dao.programass.ResponsableProgramaDAO;
 import skyforge.sirass.dao.programass.tipoProgramaDAO;
@@ -139,12 +140,33 @@ public class upPrograma extends HttpServlet {
         String cargoRes[] = request.getParameterValues("cargoRespoIns");
         String mailRes[] = request.getParameterValues("emailInst");
         String idRes[] = request.getParameterValues("idRespon");
+        String idResCo[] = request.getParameterValues("idResponCop");
         HashSet<ResponsablePrograma> listResp = new HashSet<ResponsablePrograma>();
+        int resCop = 0;
+        int lenRes = 0;
+        int lenResCop = 0;
+        if (request.getParameterValues("idRespon") != null) {
+            lenRes = idRes.length;
+        } else if (request.getParameterValues("idRespon") == null) {
+            lenRes = 0;
+        }
+        if (request.getParameterValues("idResponCop") != null) {
+            lenResCop = idResCo.length;
+        } else if (request.getParameterValues("idResponCop") == null) {
+            lenResCop = 0;
+        }
         for (int z = 0; z < respon.length; z++) {
             ResponsablePrograma r = new ResponsablePrograma();
-            if (idRes.length > z) {
+            if (lenRes > z && lenRes != 0) {
                 if (idRes[z] != null && idRes[z] != "") {
+                    System.out.println("--------------------------");
                     r.setIdResponsable(Integer.parseInt(idRes[z]));
+                }
+            } else {
+                if (lenResCop != 0 && resCop < lenResCop) {
+                    System.out.println("-------------RESPON---------" + resCop + "<" + lenResCop);
+                    r.setIdResponsable(Integer.parseInt(idResCo[resCop]));
+                    resCop++;
                 }
             }
             r.setResponsable(respon[z]);
@@ -155,22 +177,56 @@ public class upPrograma extends HttpServlet {
             listResp.add(r);
         }
         prog.setResponsables(listResp);
+        int idProg = Integer.parseInt(request.getParameter("idPrograma"));
+        int stat = 0;
+        ResponsableProgramaDAO resDao = new ResponsableProgramaDAO();
+        while (resCop < lenResCop) {
+            System.out.println("||||||||||||||||||||||||||||||||||");
+            stat = resDao.deleteRespon(idResCo[resCop], idProg);
+            resCop++;
+        }
+        if (resCop == 0 && lenResCop == 0) {
+            stat = 1;
+        }
 
         // De las licenciaturas
         String actsProg[] = request.getParameterValues("actProgIns");
         String licenProg[] = request.getParameterValues("licenProgIns");
         String vacanProg[] = request.getParameterValues("vacanProgIns");
         String idLicen[] = request.getParameterValues("idLicen");
+        String idLicenCo[] = request.getParameterValues("idActCop");
         int pv = 0;
+        int licenCop = 0;
         HashSet<ActividadPrograma> lisActs = new HashSet<ActividadPrograma>();
+        int lenAct = 0;
+        int lenActCop = 0;
+        if (request.getParameterValues("idLicen") != null) {
+            lenAct = idLicen.length;
+        } else if (request.getParameterValues("idLicen") == null) {
+            lenAct = 0;
+        }
+        if (request.getParameterValues("idActCop") != null) {
+            lenActCop = idLicenCo.length;
+        } else if (request.getParameterValues("idActCop") == null) {
+            lenActCop = 0;
+        }
         for (int j = 0; j < actsProg.length; j++) {
             int valPV;
             ActividadPrograma acts = new ActividadPrograma();
-            if (idLicen.length > j) {
+            if (lenAct > j && lenAct != 0) {
                 if (idLicen[j] != null && idLicen[j] != "") {
+                    System.out.println(idLicen[j]);
                     acts.setIdActividad(Integer.parseInt(idLicen[j]));
                 }
+            } else {
+                if (lenActCop != 0 && licenCop < lenActCop) {
+                    acts.setIdActividad(Integer.parseInt(idLicenCo[licenCop]));
+                    System.out.println("|||||||||||||||" + idLicenCo[licenCop]);
+                    System.out.println("-------------" + licenCop + "-------------");
+                    licenCop++;
+                }
             }
+            acts.setIdPrograma(Integer.parseInt(request.getParameter("idPrograma")));
             acts.setActividad(actsProg[j]);
             acts.setLicenciatura(licenProg[j]);
             acts.setnSolicitados(Short.parseShort(vacanProg[j]));
@@ -179,10 +235,18 @@ public class upPrograma extends HttpServlet {
             acts.setPrograma(prog);
             lisActs.add(acts);
         }
+
         prog.setActividad(lisActs);
-
+        int stat2 = 0;
+        ActividadProgramaDAO actDAO = new ActividadProgramaDAO();
+        while (licenCop < lenActCop) {
+            stat2 = actDAO.deleteActiv(idLicenCo[licenCop], idProg);
+            licenCop++;
+        }
+        if (licenCop == 0 && lenActCop == 0) {
+            stat2 = 1;
+        }
         //Select Multpiple
-
         String alcances[] = request.getParameterValues("alcanProgIns");
         HashSet<AlcancePrograma> lisAlcan = new HashSet<AlcancePrograma>();
         for (int i = 0; i < alcances.length; i++) {
@@ -190,10 +254,11 @@ public class upPrograma extends HttpServlet {
             alcan.setIdAlcance(Short.parseShort(alcances[i]));
             lisAlcan.add(alcan);
         }
-        prog.setAlcance(lisAlcan);
 
+        prog.setAlcance(lisAlcan);
         HashSet<TipoPrograma> lisTipo = new HashSet<TipoPrograma>();
         String tipo = request.getParameter("tipoProgIns");
+
         if (tipo.equals("sinRegistro")) {
             String descripcionTipo = request.getParameter("nombreOtroTipo");
             registrarTipo(descripcionTipo);
@@ -210,7 +275,6 @@ public class upPrograma extends HttpServlet {
             lisTipo.add(tipoP);
             prog.setTipo(lisTipo);
         }
-
         String poblaProg[] = request.getParameterValues("poblaProgIns");
         HashSet<PoblacionPrograma> lisPobla = new HashSet<PoblacionPrograma>();
         for (int i = 0; i < poblaProg.length; i++) {
@@ -218,8 +282,8 @@ public class upPrograma extends HttpServlet {
             pobla.setIdPoblacion(Short.parseShort(poblaProg[i]));
             lisPobla.add(pobla);
         }
-        prog.setPoblacion(lisPobla);
 
+        prog.setPoblacion(lisPobla);
         String diasProg[] = request.getParameterValues("diasProgIns");
         HashSet<Dia> lisdia = new HashSet<Dia>();
         for (int i = 0; i < diasProg.length; i++) {
@@ -227,14 +291,15 @@ public class upPrograma extends HttpServlet {
             dia.setIdDia(Short.parseShort(diasProg[i]));
             lisdia.add(dia);
         }
-        prog.setDias(lisdia);
 
+        prog.setDias(lisdia);
         //Estado En espera
         CEstado estado = new CEstado();
-        estado.setIdEstado((short) 4);
+
+        estado.setIdEstado(
+                (short) 4);
         estado.setDescripcion("Esperando");
         prog.setEstado(estado);
-
         Calendar date = new GregorianCalendar();
         int anio = date.get(Calendar.YEAR);
         int mes = date.get(Calendar.MONTH);
@@ -244,11 +309,19 @@ public class upPrograma extends HttpServlet {
         prog.setNotas(request.getParameter("observaciones"));
 
         ProgramaSSDAO daoP = new ProgramaSSDAO();
+
         prog.setPlazas(pv);
+
         prog.setVacantes(pv);
-        int i = daoP.update(prog);
-        int status;
-        status = i;
+        //int i = daoP.update(prog);
+        int status = 0;
+        if (stat != 0 && stat2 != 0) {
+            status = 1;
+        } else if (stat == 0 && stat2 == 0) {
+            status = 0;
+        }
+
+
         try {
             out = response.getWriter();
             out.print(status);
@@ -258,8 +331,8 @@ public class upPrograma extends HttpServlet {
             out.close();
         }
     }
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
      * <code>GET</code> method.
@@ -274,6 +347,10 @@ public class upPrograma extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+
+
+
+
         } catch (ParseException ex) {
             Logger.getLogger(sendPropuesta.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -293,6 +370,10 @@ public class upPrograma extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+
+
+
+
         } catch (ParseException ex) {
             Logger.getLogger(sendPropuesta.class.getName()).log(Level.SEVERE, null, ex);
         }

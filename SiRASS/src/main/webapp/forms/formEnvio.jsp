@@ -222,7 +222,7 @@
                 </tr>
             </thead>
             <tbody id="rows-respo">
-                <tr id="row1">
+                <tr id="rowr1">
                     <td>
                         <input class="input-medium" type = "text" id = "respoIns" name = "respoIns" />
                     </td>
@@ -232,7 +232,7 @@
                     <td>
                         <input class="input-medium" type="text" id="emailInst" name="emailInst" maxlength="30" />
                     </td>
-                    <td><input class="btn btn-mini btn-danger" type="button" id="elim1" onclick="delRowAct(1)" value="Eliminar" /></td>
+                    <td><input class="btn btn-mini btn-danger" type="button" id="elim1" onclick="delRowRes(1)" value="Eliminar" /></td>
                 </tr>
             </tbody>
         </table>
