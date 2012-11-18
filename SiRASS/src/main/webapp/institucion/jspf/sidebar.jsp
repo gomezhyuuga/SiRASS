@@ -30,7 +30,7 @@
         <!-- Avisos -->
         <li class = "divider"></li>
         <li id="avisosPropues">
-            <a href="#notifs">
+            <a href="notifis.jsp">
                 <i class = "icon-exclamation-sign"></i>
                 Avisos
             </a>

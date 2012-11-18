@@ -46,19 +46,20 @@
                 ============================== -->
                 <div class="span8 solid">
                     <header>
-                            <% int tamaMisProg = misProgramas.size();
+                        <% int tamaMisProg = misProgramas.size();
                                 if (misProgramas != null && tamaMisProg != 0) {%>
-                                <h1>Actualizar programa</h1>
-                                <p>Selecciona el programa que quieres actualizar</p>
+                        <h1>Actualizar programa</h1>
+                        <p>Selecciona el programa que quieres actualizar presionando el botón <i class="icon-info-sign"></i>
+                            Editar</p>
                             <%@include file="actualprog.jsp" %>
-                            <% } %>
-                            <% if(tamaMisProg == 0 || misProgramas == null){%>
-                                <h1>Actualizar programa</h1>
-                                <p>Actualmente no tienes programas</p>
-                            <% } %>
+                            <% }%>
+                            <% if (tamaMisProg == 0 || misProgramas == null) {%>
+                        <h1>Actualizar programa</h1>
+                        <p>Actualmente no tienes programas</p>
+                        <% }%>
                     </header>
                 </div>
-                    
+
             </div>
         </div>
         <!-- Footer

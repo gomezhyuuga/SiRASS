@@ -4,7 +4,7 @@
     Author     : JL Macias
 --%>
 
-    <h1 class="titleEsp">Lista de Programas Internos</h1>
+    <h1 class="titleEsp">Lista de Programas</h1>
             <hr>
             <table class="table table-striped table-bordered">
                 <tr>

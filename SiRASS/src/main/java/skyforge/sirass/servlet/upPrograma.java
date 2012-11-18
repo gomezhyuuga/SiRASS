@@ -59,6 +59,8 @@ public class upPrograma extends HttpServlet {
         PrintWriter out = response.getWriter();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date fechadate = null;
+        
+        int idProg = Integer.parseInt(request.getParameter("idPrograma"));
 
         UsuarioDAO dao = new UsuarioDAO();
         Plantel plant = new Plantel();
@@ -147,28 +149,23 @@ public class upPrograma extends HttpServlet {
         int lenResCop = 0;
         if (request.getParameterValues("idRespon") != null) {
             lenRes = idRes.length;
-        } else if (request.getParameterValues("idRespon") == null) {
-            lenRes = 0;
         }
         if (request.getParameterValues("idResponCop") != null) {
             lenResCop = idResCo.length;
-        } else if (request.getParameterValues("idResponCop") == null) {
-            lenResCop = 0;
         }
         for (int z = 0; z < respon.length; z++) {
             ResponsablePrograma r = new ResponsablePrograma();
             if (lenRes > z && lenRes != 0) {
-                if (idRes[z] != null && idRes[z] != "") {
-                    System.out.println("--------------------------");
+                    System.out.println("ID RESPONSABLE REGISTRADO EN BD----"+idRes[z]);
                     r.setIdResponsable(Integer.parseInt(idRes[z]));
-                }
             } else {
                 if (lenResCop != 0 && resCop < lenResCop) {
-                    System.out.println("-------------RESPON---------" + resCop + "<" + lenResCop);
+                    System.out.println("-------------RESPONSABLES ELIMINADOS (ID AUTOASIGN)---------" + resCop + "<" + lenResCop);
                     r.setIdResponsable(Integer.parseInt(idResCo[resCop]));
                     resCop++;
                 }
             }
+            
             r.setResponsable(respon[z]);
             r.setCargo(cargoRes[z]);
             r.setEmail(mailRes[z]);
@@ -177,16 +174,12 @@ public class upPrograma extends HttpServlet {
             listResp.add(r);
         }
         prog.setResponsables(listResp);
-        int idProg = Integer.parseInt(request.getParameter("idPrograma"));
-        int stat = 0;
+        int stat = 1;
         ResponsableProgramaDAO resDao = new ResponsableProgramaDAO();
         while (resCop < lenResCop) {
-            System.out.println("||||||||||||||||||||||||||||||||||");
+            System.out.println("ELIMINA RESPONSABLES DE LA BD");
             stat = resDao.deleteRespon(idResCo[resCop], idProg);
             resCop++;
-        }
-        if (resCop == 0 && lenResCop == 0) {
-            stat = 1;
         }
 
         // De las licenciaturas
@@ -195,38 +188,31 @@ public class upPrograma extends HttpServlet {
         String vacanProg[] = request.getParameterValues("vacanProgIns");
         String idLicen[] = request.getParameterValues("idLicen");
         String idLicenCo[] = request.getParameterValues("idActCop");
+        HashSet<ActividadPrograma> lisActs = new HashSet<ActividadPrograma>();
         int pv = 0;
         int licenCop = 0;
-        HashSet<ActividadPrograma> lisActs = new HashSet<ActividadPrograma>();
         int lenAct = 0;
         int lenActCop = 0;
         if (request.getParameterValues("idLicen") != null) {
             lenAct = idLicen.length;
-        } else if (request.getParameterValues("idLicen") == null) {
-            lenAct = 0;
         }
         if (request.getParameterValues("idActCop") != null) {
             lenActCop = idLicenCo.length;
-        } else if (request.getParameterValues("idActCop") == null) {
-            lenActCop = 0;
         }
         for (int j = 0; j < actsProg.length; j++) {
             int valPV;
             ActividadPrograma acts = new ActividadPrograma();
             if (lenAct > j && lenAct != 0) {
-                if (idLicen[j] != null && idLicen[j] != "") {
-                    System.out.println(idLicen[j]);
+                    System.out.println("ID ACTIVIDAD REGISTRADO EN BD----"+idLicen[j]);
                     acts.setIdActividad(Integer.parseInt(idLicen[j]));
-                }
             } else {
                 if (lenActCop != 0 && licenCop < lenActCop) {
+                    System.out.println("-------------ACTIVIDADES ELIMINADOS (ID AUTOASIGN)---------" + licenCop +" < " +lenActCop);
                     acts.setIdActividad(Integer.parseInt(idLicenCo[licenCop]));
-                    System.out.println("|||||||||||||||" + idLicenCo[licenCop]);
-                    System.out.println("-------------" + licenCop + "-------------");
                     licenCop++;
                 }
             }
-            acts.setIdPrograma(Integer.parseInt(request.getParameter("idPrograma")));
+            acts.setIdPrograma(idProg);
             acts.setActividad(actsProg[j]);
             acts.setLicenciatura(licenProg[j]);
             acts.setnSolicitados(Short.parseShort(vacanProg[j]));
@@ -237,14 +223,11 @@ public class upPrograma extends HttpServlet {
         }
 
         prog.setActividad(lisActs);
-        int stat2 = 0;
+        int stat2 = 1;
         ActividadProgramaDAO actDAO = new ActividadProgramaDAO();
         while (licenCop < lenActCop) {
             stat2 = actDAO.deleteActiv(idLicenCo[licenCop], idProg);
             licenCop++;
-        }
-        if (licenCop == 0 && lenActCop == 0) {
-            stat2 = 1;
         }
         //Select Multpiple
         String alcances[] = request.getParameterValues("alcanProgIns");
@@ -313,7 +296,7 @@ public class upPrograma extends HttpServlet {
         prog.setPlazas(pv);
 
         prog.setVacantes(pv);
-        //int i = daoP.update(prog);
+        int i = daoP.update(prog);
         int status = 0;
         if (stat != 0 && stat2 != 0) {
             status = 1;

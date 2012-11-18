@@ -428,7 +428,7 @@ public class ProgramaSSDAO extends DAO {
                 query.setShort(3, nuevoEstado);
                 query.setInteger(4, idInscripcion);
             } else if (cveProg != null) {
-                q = "update ProgramaSS set ultimaModif=?, modificadoPor=?, cvePrograma=?, estado=? "
+                q = "update ProgramaSS set ultimaModif=?, modificadoPor=?, cvePrograma=?, estado=? notas = \" \""
                         + "where idPrograma=?";
                 query = session.createQuery(q);
                 query.setString(2, cveProg);
