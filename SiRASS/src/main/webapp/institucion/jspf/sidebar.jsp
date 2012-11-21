@@ -23,7 +23,7 @@
                 <i class = "icon-refresh"></i> 
                 Actualizar programa</a>
         </li>
-        <li id="bajaPropues"><a href="bajaPrograma.jsp"> 
+        <li id="bajaPropues"><a href="bajaProg.jsp"> 
                 <i class = "icon-remove"></i> 
                 Solicitar baja de programa</a>
         </li>

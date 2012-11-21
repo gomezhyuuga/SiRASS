@@ -733,7 +733,7 @@ function cambiarCve(el) {
             .done(function(msg) {
                 if (msg == "1") {
                     bootbox.hideAll();
-                    bootbox.alert('<p class="lead">Solicitud de baja realizada correctamente.</p>', function() {
+                    bootbox.alert('<p class="lead">Cambio de clave realizada correctamente.</p>', function() {
                         reloadPage();
                     });
                 } else {
@@ -750,7 +750,7 @@ function cambiarCve(el) {
 function actualObservProg(el) {
     var idData = el.getAttribute('data-id');
     var obs = document.getElementById('observaciones').value;
-    var msg = '<p class="lead">&iquest;Estás seguro que deseas mandar estas observaciones a la institucion?'+obs+'</p>';
+    var msg = '<p class="lead">&iquest;Estás seguro que deseas mandar estas observaciones a la institucion?</p>';
     bootbox.dialog(msg, [{
         'label': 'Cancelar',
         'class': 'btn-danger'

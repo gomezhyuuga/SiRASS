@@ -52,7 +52,7 @@
                         <% int tamaMisProg = misProgramas.size();
                             if (misProgramas != null && tamaMisProg != 0) {%>
                         <p>Programa(s) detectados con anomalías y con observaciones hechas por el administrador</p>
-                        <%@include file="actualprog.jsp" %>
+                        <%@include file="avisos.jsp" %>
                         <% }%>
                         <% if (tamaMisProg == 0 || misProgramas == null) {%>
                         <p>Actualmente no tienes programas con observaciones hechas</p>

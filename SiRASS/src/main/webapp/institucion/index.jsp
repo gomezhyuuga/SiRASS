@@ -23,7 +23,7 @@
     if (user != null) {
         int id = user.getInstitucion().getIdInstitucion();
         misProgramas = prodao.getListProgramasByEdoSimple(id, new CEstado ((short) 1));
-        misProgramas2 = prodao.getListProgramasByIdEdoCont(id, new CEstado((short) 3));
+        misProgramas2 = prodao.getListProgramasByIdEdoCont(id, new CEstado((short) 5));
         misProgramas3 = prodao.getListProgramasByIdEdoCont(id, new CEstado((short) 4));
     }
 %>
@@ -63,10 +63,8 @@
                         if(tam3>1){ progPlu = "tus programas";rP = "han sido revisados";}
                         if(tam3 == 1){ progPlu = "tu programa";rP = "ha sido revisado";}
                         if((tam2 + tam3) > 1 ){ progPlu = "tus programas"; }
-                        if (misProgramas != null && tamMisProg != 0) {%>
-                            <%@include file="listProgramaSS.jsp" %>
-                    <% }%>
-                    <% if (misProgramas == null || tamMisProg == 0) {%>
+                        %>
+                    <% if ((misProgramas == null || tamMisProg == 0) || tam3 != 0 || tam2 != 0) {%>
                         <% if ((misProgramas2 == null || tam2 == 0) && tam3 == 0) {%>
                                 <p class="lead">¿No haz enviado ning&uacute;n programa de Servicio Social?</p>
                                 <p class="lead"><strong>¡Si tienes una propuesta enviala!</strong></p>
@@ -79,7 +77,7 @@
                         <% if ((misProgramas3 == null || tam3 == 0) && tam2 != 0) {%>
                                 <p>Actualmente <%= progPlu %> de Servicio Social <%= pP %><small>...</small></p>
                                 <ul>
-                                    <li><p class="text-error">Es necesario corregir <strong><%= tam2%></strong>, y en <small><a href="#notifs"><i class = "icon-exclamation-sign"></i>Avisos</a></small> podrás ver ¿Por qué?</p></li>
+                                    <li><p class="text-error">Es necesario corregir <strong><%= tam2%></strong>, y en <small><a href="notifis.jsp"><i class = "icon-exclamation-sign"></i>Avisos</a></small> podrás ver ¿Por qué?</p></li>
                                 </ul>
                                  
                         <% }%>
@@ -87,10 +85,11 @@
                         <% if ((misProgramas2 != null && tam2 != 0) && (tam3 != 0 && misProgramas3 != null)) {%>
                             <p class="lead">Actualmente de <%= progPlu %> de Servicio Social<small>...</small></p>
                             <ul>
-                                <li><p class="text-error"><%= plural%> <strong><%= tam2 %></strong>, y en <small><a href="#notifs"><i class = "icon-exclamation-sign"></i>Avisos</a></small> podrás ver los errores</p></li>
+                                <li><p class="text-error"><%= plural%> <strong><%= tam2 %></strong>, y en <small><a href="notifis.jsp"><i class = "icon-exclamation-sign"></i>Avisos</a></small> podrás ver los errores</p></li>
                                 <li><p class="text-warning">Y aún sin revisión <strong><%= tam3%></strong></p></li>
                             </ul>
                         <% }%>
+                        <% if (misProgramas != null && tamMisProg != 0) { %> <%@include file="listProgramaSS.jsp" %> <%}%>
                     </div>
                 </div>
             </div>

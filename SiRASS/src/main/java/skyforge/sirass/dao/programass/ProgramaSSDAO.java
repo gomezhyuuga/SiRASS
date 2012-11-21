@@ -294,6 +294,7 @@ public class ProgramaSSDAO extends DAO {
         ProjectionList plist = Projections.projectionList();
         plist.add(Projections.property("p.nombre").as("nombre"));
         plist.add(Projections.property("p.idPrograma").as("idPrograma"));
+        plist.add(Projections.property("p.cvePrograma").as("cvePrograma"));
         plist.add(Projections.property("p.area").as("area"));
         plist.add(Projections.property("p.plazas").as("plazas"));
         plist.add(Projections.property("p.vacantes").as("vacantes"));
@@ -428,7 +429,7 @@ public class ProgramaSSDAO extends DAO {
                 query.setShort(3, nuevoEstado);
                 query.setInteger(4, idInscripcion);
             } else if (cveProg != null) {
-                q = "update ProgramaSS set ultimaModif=?, modificadoPor=?, cvePrograma=?, estado=? notas = \" \""
+                q = "update ProgramaSS set ultimaModif=?, modificadoPor=?, cvePrograma=?, notas = null, estado=?"
                         + "where idPrograma=?";
                 query = session.createQuery(q);
                 query.setString(2, cveProg);

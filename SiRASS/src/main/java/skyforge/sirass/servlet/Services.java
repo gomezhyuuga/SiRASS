@@ -183,7 +183,7 @@ public class Services extends HttpServlet {
                 idPrograma = Integer.parseInt(request.getParameter("id"));
                 obser = request.getParameter("observaciones");
                 ProgramaSSDAO pdao = new ProgramaSSDAO();
-                short nvoEdo = (short) 3;
+                short nvoEdo = (short) 5;
                 stat = pdao.uObsP(idPrograma, nvoEdo, obser, user, null);
             } catch (Exception ex) {
                 System.out.println("ERROR ACTUALIZANDO OBSERVACIÓN");

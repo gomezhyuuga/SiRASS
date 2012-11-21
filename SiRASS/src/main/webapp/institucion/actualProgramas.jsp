@@ -4,6 +4,7 @@
     Author     : gomezhyuuga
 --%>
 
+<%@page import="skyforge.sirass.model.programass.CEstado"%>
 <%@page import="skyforge.sirass.model.programass.ProgramaSS"%>
 <%@page import="skyforge.sirass.dao.programass.ProgramaSSDAO"%>
 <%@page import="java.util.List"%>
@@ -14,10 +15,16 @@
 <% UsuarioDAO dao = new UsuarioDAO();
     Usuario user = dao.getByUsername(String.valueOf(session.getAttribute("username")));
     List<ProgramaSS> misProgramas = new ArrayList<ProgramaSS>();
+    List<ProgramaSS> misProgramas2 = new ArrayList<ProgramaSS>();
+    List<ProgramaSS> misProgramas5 = new ArrayList<ProgramaSS>();
+    List<ProgramaSS> misProgramas6 = new ArrayList<ProgramaSS>();
     ProgramaSSDAO prodao = new ProgramaSSDAO();
     if (user != null) {
         int id = user.getInstitucion().getIdInstitucion();
-        misProgramas = prodao.getByIdInstituto(id);
+        misProgramas = prodao.getListProgramasByEdoSimple(id, new CEstado((short) 1));
+        misProgramas2 = prodao.getListProgramasByEdoSimple(id, new CEstado((short) 3));
+        misProgramas5 = prodao.getListProgramasByEdoSimple(id, new CEstado((short) 4));
+        misProgramas6 = prodao.getListProgramasByEdoSimple(id, new CEstado((short) 5));
     }
 %>
 
@@ -46,17 +53,16 @@
                 ============================== -->
                 <div class="span8 solid">
                     <header>
-                        <% int tamaMisProg = misProgramas.size();
-                                if (misProgramas != null && tamaMisProg != 0) {%>
+                        <% if (misProgramas == null && misProgramas2 == null && misProgramas5 == null && misProgramas6 == null) {%>
+                        <h1>Actualizar programa</h1>
+                        <p>Actualmente no tienes programas</p>
+                        <% }%>
+                        <% if (misProgramas != null || misProgramas2 != null || misProgramas5 != null || misProgramas6 != null) {%>
                         <h1>Actualizar programa</h1>
                         <p>Selecciona el programa que quieres actualizar presionando el botón <i class="icon-info-sign"></i>
                             Editar</p>
                             <%@include file="actualprog.jsp" %>
                             <% }%>
-                            <% if (tamaMisProg == 0 || misProgramas == null) {%>
-                        <h1>Actualizar programa</h1>
-                        <p>Actualmente no tienes programas</p>
-                        <% }%>
                     </header>
                 </div>
 
