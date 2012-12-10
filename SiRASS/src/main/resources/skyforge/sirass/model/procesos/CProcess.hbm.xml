@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="skyforge.sirass.model.procesos.CProcess" table="CProcesos">
+    <id column="NOMBRE" length="30" name="NOMBRE" type="java.lang.String"/>
+    <property column="VALOR" length="10" name="VALOR" not-null="true" type="java.lang.String"/>
+  </class>
+</hibernate-mapping>

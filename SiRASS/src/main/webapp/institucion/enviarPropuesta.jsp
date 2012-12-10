@@ -4,6 +4,8 @@
     Author     : JL Macías
 --%>
 
+<%@page import="skyforge.sirass.dao.procesos.ProcessDao"%>
+<%@page import="skyforge.sirass.model.procesos.CProcess"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -29,6 +31,12 @@
                 <!-- Contenido
                 ============================== -->
                 <div class="span8 solid">
+                    <%
+                        CProcess p = new CProcess();
+                        ProcessDao dao = new ProcessDao();
+                        boolean stat = dao.exists(p.Vigente, "vigencia");
+                        if (stat) {
+                    %>
                     <div class="page-header">
                         <h1>Registro de Programa de Servicio Social</h1>
                         <p>Env&iacute;a una propuesta para que tengas prestadores contigo en Servicio Social.</p>
@@ -43,6 +51,14 @@
                     <form method="post" action="/SiRASS/sendPropuesta" name="form-sendP" id="form-sendP" class="form-horizontal">
                         <jsp:include page="/forms/formEnvio.jsp" />
                     </form>
+                    <% }
+                        if (stat != true) {
+                    %>
+                    <div class="page-header">
+                        <h1>Registro de Programa de Servicio Social</h1>
+                        <p>La convocatoria para registro de programas no esta vigente por el momento, espere a la nueva convocatoria.</p>
+                    </div> 
+                    <% } %>
                 </div>
             </div>
         </div>

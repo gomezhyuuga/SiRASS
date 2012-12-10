@@ -4,6 +4,8 @@
     Author     : gomezhyuuga
 --%>
 
+<%@page import="skyforge.sirass.dao.procesos.ProcessDao"%>
+<%@page import="skyforge.sirass.model.procesos.CProcess"%>
 <%@page import="skyforge.sirass.model.programass.CEstado"%>
 <%@page import="skyforge.sirass.model.programass.ProgramaSS"%>
 <%@page import="skyforge.sirass.dao.programass.ProgramaSSDAO"%>
@@ -53,6 +55,12 @@
                 ============================== -->
                 <div class="span8 solid">
                     <header>
+                        <%
+                            CProcess cPc = new CProcess();
+                            ProcessDao procDao = new ProcessDao();
+                            boolean stat = procDao.exists(cPc.Vigente, "vigencia");
+                            if (stat) {
+                        %>
                         <% if (misProgramas == null && misProgramas2 == null && misProgramas5 == null && misProgramas6 == null) {%>
                         <h1>Actualizar programa</h1>
                         <p>Actualmente no tienes programas</p>
@@ -63,6 +71,14 @@
                             Editar</p>
                             <%@include file="actualprog.jsp" %>
                             <% }%>
+                            <% }
+                                if (stat != true) {
+                            %>
+                        <div class="page-header">
+                            <h1>Actualizar programa</h1>
+                            <p>La convocatoria de programas no esta vigente por el momento y por lo tanto no podr&aacute; actualizar, espere a la nueva convocatoria.</p>
+                        </div> 
+                        <% }%>
                     </header>
                 </div>
 

@@ -784,3 +784,38 @@ function actualObservProg(el) {
         }
     }]);
 }
+function convocatoria(el){
+    var idData = el.getAttribute('data-id');
+    var msg = '<p class="lead">&iquest;Estás seguro que deseas poner vigente la convocatoria?</p>';
+    bootbox.dialog(msg, [{
+        'label': 'Cancelar',
+        'class': 'btn-danger'
+    }, {
+        'label': 'OK',
+        'class': 'btn-success',
+        'callback': function() {
+            console.log('Activando convocatoria...');
+            $.ajax({
+                url: '/SiRASS/Services',
+                data: {
+                    service: 'conVigen',
+                    id: idData
+                }
+            })
+            .done(function(msg) {
+                if (msg == "1") {
+                    bootbox.hideAll();
+                    bootbox.alert('<p class="lead">Convocatoria '+idData+'.</p>', function() {
+                        reloadPage();
+                    });
+                } else {
+                    bootbox.alert('<p class="lead">Ha ocurrido un error. Intenta de nuevo.</p>');
+                }
+            })
+            .fail(function() {
+                bootbox.alert('<p class="lead">Ha ocurrido un error. Intenta de nuevo.</p>');
+            });
+            return false;
+        }
+    }]);
+}

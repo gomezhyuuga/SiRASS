@@ -1,3 +1,5 @@
+<%@page import="skyforge.sirass.model.procesos.CProcess"%>
+<%@page import="skyforge.sirass.dao.procesos.ProcessDao"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <nav class="span3" id="sidebar">
     <%  if (request.getParameter("active") != null) {%>
@@ -15,6 +17,12 @@
                 Editar Datos</a>
         </li>
         <li class = "nav-header"> Genestionar Programas </li>
+        <%
+            ProcessDao dao = new ProcessDao();
+            CProcess p = new CProcess();
+            boolean status = dao.exists(p.Vigente, "Vigencia");
+            if(status){
+        %>
         <li id="sendPropues"><a href="enviarPropuesta.jsp">
                 <i class = "icon-pencil"></i> 
 
@@ -23,6 +31,7 @@
                 <i class = "icon-refresh"></i> 
                 Actualizar programa</a>
         </li>
+        <% } %>
         <li id="bajaPropues"><a href="bajaProg.jsp"> 
                 <i class = "icon-remove"></i> 
                 Solicitar baja de programa</a>

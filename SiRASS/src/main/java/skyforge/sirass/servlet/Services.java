@@ -16,10 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import skyforge.sirass.dao.institucion.PlantelDAO;
 import skyforge.sirass.dao.prestador.InscripcionDAO;
+import skyforge.sirass.dao.procesos.ProcessDao;
 import skyforge.sirass.dao.programass.ProgramaSSDAO;
 import skyforge.sirass.model.institucion.Plantel;
 import skyforge.sirass.model.prestador.EstadoInscripcion;
 import skyforge.sirass.model.prestador.Inscripcion;
+import skyforge.sirass.model.procesos.CProcess;
 import skyforge.sirass.model.programass.CEstado;
 
 /**
@@ -49,6 +51,8 @@ public class Services extends HttpServlet {
                 this.updateStatusProgram(request, response);
             } else if (request.getParameter("service").equals("observProgram")) {
                 this.updateObserProgram(request, response);
+            } else if(request.getParameter("service").equals("conVigen")) {
+                this.convoca(request,response);
             } else if(request.getParameter("service").equals("cveProg")) {
                 this.upCveProg(request,response);
             } else if (request.getParameter("service").equals("rechazarInscripcion")) {
@@ -214,6 +218,38 @@ public class Services extends HttpServlet {
                 stat = pdao.uCveP(idPrograma, user, cve);
             } catch (Exception ex) {
                 System.out.println("ERROR ACTUALIZANDO OBSERVACIÓN");
+                ex.printStackTrace();
+            }
+            try {
+                out.print(stat);
+            } finally {
+                out.close();
+            }
+        }
+    }
+    
+    private void convoca(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
+        int stat = 0;
+        String idAccion;
+        String accion = "Activa";
+        if (request.getParameter("id") != null) {
+            try {
+                idAccion = String.valueOf(request.getParameter("id"));
+                System.out.println("**********"+idAccion+"*********");
+                CProcess p = new CProcess();
+                p.setNOMBRE("Vigencia");
+                if(request.getParameter("id").equals(accion)){
+                    p.setVALOR(CProcess.Vigente);
+                    System.out.println("**********"+idAccion+"*********");
+                }else{
+                    p.setVALOR(CProcess.NVigente);
+                }
+                System.out.println("**********"+p.getVALOR()+"*********");
+                ProcessDao prodao = new ProcessDao();
+                stat = prodao.update(p);
+            } catch (Exception ex) {
+                System.out.println("ERROR EJECUTANDO LA ACCION PARA LA CONVOCATORIA");
                 ex.printStackTrace();
             }
             try {

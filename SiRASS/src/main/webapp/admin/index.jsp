@@ -14,28 +14,28 @@
     </head>
     <body>
         <!-- Navbar
-	============================== -->
+        ============================== -->
         <jsp:include page="jspf/header.jsp" />
-	<!-- Body
-	============================== -->
-	<div class="container content">
-		<div class="row">
-			<!-- Sidebar
-			============================== -->
-            <jsp:include page="jspf/sidebar.jsp">
-                <jsp:param name="active" value="home" />
-            </jsp:include>
-			<!-- Contenido
-			============================== -->
-			<div class="span8 solid">
-				<div class="page-header">
-					<h1>Bienvenido admin</h1>
-				</div>
-			</div>
-		</div>
-	</div>
-    <!-- Footer
-	============================== -->
-    <jsp:include page="/WEB-INF/jspf/footer.jsp" />
+        <!-- Body
+        ============================== -->
+        <div class="container content">
+            <div class="row">
+                <!-- Sidebar
+                ============================== -->
+                <jsp:include page="jspf/sidebar.jsp">
+                    <jsp:param name="active" value="home" />
+                </jsp:include>
+                <!-- Contenido
+                ============================== -->
+                <div class="span8 solid">
+                    <div class="page-header">
+                        <h1>Bienvenido admin</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer
+            ============================== -->
+        <jsp:include page="/WEB-INF/jspf/footer.jsp" />
     </body>
 </html>

@@ -3,6 +3,8 @@
     Created on : 10-jul-2012, 16:16:52
     Author     : JL Macías
 --%>
+<%@page import="skyforge.sirass.dao.procesos.ProcessDao"%>
+<%@page import="skyforge.sirass.model.procesos.CProcess"%>
 <%@page import="skyforge.sirass.model.programass.PoblacionPrograma"%>
 <%@page import="skyforge.sirass.model.programass.AlcancePrograma"%>
 <%@page import="java.util.Set"%>
@@ -40,6 +42,12 @@
                 <!-- Contenido
                 ============================== -->
                 <div class="span8 solid">
+                    <%
+                        CProcess p = new CProcess();
+                        ProcessDao proDao = new ProcessDao();
+                        boolean stat = proDao.exists(p.Vigente, "vigencia");
+                        if (stat) {
+                    %>
                     <div class="page-header">
                         <h1>Actualizaci&oacute;n de propuesta</h1>
                         <p>Actualiza tu propuesta corrigiendo los datos que te son indicados en el recuadro de observaciones de abajo.</p>
@@ -54,6 +62,14 @@
                     <form method="post" action="/SiRASS/upPrograma" name="form-actualP" id="form-actualP" class="form-horizontal">
                         <jsp:include page="/forms/formActual.jsp" />
                     </form>
+                    <% }
+                        if (stat != true) {
+                    %>
+                    <div class="page-header">
+                        <h1>Actualizar programa</h1>
+                        <p>La convocatoria de programas no esta vigente por el momento y por lo tanto no podr&aacute; actualizar, espere a la nueva convocatoria.</p>
+                    </div> 
+                    <% }%>
                 </div>
             </div>
         </div>
