@@ -7,8 +7,11 @@ package skyforge.sirass.form.prestador;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.*;
+import skyforge.sirass.dao.prestador.PrestadorDAO;
+import skyforge.sirass.dao.user.UsuarioDAO;
 import skyforge.sirass.form.prestador.PrestadorForm;
 import skyforge.sirass.model.prestador.Prestador;
+import skyforge.sirass.model.user.Usuario;
 
 /**
  *
@@ -55,25 +58,35 @@ public class PrestadorFormTest {
     public void tearDown() {
     }
 
+    /*
+     * @Test public void testGetObject() {
+     * System.out.println("testGetPrestador..."); prestador = form.getObject();
+     * System.out.println("Creando prestador..."); System.out.println("Nombre: "
+     * + prestador.getNombre()); System.out.println("aPaterno: " +
+     * prestador.getaPaterno()); System.out.println("aMaterno: " +
+     * prestador.getaMaterno()); System.out.println("email: " +
+     * prestador.getEmail()); System.out.println("nacimiento: " +
+     * prestador.getNacimiento()); System.out.println("sexo: " +
+     * prestador.getSexo()); System.out.println("dCalle: " +
+     * prestador.getdCalle()); System.out.println("dNumExt: " +
+     * prestador.getdNumExt()); System.out.println("dNumInt: " +
+     * prestador.getdNumInt()); System.out.println("dCP: " +
+     * prestador.getdCP()); System.out.println("dDelegacion: " +
+     * prestador.getdDelegacion()); System.out.println("dColonia: " +
+     * prestador.getdColonia()); System.out.println("telCasa: " +
+     * prestador.getTelCasa()); System.out.println("telCel: " +
+     * prestador.getTelCel()); Assert.assertNotNull(prestador);
+    }
+     */
     @Test
-    public void testGetObject() {
-        System.out.println("testGetPrestador...");
-        prestador = form.getObject();
-        System.out.println("Creando prestador...");
-        System.out.println("Nombre: " + prestador.getNombre());
-        System.out.println("aPaterno: " + prestador.getaPaterno());
-        System.out.println("aMaterno: " + prestador.getaMaterno());
-        System.out.println("email: " + prestador.getEmail());
-        System.out.println("nacimiento: " + prestador.getNacimiento());
-        System.out.println("sexo: " + prestador.getSexo());
-        System.out.println("dCalle: " + prestador.getdCalle());
-        System.out.println("dNumExt: " + prestador.getdNumExt());
-        System.out.println("dNumInt: " + prestador.getdNumInt());
-        System.out.println("dCP: " + prestador.getdCP());
-        System.out.println("dDelegacion: " + prestador.getdDelegacion());
-        System.out.println("dColonia: " + prestador.getdColonia());
-        System.out.println("telCasa: " + prestador.getTelCasa());
-        System.out.println("telCel: " + prestador.getTelCel());
-        Assert.assertNotNull(prestador);
+    public void TEST() {
+        UsuarioDAO udao = new UsuarioDAO();
+        PrestadorDAO pdao = new PrestadorDAO();
+        Usuario user = udao.getByUsername("prestador1");
+        Prestador prestador = user.getPrestador();
+        int idPres = prestador.getIdPrestador();
+        prestador = pdao.getPrestadorByPK(idPres);
+        System.out.println("PRESTADOR: "+prestador.getNombre());
+        System.out.println("IDPRESTADOR: "+prestador.getIdPrestador());
     }
 }

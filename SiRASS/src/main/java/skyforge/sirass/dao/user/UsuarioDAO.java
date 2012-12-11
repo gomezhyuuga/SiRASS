@@ -12,6 +12,7 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
 import skyforge.sirass.HibernateUtil;
 import skyforge.sirass.dao.DAO;
+import skyforge.sirass.model.admin.Administrador;
 import skyforge.sirass.model.prestador.Prestador;
 import skyforge.sirass.model.user.Usuario;
 
@@ -164,6 +165,18 @@ public class UsuarioDAO extends DAO {
                     .uniqueResult();
             session.close();
             if (p != null) return p.getIdPrestador();
+            else return 0;
+        }
+        
+        public int getIdAdmin(String username) {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            Administrador a = (Administrador) session.createCriteria(Usuario.class)
+                    .add(Restrictions.eq("usuario", username))
+                    .setFetchMode("administrador", FetchMode.SELECT)
+                    .setProjection(Projections.property("administrador"))
+                    .uniqueResult();
+            session.close();
+            if (a != null) return a.getIdAdmin();
             else return 0;
         }
 

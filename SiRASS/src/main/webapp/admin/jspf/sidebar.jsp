@@ -32,8 +32,8 @@
         </li>
         <li class="nav-header">Gestionar perfil</li>
         <li>
-            <a href="#perfilAdmin">
-                <i class="icon-pencil"></i>
+            <a href="/SiRASS/admin/perfil.jsp">
+                <i class="icon-edit"></i>
                 Editar datos
             </a>
         </li>

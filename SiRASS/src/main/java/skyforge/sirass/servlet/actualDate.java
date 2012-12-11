@@ -6,13 +6,19 @@ package skyforge.sirass.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import skyforge.sirass.dao.admin.AdministradorDAO;
 import skyforge.sirass.dao.institucion.InstitucionDAO;
+import skyforge.sirass.dao.prestador.PrestadorDAO;
 import skyforge.sirass.dao.user.UsuarioDAO;
+import skyforge.sirass.model.admin.Administrador;
 import skyforge.sirass.model.institucion.Institucion;
+import skyforge.sirass.model.prestador.Prestador;
 
 /**
  *
@@ -92,6 +98,7 @@ public class actualDate extends HttpServlet {
     }// </editor-fold>
 
     private void upDatosInstitucion(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
         String domic, respo, cargo, tel, tex, mail, modby;
         int idins;
         InstitucionDAO idao = new InstitucionDAO();
@@ -106,23 +113,69 @@ public class actualDate extends HttpServlet {
         modby = String.valueOf(request.getParameter("usuario"));
 
         stat = idao.upIns(domic, respo, cargo, tel, tex, mail, modby, idins);
-        if (stat == 1) {
+        if (stat == 1 && request.getParameter("npassword") != null) {
             stat2 = udao.upPass(request.getParameter("usuario"), request.getParameter("npassword"), request.getParameter("passwordVeif"));
-            if (stat2 == 1) {
-                response.sendRedirect(request.getContextPath() + "/institucion/");
-            } else {
-                response.sendRedirect(request.getContextPath() + "/institucion/perfilInst.jsp");
-            }
-        } else {
-            response.sendRedirect(request.getContextPath() + "/institucion/perfilInst.jsp");
+        } 
+        try {
+            out = response.getWriter();
+            out.print(stat2);
+        } catch (IOException ex) {
+            Logger.getLogger(Services.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            out.close();
         }
     }
 
-    private void upDatosAdministrador(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    private void upDatosAdministrador(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
+        UsuarioDAO dao = new UsuarioDAO();
+        AdministradorDAO adao = new AdministradorDAO();
+        Administrador admin = new Administrador();
+        admin.setEmail(request.getParameter("email"));
+        admin.setModificadoPor(request.getParameter("usuario"));
+        admin.setIdAdmin(Integer.parseInt(request.getParameter("idAdmin")));
+        stat = adao.upAdminDat(admin);
+        if (stat == 1 && request.getParameter("npassword") != null) {
+            stat2 = dao.upPass(request.getParameter("usuario"), request.getParameter("npassword"), request.getParameter("passwordVeif"));
+        }
+        try {
+            out = response.getWriter();
+            out.print(stat2);
+        } catch (IOException ex) {
+            Logger.getLogger(Services.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            out.close();
+        }
     }
 
-    private void upDatosPrestador(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    private void upDatosPrestador(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
+        Prestador pres = new Prestador();
+        UsuarioDAO udao = new UsuarioDAO();
+        PrestadorDAO prdao = new PrestadorDAO();
+        pres.setIdPrestador(Integer.parseInt(request.getParameter("idPrestador")));
+        pres.setdCalle(request.getParameter("calle"));
+        pres.setdNumExt(request.getParameter("nExt"));
+        pres.setdNumInt(request.getParameter("nInt"));
+        pres.setdCP(request.getParameter("cp"));
+        pres.setdColonia(request.getParameter("col"));
+        pres.setdDelegacion(request.getParameter("dele"));
+        pres.setTelCasa(request.getParameter("telC"));
+        pres.setTelCel(request.getParameter("telMov"));
+        pres.setEmail(request.getParameter("emailPres"));
+        pres.setModificadoPor(request.getParameter("usuario"));
+        
+        stat = prdao.upPrestador(pres);
+        if (stat == 1 && request.getParameter("npassword") != null) {
+            stat2 = udao.upPass(request.getParameter("usuario"), request.getParameter("npassword"), request.getParameter("passwordVeif"));
+        }
+        try {
+            out = response.getWriter();
+            out.print(stat2);
+        } catch (IOException ex) {
+            Logger.getLogger(Services.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            out.close();
+        }
     }
 }

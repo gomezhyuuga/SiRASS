@@ -12,7 +12,7 @@
         <!-- Relaciones -->
         <many-to-one cascade="all" class="skyforge.sirass.model.prestador.Prestador" column="idPrestador" name="prestador" not-null="false" unique="true"/>
         <many-to-one cascade="all" class="skyforge.sirass.model.institucion.Institucion" column="idInstitucion" name="institucion" not-null="false" unique="true"/>
-<!--        <many-to-one cascade="all" class="skyforge.sirass.model.admin.Administrador" column="idAdministrador" name="administrador" not-null="false" unique="true"/>-->
+        <many-to-one cascade="all" class="skyforge.sirass.model.admin.Administrador" column="idAdministrador" name="administrador" not-null="false" unique="true"/>
         <set cascade="all" name="roles" table="MRolUsuario">
             <key column="usuario"/>
             <many-to-many class="skyforge.sirass.model.user.Rol" column="rol" />

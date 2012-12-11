@@ -7,6 +7,7 @@ package skyforge.sirass.dao.admin;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
@@ -21,20 +22,33 @@ import skyforge.sirass.model.admin.Administrador;
  */
 public class AdministradorDAO extends DAO {
 
-    public int upAdminDat(Administrador administrador, String comand) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+    public int upAdminDat(Administrador a) {
+        int stat = 0;
+        java.util.Date utilDate = new java.util.Date();
+        java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(utilDate.getTime());
+            Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        transaction.begin();
-        int updateDates = session.createQuery(comand)
-                .setString("mail", administrador.getEmail())
-                .setString("modifBy", administrador.getModificadoPor())
-                .setString("ultimod", String.valueOf(administrador.getUltimaModif()))
-                .setString("idAdmin", String.valueOf(administrador.getIdAdmin()))
-                .executeUpdate();
-        transaction.commit();
-        session.close();
-        return updateDates;
-        
+        Query query = null;
+        try {
+            String q = "update Administrador set email=?,"
+                    + "ultimaModif=? WHERE idAdmin=?";
+            query = session.createQuery(q);
+            query.setString(0, a.getEmail());
+            query.setTimestamp(1, sqlTimestamp);
+            query.setInteger(2, a.getIdAdmin());
+            int rows = query.executeUpdate();
+            transaction.commit();
+            if (rows > 0) {
+                stat = 1;
+            }
+        } catch (Exception ex) {
+            transaction.rollback();
+            System.out.println("ERROR ACTUALIZANDO DATOS");
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return stat;       
     }
     
     public int insert(Administrador admin) {

@@ -94,6 +94,9 @@ public class PrestadorDAO extends DAO {
     public int insert(Prestador prestador) {
         return super.insert(prestador);
     }
+    public int update(Prestador prestador) {
+        return super.update(prestador);
+    }
     
     /**
      * Comprueba si un prestador está inscrito en un programa de SS
@@ -249,29 +252,43 @@ public class PrestadorDAO extends DAO {
         return inscripcion;
     }
 
-    public int upPrestador(Prestador prestador, String comand) {
-         Session session = HibernateUtil.getSessionFactory().openSession();
+    public int upPrestador(Prestador p) {
+        int stat = 0;
+        java.util.Date utilDate = new java.util.Date();
+        java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(utilDate.getTime());
+            Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        transaction.begin();
-        int updateDates = session.createQuery(comand)
-                .setString("mail", prestador.getEmail())
-                .setString("calle", prestador.getdCalle())
-                .setString("numInt", prestador.getdNumInt())
-                .setString("numExt", prestador.getdNumExt())
-                .setString("cp", prestador.getdCP())
-                .setString("del", prestador.getdDelegacion())
-                .setString("col", prestador.getdColonia())
-                .setString("telcas", prestador.getTelCasa())
-                .setString("tecel", prestador.getTelCel())
-                .setString("modifBy", prestador.getModificadoPor())
-                .setString("ultimod", String.valueOf(prestador.getUltimaModif()))
-                .setString("idPresta", String.valueOf(prestador.getIdPrestador()))
-                .executeUpdate();
-        transaction.commit();
-        session.close();
-        return updateDates;
+        Query query = null;
+        try {
+            String q = "update Prestador set email=?, dCalle=?, "
+                    + "dNumInt=?, dNumExt=?, dCP=?, dDelegacion=?, dColonia=?, telCasa=?, telCel=?, "
+                    + "ultimaModif=? WHERE idPrestador=?";
+            query = session.createQuery(q);
+            query.setString(0, p.getEmail());
+            query.setString(1, p.getdCalle());
+            query.setString(2, p.getdNumInt());
+            query.setString(3, p.getdNumExt());
+            query.setString(4, p.getdCP());
+            query.setString(5, p.getdDelegacion());
+            query.setString(6, p.getdColonia());
+            query.setString(7, p.getTelCasa());
+            query.setString(8, p.getTelCel());
+            query.setTimestamp(9, sqlTimestamp);
+            query.setInteger(10, p.getIdPrestador());
+            int rows = query.executeUpdate();
+            transaction.commit();
+            if (rows > 0) {
+                stat = 1;
+            }
+        } catch (Exception ex) {
+            transaction.rollback();
+            System.out.println("ERROR ACTUALIZANDO DATOS");
+            ex.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return stat;
     }
-
     
     public List<Prestador> getPrestadorByNumControl(String numControl) {
         Session session = HibernateUtil.getSessionFactory().openSession();

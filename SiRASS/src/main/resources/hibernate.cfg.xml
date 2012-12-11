@@ -33,7 +33,7 @@
     <mapping resource="skyforge/sirass/model/institucion/CInstitucion.hbm.xml"/>
     <mapping resource="skyforge/sirass/model/institucion/Plantel.hbm.xml"/>
     <!-- admin -->
-    <!--    <mapping resource="skyforge/sirass/model/admin/Administrador.hbm.xml"/>-->
+    <mapping resource="skyforge/sirass/model/admin/Administrador.hbm.xml"/>
     <!-- ProgramaSS -->
     <mapping resource="skyforge/sirass/model/programass/ProgramaSS.hbm.xml"/>
     <mapping resource="skyforge/sirass/model/programass/CategoriaPrograma.hbm.xml"/>

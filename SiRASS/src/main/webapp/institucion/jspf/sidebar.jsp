@@ -13,7 +13,7 @@
         <li class = "nav-header"> Gestionar Perfil </li>
 
         <li id="gestPerf"><a href="perfilInst.jsp">
-                <i class="icon-pencil"></i> 
+                <i class="icon-edit"></i> 
                 Editar Datos</a>
         </li>
         <li class = "nav-header"> Genestionar Programas </li>

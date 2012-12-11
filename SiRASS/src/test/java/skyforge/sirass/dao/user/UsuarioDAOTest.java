@@ -49,7 +49,7 @@ public class UsuarioDAOTest {
     public void tearDown() throws Exception {
     }
 
-    @Test
+    /*@Test
     public void testGetUsers() {
         System.out.println("testGetUsers...");
         usuarios = dao.getAll();
@@ -121,5 +121,10 @@ public class UsuarioDAOTest {
         } else {
             assert false;
         }
+    }*/
+    @Test
+    public void testUserAdmin(){
+        UsuarioDAO u = new UsuarioDAO();
+        System.out.println(u.getIdAdmin("jorgeadmin"));
     }
 }
