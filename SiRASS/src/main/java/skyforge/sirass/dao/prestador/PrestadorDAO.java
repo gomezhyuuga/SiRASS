@@ -6,10 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.ProjectionList;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.*;
 import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.transform.AliasToBeanResultTransformer;
 import skyforge.sirass.HibernateUtil;
@@ -384,6 +381,25 @@ public class PrestadorDAO extends DAO {
             session.close();
         }
         return prestador;
+    }
+    
+    public List<Prestador> getListAllFew() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List<Prestador> pre = null;
+        ProjectionList plist = Projections.projectionList();
+        plist.add(Projections.property("p.idPrestador").as("idPrestador"));
+        plist.add(Projections.property("p.nombre").as("nombre"));
+        plist.add(Projections.property("p.aPaterno").as("aPaterno"));
+        plist.add(Projections.property("p.email").as("email"));
+        plist.add(Projections.property("p.telCasa").as("telCasa"));
+        plist.add(Projections.property("p.telCel").as("telCel"));
+        Criteria criteria = session.createCriteria(Prestador.class, "p")
+                .setProjection(plist)
+                .setResultTransformer(new AliasToBeanResultTransformer(Prestador.class))
+                .addOrder(Order.asc("nombre"));
+        pre = (List<Prestador>) criteria.list();
+        session.close();
+        return pre;
     }
     
     /**

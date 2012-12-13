@@ -42,7 +42,7 @@
 								</a>
 							</li>
 							<li class="divider"></li>
-							<li><a href="/SiRASS/Logout "><i class="icon-off"></i>
+							<li><a href="/SiRASS/Logout"><i class="icon-off"></i>
 									Cerrar sesi&oacute;n
 								</a>
 							</li>

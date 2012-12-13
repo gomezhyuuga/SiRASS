@@ -185,6 +185,7 @@ function vFormAdmin(){
         wrapper: 'p class="help-block"',
         submitHandler: function(form) {
             $(form).ajaxSubmit(options);
+            alert(document.getElementById('npassword').value);
         }
     });
     

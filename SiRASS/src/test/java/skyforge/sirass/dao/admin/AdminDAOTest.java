@@ -4,6 +4,7 @@
  */
 package skyforge.sirass.dao.admin;
 
+import java.util.List;
 import org.junit.*;
 import static org.junit.Assert.*;
 import skyforge.sirass.dao.user.UsuarioDAO;
@@ -40,12 +41,13 @@ public class AdminDAOTest {
 
     @Test
     public void AdminDAOTEST() {
-        UsuarioDAO udao = new UsuarioDAO();
         AdministradorDAO adao = new AdministradorDAO();
-        Usuario user = udao.getByUsername("jorgeadmin");
-        Administrador admin = user.getAdministrador();
-        int idAdmin = admin.getIdAdmin();
-        admin = adao.getAdministradorByPK(idAdmin);
+        List<Administrador> adm = adao.getListAllFew();
+        for(Administrador admin: adm){
+            System.out.println("NOMBRE: "+admin.getNombre());
+            System.out.println("APELLIDO: "+admin.getaPaterno());
+            System.out.println("CARGO: "+admin.getCargo());
+        }
 
     }
 }

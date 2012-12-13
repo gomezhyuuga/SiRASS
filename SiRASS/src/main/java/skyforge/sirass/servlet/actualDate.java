@@ -101,6 +101,7 @@ public class actualDate extends HttpServlet {
         PrintWriter out = response.getWriter();
         String domic, respo, cargo, tel, tex, mail, modby;
         int idins;
+        String pass = String.valueOf(request.getParameter("npassword"));
         InstitucionDAO idao = new InstitucionDAO();
         UsuarioDAO udao = new UsuarioDAO();
         domic = String.valueOf(request.getParameter("domiU"));
@@ -113,12 +114,12 @@ public class actualDate extends HttpServlet {
         modby = String.valueOf(request.getParameter("usuario"));
 
         stat = idao.upIns(domic, respo, cargo, tel, tex, mail, modby, idins);
-        if (stat == 1 && request.getParameter("npassword") != null) {
-            stat2 = udao.upPass(request.getParameter("usuario"), request.getParameter("npassword"), request.getParameter("passwordVeif"));
+        if (stat == 1 && !"".equals(pass) && pass != null) {
+            stat = udao.upPass(request.getParameter("usuario"), request.getParameter("npassword"), request.getParameter("passwordVeif"));
         } 
         try {
             out = response.getWriter();
-            out.print(stat2);
+            out.print(stat);
         } catch (IOException ex) {
             Logger.getLogger(Services.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -128,6 +129,7 @@ public class actualDate extends HttpServlet {
 
     private void upDatosAdministrador(HttpServletRequest request, HttpServletResponse response) throws IOException {
         PrintWriter out = response.getWriter();
+        String pass = String.valueOf(request.getParameter("npassword"));
         UsuarioDAO dao = new UsuarioDAO();
         AdministradorDAO adao = new AdministradorDAO();
         Administrador admin = new Administrador();
@@ -135,12 +137,12 @@ public class actualDate extends HttpServlet {
         admin.setModificadoPor(request.getParameter("usuario"));
         admin.setIdAdmin(Integer.parseInt(request.getParameter("idAdmin")));
         stat = adao.upAdminDat(admin);
-        if (stat == 1 && request.getParameter("npassword") != null) {
-            stat2 = dao.upPass(request.getParameter("usuario"), request.getParameter("npassword"), request.getParameter("passwordVeif"));
+        if (stat == 1 && !"".equals(pass) && pass != null) {
+            stat = dao.upPass(request.getParameter("usuario"), request.getParameter("npassword"), request.getParameter("passwordVeif"));
         }
         try {
             out = response.getWriter();
-            out.print(stat2);
+            out.print(stat);
         } catch (IOException ex) {
             Logger.getLogger(Services.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -153,6 +155,7 @@ public class actualDate extends HttpServlet {
         Prestador pres = new Prestador();
         UsuarioDAO udao = new UsuarioDAO();
         PrestadorDAO prdao = new PrestadorDAO();
+        String pass = String.valueOf(request.getParameter("npassword"));
         pres.setIdPrestador(Integer.parseInt(request.getParameter("idPrestador")));
         pres.setdCalle(request.getParameter("calle"));
         pres.setdNumExt(request.getParameter("nExt"));
@@ -166,12 +169,12 @@ public class actualDate extends HttpServlet {
         pres.setModificadoPor(request.getParameter("usuario"));
         
         stat = prdao.upPrestador(pres);
-        if (stat == 1 && request.getParameter("npassword") != null) {
-            stat2 = udao.upPass(request.getParameter("usuario"), request.getParameter("npassword"), request.getParameter("passwordVeif"));
+        if (stat == 1 && !"".equals(pass) && pass != null) {
+            stat = udao.upPass(request.getParameter("usuario"), request.getParameter("npassword"), request.getParameter("passwordVeif"));
         }
         try {
             out = response.getWriter();
-            out.print(stat2);
+            out.print(stat);
         } catch (IOException ex) {
             Logger.getLogger(Services.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

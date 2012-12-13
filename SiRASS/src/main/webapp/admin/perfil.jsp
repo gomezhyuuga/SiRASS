@@ -31,7 +31,7 @@
                 <!-- Sidebar
                 ============================== -->
                 <jsp:include page="jspf/sidebar.jsp">
-                    <jsp:param name="active" value="perfil" />
+                    <jsp:param name="active" value="gperfil" />
                 </jsp:include>
                 <!-- Contenido
                 ============================== -->

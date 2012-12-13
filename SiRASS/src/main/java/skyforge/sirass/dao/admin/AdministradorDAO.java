@@ -10,8 +10,12 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.transform.AliasToBeanResultTransformer;
 import skyforge.sirass.HibernateUtil;
 import skyforge.sirass.dao.DAO;
 import skyforge.sirass.model.admin.Administrador;
@@ -98,6 +102,24 @@ public class AdministradorDAO extends DAO {
             session.close();
         }
         return admin;
+    }
+    
+    public List<Administrador> getListAllFew() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List<Administrador> adm = null;
+        ProjectionList plist = Projections.projectionList();
+        plist.add(Projections.property("p.idAdmin").as("idAdmin"));
+        plist.add(Projections.property("p.nombre").as("nombre"));
+        plist.add(Projections.property("p.aPaterno").as("aPaterno"));
+        plist.add(Projections.property("p.email").as("email"));
+        plist.add(Projections.property("p.cargo").as("cargo"));
+        Criteria criteria = session.createCriteria(Administrador.class, "p")
+                .setProjection(plist)
+                .setResultTransformer(new AliasToBeanResultTransformer(Administrador.class))
+                .addOrder(Order.asc("nombre"));
+        adm = (List<Administrador>) criteria.list();
+        session.close();
+        return adm;
     }
     
     public int upAdminCargo(Administrador administrador) {

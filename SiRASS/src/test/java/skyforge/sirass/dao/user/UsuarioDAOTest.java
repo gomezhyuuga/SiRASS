@@ -3,9 +3,13 @@ package skyforge.sirass.dao.user;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
+import skyforge.sirass.dao.admin.AdministradorDAO;
+import skyforge.sirass.model.admin.Administrador;
+import skyforge.sirass.model.institucion.Institucion;
 import skyforge.sirass.model.prestador.Prestador;
 import skyforge.sirass.model.user.Usuario;
 
@@ -122,9 +126,21 @@ public class UsuarioDAOTest {
             assert false;
         }
     }*/
-    @Test
-    public void testUserAdmin(){
-        UsuarioDAO u = new UsuarioDAO();
-        System.out.println(u.getIdAdmin("jorgeadmin"));
-    }
+    
+    /*@Test
+    public void TestMethod(){
+        int length;
+        AdministradorDAO adao = new AdministradorDAO();
+        UsuarioDAO dao = new UsuarioDAO();
+        List<Administrador> user = dao.getAdmin();
+        length = user.size();
+        System.out.println("TAMAÑO: "+length);
+        for(Administrador u: user){
+            Administrador admin = adao.getAdministradorByPK(u.getIdAdmin());
+            System.out.println("NOMBRE: "+admin.getNombre());
+            System.out.println("APELLIDO: "+admin.getaPaterno());
+            System.out.println("CARGO: "+admin.getCargo());
+        }
+        
+    }*/
 }

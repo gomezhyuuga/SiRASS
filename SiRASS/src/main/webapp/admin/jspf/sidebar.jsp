@@ -31,7 +31,7 @@
             </a>
         </li>
         <li class="nav-header">Gestionar perfil</li>
-        <li>
+        <li id="gperfil">
             <a href="/SiRASS/admin/perfil.jsp">
                 <i class="icon-edit"></i>
                 Editar datos
@@ -75,13 +75,13 @@
                 Buscar
             </a>
         </li>
-        <li>
-            <a href="/SiRASS/admin/gestionarUsuarios.jsp">
+        <li id="gU" >
+            <a href="/SiRASS/admin/gestionUsuarios/">
                 <i class="icon-pencil"></i>
                 Gestion usuarios
             </a>
         </li>
-        <li>
+        <li id="gp">
             <a href="/SiRASS/admin/gestionProgramas/">
                 <i class="icon-pencil"></i>
                 Gestion Programas

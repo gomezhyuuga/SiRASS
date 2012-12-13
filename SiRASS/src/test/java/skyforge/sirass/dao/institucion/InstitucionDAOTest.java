@@ -42,7 +42,7 @@ public class InstitucionDAOTest {
     public void tearDown() {
     }
 
-    private Institucion createObject() {
+    /*private Institucion createObject() {
         Institucion obj = new Institucion();
         obj.setArea("area" + random);
         obj.setCargo("cargo" + random);
@@ -90,5 +90,11 @@ public class InstitucionDAOTest {
         int expected = 1;
         int result = dao.delete(institucion);
         Assert.assertEquals(expected, result);
+    }*/
+    @Test
+    public void Test(){
+        Institucion ins = new Institucion();
+        InstitucionDAO idao = new InstitucionDAO();
+        ins = idao.getByIdInstitucion(3);
     }
 }

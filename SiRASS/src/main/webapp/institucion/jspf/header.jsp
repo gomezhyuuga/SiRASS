@@ -24,7 +24,7 @@
 							<b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu">
-							<li><a href="perfil.jsp"><i class="icon-user"></i>
+							<li><a href="perfilInst.jsp"><i class="icon-user"></i>
 								Perfil personal
 								</a>
 							</li>

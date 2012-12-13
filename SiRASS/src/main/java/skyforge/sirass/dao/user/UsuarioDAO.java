@@ -7,12 +7,14 @@ package skyforge.sirass.dao.user;
 import java.util.List;
 import org.hibernate.*;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
 import skyforge.sirass.HibernateUtil;
 import skyforge.sirass.dao.DAO;
 import skyforge.sirass.model.admin.Administrador;
+import skyforge.sirass.model.institucion.Institucion;
 import skyforge.sirass.model.prestador.Prestador;
 import skyforge.sirass.model.user.Usuario;
 
@@ -168,17 +170,39 @@ public class UsuarioDAO extends DAO {
             else return 0;
         }
         
-        public int getIdAdmin(String username) {
+        /*public List<Prestador> getPrestadores() {
             Session session = HibernateUtil.getSessionFactory().openSession();
-            Administrador a = (Administrador) session.createCriteria(Usuario.class)
-                    .add(Restrictions.eq("usuario", username))
+            List<Prestador> u = (List<Prestador>) session.createCriteria(Usuario.class)
+                    .add(Restrictions.sqlRestriction("idPrestador is not null"))
+                    .setFetchMode("prestador", FetchMode.SELECT)
+                    .setProjection(Projections.property("prestador"))
+                    .list();
+            session.close();
+            if (u != null) return u;
+            else return null;
+        }
+        public List<Administrador> getAdmin() {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            List<Administrador> u = (List<Administrador>) session.createCriteria(Usuario.class)
+                    .add(Restrictions.sqlRestriction("idAdministrador is not null"))
                     .setFetchMode("administrador", FetchMode.SELECT)
                     .setProjection(Projections.property("administrador"))
-                    .uniqueResult();
+                    .list();
             session.close();
-            if (a != null) return a.getIdAdmin();
-            else return 0;
+            if (u != null) return u;
+            else return null;
         }
+        public List<Institucion> getIns() {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            List<Institucion> u = (List<Institucion>) session.createCriteria(Usuario.class)
+                    .add(Restrictions.sqlRestriction("idInstitucion is not null"))
+                    .setFetchMode("institucion", FetchMode.SELECT)
+                    .setProjection(Projections.property("institucion"))
+                    .list();
+            session.close();
+            if (u != null) return u;
+            else return null;
+        }*/
 
         public int upPass(String user, String nPass, String vPass) {
             String passCorrecto;

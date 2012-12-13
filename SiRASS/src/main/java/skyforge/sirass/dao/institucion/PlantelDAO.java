@@ -5,8 +5,8 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.*;
+import org.hibernate.transform.AliasToBeanResultTransformer;
 import skyforge.sirass.HibernateUtil;
 import skyforge.sirass.dao.DAO;
 import skyforge.sirass.model.institucion.Plantel;
@@ -53,6 +53,20 @@ public class PlantelDAO extends DAO {
             session.close();
         }
         
+        return plantel;
+    }
+    
+    public Plantel getPlantelById() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Plantel plantel = null;
+        ProjectionList plist = Projections.projectionList();
+        plist.add(Projections.property("p.nombre").as("nombre"));
+        Criteria criteria = session.createCriteria(Plantel.class, "p")
+                .setProjection(plist)
+                .setResultTransformer(new AliasToBeanResultTransformer(Plantel.class))
+                .addOrder(Order.asc("nombre"));
+        plantel = (Plantel) criteria.uniqueResult();
+        session.close();
         return plantel;
     }
 }
